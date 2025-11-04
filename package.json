@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "drizzle:introspect": "bunx drizzle-kit introspect",
+    "drizzle:generate": "bunx drizzle-kit generate",
+    "drizzle:push": "bunx drizzle-kit push"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
