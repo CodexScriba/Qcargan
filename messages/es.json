@@ -1,0 +1,40 @@
+{
+  "Metadata": {
+    "title": "Qcargan | Inteligencia logística",
+    "description": "Calcula tarifas y gestiona envíos con contexto bilingüe."
+  },
+  "Navigation": {
+    "home": "Inicio",
+    "pricing": "Precios"
+  },
+  "Home": {
+    "heroTitle": "Envía con más inteligencia en toda Latinoamérica.",
+    "heroDescription": "Qcargan centraliza tus tarifas, aprobaciones de cotizaciones y facturación en un espacio bilingüe.",
+    "ctaDocs": "Visión general del producto",
+    "ctaDeploy": "Solicitar demo",
+    "ctaPricing": "Ver precios"
+  },
+  "Pricing": {
+    "title": "Precios transparentes para equipos en crecimiento",
+    "description": "Elige un plan según tu volumen actual y escala cuando tu red se expanda.",
+    "back": "Volver al inicio",
+    "tiers": {
+      "starter": {
+        "name": "Inicial",
+        "price": "99 US$/mes",
+        "features": [
+          "Hasta 500 envíos mensuales",
+          "Indicadores de transportistas en español e inglés"
+        ]
+      },
+      "growth": {
+        "name": "Crecimiento",
+        "price": "299 US$/mes",
+        "features": [
+          "Solicitudes de cotización ilimitadas",
+          "Documentación aduanera automatizada"
+        ]
+      }
+    }
+  }
+}

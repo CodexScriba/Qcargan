@@ -1,0 +1,40 @@
+{
+  "Metadata": {
+    "title": "Qcargan | Logistics intelligence",
+    "description": "Track and price shipments with localized insights."
+  },
+  "Navigation": {
+    "home": "Home",
+    "pricing": "Pricing"
+  },
+  "Home": {
+    "heroTitle": "Ship smarter across Latin America.",
+    "heroDescription": "Qcargan centralizes your carrier rates, quote approvals, and billing in a single bilingual workspace.",
+    "ctaDocs": "Product overview",
+    "ctaDeploy": "Book a demo",
+    "ctaPricing": "See pricing"
+  },
+  "Pricing": {
+    "title": "Transparent pricing for growing teams",
+    "description": "Choose a plan that reflects your lane volume today and scale as your network expands.",
+    "back": "Back to home",
+    "tiers": {
+      "starter": {
+        "name": "Starter",
+        "price": "$99/mo",
+        "features": [
+          "Up to 500 monthly shipments",
+          "Carrier scorecards in English & Spanish"
+        ]
+      },
+      "growth": {
+        "name": "Growth",
+        "price": "$299/mo",
+        "features": [
+          "Unlimited quote requests",
+          "Automated customs paperwork"
+        ]
+      }
+    }
+  }
+}
