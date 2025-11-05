@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: process.cwd(),
   },
+  skipTrailingSlashRedirect: true,
   async rewrites() {
     return [
       {
@@ -17,7 +18,6 @@ const nextConfig: NextConfig = {
       },
     ];
   },
-  skipTrailingSlashRedirect: true,
 };
 
 const withNextIntl = createNextIntlPlugin("./i18n/request.ts");

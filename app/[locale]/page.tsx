@@ -1,9 +1,16 @@
 import { Link } from "@/i18n/routing";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
-export default function HomePage() {
-  const t = useTranslations("Home");
-  const navigation = useTranslations("Navigation");
+type PageProps = {
+  params: Promise<{ locale: string }> | { locale: string };
+};
+
+export default async function HomePage({ params }: PageProps) {
+  const awaitedParams = await params;
+  const { locale } = awaitedParams;
+
+  const t = await getTranslations({ locale, namespace: "Home" });
+  const navigation = await getTranslations({ locale, namespace: "Navigation" });
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-zinc-100 via-white to-zinc-200 dark:from-zinc-900 dark:via-zinc-950 dark:to-black">

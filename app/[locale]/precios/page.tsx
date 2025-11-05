@@ -1,10 +1,17 @@
 import { Link } from "@/i18n/routing";
-import { useTranslations } from "next-intl";
+import { getTranslations } from "next-intl/server";
 
 const TIERS = ["starter", "growth"] as const;
 
-export default function PricingPage() {
-  const t = useTranslations("Pricing");
+type PageProps = {
+  params: Promise<{ locale: string }> | { locale: string };
+};
+
+export default async function PricingPage({ params }: PageProps) {
+  const awaitedParams = await params;
+  const { locale } = awaitedParams;
+
+  const t = await getTranslations({ locale, namespace: "Pricing" });
 
   return (
     <section className="mx-auto flex min-h-screen w-full max-w-4xl flex-col gap-10 px-6 py-16">
