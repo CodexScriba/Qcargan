@@ -6,6 +6,15 @@ const nextConfig: NextConfig = {
     root: process.cwd(),
   },
   skipTrailingSlashRedirect: true,
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'mtbtaiffcxanyymfkkhk.supabase.co',
+        pathname: '/storage/v1/object/public/**',
+      },
+    ],
+  },
   async rewrites() {
     return [
       {
