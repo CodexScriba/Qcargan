@@ -48,12 +48,13 @@ export function TiendaMenu() {
                         <Link
                           key={link.href}
                           href={link.href as any}
-                          className='flex items-center gap-3 rounded-lg border p-4 transition-colors hover:bg-accent hover:text-accent-foreground'
+                          data-slot='card'
+                          className='flex items-center gap-3 p-4 transition-all duration-220 ease-out'
                         >
-                          <Icon className='h-5 w-5' />
+                          <Icon className='h-5 w-5 text-[hsl(var(--accent))]' />
                           <div>
-                            <p className='font-medium'>{link.title}</p>
-                            <p className='text-sm text-muted-foreground'>{link.description}</p>
+                            <p className='font-medium text-[hsl(var(--card-foreground))]'>{link.title}</p>
+                            <p className='text-sm text-[hsl(var(--muted-foreground))]'>{link.description}</p>
                           </div>
                         </Link>
                       )

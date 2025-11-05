@@ -56,32 +56,35 @@ export function NewCarsMenu() {
                   <div className='grid grid-cols-1 gap-3'>
                     <Link
                       href={'/vehicles/newest' as any}
-                      className='flex items-center gap-3 rounded-lg border p-4 transition-colors hover:bg-accent hover:text-accent-foreground'
+                      data-slot='card'
+                      className='flex items-center gap-3 p-4 transition-all duration-220 ease-out'
                     >
-                      <Clock className='h-5 w-5' />
+                      <Clock className='h-5 w-5 text-[hsl(var(--accent))]' />
                       <div>
-                        <p className='font-medium'>{t('newest')}</p>
-                        <p className='text-sm text-muted-foreground'>{t('newestDesc')}</p>
+                        <p className='font-medium text-[hsl(var(--card-foreground))]'>{t('newest')}</p>
+                        <p className='text-sm text-[hsl(var(--muted-foreground))]'>{t('newestDesc')}</p>
                       </div>
                     </Link>
                     <Link
                       href={'/vehicles/best-value' as any}
-                      className='flex items-center gap-3 rounded-lg border p-4 transition-colors hover:bg-accent hover:text-accent-foreground'
+                      data-slot='card'
+                      className='flex items-center gap-3 p-4 transition-all duration-220 ease-out'
                     >
-                      <DollarSign className='h-5 w-5' />
+                      <DollarSign className='h-5 w-5 text-[hsl(var(--accent))]' />
                       <div>
-                        <p className='font-medium'>{t('bestValue')}</p>
-                        <p className='text-sm text-muted-foreground'>{t('bestValueDesc')}</p>
+                        <p className='font-medium text-[hsl(var(--card-foreground))]'>{t('bestValue')}</p>
+                        <p className='text-sm text-[hsl(var(--muted-foreground))]'>{t('bestValueDesc')}</p>
                       </div>
                     </Link>
                     <Link
                       href={'/vehicles/top-rated' as any}
-                      className='flex items-center gap-3 rounded-lg border p-4 transition-colors hover:bg-accent hover:text-accent-foreground'
+                      data-slot='card'
+                      className='flex items-center gap-3 p-4 transition-all duration-220 ease-out'
                     >
-                      <Star className='h-5 w-5' />
+                      <Star className='h-5 w-5 text-[hsl(var(--accent))]' />
                       <div>
-                        <p className='font-medium'>{t('topRated')}</p>
-                        <p className='text-sm text-muted-foreground'>{t('topRatedDesc')}</p>
+                        <p className='font-medium text-[hsl(var(--card-foreground))]'>{t('topRated')}</p>
+                        <p className='text-sm text-[hsl(var(--muted-foreground))]'>{t('topRatedDesc')}</p>
                       </div>
                     </Link>
                   </div>

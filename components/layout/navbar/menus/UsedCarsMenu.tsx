@@ -37,20 +37,20 @@ export function UsedCarsMenu() {
                   {t('usedMarketplaceDesc')}
                 </p>
                 <div className='grid w-full gap-4 text-left sm:grid-cols-3'>
-                  <div className='flex flex-col items-center gap-2 rounded-lg border bg-background/60 p-4 text-center'>
-                    <Car className='h-8 w-8 text-primary' />
-                    <p className='font-medium'>List your vehicle</p>
-                    <p className='text-sm text-muted-foreground'>Guided listing workflow with all EV-specific fields.</p>
+                  <div data-slot='card' className='flex flex-col items-center gap-2 p-4 text-center'>
+                    <Car className='h-8 w-8 text-[hsl(var(--primary))]' />
+                    <p className='font-medium text-[hsl(var(--card-foreground))]'>List your vehicle</p>
+                    <p className='text-sm text-[hsl(var(--muted-foreground))]'>Guided listing workflow with all EV-specific fields.</p>
                   </div>
-                  <div className='flex flex-col items-center gap-2 rounded-lg border bg-background/60 p-4 text-center'>
-                    <Tag className='h-8 w-8 text-primary' />
-                    <p className='font-medium'>Transparent pricing</p>
-                    <p className='text-sm text-muted-foreground'>Market insights help you set the right price.</p>
+                  <div data-slot='card' className='flex flex-col items-center gap-2 p-4 text-center'>
+                    <Tag className='h-8 w-8 text-[hsl(var(--primary))]' />
+                    <p className='font-medium text-[hsl(var(--card-foreground))]'>Transparent pricing</p>
+                    <p className='text-sm text-[hsl(var(--muted-foreground))]'>Market insights help you set the right price.</p>
                   </div>
-                  <div className='flex flex-col items-center gap-2 rounded-lg border bg-background/60 p-4 text-center'>
-                    <Calendar className='h-8 w-8 text-primary' />
-                    <p className='font-medium'>Schedule viewings</p>
-                    <p className='text-sm text-muted-foreground'>Coordinate visits with verified buyers in one place.</p>
+                  <div data-slot='card' className='flex flex-col items-center gap-2 p-4 text-center'>
+                    <Calendar className='h-8 w-8 text-[hsl(var(--primary))]' />
+                    <p className='font-medium text-[hsl(var(--card-foreground))]'>Schedule viewings</p>
+                    <p className='text-sm text-[hsl(var(--muted-foreground))]'>Coordinate visits with verified buyers in one place.</p>
                   </div>
                 </div>
                 <Button asChild size='lg' variant='outline'>

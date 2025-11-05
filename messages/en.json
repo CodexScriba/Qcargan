@@ -150,5 +150,66 @@
         ]
       }
     }
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "description": "Enter your email to login",
+      "welcome": "Welcome back",
+      "subtitle": "Sign in to continue",
+      "identifier": "Email",
+      "email": "Email",
+      "password": "Password",
+      "forgot": "Forgot your password?",
+      "submit": "Login",
+      "submitting": "Logging in...",
+      "signup": "Don't have an account?",
+      "signupLink": "Sign up",
+      "orContinueWith": "Or continue with",
+      "remember": "Remember me",
+      "error": {
+        "invalidCredentials": "Invalid credentials. Please try again."
+      },
+      "oauth": {
+        "google": "Google",
+        "facebook": "Facebook"
+      }
+    },
+    "signup": {
+      "title": "Sign up",
+      "description": "Create a new account",
+      "email": "Email",
+      "displayName": "Display name",
+      "displayNameHelp": "This will appear on your profile",
+      "password": "Password",
+      "repeat": "Repeat Password",
+      "submit": "Sign up",
+      "submitting": "Creating an account...",
+      "haveAccount": "Already have an account?",
+      "loginLink": "Login",
+      "passwordsMismatch": "Passwords do not match"
+    },
+    "forgot": {
+      "title": "Reset Your Password",
+      "description": "Type in your email and we'll send you a link to reset your password",
+      "email": "Email",
+      "submit": "Send reset email",
+      "submitting": "Sending...",
+      "successTitle": "Check Your Email",
+      "successDescription": "Password reset instructions sent",
+      "successBody": "If you registered using your email and password, you will receive a password reset email."
+    },
+    "update": {
+      "title": "Reset Your Password",
+      "description": "Please enter your new password below.",
+      "password": "New password",
+      "submit": "Save new password",
+      "submitting": "Saving..."
+    }
+  },
+  "common": {
+    "error": {
+      "unknown": "An error occurred"
+    }
   }
 }
