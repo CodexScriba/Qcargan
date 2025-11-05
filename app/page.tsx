@@ -17,7 +17,7 @@ export default async function IndexPage() {
       <div className="flex min-h-screen flex-col">
         <Navbar />
         <main className="flex-1">
-          <HomePage />
+          <HomePage params={{ locale }} />
         </main>
       </div>
     </NextIntlClientProvider>

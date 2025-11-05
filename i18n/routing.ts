@@ -1,4 +1,4 @@
-import { createNavigation, type Pathnames } from "next-intl/navigation";
+import { createNavigation } from "next-intl/navigation";
 import { defineRouting } from "next-intl/routing";
 
 const locales = ["en", "es"] as const;
@@ -43,7 +43,27 @@ const pathnames = {
     en: "/prices",
     es: "/precios",
   },
-} satisfies Pathnames<typeof locales>;
+  "/vehicles": "/vehicles",
+  "/vehicles/sedan": "/vehicles/sedan",
+  "/vehicles/suv": "/vehicles/suv",
+  "/vehicles/city": "/vehicles/city",
+  "/vehicles/pickups": "/vehicles/pickups",
+  "/vehicles/newest": "/vehicles/newest",
+  "/vehicles/best-value": "/vehicles/best-value",
+  "/vehicles/top-rated": "/vehicles/top-rated",
+  "/used-cars/waitlist": "/used-cars/waitlist",
+  "/services": "/services",
+  "/services/financing": "/services/financing",
+  "/services/electricians": "/services/electricians",
+  "/services/workshops": "/services/workshops",
+  "/services/detailing": "/services/detailing",
+  "/services/insurance": "/services/insurance",
+  "/shop": "/shop",
+  "/shop/portable-chargers": "/shop/portable-chargers",
+  "/shop/wall-chargers": "/shop/wall-chargers",
+  "/shop/accessories": "/shop/accessories",
+  "/shop/tires": "/shop/tires",
+};
 
 export const routing = defineRouting({
   locales,
