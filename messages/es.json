@@ -93,7 +93,40 @@
     "heroDescription": "Qcargan centraliza tus tarifas, aprobaciones de cotizaciones y facturación en un espacio bilingüe.",
     "ctaDocs": "Visión general del producto",
     "ctaDeploy": "Solicitar demo",
-    "ctaPricing": "Ver precios"
+    "ctaPricing": "Ver precios",
+    "heroBadge": "Centro de control unificado",
+    "sectionInsightsTitle": "Diseñado para equipos logísticos modernos",
+    "sectionInsightsDescription": "Cada espacio de trabajo hereda las mismas superficies de cristal, acentos turquesa y flujos bilingües definidos en nuestro sistema.",
+    "ctaBannerTitle": "Lleva claridad a cada envío",
+    "ctaBannerDescription": "Activa un espacio bilingüe con tarjetas de cristal, modo oscuro eléctrico y tarifas localizadas en minutos.",
+    "highlights": {
+      "visibility": {
+        "title": "Visibilidad en tiempo real",
+        "description": "Integra seguimiento de embarques, documentación aduanera y hitos de facturación en una sola línea de tiempo por ruta."
+      },
+      "automation": {
+        "title": "Automatización adaptable",
+        "description": "Dispara alertas de hitos, prepago de aranceles y conciliaciones con reglas alineadas a tu operación."
+      },
+      "insights": {
+        "title": "Inteligencia para todos los equipos",
+        "description": "Finanzas, operaciones y ventas ven los mismos números con divisas y lenguaje localizados."
+      }
+    },
+    "stats": {
+      "reliability": {
+        "value": "98%",
+        "label": "Hitos capturados automáticamente"
+      },
+      "savings": {
+        "value": "24%",
+        "label": "Ahorro promedio después de 90 días"
+      },
+      "time": {
+        "value": "12h",
+        "label": "Actualizaciones manuales eliminadas por semana"
+      }
+    }
   },
   "Pricing": {
     "title": "Precios transparentes para equipos en crecimiento",

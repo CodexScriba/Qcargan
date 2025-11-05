@@ -16,7 +16,7 @@ import { useTranslations } from 'next-intl'
 export function DesktopNavbar() {
   const t = useTranslations('Navbar')
   return (
-    <nav className='w-full bg-background'>
+    <nav className='w-full'>
       <div className='mx-auto flex h-20 w-full max-w-[1600px] items-center gap-6 px-6'>
         <Logo />
 

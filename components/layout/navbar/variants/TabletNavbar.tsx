@@ -13,8 +13,8 @@ import { useTranslations } from 'next-intl'
 export function TabletNavbar() {
   const t = useTranslations('Navbar')
   return (
-    <nav className='w-full bg-background'>
-      <div className='mx-auto flex h-16 w-full max-w-[1200px] items-center justify-between gap-4 px-6'>
+    <nav className='w-full'>
+      <div className='mx-auto flex h-16 w-full max-w-[1200px] items-center justify-between gap-4 px-4'>
         <div className='flex items-center gap-4'>
           <Logo />
           <NewCarsMenu />

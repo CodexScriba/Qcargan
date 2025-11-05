@@ -7,8 +7,7 @@ import { MobileNavbar } from './variants/MobileNavbar'
 export function Navbar() {
   return (
     <header
-      className='sticky top-0 z-50 w-full border-b border-border/60 shadow-sm'
-      style={{ backgroundColor: 'hsl(var(--background))', color: 'hsl(var(--foreground))' }}
+      className='sticky top-0 z-50 w-full border-b border-[hsl(var(--surface-border))] bg-[hsl(var(--background))] text-foreground shadow-[0_12px_36px_hsl(var(--shadow-soft))] transition-colors supports-[backdrop-filter]:bg-[hsl(var(--background))] supports-[backdrop-filter]:backdrop-blur'
     >
       <div className='hidden lg:block'>
         <DesktopNavbar />

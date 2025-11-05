@@ -23,7 +23,7 @@ export function MobileNavbar() {
   ]
 
   return (
-    <nav className='w-full bg-background'>
+    <nav className='w-full'>
       <div className='mx-auto flex h-14 w-full max-w-[1200px] items-center justify-between px-4'>
         <Logo />
         <div className='flex items-center gap-2'>

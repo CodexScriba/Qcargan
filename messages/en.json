@@ -93,7 +93,40 @@
     "heroDescription": "Qcargan centralizes your carrier rates, quote approvals, and billing in a single bilingual workspace.",
     "ctaDocs": "Product overview",
     "ctaDeploy": "Book a demo",
-    "ctaPricing": "See pricing"
+    "ctaPricing": "See pricing",
+    "heroBadge": "Unified control center",
+    "sectionInsightsTitle": "Designed for modern logistics teams",
+    "sectionInsightsDescription": "Each workspace inherits the same glassmorphic surfaces, teal accents, and bilingual flows defined in our system styles.",
+    "ctaBannerTitle": "Bring clarity to every shipment",
+    "ctaBannerDescription": "Launch a bilingual workspace with glassmorphic cards, electric dark mode, and localized rates in minutes.",
+    "highlights": {
+      "visibility": {
+        "title": "Real-time visibility",
+        "description": "Blend vessel tracking, customs paperwork, and billing milestones into one lane timeline."
+      },
+      "automation": {
+        "title": "Adaptive automation",
+        "description": "Trigger milestone alerts, duty prepayments, and reconciliations with rules that match your playbook."
+      },
+      "insights": {
+        "title": "Insights for every team",
+        "description": "Finance, operations, and sales see the same numbers with localized currency and language."
+      }
+    },
+    "stats": {
+      "reliability": {
+        "value": "98%",
+        "label": "Milestones captured automatically"
+      },
+      "savings": {
+        "value": "24%",
+        "label": "Average savings after 90 days"
+      },
+      "time": {
+        "value": "12h",
+        "label": "Manual updates eliminated weekly"
+      }
+    }
   },
   "Pricing": {
     "title": "Transparent pricing for growing teams",
