@@ -220,5 +220,56 @@
     "error": {
       "unknown": "An error occurred"
     }
+  },
+  "vehicle": {
+    "title": "Electric Vehicles",
+    "specs": {
+      "range": "Range",
+      "battery": "Battery",
+      "acceleration": "0-100 km/h",
+      "seats": "Seats",
+      "charging": "Fast Charging",
+      "power": "Power",
+      "topSpeed": "Top Speed",
+      "weight": "Weight"
+    },
+    "bodyType": {
+      "SEDAN": "Sedan",
+      "CITY": "City Car",
+      "SUV": "SUV",
+      "PICKUP_VAN": "Pickup / Van"
+    },
+    "pricing": {
+      "from": "From",
+      "sellers": "{count} sellers",
+      "contact": "Contact",
+      "viewDetails": "View details",
+      "monthlyPayment": "Monthly payment",
+      "downPayment": "Down payment"
+    },
+    "filters": {
+      "all": "All",
+      "priceRange": "Price range",
+      "rangeMin": "Minimum range",
+      "seatsMin": "Seats",
+      "bodyType": "Vehicle type",
+      "brand": "Brand"
+    },
+    "detail": {
+      "overview": "Overview",
+      "specifications": "Specifications",
+      "pricing": "Pricing & Sellers",
+      "reviews": "Reviews",
+      "gallery": "Gallery"
+    }
+  },
+  "agencyCard": {
+    "contact": "Contact",
+    "details": "View details",
+    "officialAgency": "Official agency",
+    "warranty": "Warranty",
+    "battery": "Battery",
+    "perks": "Benefits",
+    "financing": "Financing available"
   }
 }
