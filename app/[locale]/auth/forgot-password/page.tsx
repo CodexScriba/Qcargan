@@ -1,28 +1,38 @@
 import { ForgotPasswordForm } from "@/components/auth/forgot-password-form";
-import { Card } from "@/components/ui/card";
 import { getTranslations } from "next-intl/server";
 
 export default async function Page() {
   const t = await getTranslations('auth.forgot')
   return (
-    <div className="flex min-h-full w-full items-center justify-center p-6 md:p-10">
-      <Card className="w-full max-w-md overflow-hidden border border-[#e5e7eb] rounded-[22px] shadow-[0_10px_25px_rgba(2,0,68,.08),_0_2px_6px_rgba(2,0,68,.06)] transition-transform duration-200 hover:-translate-y-1 hover:shadow-[0_18px_32px_rgba(2,0,68,.12),_0_4px_10px_rgba(2,0,68,.08)] p-0">
-        {/* Teal accent line on card border */}
-        <div className="h-[3px] w-full bg-[hsl(var(--brand))]" aria-hidden="true" />
-        <div className="px-6 py-5 flex flex-col justify-center min-h-[360px]">
-          <header className="mb-4 text-center">
-            <h1 className="mb-1 text-[clamp(22px,3vw,28px)] font-[800] tracking-tight text-[hsl(var(--dark-blue))]">
-              <span aria-hidden="true">🔑</span> {t('title')}
-            </h1>
-            <p className="text-sm text-[hsl(var(--muted-foreground))]">{t('description')}</p>
-          </header>
-          <ForgotPasswordForm
-            embedded
-            variant="reference"
-            className="mx-auto w-full max-w-sm text-center [&_label]:justify-center"
-          />
+    <div className="flex flex-1 w-full items-center justify-center px-6 py-10 md:px-10">
+      <div className="w-full max-w-md">
+        <div data-slot="card" className="overflow-visible p-0">
+          {/* Accent bar at top */}
+          <div className="h-1 w-full bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--brand))]" aria-hidden="true" />
+
+          <div className="px-8 py-10 flex flex-col justify-center">
+            <header className="mb-8 text-center space-y-3">
+              <div className="flex justify-center mb-4">
+                <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[hsl(var(--primary)/0.1)] text-3xl">
+                  🔑
+                </div>
+              </div>
+              <h1 className="text-3xl font-bold tracking-tight text-[hsl(var(--title-blue))]">
+                {t('title')}
+              </h1>
+              <p className="text-sm leading-relaxed text-[hsl(var(--muted-foreground))]">
+                {t('description')}
+              </p>
+            </header>
+
+            <ForgotPasswordForm
+              embedded
+              variant="reference"
+              className="mx-auto w-full max-w-sm text-center [&_label]:justify-center"
+            />
+          </div>
         </div>
-      </Card>
+      </div>
     </div>
   );
 }

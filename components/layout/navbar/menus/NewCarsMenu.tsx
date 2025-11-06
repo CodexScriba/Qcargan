@@ -35,17 +35,9 @@ export function NewCarsMenu() {
               <div className='grid gap-4 md:grid-cols-2 lg:grid-cols-[1fr_2fr]'>
                 <div className='flex flex-col gap-4'>
                   <div className='relative overflow-hidden rounded-lg bg-gradient-to-b from-primary/10 to-primary/5 p-6'>
-                    <div className='flex flex-col gap-4'>
-                      <div className='flex items-center gap-2'>
-                        <Badge variant='secondary' className='px-2 py-1'>
-                          2025 Lineup
-                        </Badge>
-                        <Badge variant='outline' className='px-2 py-1'>
-                          Fresh Inventory
-                        </Badge>
-                      </div>
+                    <div className='flex flex-col items-center gap-4 text-center'>
                       <h3 className='text-xl font-semibold text-foreground'>{t('exploreModels')}</h3>
-                      <Button asChild size='lg' variant='secondary' className='w-full'>
+                      <Button asChild size='lg' className='btn-primary w-full'>
                         <Link href={'/vehicles' as any} className='flex items-center justify-center gap-2'>
                           <List className='h-4 w-4' />
                           {t('browseAll')}
@@ -59,7 +51,7 @@ export function NewCarsMenu() {
                       data-slot='card'
                       className='flex items-center gap-3 p-4 transition-all duration-220 ease-out'
                     >
-                      <Clock className='h-5 w-5 text-[hsl(var(--accent))]' />
+                      <Clock className='h-5 w-5 text-[hsl(var(--primary))]' />
                       <div>
                         <p className='font-medium text-[hsl(var(--card-foreground))]'>{t('newest')}</p>
                         <p className='text-sm text-[hsl(var(--muted-foreground))]'>{t('newestDesc')}</p>
@@ -70,7 +62,7 @@ export function NewCarsMenu() {
                       data-slot='card'
                       className='flex items-center gap-3 p-4 transition-all duration-220 ease-out'
                     >
-                      <DollarSign className='h-5 w-5 text-[hsl(var(--accent))]' />
+                      <DollarSign className='h-5 w-5 text-[hsl(var(--primary))]' />
                       <div>
                         <p className='font-medium text-[hsl(var(--card-foreground))]'>{t('bestValue')}</p>
                         <p className='text-sm text-[hsl(var(--muted-foreground))]'>{t('bestValueDesc')}</p>
@@ -81,7 +73,7 @@ export function NewCarsMenu() {
                       data-slot='card'
                       className='flex items-center gap-3 p-4 transition-all duration-220 ease-out'
                     >
-                      <Star className='h-5 w-5 text-[hsl(var(--accent))]' />
+                      <Star className='h-5 w-5 text-[hsl(var(--primary))]' />
                       <div>
                         <p className='font-medium text-[hsl(var(--card-foreground))]'>{t('topRated')}</p>
                         <p className='text-sm text-[hsl(var(--muted-foreground))]'>{t('topRatedDesc')}</p>

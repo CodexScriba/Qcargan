@@ -6,7 +6,7 @@ import { getTranslations } from "next-intl/server"
 export default async function Page() {
   const t = await getTranslations('auth.signup')
   return (
-    <div className="flex min-h-full w-full items-center justify-center p-6 md:p-10">
+    <div className="flex flex-1 w-full items-center justify-center px-6 py-10 md:px-10">
       <Card className="w-full max-w-6xl overflow-hidden card-surface rounded-[22px] transition-transform duration-200 hover:-translate-y-1 p-0">
         <div className="grid md:grid-cols-2 h-full">
           <div className="px-7 py-6 flex flex-col justify-center min-h-[560px]">

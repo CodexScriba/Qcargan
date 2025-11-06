@@ -10,7 +10,7 @@ export default async function Page({
   const params = await searchParams;
 
   return (
-    <div className="flex min-h-full w-full items-center justify-center p-6 md:p-10">
+    <div className="flex flex-1 w-full items-center justify-center px-6 py-10 md:px-10">
       <Card className="w-full max-w-md overflow-hidden border border-[#e5e7eb] rounded-[22px] shadow-[0_10px_25px_rgba(2,0,68,.08),_0_2px_6px_rgba(2,0,68,.06)] transition-transform duration-200 hover:-translate-y-1 hover:shadow-[0_18px_32px_rgba(2,0,68,.12),_0_4px_10px_rgba(2,0,68,.08)] p-0">
         {/* Red accent line for error */}
         <div className="h-[3px] w-full bg-[hsl(var(--semantic-error))]" aria-hidden="true" />

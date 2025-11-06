@@ -31,7 +31,7 @@ export default async function LocaleLayout({ children, params }: LayoutProps) {
     <NextIntlClientProvider locale={locale} messages={messages}>
       <div className="flex min-h-screen flex-col">
         <Navbar />
-        <main className="flex-1">{children}</main>
+        <main className="flex min-h-[calc(100svh-var(--navbar-height,0px))] flex-1 flex-col">{children}</main>
       </div>
     </NextIntlClientProvider>
   );
