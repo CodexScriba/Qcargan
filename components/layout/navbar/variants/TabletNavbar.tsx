@@ -3,7 +3,9 @@
 import { Button } from '@/components/ui/button'
 import { Logo } from '../Logo'
 import { NewCarsMenu } from '../menus/NewCarsMenu'
+import { TiendaMenu } from '../menus/TiendaMenu'
 import { ServicesMenu } from '../menus/ServicesMenu'
+import { UsedCarsMenu } from '../menus/UsedCarsMenu'
 import { ThemeSwitcher } from '@/components/layout/theme-switcher'
 import { LanguageSwitcher } from '@/components/layout/language-switcher'
 import { ArrowRight, LogIn } from 'lucide-react'
@@ -14,11 +16,13 @@ export function TabletNavbar() {
   const t = useTranslations('Navbar')
   return (
     <nav className='w-full'>
-      <div className='mx-auto flex h-16 w-full max-w-[1200px] items-center justify-between gap-4 px-4'>
+      <div className='flex h-16 w-full items-center justify-between gap-4 px-4'>
         <div className='flex items-center gap-4'>
           <Logo />
           <NewCarsMenu />
+          <TiendaMenu />
           <ServicesMenu />
+          <UsedCarsMenu />
         </div>
         <div className='flex items-center gap-3'>
           <LanguageSwitcher />

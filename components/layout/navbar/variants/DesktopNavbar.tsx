@@ -3,9 +3,9 @@
 import { Button } from '@/components/ui/button'
 import { Logo } from '../Logo'
 import { NewCarsMenu } from '../menus/NewCarsMenu'
-import { UsedCarsMenu } from '../menus/UsedCarsMenu'
 import { ServicesMenu } from '../menus/ServicesMenu'
 import { TiendaMenu } from '../menus/TiendaMenu'
+import { UsedCarsMenu } from '../menus/UsedCarsMenu'
 import { SearchBar } from '../menus/SearchBar'
 import { ThemeSwitcher } from '@/components/layout/theme-switcher'
 import { LanguageSwitcher } from '@/components/layout/language-switcher'
@@ -17,14 +17,14 @@ export function DesktopNavbar() {
   const t = useTranslations('Navbar')
   return (
     <nav className='w-full'>
-      <div className='mx-auto flex h-20 w-full max-w-[1600px] items-center gap-6 px-6'>
+      <div className='flex h-20 w-full items-center gap-6 px-6'>
         <Logo />
 
         <div className='flex items-center gap-4'>
           <NewCarsMenu />
-          <UsedCarsMenu />
-          <ServicesMenu />
           <TiendaMenu />
+          <ServicesMenu />
+          <UsedCarsMenu />
         </div>
 
         <div className='mx-6 flex flex-1 justify-center'>

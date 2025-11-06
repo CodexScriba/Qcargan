@@ -17,14 +17,14 @@ export function MobileNavbar() {
 
   const primaryLinks = [
     { label: t('newCars'), href: '/vehicles' as any },
-    { label: t('usedCars'), href: '/used-cars/waitlist' as any },
+    { label: t('shop'), href: '/shop' as any },
     { label: t('services'), href: '/services' as any },
-    { label: t('shop'), href: '/shop' as any }
+    { label: t('usedCars'), href: '/used-cars/waitlist' as any }
   ]
 
   return (
     <nav className='w-full'>
-      <div className='mx-auto flex h-14 w-full max-w-[1200px] items-center justify-between px-4'>
+      <div className='flex h-14 w-full items-center justify-between px-4'>
         <Logo />
         <div className='flex items-center gap-2'>
           <LanguageSwitcher />
