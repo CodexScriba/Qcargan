@@ -1089,3 +1089,280 @@ banks (standalone, no FK)
 **User**: Excellent instincts, let's start by analyzing current component to understand typescript props since they're vital for the schema. Complete your first 1 2 3 steps. You can do all 3 at in order in any way you want report back your findings.
 
 **Agent**: ✅ Completed analysis of 11 components. Extracted complete TypeScript interfaces and data requirements. Updated phase1.md with detailed schema design including entities, relationships, and queries.
+
+---
+
+## 🌐 i18n & SEO Strategy
+
+### Context
+- **Primary market**: Costa Rica (Spanish)
+- **Framework**: Next.js 15 + next-intl (already configured)
+- **SEO importance**: Critical for organic traffic
+- **Future**: Potential expansion to Central America (Spanish) and international markets
+
+### The i18n Dilemma
+
+**Question**: Where do we store translated content?
+
+**Options Considered**:
+
+1. ❌ **Multiple DB columns**: `description_es`, `description_en`, `variant_es`, `variant_en`
+   - Con: Schema explosion, painful migrations
+   
+2. ❌ **Separate translations table**: `vehicle_translations(vehicle_id, locale, description, ...)`
+   - Con: Extra JOIN for every query, premature optimization
+   
+3. ⚠️ **JSONB translations**: `description: { "es": "...", "en": "..." }`
+   - Pro: Flexible, easy to add languages
+   - Con: Harder to query, not type-safe in Drizzle
+   
+4. ✅ **Spanish-first + JSONB for future** (RECOMMENDED)
+   - Store Spanish as primary content
+   - Add optional JSONB columns for translations later
+   - Use next-intl for UI labels only
+
+### Recommended Approach for Phase 1
+
+**Schema Design**:
+
+```sql
+CREATE TABLE vehicles (
+  id uuid PRIMARY KEY,
+  slug text UNIQUE NOT NULL,           -- Language-neutral: "tesla-model-3-2024"
+  
+  brand text NOT NULL,                 -- Proper name (no translation): "Tesla"
+  model text NOT NULL,                 -- Proper name (no translation): "Model 3"
+  year int NOT NULL,
+  variant text,                        -- Spanish: "Largo Alcance" (for Phase 1)
+  
+  description text,                    -- Spanish (for Phase 1)
+  
+  -- Future translations (Phase 3+)
+  description_i18n jsonb DEFAULT NULL, -- { "en": "...", "pt": "..." }
+  variant_i18n jsonb DEFAULT NULL,     -- { "en": "Long Range", "pt": "..." }
+  
+  specs jsonb,                         -- Technical specs (mostly numbers, minimal translation)
+  ...
+);
+
+CREATE TABLE organizations (
+  id uuid PRIMARY KEY,
+  slug text UNIQUE NOT NULL,           -- Language-neutral: "byd-costa-rica"
+  name text NOT NULL,                  -- Spanish: "BYD Costa Rica" (for Phase 1)
+  description text,                    -- Spanish (for Phase 1)
+  
+  -- Future translations
+  description_i18n jsonb DEFAULT NULL,
+  ...
+);
+```
+
+**What gets translated vs what doesn't**:
+
+| Content Type | Translation Strategy | Rationale |
+|--------------|---------------------|-----------|
+| Brand names | ❌ Never | "Tesla", "BYD" are proper nouns |
+| Model names | ❌ Never | "Model 3", "Seagull" are product names |
+| Slugs | ❌ Never | SEO-friendly, language-neutral |
+| Variant names | ⏳ Phase 3+ | "Long Range" vs "Largo Alcance" |
+| Descriptions | ⏳ Phase 3+ | Marketing text |
+| Technical specs | ❌ Rarely | Numbers + units (280 kW, 75 kWh) |
+| UI labels | ✅ Phase 1 | next-intl handles this |
+
+**UI Labels with next-intl** (already working):
+
+```json
+// messages/es.json
+{
+  "vehicle": {
+    "specs": {
+      "range": "Autonomía",
+      "battery": "Batería",
+      "acceleration": "0-100 km/h",
+      "seats": "Asientos"
+    },
+    "bodyType": {
+      "SEDAN": "Sedán",
+      "CITY": "Ciudad",
+      "SUV": "SUV",
+      "PICKUP_VAN": "Pickup / Van"
+    }
+  }
+}
+
+// messages/en.json
+{
+  "vehicle": {
+    "specs": {
+      "range": "Range",
+      "battery": "Battery",
+      "acceleration": "0-100 km/h",
+      "seats": "Seats"
+    },
+    "bodyType": {
+      "SEDAN": "Sedan",
+      "CITY": "City Car",
+      "SUV": "SUV",
+      "PICKUP_VAN": "Pickup / Van"
+    }
+  }
+}
+```
+
+### SEO Implementation with next-intl
+
+**URL Structure** (next-intl configured with NO PREFIX for default Spanish):
+
+```
+Spanish (default, no locale prefix):
+  /vehiculos                             → Listings page
+  /vehiculos/byd-seagull-freedom-2025    → Vehicle detail
+
+English (with /en/ prefix):
+  /en/vehicles                           → Listings page
+  /en/vehicles/byd-seagull-freedom-2025  → Vehicle detail (same slug!)
+```
+
+**Rationale**:
+✅ **SEO-optimized**: Default Spanish URLs are cleaner (`/vehiculos` vs `/es/vehiculos`)
+✅ **User-friendly**: Costa Rican users see short URLs without language prefix
+✅ **Language-neutral slugs**: Same vehicle slug works across locales
+✅ **No duplicate content**: Different paths per locale (`/vehiculos/` vs `/en/vehicles/`)
+✅ **Easy expansion**: Add new languages with prefix (e.g., `/pt/veiculos/`)
+
+**Slug Format** (Finalized): `brand-model-variant-year`
+- Examples:
+  - `byd-seagull-freedom-2025`
+  - `tesla-model-3-long-range-2024`
+  - `nissan-leaf-2023` (no variant)
+- **No category in slug**: Category is in database, filtered via query params
+- **Case**: lowercase-hyphenated (kebab-case)
+
+**Metadata Generation** (SEO-critical):
+
+```tsx
+// app/[locale]/vehicles/[slug]/page.tsx
+
+export async function generateMetadata({ 
+  params: { locale, slug } 
+}: { 
+  params: { locale: string, slug: string } 
+}) {
+  const vehicle = await getVehicleBySlug(slug);
+  const t = await getTranslations({ locale, namespace: 'vehicle' });
+  
+  // For Phase 1 (Spanish content only)
+  const title = locale === 'es' 
+    ? `${vehicle.year} ${vehicle.brand} ${vehicle.model} ${vehicle.variant || ''} | QuéCargan`
+    : `${vehicle.year} ${vehicle.brand} ${vehicle.model} ${vehicle.variant || ''} | QuéCargan`;
+  
+  const description = locale === 'es'
+    ? vehicle.description || `Explora el ${vehicle.brand} ${vehicle.model} eléctrico...`
+    : vehicle.description_i18n?.en || `Explore the electric ${vehicle.brand} ${vehicle.model}...`;
+  
+  return {
+    title,
+    description,
+    alternates: {
+      canonical: locale === 'es' ? `/vehiculos/${slug}` : `/en/vehicles/${slug}`,
+      languages: {
+        'es': `/vehiculos/${slug}`,        // No prefix for default Spanish
+        'en': `/en/vehicles/${slug}`,      // Prefix for English
+      }
+    },
+    openGraph: {
+      title,
+      description,
+      type: 'product',
+      locale: locale === 'es' ? 'es_CR' : 'en_US',
+      images: vehicle.media.images[0]?.url,
+    }
+  };
+}
+```
+
+### Migration Path (Phase 1 → Phase 3+)
+
+**Phase 1** (Current):
+- ✅ Store all content in Spanish
+- ✅ Add empty `_i18n` JSONB columns for future
+- ✅ Use next-intl for UI labels
+- ✅ SEO works with `/es/` routes
+
+**Phase 2** (English expansion):
+- Add English UI labels to next-intl (just JSON)
+- `/en/` routes work with same Spanish content (acceptable for launch)
+- Manually translate key vehicle descriptions
+
+**Phase 3** (Full i18n):
+- Populate `description_i18n`, `variant_i18n` JSONB fields
+- Update `generateMetadata` to use translations
+- Add CMS for managing translations
+
+**Phase 4** (Admin translations):
+- Build admin UI for managing translations
+- Bulk import/export for translation services
+
+### next-intl Configuration (Already Set Up)
+
+**IMPORTANT**: The project already has next-intl configured with:
+- **Default locale**: Spanish (`es`) with **NO URL PREFIX**
+- **Alternative locale**: English (`en`) with `/en/` prefix
+- **Example**: `/precios` (Spanish) vs `/en/prices` (English)
+
+**Routing Config** (`i18n.ts`):
+```typescript
+export const defaultLocale = 'es';
+export const locales = ['es', 'en'] as const;
+export const localePrefix = 'as-needed'; // No prefix for default locale
+```
+
+**For vehicle pages**:
+- Spanish: `/vehiculos/[slug]` (no prefix)
+- English: `/en/vehicles/[slug]` (with prefix)
+
+**DO NOT** change this routing pattern. All new pages must follow this convention.
+
+---
+
+### Implementation Checklist for Phase 1
+
+**Database**:
+- [x] Add `_i18n jsonb` columns to `vehicles`, `organizations`
+- [x] Use language-neutral slugs (brand-model-variant-year)
+- [ ] Seed with Spanish content only
+
+**next-intl**:
+- [x] Routing config verified (no prefix for Spanish, /en/ for English)
+- [ ] Add vehicle-related UI labels to `messages/es.json`, `messages/en.json`
+- [ ] Use `useTranslations('vehicle')` in components
+
+**SEO**:
+- [ ] Implement `generateMetadata` with locale support
+- [ ] Add `alternates.languages` for hreflang tags
+- [ ] Test with Google Search Console (Spanish first)
+
+**Documentation**:
+- [ ] Document translation workflow for future
+- [ ] Note which fields need translation vs which don't
+
+---
+
+## 📋 Next Steps: Data Fetching Architecture
+
+Now that schemas are finalized, next we need to define:
+
+1. **Query functions** (`lib/db/queries/vehicles.ts`)
+   - `getVehicleBySlug(slug, locale?)` 
+   - `getVehicles(filters, pagination, locale?)`
+   - `getBanks(locale?)`
+
+2. **Data fetching location**
+   - Server Components (recommended for Phase 1)
+   - API routes (for client mutations later)
+
+3. **Page structures**
+   - Vehicle detail: `/app/[locale]/vehicles/[slug]/page.tsx`
+   - Listings: `/app/[locale]/vehicles/page.tsx`
+
+Ready to define data fetching patterns?
