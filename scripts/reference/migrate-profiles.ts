@@ -4,9 +4,9 @@
 
 import 'dotenv/config'
 
-import * as schema from '../drizzle/schema'
-import { createDatabase } from '../lib/db/client'
-import { slugify } from './utils/identifiers'
+import * as schema from '../../lib/db/schema'
+import { createDatabase } from '../../lib/db/client'
+import { slugify } from '../utils/identifiers'
 
 type Profile = typeof schema.profiles.$inferSelect
 
@@ -100,7 +100,7 @@ async function upsertProfile(
   displayName: string | null,
   existingById: Map<string, Profile>
 ) {
-  const now = new Date().toISOString()
+  const now = new Date()
   const existing = existingById.get(user.id)
 
   await db

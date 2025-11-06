@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from '@/i18n/routing'
 
 export interface SeeAllSellersCardProps {
-  href: string
+  href: React.ComponentProps<typeof Link>['href']
   optionsCount: number
 }
 

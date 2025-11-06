@@ -1,6 +1,29 @@
+import { eq, sql } from 'drizzle-orm';
 import { pgTable, uuid, numeric, text, boolean, jsonb, integer, timestamp, index, uniqueIndex } from 'drizzle-orm/pg-core';
 import { vehicles } from './vehicles';
 import { organizations } from './organizations';
+
+export type VehicleAvailability = {
+  label?: string;
+  tone?: 'success' | 'warning' | 'info' | 'danger';
+  estimated_delivery_days?: number;
+  [key: string]: unknown;
+};
+
+export type VehicleFinancing = {
+  down_payment?: number;
+  monthly_payment?: number;
+  term_months?: number;
+  apr_percent?: number;
+  display_currency?: string;
+  [key: string]: unknown;
+};
+
+export type VehicleCta = {
+  label: string;
+  href: string;
+  [key: string]: unknown;
+};
 
 export const vehiclePricing = pgTable('vehicle_pricing', {
   id: uuid('id').primaryKey().defaultRandom(),
@@ -8,11 +31,11 @@ export const vehiclePricing = pgTable('vehicle_pricing', {
   organizationId: uuid('organization_id').notNull().references(() => organizations.id, { onDelete: 'cascade' }),
 
   // Pricing
-  amount: numeric('amount', { precision: 10, scale: 2 }).notNull(),
+  amount: numeric('amount', { precision: 10, scale: 2 }).$type<number>().notNull(),
   currency: text('currency').default('USD').notNull().$type<'USD' | 'CRC'>(),
 
   // Availability (JSONB)
-  availability: jsonb('availability').default({}).notNull(),
+  availability: jsonb('availability').default({}).$type<VehicleAvailability>().notNull(),
   /* Example:
   {
     "label": "In Stock",
@@ -22,7 +45,7 @@ export const vehiclePricing = pgTable('vehicle_pricing', {
   */
 
   // Financing (JSONB, optional per seller)
-  financing: jsonb('financing'),
+  financing: jsonb('financing').$type<VehicleFinancing>(),
   /* Example:
   {
     "down_payment": 9000.00,
@@ -34,7 +57,7 @@ export const vehiclePricing = pgTable('vehicle_pricing', {
   */
 
   // Call to Action
-  cta: jsonb('cta'),
+  cta: jsonb('cta').$type<VehicleCta>(),
   /* Example:
   {
     "label": "Contact Dealer",
@@ -43,7 +66,7 @@ export const vehiclePricing = pgTable('vehicle_pricing', {
   */
 
   // Perks/Benefits
-  perks: text('perks').array().default([]).notNull(),
+  perks: text('perks').array().default(sql`'{}'::text[]`).notNull(),
 
   // Display
   emphasis: text('emphasis').default('none').notNull().$type<'none' | 'teal-border' | 'teal-glow'>(),
@@ -58,10 +81,10 @@ export const vehiclePricing = pgTable('vehicle_pricing', {
 }, (table) => ({
   uniqueActivePricing: uniqueIndex('unique_active_pricing')
     .on(table.vehicleId, table.organizationId)
-    .where(table.isActive.eq(true)),
+    .where(eq(table.isActive, true)),
   vehicleIdx: index('idx_vehicle_pricing_vehicle').on(table.vehicleId, table.amount),
   orgIdx: index('idx_vehicle_pricing_org').on(table.organizationId),
   amountIdx: index('idx_vehicle_pricing_amount').on(table.amount),
   activeIdx: index('idx_vehicle_pricing_active').on(table.isActive)
-    .where(table.isActive.eq(true)),
+    .where(eq(table.isActive, true)),
 }));

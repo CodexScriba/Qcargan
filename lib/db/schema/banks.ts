@@ -1,8 +1,9 @@
-import { pgTable, uuid, text, numeric, integer, boolean, timestamp, index } from 'drizzle-orm/pg-core';
+import { eq } from 'drizzle-orm';
+import { pgTable, uuid, text, numeric, integer, boolean, timestamp, index, uniqueIndex } from 'drizzle-orm/pg-core';
 
 export const banks = pgTable('banks', {
   id: uuid('id').primaryKey().defaultRandom(),
-  slug: text('slug').notNull().unique(),
+  slug: text('slug').notNull(),
 
   // Basic Info
   name: text('name').notNull(),
@@ -14,8 +15,8 @@ export const banks = pgTable('banks', {
   contactEmail: text('contact_email'),
 
   // Generic Rates (for display only, not vehicle-specific)
-  typicalAprMin: numeric('typical_apr_min', { precision: 4, scale: 2 }),
-  typicalAprMax: numeric('typical_apr_max', { precision: 4, scale: 2 }),
+  typicalAprMin: numeric('typical_apr_min', { precision: 4, scale: 2 }).$type<number>(),
+  typicalAprMax: numeric('typical_apr_max', { precision: 4, scale: 2 }).$type<number>(),
   typicalTermMonths: integer('typical_term_months').array(),
 
   // Display
@@ -31,7 +32,8 @@ export const banks = pgTable('banks', {
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
 }, (table) => ({
   slugIdx: index('idx_banks_slug').on(table.slug),
+  uniqueSlug: uniqueIndex('unique_banks_slug').on(table.slug),
   featuredIdx: index('idx_banks_featured')
     .on(table.isFeatured, table.displayOrder)
-    .where(table.isFeatured.eq(true)),
+    .where(eq(table.isFeatured, true)),
 }));
