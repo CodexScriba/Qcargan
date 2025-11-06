@@ -226,7 +226,7 @@ DIRECT_URL=<supabase_direct_url>
 **Type**: Backend configuration work (minimal frontend requirements)
 
 **Key components**:
-- Update `i18n/request.ts` for Next.js 15 compatibility
+- Update `i18n/request.ts` for Next.js 16 compatibility
 - Add comprehensive Spanish/English translation keys
 - Create slug generation utility for SEO-friendly URLs
 - Document SEO metadata patterns for dynamic page titles

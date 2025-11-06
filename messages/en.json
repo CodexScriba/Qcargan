@@ -216,6 +216,85 @@
       "submitting": "Saving..."
     }
   },
+  "vehicle": {
+    "title": "Electric Vehicles",
+    "specs": {
+      "range": "Range",
+      "battery": "Battery",
+      "acceleration": "0-100 km/h",
+      "seats": "Seats",
+      "charging": "Fast Charging",
+      "power": "Power",
+      "topSpeed": "Top Speed",
+      "weight": "Weight",
+      "dimensions": "Dimensions"
+    },
+    "bodyType": {
+      "SEDAN": "Sedan",
+      "CITY": "City Car",
+      "SUV": "SUV",
+      "PICKUP_VAN": "Pickup / Van"
+    },
+    "pricing": {
+      "from": "From",
+      "sellers": "{count, plural, =0 {0 sellers} one {1 seller} other {# sellers}}",
+      "contact": "Contact",
+      "viewDetails": "View details",
+      "getQuote": "Get quote",
+      "checkAvailability": "Check availability"
+    },
+    "filters": {
+      "all": "All",
+      "priceRange": "Price range",
+      "rangeMin": "Minimum range",
+      "seatsMin": "Minimum seats",
+      "bodyType": "Body type",
+      "brand": "Brand",
+      "sortBy": "Sort by",
+      "sortPrice": "Price",
+      "sortRange": "Range",
+      "sortNewest": "Newest"
+    },
+    "availability": {
+      "inStock": "In Stock",
+      "preOrder": "Pre-Order",
+      "availableSoon": "Available Soon",
+      "contactForAvailability": "Contact for availability"
+    },
+    "financing": {
+      "title": "Financing",
+      "downPayment": "Down payment",
+      "monthlyPayment": "Monthly payment",
+      "term": "{months} months",
+      "aprRate": "APR rate"
+    },
+    "reviews": {
+      "title": "User reviews",
+      "positive": "Positive",
+      "neutral": "Neutral",
+      "negative": "Negative",
+      "noReviews": "No reviews yet"
+    }
+  },
+  "agencyCard": {
+    "contact": "Contact",
+    "details": "View details",
+    "officialAgency": "Official agency",
+    "warranty": "Warranty",
+    "battery": "Battery",
+    "freeService": "Free service",
+    "delivery": "0 km delivery"
+  },
+  "seo": {
+    "vehicleDetail": {
+      "titleTemplate": "{year} {brand} {model} {variant} | QuéCargan",
+      "descriptionTemplate": "Explore the {year} electric {brand} {model} in Costa Rica. Specifications, pricing, and availability from official dealers."
+    },
+    "vehicleList": {
+      "title": "Electric Vehicles in Costa Rica | QuéCargan",
+      "description": "Compare and find the best electric vehicle in Costa Rica. Prices, specifications, range, and official dealers."
+    }
+  },
   "common": {
     "error": {
       "unknown": "An error occurred"
