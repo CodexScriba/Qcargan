@@ -1,19 +1,12 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { cn } from "@/lib/utils";
 import { useLocale } from 'next-intl';
 import { useRouter, usePathname } from '@/i18n/routing';
-import { Globe } from "lucide-react";
 
 const locales = [
-  { code: 'en', name: 'English', flag: '🇺🇸' },
-  { code: 'es', name: 'Español', flag: '🇪🇸' }
+  { code: 'es', name: 'ES', flag: '🇪🇸', fullName: 'Español' },
+  { code: 'en', name: 'EN', flag: '🇺🇸', fullName: 'English' }
 ];
 
 export function LanguageSwitcher() {
@@ -25,30 +18,39 @@ export function LanguageSwitcher() {
     router.replace(pathname, { locale: newLocale });
   };
 
-  const currentLocale = locales.find(l => l.code === locale) || locales[0];
-
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline" size="sm" className="gap-2">
-          <Globe className="h-4 w-4" />
-          <span className="hidden sm:inline">{currentLocale.flag} {currentLocale.name}</span>
-          <span className="sm:hidden">{currentLocale.flag}</span>
-        </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        {locales.map((item) => (
-          <DropdownMenuItem
-            key={item.code}
-            onClick={() => handleLanguageChange(item.code)}
-            className="flex items-center gap-2"
+    <div className="flex items-center gap-1 rounded-full border border-border/60 bg-muted/40 p-1 shadow-[0_6px_20px_-15px_rgba(15,23,42,0.4)] backdrop-blur supports-[backdrop-filter]:bg-muted/20">
+      {locales.map(({ code, name, flag, fullName }) => {
+        const isActive = locale === code;
+
+        return (
+          <button
+            key={code}
+            type="button"
+            aria-pressed={isActive}
+            aria-current={isActive ? "true" : undefined}
+            data-active={isActive}
+            aria-label={`Switch to ${fullName}`}
+            title={fullName}
+            onClick={() => handleLanguageChange(code)}
+            className={cn(
+              "group relative flex items-center gap-1.5 overflow-hidden rounded-full px-2.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/60 hover:-translate-y-[1px] sm:px-3 sm:text-xs",
+              isActive
+                ? "bg-[hsl(var(--primary))] text-white shadow-[0_22px_40px_-25px_rgba(59,130,246,0.85)] ring-1 ring-primary/70 dark:bg-primary dark:text-primary-foreground dark:shadow-[0_18px_36px_-22px_rgba(148,163,184,0.55)]"
+                : "text-muted-foreground/70 hover:bg-background/70 hover:text-foreground"
+            )}
           >
-            <span>{item.flag}</span>
-            <span>{item.name}</span>
-            {locale === item.code && <span className="ml-auto">✓</span>}
-          </DropdownMenuItem>
-        ))}
-      </DropdownMenuContent>
-    </DropdownMenu>
+            <span
+              className={cn(
+                "absolute inset-0 -z-10 rounded-full bg-gradient-to-br from-primary/40 via-primary/30 to-transparent opacity-0 transition-opacity duration-300",
+                isActive && "opacity-60"
+              )}
+            />
+            <span className="text-base leading-none">{flag}</span>
+            <span className="hidden sm:inline">{name}</span>
+          </button>
+        );
+      })}
+    </div>
   );
 }

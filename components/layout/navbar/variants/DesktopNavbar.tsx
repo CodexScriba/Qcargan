@@ -40,7 +40,7 @@ export function DesktopNavbar() {
               {t('login')}
             </Link>
           </Button>
-          <Button asChild className='gap-2'>
+          <Button asChild className='btn-primary gap-2'>
             <Link href={'/auth/sign-up' as any}>
               {t('signUp')}
               <ArrowRight className='h-4 w-4' />
