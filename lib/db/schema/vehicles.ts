@@ -1,8 +1,31 @@
+import { eq, sql } from 'drizzle-orm';
 import { pgTable, uuid, text, integer, boolean, jsonb, timestamp, index, uniqueIndex, numeric } from 'drizzle-orm/pg-core';
+
+export type VehicleSpecs = {
+  torque?: { nm?: number; lbft?: number };
+  dimensions?: {
+    length?: number;
+    width?: number;
+    height?: number;
+    wheelbase?: number;
+  };
+  features?: string[];
+  warranty?: {
+    vehicle?: string;
+    battery?: string;
+  };
+  charging?: {
+    ac?: { kW?: number; time?: string };
+    dc?: { kW?: number; time?: string };
+  };
+  [key: string]: unknown;
+};
+
+export type LocalizedText = Record<string, string>;
 
 export const vehicles = pgTable('vehicles', {
   id: uuid('id').primaryKey().defaultRandom(),
-  slug: text('slug').notNull().unique(),
+  slug: text('slug').notNull(),
 
   // Basic Info
   brand: text('brand').notNull(),
@@ -11,7 +34,7 @@ export const vehicles = pgTable('vehicles', {
   variant: text('variant'),
 
   // Display-only specs (JSONB)
-  specs: jsonb('specs').default({}).notNull(),
+  specs: jsonb('specs').default({}).$type<VehicleSpecs>().notNull(),
   /* Example specs JSONB structure:
   {
     "torque": { "nm": 310, "lbft": 229 },
@@ -40,17 +63,17 @@ export const vehicles = pgTable('vehicles', {
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),
 
   // Future i18n support
-  descriptionI18n: jsonb('description_i18n'),
-  variantI18n: jsonb('variant_i18n'),
+  descriptionI18n: jsonb('description_i18n').$type<LocalizedText>(),
+  variantI18n: jsonb('variant_i18n').$type<LocalizedText>(),
 }, (table) => ({
   uniqueSlug: uniqueIndex('unique_slug').on(table.slug),
   uniqueVehicleIdentity: uniqueIndex('unique_vehicle_identity')
-    .on(table.brand, table.model, table.year, table.variant)
-    .where(table.isPublished.eq(true)),
+    .on(table.brand, table.model, table.year, sql`COALESCE(${table.variant}, '')`)
+    .where(eq(table.isPublished, true)),
   brandIdx: index('idx_vehicles_brand').on(table.brand),
   yearIdx: index('idx_vehicles_year').on(table.year.desc()),
   publishedIdx: index('idx_vehicles_published').on(table.isPublished)
-    .where(table.isPublished.eq(true)),
+    .where(eq(table.isPublished, true)),
 }));
 
 export const vehicleSpecifications = pgTable('vehicle_specifications', {
@@ -64,10 +87,10 @@ export const vehicleSpecifications = pgTable('vehicle_specifications', {
   rangeKmClcReported: integer('range_km_clc_reported'), // FUTURE: User-reported LATAM
 
   // Battery & Power
-  batteryKwh: numeric('battery_kwh', { precision: 5, scale: 1 }),
+  batteryKwh: numeric('battery_kwh', { precision: 5, scale: 1 }).$type<number>(),
 
   // Performance
-  acceleration0To100Sec: numeric('acceleration_0_100_sec', { precision: 3, scale: 1 }),
+  acceleration0To100Sec: numeric('acceleration_0_100_sec', { precision: 3, scale: 1 }).$type<number>(),
   topSpeedKmh: integer('top_speed_kmh'),
   powerKw: integer('power_kw'),
   powerHp: integer('power_hp'),
@@ -82,9 +105,9 @@ export const vehicleSpecifications = pgTable('vehicle_specifications', {
   bodyType: text('body_type').notNull().$type<'SEDAN' | 'CITY' | 'SUV' | 'PICKUP_VAN'>(),
 
   // User Sentiment (computed, Phase 4+)
-  sentimentPositivePercent: numeric('sentiment_positive_percent', { precision: 4, scale: 1 }),
-  sentimentNeutralPercent: numeric('sentiment_neutral_percent', { precision: 4, scale: 1 }),
-  sentimentNegativePercent: numeric('sentiment_negative_percent', { precision: 4, scale: 1 }),
+  sentimentPositivePercent: numeric('sentiment_positive_percent', { precision: 4, scale: 1 }).$type<number>(),
+  sentimentNeutralPercent: numeric('sentiment_neutral_percent', { precision: 4, scale: 1 }).$type<number>(),
+  sentimentNegativePercent: numeric('sentiment_negative_percent', { precision: 4, scale: 1 }).$type<number>(),
 
   // Metadata
   updatedAt: timestamp('updated_at', { withTimezone: true }).defaultNow().notNull(),

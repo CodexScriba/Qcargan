@@ -12,7 +12,7 @@ import 'dotenv/config'
   - Safe-by-default: refuses to run in production unless ALLOW_DB_CHECK=true
 */
 
-import { createSqlClient } from '../lib/db/client'
+import { createSqlClient } from '../../lib/db/client'
 
 type SqlClient = ReturnType<typeof createSqlClient>
 

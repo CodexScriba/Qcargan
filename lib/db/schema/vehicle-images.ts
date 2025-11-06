@@ -1,6 +1,9 @@
 import { pgTable, uuid, text, integer, boolean, timestamp, index } from 'drizzle-orm/pg-core';
 import { vehicles } from './vehicles';
 
+export type VehicleImageVariantType = 'thumbnail' | 'webp' | '2x' | 'mobile';
+export type VehicleImageFormat = 'webp' | 'avif' | 'jpg';
+
 export const vehicleImages = pgTable('vehicle_images', {
   id: uuid('id').primaryKey().defaultRandom(),
   vehicleId: uuid('vehicle_id').notNull().references(() => vehicles.id, { onDelete: 'cascade' }),
@@ -28,13 +31,13 @@ export const vehicleImageVariants = pgTable('vehicle_image_variants', {
   sourceImageId: uuid('source_image_id').notNull().references(() => vehicleImages.id, { onDelete: 'cascade' }),
 
   // Variant info
-  variantType: text('variant_type').notNull(),       // "thumbnail", "webp", "2x", "mobile"
+  variantType: text('variant_type').notNull().$type<VehicleImageVariantType>(),
   storagePath: text('storage_path').notNull(),       // "cars/byd/seagull/hero-thumbnail.webp"
 
   // Dimensions
   width: integer('width'),
   height: integer('height'),
-  format: text('format'),                            // "webp", "avif", "jpg"
+  format: text('format').$type<VehicleImageFormat>(),
 
   // Timestamps
   createdAt: timestamp('created_at', { withTimezone: true }).defaultNow().notNull(),

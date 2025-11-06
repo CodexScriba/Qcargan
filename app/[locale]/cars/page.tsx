@@ -109,7 +109,7 @@ const page = () => {
                 />
               ))}
 
-              <SeeAllSellersCard href="/sellers" optionsCount={3} />
+              <SeeAllSellersCard href="/vehicles" optionsCount={3} />
 
               {/* Financing Options */}
               <div className="pt-4 border-t border-[hsl(var(--border)/0.2)]">
