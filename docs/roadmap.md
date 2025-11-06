@@ -249,7 +249,7 @@ _(None currently migrated to new project)_
 - [ ] Verify enums exist: `body_type`, `fuel_type`, `transmission_type`, etc.
 - [ ] List any missing tables or columns
 
-**Deliverable**: Document comparing old vs new schemas, list of gaps
+**Deliverable**: Document comparing old vs new schemas, plus new ideas from user list of gaps
 
 #### Task 1.2: Schema Migration (if needed)
 **Goal**: Add any missing tables/columns to new project
