@@ -999,6 +999,12 @@ Enable sellers to manage their organization and vehicle listings.
 
 ---
 
+## Phase Pre-Launch: Production Enablement (1-2 days)
+
+- [ ] Flip `cacheComponents` to `true` in `next.config.ts` so Partial Pre-Rendering ships in production.
+- [ ] Verify key data loaders mark cache boundaries (`'use cache'`, `cacheLife`) to balance freshness and streaming benefits once caching is enabled.
+- [ ] Double-check other Next.js 16 config switches (proxy naming, turbopack, image `minimumCacheTTL`) remain aligned before the final deployment.
+
 ## Phase 6: Extended Catalog & Growth (3+ weeks)
 
 ### Objective
@@ -1114,9 +1120,10 @@ Expand marketplace with services, accessories, and additional features.
 | Phase 3 | 2-3 weeks | Buyer Engagement | Favorites, comparisons, user dashboard |
 | Phase 4 | 2-3 weeks | Trust & Social Proof | Reviews, ratings, organization profiles |
 | Phase 5 | 2-3 weeks | Seller Operations | Seller dashboard, listing CRUD, team management |
+| Phase Pre-Launch | 1-2 days | Production Enablement | cacheComponents enabled, Next.js 16 config validated |
 | Phase 6 | 3+ weeks | Extended Catalog | Services, accessories, financing, growth features |
 
-**Total Timeline**: ~3-4 months for core marketplace (Phases 0-5)
+**Total Timeline**: ~3-4 months for core marketplace (Phases 0-5), plus a short pre-launch hardening window.
 
 ---
 
@@ -1145,4 +1152,3 @@ Expand marketplace with services, accessories, and additional features.
 - Core Web Vitals passing
 
 **Track all metrics with PostHog dashboards. Review weekly.**
-
