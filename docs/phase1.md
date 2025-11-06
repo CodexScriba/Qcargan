@@ -1155,6 +1155,61 @@ banks (standalone, no FK)
 - **SEO importance**: Critical for organic traffic
 - **Future**: Potential expansion to Central America (Spanish) and international markets
 
+### ✅ Next.js 15 Compatibility Verified
+
+**Breaking Changes Addressed**:
+1. ✅ **Async params/searchParams** - Documented throughout phase1.md with `await params` pattern
+2. ✅ **Async cookies/headers** - Not used in Phase 1, but documented for future
+3. ✅ **Server Components** - Primary data fetching strategy
+4. ✅ **Middleware** - NO BREAKING CHANGES (still `middleware.ts`, NOT renamed to "proxy")
+5. ✅ **next-intl compatibility** - Updated for Next.js 15 (see below)
+
+**next-intl Next.js 15 Updates Required**:
+
+The `i18n/request.ts` file needs updating for Next.js 15 compatibility:
+
+```typescript
+// i18n/request.ts (UPDATED for Next.js 15)
+
+import {getRequestConfig} from 'next-intl/server';
+import {routing} from './routing';
+
+export default getRequestConfig(async ({
+  requestLocale  // ← Changed from 'locale' in Next.js 15
+}) => {
+  // This typically corresponds to the `[locale]` segment
+  let locale = await requestLocale;  // ← MUST await
+
+  // Ensure that the incoming locale is valid
+  if (!locale || !routing.locales.includes(locale as any)) {
+    locale = routing.defaultLocale;
+  }
+
+  return {
+    locale,  // ← MUST return locale in Next.js 15
+    messages: (await import(`../../messages/${locale}.json`)).default
+  };
+});
+```
+
+**Key Changes**:
+- `locale` parameter → `requestLocale` (must be awaited)
+- Must return `locale` in config object
+- Fallback to `defaultLocale` if undefined or invalid
+
+**Middleware** (NO CHANGES NEEDED - fully compatible):
+```typescript
+// middleware.ts (UNCHANGED - works with Next.js 15)
+import createMiddleware from 'next-intl/middleware';
+import {routing} from './i18n/routing';
+
+export default createMiddleware(routing);
+
+export const config = {
+  matcher: '/((?!api|trpc|_next|_vercel|.*\\..*|.*opengraph-image.*).*)'
+};
+```
+
 ### The i18n Dilemma
 
 **Question**: Where do we store translated content?
