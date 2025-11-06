@@ -94,20 +94,21 @@ export function NewCarsMenu() {
                     <NavigationMenuLink asChild key={vehicle.href}>
                       <Link
                         href={vehicle.href as any}
-                        className='group block space-y-2 rounded-lg p-4 transition-colors hover:bg-accent hover:text-accent-foreground'
+                        data-slot='card'
+                        className='group block space-y-3 p-4'
                       >
                         <div className='relative aspect-video overflow-hidden rounded-lg'>
                           <Image
                             src={vehicle.image}
                             alt={vehicle.title}
                             fill
-                            className='object-cover transition-transform group-hover:scale-105'
+                            className='object-cover transition-transform duration-300 group-hover:scale-105'
                             sizes='(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw'
                           />
                         </div>
                         <div>
-                          <p className='text-lg font-semibold leading-none mb-2'>{vehicle.title}</p>
-                          <p className='line-clamp-2 text-sm text-muted-foreground'>{vehicle.description}</p>
+                          <p className='text-lg font-semibold leading-none mb-2 text-[hsl(var(--card-foreground))]'>{vehicle.title}</p>
+                          <p className='line-clamp-2 text-sm text-[hsl(var(--muted-foreground))]'>{vehicle.description}</p>
                         </div>
                       </Link>
                     </NavigationMenuLink>
