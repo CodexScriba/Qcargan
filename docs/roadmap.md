@@ -79,6 +79,83 @@ _(None currently migrated to new project)_
 
 ## Phase 0: Migration from Old Project
 
+**Current Status: IN PROGRESS** ✅ Major milestone completed - All UI components migrated!
+
+### ✅ COMPLETED: Component Migration (2025-11-06)
+
+**All product, review, agency, and page-specific components have been successfully migrated from the old quecargan project.**
+
+#### What Was Migrated:
+
+**Product Components** (`components/product/`) - ✅ Complete
+- `product-title.tsx` - Vehicle title display with gradient styling
+- `seller-card.tsx` - Seller info and pricing card
+- `see-all-sellers-card.tsx` - CTA for seller directory
+- `car-action-buttons.tsx` - Action buttons (UI ready, backend pending Phase 3)
+- `vehicle-all-specs.tsx` - Full specifications display
+- `index.ts` - Barrel export for clean imports
+
+**Agency Components** (`components/agency/`) - ✅ Complete (NEW)
+- `favorite-button.tsx` - Heart icon button for favorites (backend pending Phase 3)
+- `compare-button.tsx` - Scale icon button for comparisons (backend pending Phase 3)
+- `agency-actions.tsx` - Container grouping favorite/compare buttons
+- `agency-card.tsx` - Official dealer pricing card with financing preview
+- `index.ts` - Barrel export
+
+**Review Components** (`components/reviews/`) - ✅ Complete
+- `TrafficLightReviews.tsx` - Ratings aggregation display
+- `TrafficLight.tsx` - Interactive red/yellow/green lamp widget
+- `index.ts` - Barrel export (updated)
+
+**Showcase Components** (`components/showcase/`) - ✅ Already existed
+- `showcase-carousel.tsx` - Configurable card carousel
+- `index.ts` - Barrel export
+
+**UI Components** (`components/ui/`) - ✅ Complete
+- `image-carousel.tsx` - Vehicle media gallery component
+
+**Bank/Financing Components** (`components/banks/`) - ✅ Complete
+- `FinancingTabs.tsx` - Bank financing options display
+
+**Car Page Components** (`app/[locale]/cars/`) - ✅ Complete
+- `page.tsx` - Main vehicle detail page with mock data
+- `KeySpecification.tsx` - Spec tile with icon
+- `ServicesShowcase.tsx` - EV services section
+
+**Reference Scripts** (`scripts/reference/`, `scripts/utils/`) - ✅ Complete
+- `migrate-profiles.ts` - Auth/profile sync patterns (reference only)
+- `check-profiles-unique.ts` - Database validation patterns (reference only)
+- `identifiers.ts` - Utility functions (slugify, stableUuid)
+
+#### Key Observations & Notes:
+
+1. **AgencyCard vs SellerCard**: Both components exist with different purposes:
+   - `SellerCard` - Generic seller pricing (dealers, importers, grey market)
+   - `AgencyCard` - Specialized for official dealers with warranty badges and financing
+   - Both integrate `AgencyActions` for favorites/compare
+
+2. **Backend Integration Pending**: Favorite and compare buttons are UI-ready but need Phase 3 API integration:
+   - Currently log to console only
+   - Marked with TODO comments
+   - State management not yet implemented
+
+3. **Translation Keys Needed**: `AgencyCard` requires translation key `agencyCard.contact` and `agencyCard.details` in `messages/en.json` and `messages/es.json`
+
+4. **Mock Data in Cars Page**: `/cars/page.tsx` uses placeholder data structures - ready for Phase 1 database integration
+
+5. **All Barrel Exports Created**: Clean import paths now available:
+   ```typescript
+   import { ProductTitle, SellerCard } from '@/components/product'
+   import { AgencyCard, FavoriteButton } from '@/components/agency'
+   import { TrafficLight } from '@/components/reviews'
+   ```
+
+#### Documentation Updated:
+- ✅ `docs/architecture.md` - Added agency components section, scripts section, updated product components
+- ✅ `docs/roadmap.md` - This progress update
+
+### Remaining Phase 0 Tasks:
+
 ### Components to Migrate (from `/home/cynic/workspace/quecargan`)
 
 #### Product Components (`components/product/`)

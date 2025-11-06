@@ -54,7 +54,19 @@ components/product/
 ├─ seller-card.tsx – SellerCard displays pricing offers from dealers, agencies, and importers with financing details, availability badges, perks, and CTAs. Supports emphasis styling for featured offers.
 ├─ see-all-sellers-card.tsx – SeeAllSellersCard link component that shows total available seller options and routes to the full sellers list.
 ├─ car-action-buttons.tsx – CarActionButtons client component providing primary actions (contact, share) for vehicle listings.
-└─ vehicle-all-specs.tsx – VehicleAllSpecs displays comprehensive technical specifications in an organized layout, accepting a vehicle object with detailed spec data.
+├─ vehicle-all-specs.tsx – VehicleAllSpecs displays comprehensive technical specifications in an organized layout, accepting a vehicle object with detailed spec data.
+└─ index.ts – Barrel export for all product components.
+```
+
+- **Agency components** enable buyer engagement through favorites and comparisons:
+
+```
+components/agency/
+├─ favorite-button.tsx – FavoriteButton client component with heart icon for adding/removing vehicles from favorites. Supports multiple sizes (default, compact, icon) and visual states. Backend integration pending Phase 3.
+├─ compare-button.tsx – CompareButton client component with scale icon for adding/removing vehicles from comparison list (max 3-4). Backend integration pending Phase 3.
+├─ agency-actions.tsx – AgencyActions container component that groups FavoriteButton and CompareButton with consistent spacing and positioning, typically overlaid on vehicle cards.
+├─ agency-card.tsx – AgencyCard displays official dealer pricing with seller info, monthly financing preview, warranty badges, and expandable details section. Integrates AgencyActions for favorites/compare functionality.
+└─ index.ts – Barrel export for all agency components and types.
 ```
 
 - **UI components** extend the base component library with specialized widgets:
@@ -84,7 +96,8 @@ components/banks/
 ```
 components/reviews/
 ├─ TrafficLightReviews.tsx – TrafficLightReviews client component showing sentiment distribution (positive/neutral/negative) with visual indicators.
-└─ index.ts – Barrel export for review components.
+├─ TrafficLight.tsx – TrafficLight interactive widget with red/yellow/green lamps for filtering reviews by sentiment. Features glassmorphic design with animated glow effects on active state.
+└─ index.ts – Barrel export for review components and types.
 ```
 
 - **Cars page** (`app/[locale]/cars/`) is a comprehensive vehicle detail view integrating all product components:
@@ -95,6 +108,28 @@ app/[locale]/cars/
 ├─ KeySpecification.tsx – KeySpecification displays individual spec metrics (range, battery, charging, performance) with icon, title, and value in a hover-animated card.
 └─ ServicesShowcase.tsx – ServicesShowcase client component rendering EV service offerings (mechanics, charging installation, detailing, software, tires, insurance) via ShowcaseCarousel with predefined service data.
 ```
+
+Radix 1.x and shadcn components render correctly under React 19; Tailwind 4 currently supports the Next.js compiler pipeline used in v16 (monitor release notes for postcss updates).
+
+## Scripts & Utilities
+
+- **Reference scripts** (`scripts/reference/`) contain patterns from the old quecargan project for guidance:
+
+```
+scripts/reference/
+├─ migrate-profiles.ts – Reference implementation showing auth.users → profiles sync patterns with username uniqueness handling.
+└─ check-profiles-unique.ts – Reference validation script demonstrating database constraint checks and error handling patterns.
+```
+
+- **Utility functions** (`scripts/utils/`) provide shared helpers for scripts:
+
+```
+scripts/utils/
+└─ identifiers.ts – Slug generation (slugify) and stable UUID creation (stableUuid) utilities for consistent identifier patterns across data seeding and migration scripts.
+```
+
+**Note:** Reference scripts are for pattern guidance only. A new production-quality `seed-production-vehicles.ts` script will be created from scratch for Phase 0.
+
 ## Internationalization, Forms & Validation
 - **next-intl** `^4.4.0` orchestrates routing-aware translations. Localization lives under `app/[locale]/`, where the per-locale layout loads Poppins, sets the HTML language attribute, and wraps descendants in `NextIntlClientProvider` alongside the shared `Navbar`.
 - Routing is declared in `i18n/routing.ts` via `defineRouting`; Spanish (`es`) is the default locale with an as-needed prefix strategy and locale detection disabled. Marketing pages (`/`, `/precios`, `/test`) render without authentication while `/en`, `/en/prices`, and the localized `/auth/*` and `/protected/*` segments map to their English counterparts. Navigation helpers (`Link`, `redirect`, `useRouter`, etc.) are generated with `createNavigation(routing)`, and `publicLocalePaths` exposes the marketing surface for the Supabase proxy middleware.
