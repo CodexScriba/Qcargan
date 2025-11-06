@@ -189,6 +189,15 @@
       "loginLink": "Login",
       "passwordsMismatch": "Passwords do not match"
     },
+    "signUpSuccess": {
+      "title": "Welcome to Qcargan",
+      "subtitle": "Confirm your email to activate your workspace.",
+      "confirmation": "We just sent a confirmation link to your inbox. Open it to verify your account and unlock the dashboard.",
+      "tipsTitle": "Can't find the email?",
+      "tips": "Check spam or promotions and add hola@quecargan.com to your safe sender list.",
+      "ctaLogin": "Go to login",
+      "ctaHome": "Return home"
+    },
     "forgot": {
       "title": "Reset Your Password",
       "description": "Type in your email and we'll send you a link to reset your password",

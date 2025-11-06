@@ -45,7 +45,7 @@ export function LoginForm({ className, embedded = false, variant = 'default', ..
       const email = identifier
       const { error } = await supabase.auth.signInWithPassword({ email, password })
       if (error) throw error
-      router.push("/protected")
+      router.push("/")
   } catch {
       // Map all auth errors to a single generic message
       const message = t("auth.login.error.invalidCredentials")

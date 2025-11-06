@@ -189,6 +189,15 @@
       "loginLink": "Iniciar Sesión",
       "passwordsMismatch": "Las contraseñas no coinciden"
     },
+    "signUpSuccess": {
+      "title": "Bienvenido a Qcargan",
+      "subtitle": "Confirma tu email para activar tu espacio de trabajo.",
+      "confirmation": "Acabamos de enviar un enlace de confirmación a tu bandeja de entrada. Ábrelo para verificar tu cuenta y desbloquear el panel.",
+      "tipsTitle": "¿No encuentras el correo?",
+      "tips": "Revisa spam o promociones y agrega hola@quecargan.com a tus remitentes seguros.",
+      "ctaLogin": "Ir a iniciar sesión",
+      "ctaHome": "Volver al inicio"
+    },
     "forgot": {
       "title": "Restablecer tu Contraseña",
       "description": "Escribe tu email y te enviaremos un enlace para restablecer tu contraseña",
