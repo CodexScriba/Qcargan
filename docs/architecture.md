@@ -46,8 +46,55 @@ components/layout/theme-switcher.tsx – control surfaced inside every variant t
 components/layout/language-switcher.tsx – locale selector wired to `next-intl` routing helpers and rendered in all breakpoints.
 ```
 
-Radix 1.x and shadcn components render correctly under React 19; Tailwind 4 currently supports the Next.js compiler pipeline used in v16 (monitor release notes for postcss updates).
+- **Product components** provide reusable UI primitives for showcasing vehicle inventory:
 
+```
+components/product/
+├─ product-title.tsx – ProductTitle component that formats vehicle metadata (brand, model, year, variant) into a gradient headline with battery and range specs as supporting details. Accepts a vehicle object and renders a centered, responsive title block using clamp-based typography and theme-aware gradients.
+├─ seller-card.tsx – SellerCard displays pricing offers from dealers, agencies, and importers with financing details, availability badges, perks, and CTAs. Supports emphasis styling for featured offers.
+├─ see-all-sellers-card.tsx – SeeAllSellersCard link component that shows total available seller options and routes to the full sellers list.
+├─ car-action-buttons.tsx – CarActionButtons client component providing primary actions (contact, share) for vehicle listings.
+└─ vehicle-all-specs.tsx – VehicleAllSpecs displays comprehensive technical specifications in an organized layout, accepting a vehicle object with detailed spec data.
+```
+
+- **UI components** extend the base component library with specialized widgets:
+
+```
+components/ui/
+└─ image-carousel.tsx – ImageCarousel client component for browsing vehicle media galleries with navigation and initial index support.
+```
+
+- **Showcase components** handle content carousels for products and services:
+
+```
+components/showcase/
+├─ showcase-carousel.tsx – ShowcaseCarousel displays items (accessories, services) in a responsive grid/carousel with images, badges, and CTAs.
+└─ index.ts – Barrel export for showcase components and types.
+```
+
+- **Bank & financing components** manage financial product displays:
+
+```
+components/banks/
+└─ FinancingTabs.tsx – FinancingTabs client component that displays available bank financing options with rates and terms.
+```
+
+- **Review components** aggregate and display user feedback:
+
+```
+components/reviews/
+├─ TrafficLightReviews.tsx – TrafficLightReviews client component showing sentiment distribution (positive/neutral/negative) with visual indicators.
+└─ index.ts – Barrel export for review components.
+```
+
+- **Cars page** (`app/[locale]/cars/`) is a comprehensive vehicle detail view integrating all product components:
+
+```
+app/[locale]/cars/
+├─ page.tsx – Main vehicle detail page combining ProductTitle, ImageCarousel, seller pricing cards, key specs, reviews, full specs accordion, related accessories, and EV services showcase. Currently uses mock data placeholders for development.
+├─ KeySpecification.tsx – KeySpecification displays individual spec metrics (range, battery, charging, performance) with icon, title, and value in a hover-animated card.
+└─ ServicesShowcase.tsx – ServicesShowcase client component rendering EV service offerings (mechanics, charging installation, detailing, software, tires, insurance) via ShowcaseCarousel with predefined service data.
+```
 ## Internationalization, Forms & Validation
 - **next-intl** `^4.4.0` orchestrates routing-aware translations. Localization lives under `app/[locale]/`, where the per-locale layout loads Poppins, sets the HTML language attribute, and wraps descendants in `NextIntlClientProvider` alongside the shared `Navbar`.
 - Routing is declared in `i18n/routing.ts` via `defineRouting`; Spanish (`es`) is the default locale with an as-needed prefix strategy and locale detection disabled. Marketing pages (`/`, `/precios`, `/test`) render without authentication while `/en`, `/en/prices`, and the localized `/auth/*` and `/protected/*` segments map to their English counterparts. Navigation helpers (`Link`, `redirect`, `useRouter`, etc.) are generated with `createNavigation(routing)`, and `publicLocalePaths` exposes the marketing surface for the Supabase proxy middleware.
