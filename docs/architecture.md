@@ -18,6 +18,42 @@ All core versions are aligned with the official Next.js 16 compatibility matrix
 
 These packages run on the Node.js runtime used by Next.js API routes and Server Actions and have no known conflicts with Next.js 16.
 
+
+### Database Schema Organization
+
+The database schema is organized in a modular structure under `lib/db/schema/`:
+
+```
+lib/db/schema/
+├─ vehicles.ts          - Core vehicle data and specifications (vehicles, vehicle_specifications)
+├─ organizations.ts     - Dealers, agencies, and importers (organizations)
+├─ vehicle-pricing.ts   - Vehicle-organization pricing relationships (vehicle_pricing)
+├─ vehicle-images.ts    - Image metadata and variants (vehicle_images, vehicle_image_variants)
+├─ banks.ts             - Financing partners (banks)
+└─ index.ts             - Barrel export for all schema tables
+```
+
+**Schema design principles:**
+- **Modular organization**: Each domain entity in its own file for maintainability
+- **TypeScript-first**: All tables use proper TypeScript types with `$type<>` for enums
+- **JSONB for flexibility**: Complex/varying data structures (contact info, availability, financing, specs) use JSONB with documented examples
+- **Comprehensive indexing**: 21 indexes including composite indexes for common query patterns
+- **Referential integrity**: Foreign keys with cascade delete for automatic cleanup
+- **i18n-ready**: descriptionI18n and variantI18n fields for future localization
+- **Performance optimization**: Materialized views defined in `lib/db/migrations/materialized-views.sql` for Phase 2+
+
+**Key tables:**
+- `vehicles` (7 core tables total) - UUID primary keys, unique slugs, JSONB specs, published status
+- `vehicle_specifications` (1:1 with vehicles) - Filterable specs with multi-cycle range support (CLTC, WLTP, EPA, NEDC)
+- `organizations` - Seller entities with type classification (AGENCY, DEALER, IMPORTER)
+- `vehicle_pricing` - Many-to-many junction with pricing, financing, availability, and perks
+- `vehicle_images` & `vehicle_image_variants` - Normalized image metadata with responsive variant tracking
+- `banks` - Standalone financing partners with generic rate information
+
+**Materialized views** (Phase 2+):
+- `vehicles_with_media` - Denormalized vehicle+images for listing performance
+- `vehicles_with_pricing` - Precomputed price ranges and seller counts
+
 ## Presentation Layer
 - Component primitives come from **Radix UI** (`@radix-ui/*` packages) wrapped with **shadcn** `^3.5.0` generators for consistent UI patterns.
 - Styling is powered by **tailwindcss** `^4`, **@tailwindcss/postcss** `^4`, **tailwind-merge** `^3.3.1`, and helpers such as **class-variance-authority**, **clsx**, and **next-themes** for theming.

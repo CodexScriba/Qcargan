@@ -7,7 +7,7 @@ const connectionString =
   })()
 
 export default defineConfig({
-  schema: './drizzle/schema.ts',
+  schema: './lib/db/schema/index.ts',
   out: './drizzle',
   dialect: 'postgresql',
   strict: true,
