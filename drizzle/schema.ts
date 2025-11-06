@@ -1,7 +1,7 @@
 import { pgTable, pgSchema, uuid, text, timestamp, uniqueIndex, numeric, index, jsonb, integer, boolean, foreignKey, unique, pgPolicy, pgEnum } from "drizzle-orm/pg-core"
 import { sql } from "drizzle-orm"
 
-export const bodyType = pgEnum("body_type", ['SEDAN', 'SUV', 'CITY_CAR', 'PICKUP', 'VAN'])
+export const bodyType = pgEnum("body_type", ['SEDAN', 'CITY', 'SUV', 'PICKUP_VAN'])
 export const capability = pgEnum("capability", ['SELL_VEHICLES', 'SELL_ACCESSORIES', 'OFFER_SERVICES', 'IMPORT_VEHICLES', 'PRIORITY_LISTINGS'])
 export const membershipRole = pgEnum("membership_role", ['OWNER', 'ADMIN', 'STAFF', 'MEMBER'])
 export const organizationType = pgEnum("organization_type", ['AGENCY', 'DEALER', 'IMPORTER', 'SERVICE_PROVIDER', 'ACCESSORY_SELLER', 'INDIVIDUAL_SELLER'])
@@ -20,14 +20,25 @@ export const usersInAuth = authSchema.table("users", {
 
 export const banks = pgTable("banks", {
 	id: uuid().defaultRandom().primaryKey().notNull(),
+	slug: text().notNull(),
 	name: text().notNull(),
-	whatsapp: text().notNull(),
-	message: text().notNull(),
-	blurb: text().notNull(),
 	logoUrl: text("logo_url"),
+	websiteUrl: text("website_url"),
+	contactPhone: text("contact_phone"),
+	contactEmail: text("contact_email"),
+	typicalAprMin: numeric("typical_apr_min", { precision: 4, scale: 2 }),
+	typicalAprMax: numeric("typical_apr_max", { precision: 4, scale: 2 }),
+	typicalTermMonths: integer("typical_term_months").array(),
+	description: text(),
+	isFeatured: boolean("is_featured").default(false).notNull(),
+	displayOrder: integer("display_order").default(0).notNull(),
+	isActive: boolean("is_active").default(true).notNull(),
 	createdAt: timestamp("created_at", { precision: 6, withTimezone: true, mode: 'string' }).default(sql`CURRENT_TIMESTAMP`).notNull(),
-	updatedAt: timestamp("updated_at", { precision: 6, withTimezone: true, mode: 'string' }).notNull(),
-});
+	updatedAt: timestamp("updated_at", { precision: 6, withTimezone: true, mode: 'string' }).default(sql`CURRENT_TIMESTAMP`).notNull(),
+}, (table) => [
+	uniqueIndex("banks_slug_key").using("btree", table.slug.asc().nullsLast().op("text_ops")),
+	index("banks_featured_idx").using("btree", table.isFeatured.asc().nullsLast().op("bool_ops"), table.displayOrder.asc().nullsLast().op("int4_ops")).where(sql`${table.isFeatured} = true`),
+]);
 
 export const products = pgTable("products", {
 	id: uuid().defaultRandom().primaryKey().notNull(),
@@ -48,31 +59,22 @@ export const products = pgTable("products", {
 ]);
 
 export const organizations = pgTable("organizations", {
-	id: uuid().primaryKey().notNull(),
+	id: uuid().defaultRandom().primaryKey().notNull(),
+	slug: text().notNull(),
 	name: text().notNull(),
 	type: organizationType().notNull(),
-	features: capability().array(),
-	slug: text(),
 	logoUrl: text("logo_url"),
+	contact: jsonb().default('{}'),
+	official: boolean().default(false).notNull(),
+	badges: text().array().default(sql`'{}'`),
 	description: text(),
-	badges: text().array(),
-	email: text(),
-	phone: text(),
-	whatsapp: text(),
-	website: text(),
-	brandsCarried: text("brands_carried").array(),
-	serviceAreas: text("service_areas").array(),
-	locations: jsonb(),
-	socialMedia: jsonb("social_media"),
-	rating: numeric({ precision: 3, scale:  2 }),
-	reviewCount: integer("review_count").default(0).notNull(),
-	publicListed: boolean("public_listed").default(false).notNull(),
-	reviewsEnabled: boolean("reviews_enabled").default(false).notNull(),
+	isActive: boolean("is_active").default(true).notNull(),
 	createdAt: timestamp("created_at", { precision: 6, withTimezone: true, mode: 'string' }).default(sql`CURRENT_TIMESTAMP`).notNull(),
 	updatedAt: timestamp("updated_at", { precision: 6, withTimezone: true, mode: 'string' }).default(sql`CURRENT_TIMESTAMP`).notNull(),
 }, (table) => [
-	index("organizations_public_listed_idx").using("btree", table.publicListed.asc().nullsLast().op("bool_ops")),
-	index("organizations_rating_idx").using("btree", table.rating.asc().nullsLast().op("numeric_ops")),
+	index("organizations_slug_idx").using("btree", table.slug.asc().nullsLast().op("text_ops")),
+	index("organizations_type_idx").using("btree", table.type.asc().nullsLast().op("enum_ops")),
+	index("organizations_active_idx").using("btree", table.isActive.asc().nullsLast().op("bool_ops")).where(sql`${table.isActive} = true`),
 	uniqueIndex("organizations_slug_key").using("btree", table.slug.asc().nullsLast().op("text_ops")),
 ]);
 
@@ -104,54 +106,104 @@ export const vehicles = pgTable("vehicles", {
 	brand: text().notNull(),
 	model: text().notNull(),
 	year: integer().notNull(),
-	variant: text().notNull(),
+	variant: text(),
 	badges: text().array(),
-	identityDisplay: text("identity_display").notNull(),
-	organizationId: uuid("organization_id").notNull(),
-	isNew: boolean("is_new").default(true).notNull(),
-	bodyType: bodyType("body_type").notNull(),
-	rangeKm: integer("range_km"),
-	seats: integer(),
-	priceMin: numeric("price_min", { precision: 10, scale:  2 }),
-	specs: jsonb().notNull(),
+	description: text(),
+	descriptionI18n: jsonb("description_i18n"),
+	variantI18n: jsonb("variant_i18n"),
+	isPublished: boolean("is_published").default(false).notNull(),
+	specs: jsonb().default('{}').notNull(),
 	media: jsonb().notNull(),
-	availability: jsonb(),
-	reviews: jsonb(),
 	createdAt: timestamp("created_at", { precision: 6, withTimezone: true, mode: 'string' }).default(sql`CURRENT_TIMESTAMP`).notNull(),
-	updatedAt: timestamp("updated_at", { precision: 6, withTimezone: true, mode: 'string' }).notNull(),
+	updatedAt: timestamp("updated_at", { precision: 6, withTimezone: true, mode: 'string' }).default(sql`CURRENT_TIMESTAMP`).notNull(),
 }, (table) => [
-	index("vehicles_body_type_idx").using("btree", table.bodyType.asc().nullsLast().op("enum_ops")),
 	index("vehicles_brand_idx").using("btree", table.brand.asc().nullsLast().op("text_ops")),
-	index("vehicles_brand_model_year_idx").using("btree", table.brand.asc().nullsLast().op("int4_ops"), table.model.asc().nullsLast().op("text_ops"), table.year.asc().nullsLast().op("int4_ops")),
-	index("vehicles_organization_id_idx").using("btree", table.organizationId.asc().nullsLast().op("uuid_ops")),
-	index("vehicles_price_min_idx").using("btree", table.priceMin.asc().nullsLast().op("numeric_ops")),
-	index("vehicles_range_km_idx").using("btree", table.rangeKm.asc().nullsLast().op("int4_ops")),
+	index("vehicles_year_idx").using("btree", table.year.desc().nullsLast().op("int4_ops")),
+	index("vehicles_published_idx").using("btree", table.isPublished.asc().nullsLast().op("bool_ops")).where(sql`${table.isPublished} = true`),
 	uniqueIndex("vehicles_slug_key").using("btree", table.slug.asc().nullsLast().op("text_ops")),
+]);
+
+export const vehicleSpecifications = pgTable("vehicle_specifications", {
+	vehicleId: uuid("vehicle_id").primaryKey().notNull(),
+	// Range (multi-cycle support)
+	rangeKmCltc: integer("range_km_cltc"),
+	rangeKmWltp: integer("range_km_wltp"),
+	rangeKmEpa: integer("range_km_epa"),
+	rangeKmNedc: integer("range_km_nedc"),
+	rangeKmClcReported: integer("range_km_clc_reported"),
+	// Battery & Power
+	batteryKwh: numeric("battery_kwh", { precision: 5, scale: 1 }),
+	// Performance
+	acceleration0100Sec: numeric("acceleration_0_100_sec", { precision: 3, scale: 1 }),
+	topSpeedKmh: integer("top_speed_kmh"),
+	powerKw: integer("power_kw"),
+	powerHp: integer("power_hp"),
+	// Charging
+	chargingDcKw: integer("charging_dc_kw"),
+	chargingTimeDcMin: integer("charging_time_dc_min"),
+	// Physical
+	seats: integer(),
+	weightKg: integer("weight_kg"),
+	bodyType: bodyType("body_type").notNull(),
+	// User Sentiment (computed, Phase 4+)
+	sentimentPositivePercent: numeric("sentiment_positive_percent", { precision: 4, scale: 1 }),
+	sentimentNeutralPercent: numeric("sentiment_neutral_percent", { precision: 4, scale: 1 }),
+	sentimentNegativePercent: numeric("sentiment_negative_percent", { precision: 4, scale: 1 }),
+	// Metadata
+	updatedAt: timestamp("updated_at", { precision: 6, withTimezone: true, mode: 'string' }).default(sql`CURRENT_TIMESTAMP`).notNull(),
+}, (table) => [
 	foreignKey({
-			columns: [table.organizationId],
-			foreignColumns: [organizations.id],
-			name: "vehicles_organization_id_fkey"
-		}).onUpdate("cascade").onDelete("cascade"),
+		columns: [table.vehicleId],
+		foreignColumns: [vehicles.id],
+		name: "vehicle_specifications_vehicle_id_fkey"
+	}).onUpdate("cascade").onDelete("cascade"),
+	index("vehicle_specifications_range_cltc_idx").using("btree", table.rangeKmCltc.desc().nullsLast().op("int4_ops")),
+	index("vehicle_specifications_battery_idx").using("btree", table.batteryKwh.desc().nullsLast().op("numeric_ops")),
+	index("vehicle_specifications_body_type_idx").using("btree", table.bodyType.asc().nullsLast().op("enum_ops")),
+	index("vehicle_specifications_seats_idx").using("btree", table.seats.asc().nullsLast().op("int4_ops")),
+	index("vehicle_specifications_sentiment_idx").using("btree", table.sentimentPositivePercent.desc().nullsLast().op("numeric_ops")),
+	index("vehicle_specifications_range_battery_idx").using("btree", table.rangeKmCltc.desc().nullsLast().op("int4_ops"), table.batteryKwh.desc().nullsLast().op("numeric_ops")),
+]);
+
+export const vehicleImages = pgTable("vehicle_images", {
+	id: uuid().defaultRandom().primaryKey().notNull(),
+	vehicleId: uuid("vehicle_id").notNull(),
+	storagePath: text("storage_path").notNull(),
+	displayOrder: integer("display_order").default(0).notNull(),
+	isHero: boolean("is_hero").default(false).notNull(),
+	altText: text("alt_text"),
+	caption: text(),
+	uploadedAt: timestamp("uploaded_at", { precision: 6, withTimezone: true, mode: 'string' }).default(sql`CURRENT_TIMESTAMP`).notNull(),
+}, (table) => [
+	foreignKey({
+		columns: [table.vehicleId],
+		foreignColumns: [vehicles.id],
+		name: "vehicle_images_vehicle_id_fkey"
+	}).onUpdate("cascade").onDelete("cascade"),
+	index("vehicle_images_composite_idx").using("btree", table.vehicleId.asc().nullsLast().op("uuid_ops"), table.isHero.asc().nullsLast().op("bool_ops"), table.displayOrder.asc().nullsLast().op("int4_ops")),
 ]);
 
 export const vehiclePricing = pgTable("vehicle_pricing", {
 	id: uuid().defaultRandom().primaryKey().notNull(),
 	vehicleId: uuid("vehicle_id").notNull(),
 	organizationId: uuid("organization_id").notNull(),
-	type: vehiclePricingType().notNull(),
-	label: text().notNull(),
 	amount: numeric({ precision: 10, scale:  2 }).notNull(),
-	currency: text().notNull(),
-	perks: text().array(),
-	notes: text().array(),
+	currency: text().default('USD').notNull(),
+	availability: jsonb().default('{}'),
 	financing: jsonb(),
 	cta: jsonb(),
-	availabilityBadge: jsonb("availability_badge"),
+	perks: text().array().default(sql`'{}'`),
+	emphasis: text().default('none').notNull(),
+	displayOrder: integer("display_order").default(0).notNull(),
+	isActive: boolean("is_active").default(true).notNull(),
 	createdAt: timestamp("created_at", { precision: 6, withTimezone: true, mode: 'string' }).default(sql`CURRENT_TIMESTAMP`).notNull(),
-	updatedAt: timestamp("updated_at", { precision: 6, withTimezone: true, mode: 'string' }).notNull(),
+	updatedAt: timestamp("updated_at", { precision: 6, withTimezone: true, mode: 'string' }).default(sql`CURRENT_TIMESTAMP`).notNull(),
 }, (table) => [
+	index("vehicle_pricing_vehicle_idx").using("btree", table.vehicleId.asc().nullsLast().op("uuid_ops"), table.amount.asc().nullsLast().op("numeric_ops")),
 	index("vehicle_pricing_organization_id_idx").using("btree", table.organizationId.asc().nullsLast().op("uuid_ops")),
-	index("vehicle_pricing_vehicle_id_type_idx").using("btree", table.vehicleId.asc().nullsLast().op("uuid_ops"), table.type.asc().nullsLast().op("uuid_ops")),
+	index("vehicle_pricing_amount_idx").using("btree", table.amount.asc().nullsLast().op("numeric_ops")),
+	index("vehicle_pricing_active_idx").using("btree", table.isActive.asc().nullsLast().op("bool_ops")).where(sql`${table.isActive} = true`),
+	uniqueIndex("vehicle_pricing_unique_active").using("btree", table.vehicleId.asc().nullsLast().op("uuid_ops"), table.organizationId.asc().nullsLast().op("uuid_ops")).where(sql`${table.isActive} = true`),
 	foreignKey({
 			columns: [table.organizationId],
 			foreignColumns: [organizations.id],
