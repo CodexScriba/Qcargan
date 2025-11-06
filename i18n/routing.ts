@@ -43,7 +43,14 @@ const pathnames = {
     en: "/prices",
     es: "/precios",
   },
-  "/vehicles": "/vehicles",
+  "/vehicles": {
+    en: "/vehicles",
+    es: "/vehiculos",
+  },
+  "/vehicles/[slug]": {
+    en: "/vehicles/[slug]",
+    es: "/vehiculos/[slug]",
+  },
   "/vehicles/sedan": "/vehicles/sedan",
   "/vehicles/suv": "/vehicles/suv",
   "/vehicles/city": "/vehicles/city",

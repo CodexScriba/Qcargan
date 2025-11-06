@@ -216,6 +216,85 @@
       "submitting": "Guardando..."
     }
   },
+  "vehicle": {
+    "title": "Vehículos Eléctricos",
+    "specs": {
+      "range": "Autonomía",
+      "battery": "Batería",
+      "acceleration": "0-100 km/h",
+      "seats": "Asientos",
+      "charging": "Carga Rápida",
+      "power": "Potencia",
+      "topSpeed": "Velocidad Máxima",
+      "weight": "Peso",
+      "dimensions": "Dimensiones"
+    },
+    "bodyType": {
+      "SEDAN": "Sedán",
+      "CITY": "Ciudad",
+      "SUV": "SUV",
+      "PICKUP_VAN": "Pickup / Van"
+    },
+    "pricing": {
+      "from": "Desde",
+      "sellers": "{count, plural, =0 {0 vendedores} one {1 vendedor} other {# vendedores}}",
+      "contact": "Contactar",
+      "viewDetails": "Ver detalles",
+      "getQuote": "Cotizar",
+      "checkAvailability": "Consultar disponibilidad"
+    },
+    "filters": {
+      "all": "Todos",
+      "priceRange": "Rango de precio",
+      "rangeMin": "Autonomía mínima",
+      "seatsMin": "Asientos mínimos",
+      "bodyType": "Tipo de carrocería",
+      "brand": "Marca",
+      "sortBy": "Ordenar por",
+      "sortPrice": "Precio",
+      "sortRange": "Autonomía",
+      "sortNewest": "Más recientes"
+    },
+    "availability": {
+      "inStock": "En stock",
+      "preOrder": "Pre-orden",
+      "availableSoon": "Disponible pronto",
+      "contactForAvailability": "Contactar para disponibilidad"
+    },
+    "financing": {
+      "title": "Financiamiento",
+      "downPayment": "Prima",
+      "monthlyPayment": "Pago mensual",
+      "term": "{months} meses",
+      "aprRate": "Tasa APR"
+    },
+    "reviews": {
+      "title": "Reseñas de usuarios",
+      "positive": "Positivas",
+      "neutral": "Neutrales",
+      "negative": "Negativas",
+      "noReviews": "Sin reseñas todavía"
+    }
+  },
+  "agencyCard": {
+    "contact": "Contactar",
+    "details": "Ver detalles",
+    "officialAgency": "Agencia oficial",
+    "warranty": "Garantía",
+    "battery": "Batería",
+    "freeService": "Servicio gratis",
+    "delivery": "Entrega 0 km"
+  },
+  "seo": {
+    "vehicleDetail": {
+      "titleTemplate": "{year} {brand} {model} {variant} | QuéCargan",
+      "descriptionTemplate": "Explora el {brand} {model} eléctrico {year} en Costa Rica. Especificaciones, precios y disponibilidad de vendedores oficiales."
+    },
+    "vehicleList": {
+      "title": "Vehículos Eléctricos en Costa Rica | QuéCargan",
+      "description": "Compara y encuentra el mejor vehículo eléctrico en Costa Rica. Precios, especificaciones, autonomía y vendedores oficiales."
+    }
+  },
   "common": {
     "error": {
       "unknown": "Ocurrió un error"

@@ -1,15 +1,7 @@
 import { createHash } from 'crypto'
+import { slugify } from '../../lib/utils/identifiers'
 
-export function slugify(input: string): string {
-  return input
-    .normalize('NFKD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '')
-    .replace(/-{2,}/g, '-')
-    .trim()
-}
+export { slugify }
 
 export function stableUuid(namespace: string, value: string): string {
   const hash = createHash('sha256')
