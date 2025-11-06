@@ -1,5 +1,17 @@
 import { relations } from "drizzle-orm/relations";
-import { organizations, organizationMembers, profiles, vehicles, vehiclePricing, organizationReviews, userFavorites, userComparisons, usersInAuth } from "./schema";
+import {
+  organizations,
+  organizationMembers,
+  profiles,
+  vehicles,
+  vehiclePricing,
+  organizationReviews,
+  userFavorites,
+  userComparisons,
+  usersInAuth,
+  vehicleSpecifications,
+  vehicleImages,
+} from "./schema";
 
 export const organizationMembersRelations = relations(organizationMembers, ({one}) => ({
 	organization: one(organizations, {
@@ -14,7 +26,6 @@ export const organizationMembersRelations = relations(organizationMembers, ({one
 
 export const organizationsRelations = relations(organizations, ({many}) => ({
 	organizationMembers: many(organizationMembers),
-	vehicles: many(vehicles),
 	vehiclePricings: many(vehiclePricing),
 	organizationReviews: many(organizationReviews),
 }));
@@ -30,11 +41,9 @@ export const profilesRelations = relations(profiles, ({one, many}) => ({
 	}),
 }));
 
-export const vehiclesRelations = relations(vehicles, ({one, many}) => ({
-	organization: one(organizations, {
-		fields: [vehicles.organizationId],
-		references: [organizations.id]
-	}),
+export const vehiclesRelations = relations(vehicles, ({many}) => ({
+	specifications: many(vehicleSpecifications),
+	images: many(vehicleImages),
 	vehiclePricings: many(vehiclePricing),
 	userFavorites: many(userFavorites),
 }));
@@ -46,6 +55,20 @@ export const vehiclePricingRelations = relations(vehiclePricing, ({one}) => ({
 	}),
 	vehicle: one(vehicles, {
 		fields: [vehiclePricing.vehicleId],
+		references: [vehicles.id]
+	}),
+}));
+
+export const vehicleSpecificationsRelations = relations(vehicleSpecifications, ({one}) => ({
+	vehicle: one(vehicles, {
+		fields: [vehicleSpecifications.vehicleId],
+		references: [vehicles.id]
+	}),
+}));
+
+export const vehicleImagesRelations = relations(vehicleImages, ({one}) => ({
+	vehicle: one(vehicles, {
+		fields: [vehicleImages.vehicleId],
 		references: [vehicles.id]
 	}),
 }));

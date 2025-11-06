@@ -51,6 +51,10 @@ const pathnames = {
   "/vehicles/newest": "/vehicles/newest",
   "/vehicles/best-value": "/vehicles/best-value",
   "/vehicles/top-rated": "/vehicles/top-rated",
+  "/vehicles/[slug]": {
+    en: "/vehicles/[slug]",
+    es: "/vehicles/[slug]",
+  },
   "/used-cars/waitlist": "/used-cars/waitlist",
   "/services": "/services",
   "/services/financing": "/services/financing",
@@ -82,7 +86,10 @@ const localePathSet = new Set<string>();
 
 routing.locales.forEach((locale) => {
   (Object.keys(pathnames) as Array<PathnameKey>).forEach((href) => {
-    const localizedPath = getPathname({ locale, href });
+    if (href === "/vehicles/[slug]") {
+      return;
+    }
+    const localizedPath = getPathname({ locale, href }) as string;
 
     localePathSet.add(localizedPath);
 
@@ -98,3 +105,5 @@ routing.locales.forEach((locale) => {
 });
 
 export const publicLocalePaths = localePathSet;
+
+export type AppHref = Parameters<typeof Link>[0]['href'];

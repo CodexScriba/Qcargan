@@ -1,45 +1,46 @@
 import React from 'react'
 
-interface Vehicle {
+export type RangeTestMethod = 'CLTC' | 'WLTP' | 'EPA' | 'NEDC'
+
+export interface ProductTitleVehicle {
   brand: string
   model: string
   year: number
-  variant: string
-  specs: {
-    range: { value: number; method: string }
-    battery: { kWh: number | null }
-  }
+  variant?: string | null
+  rangeKm?: number | null
+  rangeMethod?: RangeTestMethod | null
+  batteryKwh?: number | null
 }
 
-interface ProductTitleProps {
-  vehicle: Vehicle
+export interface ProductTitleProps {
+  vehicle: ProductTitleVehicle
 }
 
 export default function ProductTitle({ vehicle }: ProductTitleProps) {
-  const { brand, model, year, variant, specs } = vehicle
-  const { range, battery } = specs
-
-  // Futuristic yet minimal headline with specs relegated to a single supporting line
-  const mainTitle = `${year} ${brand} ${model}`
+  const { brand, model, year, variant, rangeKm, rangeMethod, batteryKwh } = vehicle
 
   const subtitleParts = [
-    variant,
-    `${range.value} km ${range.method}`,
-    battery.kWh ? `${battery.kWh} kWh` : undefined,
+    variant?.trim() || undefined,
+    typeof rangeKm === 'number' && rangeKm > 0
+      ? `${Math.round(rangeKm)} km${rangeMethod ? ` ${rangeMethod}` : ''}`
+      : undefined,
+    typeof batteryKwh === 'number' && batteryKwh > 0
+      ? `${batteryKwh} kWh`
+      : undefined,
   ].filter(Boolean)
-
-  const subtitle = subtitleParts.join(' • ')
 
   return (
     <div className="relative flex flex-col items-center gap-2 text-center">
       <div className="relative flex flex-col items-center">
         <h1 className="relative text-[clamp(1.9rem,1.7rem+1vw,2.5rem)] font-bold leading-tight tracking-tight bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--brand))] bg-clip-text text-transparent">
-          {mainTitle}
+          {`${year} ${brand} ${model}`}
         </h1>
       </div>
-      <p className="text-[0.75rem] font-semibold uppercase tracking-[0.3em] text-[hsl(var(--muted-foreground))]">
-        {subtitle}
-      </p>
+      {subtitleParts.length > 0 && (
+        <p className="text-[0.75rem] font-semibold uppercase tracking-[0.3em] text-[hsl(var(--muted-foreground))]">
+          {subtitleParts.join(' • ')}
+        </p>
+      )}
     </div>
   )
 }

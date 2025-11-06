@@ -50,11 +50,11 @@ components/layout/language-switcher.tsx – locale selector wired to `next-intl`
 
 ```
 components/product/
-├─ product-title.tsx – ProductTitle component that formats vehicle metadata (brand, model, year, variant) into a gradient headline with battery and range specs as supporting details. Accepts a vehicle object and renders a centered, responsive title block using clamp-based typography and theme-aware gradients.
-├─ seller-card.tsx – SellerCard displays pricing offers from dealers, agencies, and importers with financing details, availability badges, perks, and CTAs. Supports emphasis styling for featured offers.
-├─ see-all-sellers-card.tsx – SeeAllSellersCard link component that shows total available seller options and routes to the full sellers list.
-├─ car-action-buttons.tsx – CarActionButtons client component providing primary actions (contact, share) for vehicle listings.
-├─ vehicle-all-specs.tsx – VehicleAllSpecs displays comprehensive technical specifications in an organized layout, accepting a vehicle object with detailed spec data.
+├─ product-title.tsx – ProductTitle formats flattened vehicle metadata (brand, model, year, variant) with optional range/battery signals into a gradient headline sized via clamp typography.
+├─ seller-card.tsx – SellerCard renders dealership pricing using a `seller` + `pricing` contract, covering availability badges, financing snippets, CTAs, perks, and emphasis styles.
+├─ see-all-sellers-card.tsx – SeeAllSellersCard highlights the remaining offer count and links to locale-aware inventory routes via the typed next-intl `Link` helper.
+├─ car-action-buttons.tsx – CarActionButtons client component exposing contact/share actions with Web Share API + clipboard fallback and customizable labels.
+├─ vehicle-all-specs.tsx – VehicleAllSpecs visualizes normalized spec metrics (range, battery, performance, charging, seating, weight) sourced from Drizzle joins.
 └─ index.ts – Barrel export for all product components.
 ```
 
@@ -73,7 +73,7 @@ components/agency/
 
 ```
 components/ui/
-└─ image-carousel.tsx – ImageCarousel client component for browsing vehicle media galleries with navigation and initial index support.
+└─ image-carousel.tsx – ImageCarousel client component for browsing vehicle media galleries backed by `{url, alt}` objects with navigation and thumbnail support.
 ```
 
 - **Showcase components** handle content carousels for products and services:
@@ -164,3 +164,30 @@ DIRECT_URL=<supabase_direct_url>
 4. Review Context7 documentation for the latest Next.js 16 changes before modifying framework-level code (see `AGENTS.MD` for the required workflow).
 
 With the above versions and practices, all listed dependencies are compatible with Next.js 16 and ready for the ongoing migration from the legacy `quecargan` application.
+
+## Phase 1 Vehicle Marketplace Additions
+
+### File Inventory
+- `app/[locale]/vehicles/page.tsx` – server component that lists published vehicles, pulls translations from `messages/{locale}.json`, and links to individual vehicle pages.
+- `app/[locale]/vehicles/[slug]/page.tsx` – server component for vehicle detail views; stitches together hero media, seller offers, and specification blocks.
+- `components/ui/image-carousel.tsx` – client carousel scaffold rendering the hero media passed from detail pages.
+- `components/product/` (`product-title.tsx`, `seller-card.tsx`, `see-all-sellers-card.tsx`, `car-action-buttons.tsx`, `vehicle-all-specs.tsx`) – shared UI building blocks reused by both listing and detail experiences.
+- `lib/db/queries/vehicles.ts` – Drizzle query layer for vehicle listings, detail lookups, pricing aggregation, and brand discovery.
+- `lib/db/queries/organizations.ts` – companion query utilities for organizations and banks tied to vehicle offers.
+- `scripts/utils/identifiers.ts` – deterministic slug and UUID helpers used by seeding utilities.
+- `scripts/seed-phase1-vehicles.ts` – seed script that provisions Phase 1 vehicles, organizations, banks, specs, images, and pricing records.
+- `drizzle/schema.ts` – schema expansions covering `vehicles`, `vehicle_specifications`, `vehicle_images`, `vehicle_pricing`, and related enums/constraints.
+- `drizzle/relations.ts` – relation mappings that must reflect the schema changes to maintain type-safe joins.
+- `messages/en.json`, `messages/es.json` – new `vehicle.*` and `agencyCard.*` namespaces consumed by marketplace components.
+
+### Runtime Relationships
+- The listing page (`app/[locale]/vehicles/page.tsx`) calls `lib/db/queries/vehicles.getVehicles()` and `getAvailableBrands()` to build the filter UI and result grid; each card routes into the slug detail route and reads translation strings from the `vehicle` namespace.
+- The detail route (`app/[locale]/vehicles/[slug]/page.tsx`) relies on `getVehicleBySlug()` for the primary payload, then fans out into `ProductTitle`, `ImageCarousel`, `CarActionButtons`, `SellerCard`, `SeeAllSellersCard`, and `VehicleAllSpecs` to render the page sections.
+- Pricing panels on the detail page incorporate organization metadata provided by the join in `getVehicleBySlug()` and localized labels from the `agencyCard` namespace.
+- `ImageCarousel`, `SellerCard`, `ProductTitle`, and `VehicleAllSpecs` currently mirror the design playground API; any contract changes in these components must be coordinated with both Phase 1 pages to avoid regressions.
+- The seed script populates every table declared in `drizzle/schema.ts` using helpers from `scripts/utils/identifiers.ts`, ensuring the queries above have deterministic mock data in non-production environments.
+- `drizzle/relations.ts` underpins forthcoming relational helpers; keep it synchronized with schema changes before adding higher-level ORM abstractions.
+
+### Operational Notes
+- Generate and check in Drizzle migrations that encode the Phase 1 schema before deploying seeds.
+- Populate Supabase Storage (or local `public/`) with the image paths referenced by the seed script so that the carousel and thumbnail components render real assets.

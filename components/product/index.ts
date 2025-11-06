@@ -1,5 +1,15 @@
-export { default as ProductTitle } from './product-title'
+export {
+  default as ProductTitle,
+  type ProductTitleVehicle,
+  type ProductTitleProps,
+  type RangeTestMethod,
+} from './product-title'
 export { SellerCard, type SellerType, type SellerCardProps } from './seller-card'
 export { SeeAllSellersCard, type SeeAllSellersCardProps } from './see-all-sellers-card'
-export { CarActionButtons } from './car-action-buttons'
-export { default as VehicleAllSpecs, type VehicleLike, type VehicleAllSpecsProps } from './vehicle-all-specs'
+export { CarActionButtons, type CarActionButtonsProps } from './car-action-buttons'
+export {
+  default as VehicleAllSpecs,
+  type VehicleSummary,
+  type VehicleAllSpecsProps,
+  type VehicleSpecificationsDisplay,
+} from './vehicle-all-specs'

@@ -21,6 +21,8 @@ import { eq } from 'drizzle-orm'
 
 const { db, sql: sqlClient } = createDatabase()
 
+const PLACEHOLDER_IMAGE = '/placeholder-car.svg'
+
 // Helper to generate stable UUIDs for seed data
 const uuid = (namespace: string, key: string) => stableUuid(namespace, key)
 
@@ -468,16 +470,45 @@ const vehicleSpecifications = [
 // Vehicle Images
 const vehicleImages: any[] = []
 vehicles.forEach((vehicle) => {
-  vehicle.media.images.forEach((img: any, index: number) => {
+  const rawImages = Array.isArray((vehicle as any)?.media?.images)
+    ? (vehicle as any).media.images
+    : []
+
+  const heroIndex = typeof (vehicle as any)?.media?.heroIndex === 'number'
+    ? (vehicle as any).media.heroIndex
+    : 0
+
+  const candidateImages = rawImages.length > 0
+    ? rawImages
+    : [{ url: PLACEHOLDER_IMAGE, alt: `${vehicle.brand} ${vehicle.model}`, isHero: true }]
+
+  const sanitizedImages = candidateImages.map((img: any, index: number) => {
+    const storagePath = img?.url || PLACEHOLDER_IMAGE
+    const altText = img?.alt || `${vehicle.brand} ${vehicle.model}`
+    const isHero = index === heroIndex || Boolean(img?.isHero)
+
     vehicleImages.push({
       id: uuid('image', `${vehicle.slug}-${index}`),
       vehicleId: vehicle.id,
-      storagePath: img.url,
+      storagePath,
       displayOrder: index,
-      isHero: img.isHero,
-      altText: img.alt,
+      isHero,
+      altText,
     })
+
+    return {
+      ...img,
+      url: storagePath,
+      alt: altText,
+      isHero,
+    }
   })
+
+  ;(vehicle as any).media = {
+    ...(vehicle as any).media,
+    images: sanitizedImages,
+    heroIndex: sanitizedImages.findIndex((img: any) => img.isHero) ?? 0,
+  }
 })
 
 // Vehicle Pricing

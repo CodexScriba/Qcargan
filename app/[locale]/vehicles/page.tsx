@@ -3,16 +3,29 @@ import { getVehicles, getAvailableBrands } from "@/lib/db/queries/vehicles"
 import { Link } from "@/i18n/routing"
 import Image from "next/image"
 
+type Awaitable<T> = T | Promise<T>
+
 type PageProps = {
-  params: Promise<{ locale: string }>
-  searchParams: Promise<{ brand?: string; bodyType?: string; priceMin?: string; priceMax?: string }>
+  params: Awaitable<{ locale: string }>
+  searchParams?: Awaitable<{ brand?: string | string[]; bodyType?: string | string[]; priceMin?: string | string[]; priceMax?: string | string[] }>
+}
+
+async function resolve<T>(value: Awaitable<T>): Promise<T> {
+  return value && typeof (value as any).then === "function"
+    ? await (value as Promise<T>)
+    : (value as T)
+}
+
+function first(value?: string | string[]): string | undefined {
+  if (!value) return undefined
+  return Array.isArray(value) ? value[0] : value
 }
 
 /**
  * Generate metadata for SEO
  */
-export async function generateMetadata({ params, searchParams }: PageProps) {
-  const { locale } = await params
+export async function generateMetadata({ params }: PageProps) {
+  const { locale } = await resolve(params)
   const t = await getTranslations({ locale, namespace: 'vehicle' })
 
   const title = locale === 'es'
@@ -36,8 +49,14 @@ export async function generateMetadata({ params, searchParams }: PageProps) {
 }
 
 export default async function VehiclesPage({ params, searchParams }: PageProps) {
-  const { locale } = await params
-  const filters = await searchParams
+  const { locale } = await resolve(params)
+  const resolvedSearchParams = searchParams ? await resolve(searchParams) : {}
+  const filters = {
+    brand: first(resolvedSearchParams.brand),
+    bodyType: first(resolvedSearchParams.bodyType),
+    priceMin: first(resolvedSearchParams.priceMin),
+    priceMax: first(resolvedSearchParams.priceMax),
+  }
   const t = await getTranslations({ locale, namespace: 'vehicle' })
 
   // Build filters object
@@ -68,7 +87,7 @@ export default async function VehiclesPage({ params, searchParams }: PageProps) 
       <div className="mb-8 flex flex-wrap gap-3">
         {/* All Vehicles */}
         <Link
-          href="/vehicles"
+          href={{ pathname: "/vehicles" }}
           className={`px-4 py-2 rounded-lg border transition-colors ${
             !filters.brand && !filters.bodyType
               ? 'bg-primary text-primary-foreground'
@@ -82,7 +101,7 @@ export default async function VehiclesPage({ params, searchParams }: PageProps) 
         {brands.map((brand) => (
           <Link
             key={brand}
-            href={`/vehicles?brand=${encodeURIComponent(brand)}`}
+            href={{ pathname: "/vehicles", query: { brand } }}
             className={`px-4 py-2 rounded-lg border transition-colors ${
               filters.brand === brand
                 ? 'bg-primary text-primary-foreground'
@@ -97,7 +116,7 @@ export default async function VehiclesPage({ params, searchParams }: PageProps) 
         {(['SEDAN', 'CITY', 'SUV', 'PICKUP_VAN'] as const).map((type) => (
           <Link
             key={type}
-            href={`/vehicles?bodyType=${type}`}
+            href={{ pathname: "/vehicles", query: { bodyType: type } }}
             className={`px-4 py-2 rounded-lg border transition-colors ${
               filters.bodyType === type
                 ? 'bg-primary text-primary-foreground'
@@ -122,13 +141,14 @@ export default async function VehiclesPage({ params, searchParams }: PageProps) 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {vehicles.map(({ vehicle, specifications, pricing }) => {
             // Get first image
-            const heroImage = (vehicle.media as any)?.images?.[0]?.url || '/placeholder-car.jpg'
+            const heroImage = (vehicle.media as any)?.images?.[0]?.url || '/placeholder-car.svg'
             const minPrice = pricing.minPrice ? parseFloat(pricing.minPrice) : null
+            const sellerCount = pricing.sellerCount ?? 0
 
             return (
               <Link
                 key={vehicle.id}
-                href={`/vehicles/${vehicle.slug}`}
+                href={{ pathname: "/vehicles/[slug]", params: { slug: vehicle.slug } }}
                 className="group block rounded-xl overflow-hidden bg-card border hover:border-primary transition-all"
               >
                 {/* Image */}
@@ -183,15 +203,19 @@ export default async function VehiclesPage({ params, searchParams }: PageProps) 
                   )}
 
                   {/* Price */}
-                  {minPrice && (
+                  {typeof minPrice === 'number' && !Number.isNaN(minPrice) && (
                     <div className="pt-2 border-t">
                       <p className="text-sm text-muted-foreground">{t('pricing.from')}</p>
                       <p className="text-2xl font-bold">
-                        ${minPrice.toLocaleString()}
+                        {new Intl.NumberFormat(locale === 'es' ? 'es-CR' : 'en-US', {
+                          style: 'currency',
+                          currency: 'USD',
+                          maximumFractionDigits: 0,
+                        }).format(minPrice)}
                       </p>
-                      {pricing.sellerCount > 1 && (
+                      {sellerCount > 1 && (
                         <p className="text-xs text-muted-foreground">
-                          {pricing.sellerCount} {locale === 'es' ? 'vendedores' : 'sellers'}
+                          {sellerCount} {locale === 'es' ? 'vendedores' : 'sellers'}
                         </p>
                       )}
                     </div>

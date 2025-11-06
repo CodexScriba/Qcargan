@@ -82,13 +82,13 @@ Phase 1 has been successfully implemented following the specifications in `docs/
 
 ✅ Features:
 - SEO metadata with OpenGraph and Twitter cards
-- Product title with key specs
-- Image carousel with hero image support
-- Action buttons (favorites, compare, share)
+- Product title with key specs surfaced from Phase 1 schema
+- Image carousel with hero image support and thumbnail navigation
+- Action buttons (contact dealer, share with copy fallback)
 - Key specification cards
 - Full description section
-- Pricing cards for all sellers
-- Full specifications display
+- Pricing cards for all sellers with availability, financing, and CTAs
+- Full specifications display backed by Drizzle data
 - Fully responsive design
 - i18n support for Spanish/English
 
@@ -100,12 +100,19 @@ Phase 1 has been successfully implemented following the specifications in `docs/
 - SEO metadata
 - Filter by brand
 - Filter by body type
-- Vehicle grid with cards
-- Pricing display (from minimum)
+- Vehicle grid with cards and badge support
+- Pricing display (from minimum) with formatted currency
 - Seller count display
 - Responsive design
 - Empty state handling
-- Real-time data fetching from database
+- Real-time data fetching from database with placeholder-safe imagery
+
+### 8. Type Safety & Routing
+
+- ✅ `npx tsc --noEmit` passes with Phase 1 modules enabled
+- ✅ Dynamic vehicle detail routes wired into `next-intl` helpers
+- ✅ Language switcher leverages typed router navigation
+- ✅ Placeholder asset (`public/placeholder-car.svg`) prevents broken thumbnails during seeding
 
 ---
 
@@ -191,7 +198,7 @@ The implementation leverages existing migrated components:
 2. **Generate migration** - Run `npm run drizzle:generate` (requires db connection)
 3. **Run migrations** - Apply schema to database
 4. **Seed database** - Run the seeding script
-5. **Add vehicle images** - Upload actual images to Supabase Storage
+5. **Replace placeholder imagery** - Upload production photos to Supabase Storage and update media JSON
 6. **Test pages** - Verify all pages work with real data
 
 ### Phase 2 Enhancements:
