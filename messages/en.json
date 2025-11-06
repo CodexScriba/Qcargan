@@ -1,0 +1,224 @@
+{
+  "Metadata": {
+    "title": "Qcargan | Logistics intelligence",
+    "description": "Track and price shipments with localized insights."
+  },
+  "Navigation": {
+    "home": "Home",
+    "pricing": "Pricing"
+  },
+  "Navbar": {
+    "newCars": "New Cars",
+    "usedCars": "Used Cars",
+    "services": "Services",
+    "shop": "Shop",
+    "login": "Login",
+    "signUp": "Create account",
+    "join": "Join",
+    "searchPlaceholder": "Search vehicles, services...",
+    "navigate": "Navigate",
+    "exploreModels": "Explore Electric Models",
+    "browseAll": "Browse All Vehicles",
+    "newest": "Newest Arrivals",
+    "newestDesc": "Explore the latest electric releases",
+    "bestValue": "Best Value",
+    "bestValueDesc": "Great pricing across every category",
+    "topRated": "Top Rated",
+    "topRatedDesc": "Customer favorites with stellar reviews",
+    "sedan": "Sedan",
+    "sedanDesc": "Comfortable, elegant and built for long-distance travel with a dedicated trunk.",
+    "suv": "SUV (Compact & Large)",
+    "suvDesc": "Spacious and versatile, perfect for families or weekend adventures.",
+    "city": "City (Hatchback & Compact)",
+    "cityDesc": "Agile and easy to park, ideal for dense urban living.",
+    "pickups": "Pickups & Vans",
+    "pickupsDesc": "Ready for work or cargo with flexible interior layouts.",
+    "usedMarketplace": "Used EV Marketplace",
+    "usedMarketplaceDesc": "We are building a dedicated space to list, price and sell pre-loved EVs with verified buyers. Join the early access list and get notified when the marketplace launches.",
+    "comingSoon": "Coming soon",
+    "listVehicle": "List your vehicle",
+    "listVehicleDesc": "Guided listing workflow with all EV-specific fields.",
+    "transparentPricing": "Transparent pricing",
+    "transparentPricingDesc": "Market insights help you set the right price.",
+    "scheduleViewings": "Schedule viewings",
+    "scheduleViewingsDesc": "Coordinate visits with verified buyers in one place.",
+    "joinWaitlist": "Join the waitlist",
+    "exploreServices": "Explore our partner services",
+    "viewAllServices": "View All Services",
+    "specialists": "Specialists",
+    "trustedNetwork": "Trusted network",
+    "featured": "Featured",
+    "financingTitle": "Financing Guidance",
+    "financingDesc": "Flexible financing options for every electric vehicle budget.",
+    "seeFinancing": "See financing partners",
+    "electricians": "Certified Electricians",
+    "electriciansDesc": "Installation, maintenance and repair of home charging stations.",
+    "workshops": "Mechanic Workshops",
+    "workshopsDesc": "Professional repairs and maintenance tailored for EVs.",
+    "detailing": "Detailing Studios",
+    "detailingDesc": "Protective coatings and deep cleaning sessions for your vehicle.",
+    "insurance": "Insurance Partners",
+    "insuranceDesc": "Quotes from insurers specialized in electric vehicles.",
+    "financingService": "Financing",
+    "financingServiceDesc": "Compare interest rates and pick the plan that fits your journey.",
+    "electriciansService": "Electricians",
+    "electriciansServiceDesc": "Find certified EV electricians near you for safe charger installs.",
+    "mechanicsService": "Mechanics",
+    "mechanicsServiceDesc": "Diagnostics and maintenance from trusted EV technicians.",
+    "detailingService": "Detailing",
+    "detailingServiceDesc": "Keep your car showroom fresh with curated detailing packages.",
+    "insuranceService": "Insurance",
+    "insuranceServiceDesc": "Protect your investment with coverage built for EV ownership.",
+    "shopAll": "Shop all accessories",
+    "exploreStore": "Explore the store",
+    "portableChargers": "Portable Chargers",
+    "portableChargersDesc": "Charge wherever you go with compact EV chargers.",
+    "wallChargers": "Wall Chargers",
+    "wallChargersDesc": "Reliable home or office charging installations.",
+    "accessories": "Accessories",
+    "accessoriesDesc": "Upgrade your ride with curated accessories.",
+    "tires": "Tires",
+    "tiresDesc": "EV-optimized tires for every terrain.",
+    "portableChargersShop": "Portable Chargers",
+    "portableChargersShopDesc": "Bring backup power anywhere with compact chargers.",
+    "wallChargersShop": "Wall Chargers",
+    "wallChargersShopDesc": "Fixed chargers with fast, safe energy delivery.",
+    "accessoriesShop": "Accessories",
+    "accessoriesShopDesc": "Personalize the experience with organizers and more.",
+    "tiresShop": "Tires",
+    "tiresShopDesc": "Performance-ready tires selected for EVs."
+  },
+  "Home": {
+    "heroTitle": "Ship smarter across Latin America.",
+    "heroDescription": "Qcargan centralizes your carrier rates, quote approvals, and billing in a single bilingual workspace.",
+    "ctaDocs": "Product overview",
+    "ctaDeploy": "Book a demo",
+    "ctaPricing": "See pricing",
+    "heroBadge": "Unified control center",
+    "sectionInsightsTitle": "Designed for modern logistics teams",
+    "sectionInsightsDescription": "Each workspace inherits the same glassmorphic surfaces, teal accents, and bilingual flows defined in our system styles.",
+    "ctaBannerTitle": "Bring clarity to every shipment",
+    "ctaBannerDescription": "Launch a bilingual workspace with glassmorphic cards, electric dark mode, and localized rates in minutes.",
+    "highlights": {
+      "visibility": {
+        "title": "Real-time visibility",
+        "description": "Blend vessel tracking, customs paperwork, and billing milestones into one lane timeline."
+      },
+      "automation": {
+        "title": "Adaptive automation",
+        "description": "Trigger milestone alerts, duty prepayments, and reconciliations with rules that match your playbook."
+      },
+      "insights": {
+        "title": "Insights for every team",
+        "description": "Finance, operations, and sales see the same numbers with localized currency and language."
+      }
+    },
+    "stats": {
+      "reliability": {
+        "value": "98%",
+        "label": "Milestones captured automatically"
+      },
+      "savings": {
+        "value": "24%",
+        "label": "Average savings after 90 days"
+      },
+      "time": {
+        "value": "12h",
+        "label": "Manual updates eliminated weekly"
+      }
+    }
+  },
+  "Pricing": {
+    "title": "Transparent pricing for growing teams",
+    "description": "Choose a plan that reflects your lane volume today and scale as your network expands.",
+    "back": "Back to home",
+    "tiers": {
+      "starter": {
+        "name": "Starter",
+        "price": "$99/mo",
+        "features": [
+          "Up to 500 monthly shipments",
+          "Carrier scorecards in English & Spanish"
+        ]
+      },
+      "growth": {
+        "name": "Growth",
+        "price": "$299/mo",
+        "features": [
+          "Unlimited quote requests",
+          "Automated customs paperwork"
+        ]
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "Login",
+      "description": "Enter your email to login",
+      "welcome": "Welcome back",
+      "subtitle": "Sign in to continue",
+      "identifier": "Email",
+      "email": "Email",
+      "password": "Password",
+      "forgot": "Forgot your password?",
+      "submit": "Login",
+      "submitting": "Logging in...",
+      "signup": "Don't have an account?",
+      "signupLink": "Sign up",
+      "orContinueWith": "Or continue with",
+      "remember": "Remember me",
+      "error": {
+        "invalidCredentials": "Invalid credentials. Please try again."
+      },
+      "oauth": {
+        "google": "Google",
+        "facebook": "Facebook"
+      }
+    },
+    "signup": {
+      "title": "Sign up",
+      "description": "Create a new account",
+      "email": "Email",
+      "displayName": "Display name",
+      "displayNameHelp": "This will appear on your profile",
+      "password": "Password",
+      "repeat": "Repeat Password",
+      "submit": "Sign up",
+      "submitting": "Creating an account...",
+      "haveAccount": "Already have an account?",
+      "loginLink": "Login",
+      "passwordsMismatch": "Passwords do not match"
+    },
+    "signUpSuccess": {
+      "title": "Welcome to Qcargan",
+      "subtitle": "Confirm your email to activate your workspace.",
+      "confirmation": "We just sent a confirmation link to your inbox. Open it to verify your account and unlock the dashboard.",
+      "tipsTitle": "Can't find the email?",
+      "tips": "Check spam or promotions and add hola@quecargan.com to your safe sender list.",
+      "ctaLogin": "Go to login",
+      "ctaHome": "Return home"
+    },
+    "forgot": {
+      "title": "Reset Your Password",
+      "description": "Type in your email and we'll send you a link to reset your password",
+      "email": "Email",
+      "submit": "Send reset email",
+      "submitting": "Sending...",
+      "successTitle": "Check Your Email",
+      "successDescription": "Password reset instructions sent",
+      "successBody": "If you registered using your email and password, you will receive a password reset email."
+    },
+    "update": {
+      "title": "Reset Your Password",
+      "description": "Please enter your new password below.",
+      "password": "New password",
+      "submit": "Save new password",
+      "submitting": "Saving..."
+    }
+  },
+  "common": {
+    "error": {
+      "unknown": "An error occurred"
+    }
+  }
+}

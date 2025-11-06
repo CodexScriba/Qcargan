@@ -16,10 +16,12 @@
 
 @layer base {
   :root {
-     /* Base (Light) - Modern Clean Foundation */
+    color-scheme: light;
+    /* Base (Light) - Modern Clean Foundation */
     --app-background: 200 62% 97%;      /* cool mist backdrop */
     --background: var(--app-background);
     --foreground: 220 28% 16%;          /* crisp charcoal */
+    --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
 
     /* Brand / Accent - Liquid Glass Lagoon */
     --brand: 188 82% 45%;
@@ -58,6 +60,8 @@
     --input: 0 0% 100%;
     --ring: 193 92% 52%;
     --radius: 0.75rem;
+    --destructive: 4 84% 62%;
+    --destructive-foreground: 0 0% 100%;
 
     /* Enhanced Typography Colors */
     --dark-blue: 210 72% 26%;
@@ -103,9 +107,11 @@
   }
 
   .dark {
+    color-scheme: dark;
     /* Base (Dark) — deep midnight glass with electric cyan refractions */
     --background: 226 66% 6%;
     --foreground: 213 32% 88%;
+    --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
     --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
 
     /* Electric accent system */
@@ -157,6 +163,8 @@
     --border-neon: 196 100% 68% / 0.4;
     --input: 224 58% 16% / 0.38;
     --ring: 196 100% 70%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
     /* Sidebar */
     --sidebar: 224 58% 16% / 0.3;
