@@ -1,4 +1,4 @@
-import { eq, sql } from 'drizzle-orm';
+import { sql } from 'drizzle-orm';
 import { pgTable, uuid, numeric, text, boolean, jsonb, integer, timestamp, index, uniqueIndex } from 'drizzle-orm/pg-core';
 import { vehicles } from './vehicles';
 import { organizations } from './organizations';
@@ -81,10 +81,10 @@ export const vehiclePricing = pgTable('vehicle_pricing', {
 }, (table) => ({
   uniqueActivePricing: uniqueIndex('unique_active_pricing')
     .on(table.vehicleId, table.organizationId)
-    .where(eq(table.isActive, true)),
+    .where(sql`${table.isActive} = true`),
   vehicleIdx: index('idx_vehicle_pricing_vehicle').on(table.vehicleId, table.amount),
   orgIdx: index('idx_vehicle_pricing_org').on(table.organizationId),
   amountIdx: index('idx_vehicle_pricing_amount').on(table.amount),
   activeIdx: index('idx_vehicle_pricing_active').on(table.isActive)
-    .where(eq(table.isActive, true)),
+    .where(sql`${table.isActive} = true`),
 }));

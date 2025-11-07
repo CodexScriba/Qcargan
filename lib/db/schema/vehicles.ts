@@ -1,4 +1,4 @@
-import { eq, sql } from 'drizzle-orm';
+import { sql } from 'drizzle-orm';
 import { pgTable, uuid, text, integer, boolean, jsonb, timestamp, index, uniqueIndex, numeric } from 'drizzle-orm/pg-core';
 
 export type VehicleSpecs = {
@@ -69,11 +69,11 @@ export const vehicles = pgTable('vehicles', {
   uniqueSlug: uniqueIndex('unique_slug').on(table.slug),
   uniqueVehicleIdentity: uniqueIndex('unique_vehicle_identity')
     .on(table.brand, table.model, table.year, sql`COALESCE(${table.variant}, '')`)
-    .where(eq(table.isPublished, true)),
+    .where(sql`${table.isPublished} = true`),
   brandIdx: index('idx_vehicles_brand').on(table.brand),
   yearIdx: index('idx_vehicles_year').on(table.year.desc()),
   publishedIdx: index('idx_vehicles_published').on(table.isPublished)
-    .where(eq(table.isPublished, true)),
+    .where(sql`${table.isPublished} = true`),
 }));
 
 export const vehicleSpecifications = pgTable('vehicle_specifications', {
