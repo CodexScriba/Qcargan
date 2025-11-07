@@ -16,7 +16,7 @@ All core versions are aligned with the official Next.js 16 compatibility matrix
 - Drizzle configuration lives in `drizzle.config.ts`, with schema and migration history under `drizzle/` and the runtime client exported from `lib/db/`.
 - Supabase helpers follow the SSR guidance from Context7: server/browser clients in `lib/supabase/` and middleware session refresh wired through `proxy.ts`.
 
-**✅ Task 1 Status**: Database schema implementation completed with 7 core tables, 21 indexes, and modular organization in `lib/db/schema/`.
+**✅ Task 1 Status**: Database schema implementation completed with 7 core tables, 21 indexes, modular organization in `lib/db/schema/`, and production-ready seed data automated via `scripts/seed-production-vehicles.ts`.
 
 These packages run on the Node.js runtime used by Next.js API routes and Server Actions and have no known conflicts with Next.js 16.
 
@@ -51,14 +51,22 @@ lib/db/schema/
 - `vehicle_images` & `vehicle_image_variants` - Normalized image metadata with responsive variant tracking, hero image support
 - `banks` - Standalone financing partners with generic APR ranges, contact info, featured status
 
-**Schema statistics**:
-- **7 Core Tables**: All implemented with full TypeScript coverage
-- **21 Indexes**: Including unique, composite, and conditional indexes
-- **5 Foreign Keys**: All with cascade delete for data integrity
-- **8 JSONB Fields**: Flexible data structures with documented examples
-- **3 Array Fields**: Text arrays for badges/perks, integer arrays for financing terms
+**Schema statistics** (post–Task 1):
+- **7 Core Tables** with full TypeScript coverage
+- **21 Indexes** (unique/composite/conditional) tuned to current query patterns
+- **5 Foreign Keys** with cascade delete for integrity and easier cleanup
+- **8 JSONB Fields** to capture flexible specs/contact/availability payloads
+- **3 Array Fields** for badges, perks, and loan terms
+- **Seed dataset** sourced from `cardatasample.json` covering 7 vehicle trims across 3 brands plus 3 banks/organizations
 
-**Materialized views** (Phase 2+):
+## Seed Data & Supabase Environment
+- `scripts/seed-production-vehicles.ts` ingests `cardatasample.json`, generates deterministic UUIDs/slugs, and upserts banks, organizations, vehicles, specs, media assets, and pricing. The script is idempotent and safe to re-run in CI/CD.
+- Run via `bun run seed:production-vehicles` (see `package.json` scripts). The script loads env vars through `dotenv`, so `.env.local` must define the Supabase connection strings/keys.
+- Pre-seed snapshot (taken before first run) confirmed empty vehicle tables (`vehicles:1`, `vehicle_specifications:0`, etc.) to document baseline state.
+- Post-seed counts (after two runs) stabilize at: `banks:3`, `organizations:6` (3 legacy + 3 seed), `vehicles:8` (1 legacy + 7 seed), `vehicle_specifications:7`, `vehicle_pricing:10`, `vehicle_images:14`, `vehicle_image_variants:7`.
+- Seeded assets assume CDN storage paths (`vehicles/{brand}/{model}-{variant}-hero.jpg`) and pair each hero image with a derived WebP variant for future CDN signing work.
+
+**Materialized views** (Phase 2+): 
 - `vehicles_with_media` - Denormalized vehicle+images for listing performance
 - `vehicles_with_pricing` - Precomputed price ranges and seller counts
 
@@ -203,37 +211,20 @@ DIRECT_URL=<supabase_direct_url>
 
 ## Current Implementation Status
 
-### ✅ Completed: Task 1 - Database Schema Implementation
-- **7 Core Tables**: All implemented with proper relationships and constraints
-- **21 Indexes**: Comprehensive indexing strategy for query performance
-- **5 Foreign Keys**: Cascade delete relationships ensuring data integrity
-- **8 JSONB Fields**: Flexible data structures with documented examples
-- **Materialized Views**: SQL defined for Phase 2+ optimization
-- **TypeScript Coverage**: Full type safety with `$type<>` enum assertions
+### ✅ Completed: Task 1 - Environment & Data Readiness
+- **Schema + migrations** generated via Drizzle and pushed to Supabase (no pending prompts).
+- **Seed script** (`scripts/seed-production-vehicles.ts`) populates banks, organizations, vehicles, specs, pricing, and media using the curated dataset.
+- **Idempotent seeding** verified by running twice; counts remain stable.
+- **Tests**: `bun test` green after seeding to ensure helpers unaffected.
+- **Scripts**: `package.json` exposes `seed:production-vehicles` alongside Drizzle utilities for CI/CD usage.
 
-**Files Created**:
-- `lib/db/schema/vehicles.ts` - vehicles, vehicle_specifications
-- `lib/db/schema/organizations.ts` - organizations
-- `lib/db/schema/vehicle-pricing.ts` - vehicle_pricing
-- `lib/db/schema/vehicle-images.ts` - vehicle_images, vehicle_image_variants
-- `lib/db/schema/banks.ts` - banks
-- `lib/db/schema/index.ts` - barrel export
-- `lib/db/migrations/materialized-views.sql` - Phase 2+ optimization
+### 🔄 In Progress: Task 2 - Query Hardening & CDN Media Prep
+- Harden `lib/db/queries/vehicles.ts`, `organizations.ts`, and `banks.ts` to enforce published/active flags.
+- Create `lib/supabase/storage.ts` for CDN/signed URL generation so vehicle media is browser-ready (including OG metadata paths).
+- Normalize numeric fields (e.g., pricing `amount`) to native numbers in query responses.
+- Add unit tests covering the new filters and URL helpers.
 
-**Database Deployment**: Pending environment configuration
-
-### 🔄 Upcoming: Task 2 - i18n & SEO Strategy Implementation
-**Type**: Backend configuration work (minimal frontend requirements)
-
-**Key components**:
-- Update `i18n/request.ts` for Next.js 16 compatibility
-- Add comprehensive Spanish/English translation keys
-- Create slug generation utility for SEO-friendly URLs
-- Document SEO metadata patterns for dynamic page titles
-- **Note**: Uses template translations, not real vehicle data
-
-**Estimated effort**: 2-3 hours
-**Dependencies**: Task 1 (database schema complete)
+> Task 2 builds directly on the seeded dataset, so Supabase now mirrors the local schema/data for integration tests.
 
 ## Next.js 16 Specific Guidance
 1. Middleware has been renamed to **proxy**; ensure files and exports adopt the new convention (`proxy.ts`, `export function proxy()`).
