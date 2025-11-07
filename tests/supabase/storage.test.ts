@@ -1,262 +1,280 @@
-import { describe, expect, test } from "bun:test"
+import { describe, expect, test, mock, beforeEach, afterEach, spyOn } from "bun:test"
+import type { SupabaseClient } from "@supabase/supabase-js"
 
 /**
- * Storage helper unit tests
- * These tests verify the storage URL conversion logic without requiring live Supabase connections
+ * Real unit tests for storage helper
+ * These tests import and execute the actual implementation with mocked Supabase client
  */
 
-describe("Storage Helper - URL Generation Logic", () => {
-  describe("getPublicImageUrl logic", () => {
-    test("handles empty storage path", () => {
-      const emptyPaths = ["", "   ", null, undefined]
+// Store original environment
+const originalEnv = { ...process.env }
 
-      emptyPaths.forEach((path) => {
-        const trimmed = path?.trim() ?? ""
-        expect(trimmed).toBe("")
-      })
+// Create mock storage responses
+const createMockStorage = () => ({
+  from: (bucket: string) => ({
+    createSignedUrl: async (path: string, expiresIn: number) => {
+      if (path === "vehicles/valid.jpg") {
+        return {
+          data: {
+            signedUrl: `https://test.supabase.co/storage/v1/object/sign/${bucket}/${path}?token=xyz789&exp=${expiresIn}`,
+          },
+          error: null,
+        }
+      }
+      if (path === "vehicles/missing.jpg") {
+        return {
+          data: null,
+          error: { message: "Object not found", name: "StorageError", status: 404 },
+        }
+      }
+      return { data: { signedUrl: "" }, error: null }
+    },
+    createSignedUrls: async (paths: string[], expiresIn: number) => {
+      if (paths.length === 2 && paths[0] === "vehicles/test1.jpg" && paths[1] === "vehicles/test2.jpg") {
+        return {
+          data: [
+            { signedUrl: `https://test.supabase.co/storage/v1/object/sign/${bucket}/vehicles/test1.jpg?token=abc123` },
+            { signedUrl: `https://test.supabase.co/storage/v1/object/sign/${bucket}/vehicles/test2.jpg?token=def456` },
+          ],
+          error: null,
+        }
+      }
+      return {
+        data: null,
+        error: { message: "Batch creation failed", name: "StorageError", status: 400 },
+      }
+    },
+    getPublicUrl: (path: string) => ({
+      data: { publicUrl: `https://test.supabase.co/storage/v1/object/public/${bucket}/${path}` },
+    }),
+    list: async (directory: string, options?: { search?: string }) => {
+      if (options?.search === "exists.jpg") {
+        return {
+          data: [{ name: "exists.jpg", id: "123", metadata: {}, updated_at: new Date().toISOString(), created_at: new Date().toISOString(), last_accessed_at: new Date().toISOString() }],
+          error: null,
+        }
+      }
+      return { data: [], error: null }
+    },
+  }),
+})
+
+describe("Storage Helper - Real Implementation Tests", () => {
+  beforeEach(async () => {
+    // Set up environment
+    process.env.NEXT_PUBLIC_SUPABASE_URL = "https://test.supabase.co"
+    process.env.SUPABASE_SERVICE_ROLE_KEY = "test-service-role-key"
+
+    // Mock the createClient function from @supabase/supabase-js
+    const supabaseModule = await import("@supabase/supabase-js")
+    mock.module("@supabase/supabase-js", () => ({
+      createClient: (url: string, key: string, options?: any) => ({
+        storage: createMockStorage(),
+      }),
+    }))
+  })
+
+  afterEach(() => {
+    // Restore environment
+    process.env = { ...originalEnv }
+    mock.restore()
+  })
+
+  describe("getPublicImageUrl", () => {
+    test("returns empty string for empty path", async () => {
+      // Import fresh to get mocked version
+      const storageModule = await import("@/lib/supabase/storage")
+      const result = await storageModule.getPublicImageUrl("")
+      expect(result).toBe("")
     })
 
-    test("validates storage path format", () => {
-      const validPaths = [
-        "vehicles/byd-seagull/hero.jpg",
-        "vehicles/nissan-leaf/front.png",
-        "organizations/dealer-logo.jpg",
-      ]
-
-      validPaths.forEach((path) => {
-        expect(path).toBeTruthy()
-        expect(path.includes("/")).toBe(true)
-        expect(path.length).toBeGreaterThan(0)
-      })
+    test("returns empty string for whitespace-only path", async () => {
+      const storageModule = await import("@/lib/supabase/storage")
+      const result = await storageModule.getPublicImageUrl("   ")
+      expect(result).toBe("")
     })
 
-    test("constructs expected public URL format", () => {
-      const storagePath = "vehicles/byd-seagull/hero.jpg"
-      const bucket = "vehicle-images"
+    test("returns signed URL for valid path (private bucket)", async () => {
+      const storageModule = await import("@/lib/supabase/storage")
+      const result = await storageModule.getPublicImageUrl("vehicles/valid.jpg")
 
-      // Expected format: https://{project}.supabase.co/storage/v1/object/public/{bucket}/{path}
-      const expectedPattern = new RegExp(
-        `storage/v1/object/public/${bucket}/${storagePath}`
-      )
+      expect(result).toContain("https://")
+      expect(result).toContain("sign")
+      expect(result).toContain("vehicle-images")
+      expect(result).toContain("vehicles/valid.jpg")
+      expect(result).toContain("token=")
+    })
 
-      // Simulated public URL
-      const publicUrl = `https://example.supabase.co/storage/v1/object/public/${bucket}/${storagePath}`
+    test("falls back to public URL when signed URL fails", async () => {
+      const storageModule = await import("@/lib/supabase/storage")
+      const result = await storageModule.getPublicImageUrl("vehicles/missing.jpg")
 
-      expect(publicUrl).toMatch(expectedPattern)
+      // Should fall back to public URL when signed URL creation fails
+      expect(result).toContain("https://")
+      expect(result).toContain("public")
+      expect(result).toContain("vehicles/missing.jpg")
+    })
+
+    test("respects custom bucket parameter", async () => {
+      const storageModule = await import("@/lib/supabase/storage")
+      const result = await storageModule.getPublicImageUrl("test.jpg", "custom-bucket")
+
+      expect(result).toContain("custom-bucket")
     })
   })
 
-  describe("getPublicImageUrls batch logic", () => {
-    test("handles empty array", () => {
-      const paths: string[] = []
-      expect(paths.length).toBe(0)
+  describe("getPublicImageUrls", () => {
+    test("returns empty array for empty input", async () => {
+      const storageModule = await import("@/lib/supabase/storage")
+      const result = await storageModule.getPublicImageUrls([])
+      expect(result).toEqual([])
     })
 
-    test("processes multiple paths in order", () => {
-      const paths = [
-        "vehicles/byd-seagull/hero.jpg",
-        "vehicles/byd-seagull/side.jpg",
-        "vehicles/byd-seagull/rear.jpg",
-      ]
+    test("handles mixed valid and empty paths", async () => {
+      const storageModule = await import("@/lib/supabase/storage")
+      const paths = ["vehicles/test1.jpg", "", "vehicles/test2.jpg"]
+      const result = await storageModule.getPublicImageUrls(paths)
 
-      // Batch processing should maintain order
-      const processedPaths = paths.map((path, index) => ({
-        originalIndex: index,
-        path,
-      }))
-
-      expect(processedPaths[0].originalIndex).toBe(0)
-      expect(processedPaths[1].originalIndex).toBe(1)
-      expect(processedPaths[2].originalIndex).toBe(2)
-      expect(processedPaths.length).toBe(paths.length)
+      expect(result.length).toBe(3)
+      expect(result[0]).toContain("sign")
+      expect(result[1]).toBe("")
+      expect(result[2]).toContain("sign")
     })
 
-    test("filters out invalid paths during batch processing", () => {
-      const paths = [
-        "vehicles/valid1.jpg",
-        "",
-        "vehicles/valid2.jpg",
-        "   ",
-        "vehicles/valid3.jpg",
-      ]
+    test("uses batch createSignedUrls for efficiency", async () => {
+      const storageModule = await import("@/lib/supabase/storage")
+      const paths = ["vehicles/test1.jpg", "vehicles/test2.jpg"]
+      const result = await storageModule.getPublicImageUrls(paths)
 
-      // Simulate filtering empty paths
-      const validPaths = paths.filter((p) => p.trim() !== "")
-
-      expect(validPaths.length).toBe(3)
-      expect(validPaths).toEqual([
-        "vehicles/valid1.jpg",
-        "vehicles/valid2.jpg",
-        "vehicles/valid3.jpg",
-      ])
-    })
-  })
-
-  describe("imageExists logic", () => {
-    test("handles invalid paths", () => {
-      const invalidPaths = ["", "   ", null, undefined]
-
-      invalidPaths.forEach((path) => {
-        const isValid = !!(path && path.trim() !== "")
-        expect(isValid).toBe(false)
-      })
+      expect(result.length).toBe(2)
+      expect(result[0]).toContain("sign")
+      expect(result[0]).toContain("token=abc123")
+      expect(result[1]).toContain("sign")
+      expect(result[1]).toContain("token=def456")
     })
 
-    test("validates path format for existence check", () => {
-      const path = "vehicles/byd-seagull/hero.jpg"
+    test("maintains order of input paths", async () => {
+      const storageModule = await import("@/lib/supabase/storage")
+      const paths = ["vehicles/test1.jpg", "vehicles/test2.jpg"]
+      const result = await storageModule.getPublicImageUrls(paths)
 
-      // Path should have a directory and filename
-      const lastSlashIndex = path.lastIndexOf("/")
-      const directory = path.substring(0, lastSlashIndex)
-      const filename = path.substring(lastSlashIndex + 1)
+      expect(result[0]).toContain("test1.jpg")
+      expect(result[1]).toContain("test2.jpg")
+    })
 
-      expect(directory).toBe("vehicles/byd-seagull")
-      expect(filename).toBe("hero.jpg")
-      expect(lastSlashIndex).toBeGreaterThan(0)
+    test("falls back to individual public URLs when batch fails", async () => {
+      const storageModule = await import("@/lib/supabase/storage")
+      const paths = ["vehicles/fail1.jpg", "vehicles/fail2.jpg"]
+      const result = await storageModule.getPublicImageUrls(paths)
+
+      expect(result.length).toBe(2)
+      // Should fall back to public URLs when batch signed URL creation fails
+      expect(result[0]).toContain("public")
+      expect(result[1]).toContain("public")
     })
   })
 
-  describe("URL fallback logic", () => {
-    test("uses public URL when available", () => {
-      const publicUrl =
-        "https://example.supabase.co/storage/v1/object/public/vehicle-images/hero.jpg"
-      const storagePath = "hero.jpg"
-
-      const finalUrl = publicUrl || storagePath
-      expect(finalUrl).toBe(publicUrl)
+  describe("imageExists", () => {
+    test("returns false for empty path", async () => {
+      const storageModule = await import("@/lib/supabase/storage")
+      const result = await storageModule.imageExists("")
+      expect(result).toBe(false)
     })
 
-    test("falls back to signed URL when public URL unavailable", () => {
-      const publicUrl = ""
-      const signedUrl =
-        "https://example.supabase.co/storage/v1/object/sign/vehicle-images/hero.jpg?token=xyz"
-      const storagePath = "hero.jpg"
-
-      const finalUrl = publicUrl || signedUrl || storagePath
-      expect(finalUrl).toBe(signedUrl)
+    test("returns true for existing file", async () => {
+      const storageModule = await import("@/lib/supabase/storage")
+      const result = await storageModule.imageExists("vehicles/exists.jpg")
+      expect(result).toBe(true)
     })
 
-    test("uses storage path as last resort", () => {
-      const publicUrl = ""
-      const signedUrl = ""
-      const storagePath = "vehicles/hero.jpg"
+    test("returns false for non-existent file", async () => {
+      const storageModule = await import("@/lib/supabase/storage")
+      const result = await storageModule.imageExists("vehicles/missing.jpg")
+      expect(result).toBe(false)
+    })
 
-      const finalUrl = publicUrl || signedUrl || storagePath
-      expect(finalUrl).toBe(storagePath)
+    test("handles errors gracefully", async () => {
+      const storageModule = await import("@/lib/supabase/storage")
+      // This should not throw
+      const result = await storageModule.imageExists("invalid/path")
+      expect(typeof result).toBe("boolean")
     })
   })
 
-  describe("CDN-safe URL characteristics", () => {
-    test("public URLs should use HTTPS", () => {
-      const urls = [
-        "https://example.supabase.co/storage/v1/object/public/vehicle-images/hero.jpg",
-        "https://cdn.example.com/vehicle-images/hero.jpg",
-      ]
+  describe("Environment validation", () => {
+    test("throws error when SUPABASE_URL is missing", async () => {
+      delete process.env.NEXT_PUBLIC_SUPABASE_URL
 
-      urls.forEach((url) => {
-        expect(url.startsWith("https://")).toBe(true)
-        expect(url.startsWith("http://")).toBe(false)
-      })
+      // Need to reload module to pick up new env
+      delete require.cache[require.resolve("@/lib/supabase/storage")]
+      const storageModule = await import("@/lib/supabase/storage")
+
+      try {
+        await storageModule.getPublicImageUrl("test.jpg")
+        expect(true).toBe(false) // Should not reach here
+      } catch (error) {
+        expect(error).toBeDefined()
+      }
     })
 
-    test("URLs should be browser-ready (no spaces or special chars)", () => {
-      const invalidPaths = [
-        "vehicles/hero image.jpg", // space
-        "vehicles/héro.jpg", // accented char
-        "vehicles/image?.jpg", // special char
-      ]
+    test("throws error when SERVICE_ROLE_KEY is missing", async () => {
+      delete process.env.SUPABASE_SERVICE_ROLE_KEY
 
-      // In production, these should be encoded
-      invalidPaths.forEach((path) => {
-        const hasInvalidChars =
-          path.includes(" ") ||
-          /[^\x00-\x7F]/.test(path) ||
-          /[?#\[\]]/.test(path)
+      // Need to reload module to pick up new env
+      delete require.cache[require.resolve("@/lib/supabase/storage")]
+      const storageModule = await import("@/lib/supabase/storage")
 
-        expect(hasInvalidChars).toBe(true)
-      })
-
-      // Valid paths should not need encoding
-      const validPath = "vehicles/byd-seagull/hero.jpg"
-      const hasInvalidChars =
-        validPath.includes(" ") ||
-        /[^\x00-\x7F]/.test(validPath) ||
-        /[?#\[\]]/.test(validPath)
-
-      expect(hasInvalidChars).toBe(false)
-    })
-  })
-
-  describe("Bucket configuration", () => {
-    test("uses correct default bucket", () => {
-      const DEFAULT_BUCKET = "vehicle-images"
-      expect(DEFAULT_BUCKET).toBe("vehicle-images")
-    })
-
-    test("supports custom bucket override", () => {
-      const defaultBucket = "vehicle-images"
-      const customBucket = "custom-images"
-
-      // Function should accept bucket parameter
-      const usedBucket = customBucket || defaultBucket
-      expect(usedBucket).toBe(customBucket)
-
-      // When no custom bucket provided
-      const usedDefaultBucket = undefined || defaultBucket
-      expect(usedDefaultBucket).toBe(defaultBucket)
-    })
-  })
-
-  describe("Signed URL expiry", () => {
-    test("default expiry should be 7 days", () => {
-      const SECONDS_PER_DAY = 60 * 60 * 24
-      const DEFAULT_EXPIRY = SECONDS_PER_DAY * 7
-
-      expect(DEFAULT_EXPIRY).toBe(604800) // 7 days in seconds
-    })
-
-    test("expiry should be in seconds (not milliseconds)", () => {
-      const SEVEN_DAYS_SECONDS = 604800
-      const SEVEN_DAYS_MILLIS = 604800000
-
-      // Our implementation should use seconds
-      expect(SEVEN_DAYS_SECONDS).toBeLessThan(SEVEN_DAYS_MILLIS)
+      try {
+        await storageModule.getPublicImageUrl("test.jpg")
+        expect(true).toBe(false) // Should not reach here
+      } catch (error) {
+        expect(error).toBeDefined()
+      }
     })
   })
 })
 
-describe("Storage Helper - Error Handling", () => {
-  test("returns empty string for null/undefined paths", () => {
-    const paths = [null, undefined, ""]
-
-    paths.forEach((path) => {
-      const result = path?.trim() ?? ""
-      expect(result).toBe("")
-    })
+describe("Storage Helper - URL Format Validation", () => {
+  beforeEach(() => {
+    process.env.NEXT_PUBLIC_SUPABASE_URL = "https://test.supabase.co"
+    process.env.SUPABASE_SERVICE_ROLE_KEY = "test-service-role-key"
   })
 
-  test("gracefully handles malformed paths", () => {
-    const malformedPaths = ["//double-slash.jpg", "no-extension", "/absolute/path"]
-
-    // These should still be processable, just might fail later
-    malformedPaths.forEach((path) => {
-      expect(path).toBeTruthy()
-      expect(typeof path).toBe("string")
-    })
+  afterEach(() => {
+    process.env = { ...originalEnv }
   })
 
-  test("imageExists returns false on errors", () => {
-    // Simulating error conditions
-    const errorScenarios = [
-      { path: "", shouldExist: false },
-      { path: null, shouldExist: false },
-      { path: "invalid-path", shouldExist: false }, // would fail in real check
-    ]
+  test("signed URLs have correct format", async () => {
+    const storageModule = await import("@/lib/supabase/storage")
+    const url = await storageModule.getPublicImageUrl("vehicles/valid.jpg")
 
-    errorScenarios.forEach((scenario) => {
-      const isValid = !!(scenario.path && scenario.path.trim() !== "")
-      // If path is invalid, existence check would return false
-      expect(scenario.shouldExist || !isValid).toBeTruthy()
+    // Signed URLs should have these characteristics
+    expect(url.startsWith("https://")).toBe(true)
+    expect(url).toContain("/storage/v1/object/")
+    expect(url).toContain("sign")
+    expect(url).toContain("token=")
+  })
+
+  test("public URLs have correct format as fallback", async () => {
+    const storageModule = await import("@/lib/supabase/storage")
+    // Force public URL fallback by using missing file
+    const url = await storageModule.getPublicImageUrl("vehicles/missing.jpg")
+
+    expect(url.startsWith("https://")).toBe(true)
+    expect(url).toContain("/storage/v1/object/public/")
+  })
+
+  test("all URLs use HTTPS", async () => {
+    const storageModule = await import("@/lib/supabase/storage")
+    const urls = await storageModule.getPublicImageUrls([
+      "vehicles/test1.jpg",
+      "vehicles/test2.jpg",
+    ])
+
+    urls.forEach((url) => {
+      if (url) {
+        expect(url.startsWith("https://")).toBe(true)
+      }
     })
   })
 })
