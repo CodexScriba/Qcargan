@@ -1,10 +1,64 @@
+import type { SupabaseClient } from "@supabase/supabase-js"
 import { createClient as createSupabaseClient } from "@supabase/supabase-js"
+import { createClient as createServerSupabaseClient } from "./server"
 
 /**
- * Storage bucket configuration
+ * Storage bucket configuration (server-only helper)
  */
 const VEHICLE_IMAGES_BUCKET = "vehicle-images"
 const DEFAULT_SIGNED_URL_EXPIRY = 60 * 60 * 24 * 7 // 7 days in seconds
+
+type StorageDeps = {
+  storageClient?: SupabaseClient
+}
+
+let cachedServiceClient: SupabaseClient | null = null
+let storageClientOverride: (() => Promise<SupabaseClient>) | null = null
+
+function assertStorageEnv() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+
+  if (!url || !serviceRoleKey) {
+    throw new Error(
+      "Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY environment variables"
+    )
+  }
+
+  return { url, serviceRoleKey }
+}
+
+async function resolveStorageClient(): Promise<SupabaseClient> {
+  if (storageClientOverride) {
+    return storageClientOverride()
+  }
+
+  try {
+    return await createServerSupabaseClient()
+  } catch (error) {
+    // When running outside of Next.js request scope (scripts/tests), fall back to service role client
+    if (!cachedServiceClient) {
+      const { url, serviceRoleKey } = assertStorageEnv()
+      cachedServiceClient = createSupabaseClient(url, serviceRoleKey, {
+        auth: {
+          autoRefreshToken: false,
+          persistSession: false,
+        },
+      })
+    }
+
+    return cachedServiceClient
+  }
+}
+
+/**
+ * Test-only helper to override the storage client factory.
+ */
+export function __setStorageClientFactory(
+  factory: (() => Promise<SupabaseClient>) | null
+) {
+  storageClientOverride = factory
+}
 
 /**
  * Create a service-role Supabase client for storage operations
@@ -50,14 +104,16 @@ function createStorageClient() {
  */
 export async function getPublicImageUrl(
   storagePath: string,
-  bucket: string = VEHICLE_IMAGES_BUCKET
+  bucket: string = VEHICLE_IMAGES_BUCKET,
+  deps: StorageDeps = {}
 ): Promise<string> {
   // Handle empty or invalid paths
   if (!storagePath || storagePath.trim() === "") {
     return ""
   }
 
-  const supabase = createStorageClient()
+  const supabase =
+    deps.storageClient ?? (await resolveStorageClient())
 
   // Try signed URL first (works for both public and private buckets)
   const { data: signedData, error: signedError } = await supabase.storage
@@ -86,7 +142,8 @@ export async function getPublicImageUrl(
  */
 export async function getPublicImageUrls(
   storagePaths: string[],
-  bucket: string = VEHICLE_IMAGES_BUCKET
+  bucket: string = VEHICLE_IMAGES_BUCKET,
+  deps: StorageDeps = {}
 ): Promise<string[]> {
   if (!storagePaths || storagePaths.length === 0) {
     return []
@@ -101,7 +158,8 @@ export async function getPublicImageUrls(
     return storagePaths.map(() => "")
   }
 
-  const supabase = createStorageClient()
+  const supabase =
+    deps.storageClient ?? (await resolveStorageClient())
 
   // Try batch signed URLs first (most efficient for private buckets)
   const { data: signedUrls, error: signedError } = await supabase.storage
@@ -137,14 +195,16 @@ export async function getPublicImageUrls(
  */
 export async function imageExists(
   storagePath: string,
-  bucket: string = VEHICLE_IMAGES_BUCKET
+  bucket: string = VEHICLE_IMAGES_BUCKET,
+  deps: StorageDeps = {}
 ): Promise<boolean> {
   if (!storagePath || storagePath.trim() === "") {
     return false
   }
 
   try {
-    const supabase = createStorageClient()
+    const supabase =
+      deps.storageClient ?? (await resolveStorageClient())
 
     // Extract directory and filename
     const lastSlashIndex = storagePath.lastIndexOf("/")
