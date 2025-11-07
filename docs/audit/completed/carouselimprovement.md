@@ -1,15 +1,33 @@
 # ImageCarousel Implementation Audit Report
 
-**Date**: 2025-11-07
+**Date**: 2025-11-07 (Updated: 2025-11-07)
 **Task**: ImageCarousel Component Implementation
-**Status**: ✅ **COMPLETED**
+**Status**: ✅ **COMPLETED** (Fixed keyboard listener bug)
 **Branch**: `claude/carousel-improvement-011CUu8MCeknrFPiLAR97uFX`
+
+---
+
+## ⚠️ Critical Bug Fix (Post-Audit)
+
+**Issue Identified**: Global keyboard listener unconditionally captured ArrowLeft/ArrowRight keys
+- Fired even when carousel had zero images (hooks ran before early return)
+- Blocked caret navigation in text inputs, textareas, and contenteditable elements
+- Interfered with select dropdowns and other form controls
+- Could break other carousels or page-level keyboard shortcuts
+
+**Fix Applied** (`components/ui/image-carousel.tsx:69-98`):
+1. Guard against attaching listener when `images.length <= 1`
+2. Check `event.target` type and ignore INPUT, TEXTAREA, SELECT, contentEditable
+3. Only call `preventDefault()` after validation passes
+4. Added `images.length` to useEffect dependency array
+
+**Result**: Keyboard navigation now respects form fields and only activates for multi-image carousels when user is NOT typing.
 
 ---
 
 ## Executive Summary
 
-Successfully implemented a fully functional ImageCarousel component with Embla Carousel integration. The component now properly accepts `VehicleMediaImage[]` type, includes comprehensive navigation controls, keyboard support, thumbnail strip, and handles all edge cases as specified in the task requirements.
+Successfully implemented a fully functional ImageCarousel component with Embla Carousel integration. The component now properly accepts `VehicleMediaImage[]` type, includes comprehensive navigation controls, keyboard support (with proper guards), thumbnail strip, and handles all edge cases as specified in the task requirements.
 
 ---
 
@@ -92,6 +110,9 @@ interface ImageCarouselProps {
 - **scrollNext()**: Navigates to next image
 - **scrollTo(index)**: Jumps to specific image (used by thumbnails)
 - **handleKeyDown()**: Listens for ArrowLeft/ArrowRight keyboard events
+  - **Guards**: Ignores events from INPUT, TEXTAREA, SELECT, contentEditable elements
+  - **Conditional**: Only attaches when `images.length > 1`
+  - **Prevents conflicts**: Won't interfere with form field navigation or other keyboard shortcuts
 
 ---
 
@@ -111,7 +132,10 @@ interface ImageCarouselProps {
 
 ## Accessibility Features
 
-✅ **Keyboard Navigation**: Arrow keys work globally when carousel is mounted
+✅ **Keyboard Navigation**: Arrow keys work for carousel ONLY when user is not in form fields
+  - Respects INPUT, TEXTAREA, SELECT, and contentEditable elements
+  - Only active when carousel has 2+ images
+  - Does not interfere with other page keyboard shortcuts
 ✅ **ARIA Labels**: All buttons have descriptive aria-label attributes
 ✅ **Alt Text**: All images use proper alt text from database or fallback
 ✅ **Focus States**: Button component includes focus-visible ring states

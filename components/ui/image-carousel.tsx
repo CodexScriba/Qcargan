@@ -66,9 +66,24 @@ export default function ImageCarousel({
     }
   }, [emblaApi, updateScrollState])
 
-  // Keyboard navigation
+  // Keyboard navigation - only when not in form fields and carousel has multiple images
   useEffect(() => {
+    // Don't attach listener if only 0 or 1 image
+    if (images.length <= 1) return
+
     const handleKeyDown = (event: KeyboardEvent) => {
+      // Ignore if user is typing in an input, textarea, select, or contenteditable
+      const target = event.target as HTMLElement
+      if (
+        target.tagName === 'INPUT' ||
+        target.tagName === 'TEXTAREA' ||
+        target.tagName === 'SELECT' ||
+        target.isContentEditable
+      ) {
+        return
+      }
+
+      // Only handle arrow keys
       if (event.key === 'ArrowLeft') {
         event.preventDefault()
         scrollPrev()
@@ -80,7 +95,7 @@ export default function ImageCarousel({
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [scrollPrev, scrollNext])
+  }, [scrollPrev, scrollNext, images.length])
 
   // Handle empty state
   if (images.length === 0) {
