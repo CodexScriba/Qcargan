@@ -89,6 +89,11 @@ export async function getPublicImageUrl(
     return ""
   }
 
+  // If it's already an external URL (http/https), return it as-is
+  if (storagePath.startsWith("http://") || storagePath.startsWith("https://")) {
+    return storagePath
+  }
+
   const supabase =
     deps.storageClient ?? (await resolveStorageClient())
 
@@ -126,41 +131,55 @@ export async function getPublicImageUrls(
     return []
   }
 
-  // Filter out empty paths and track original indices
-  const validPaths = storagePaths
-    .map((path, index) => ({ path, index }))
-    .filter(({ path }) => path && path.trim() !== "")
+  // Separate external URLs from storage paths
+  const pathsWithInfo = storagePaths.map((path, index) => {
+    const isExternal = path && (path.startsWith("http://") || path.startsWith("https://"))
+    return { path, index, isExternal }
+  })
 
-  if (validPaths.length === 0) {
-    return storagePaths.map(() => "")
+  const externalUrls = pathsWithInfo.filter(p => p.isExternal)
+  const storagePaths_internal = pathsWithInfo.filter(p => !p.isExternal && p.path && p.path.trim() !== "")
+
+  // If all are external URLs, return them as-is
+  if (storagePaths_internal.length === 0) {
+    return pathsWithInfo.map(({ path, isExternal }) => 
+      (isExternal && path) ? path : ""
+    )
   }
 
   const supabase =
     deps.storageClient ?? (await resolveStorageClient())
 
-  // Try batch signed URLs first (most efficient for private buckets)
+  // Try batch signed URLs for internal paths (most efficient for private buckets)
   const { data: signedUrls, error: signedError } = await supabase.storage
     .from(bucket)
     .createSignedUrls(
-      validPaths.map(({ path }) => path),
+      storagePaths_internal.map(({ path }) => path),
       DEFAULT_SIGNED_URL_EXPIRY
     )
 
-  if (!signedError && signedUrls && signedUrls.length === validPaths.length) {
-    // Map signed URLs back to original positions
-    const result = new Array(storagePaths.length).fill("")
-    validPaths.forEach(({ index }, i) => {
+  // Build result array preserving original order
+  const result = new Array(storagePaths.length).fill("")
+  
+  // Fill in external URLs
+  externalUrls.forEach(({ index, path }) => {
+    result[index] = path
+  })
+
+  // Fill in signed URLs or fallback to public URLs
+  if (!signedError && signedUrls && signedUrls.length === storagePaths_internal.length) {
+    storagePaths_internal.forEach(({ index }, i) => {
       result[index] = signedUrls[i]?.signedUrl || ""
     })
-    return result
+  } else {
+    // Fallback: individual public URLs (only works for public buckets)
+    storagePaths_internal.forEach(({ path, index }) => {
+      const { data } = supabase.storage.from(bucket).getPublicUrl(path)
+      result[index] = data?.publicUrl || ""
+    })
   }
 
-  // Fallback: individual public URLs (only works for public buckets)
-  return storagePaths.map((path) => {
-    if (!path || path.trim() === "") return ""
-    const { data } = supabase.storage.from(bucket).getPublicUrl(path)
-    return data?.publicUrl || ""
-  })
+  return result
 }
 
 /**

@@ -4,6 +4,15 @@
 **Dependencies**: Task 1 (Database Schema), Task 2 (i18n), Task 3 (Data Fetching)
 **Estimated Effort**: 4-5 hours
 
+   Complete the vehicle detail page with all components properly integrated, loading states, animations, and polish.
+
+## Key components to integrate/refine:
+   •  ImageCarousel (proper implementation needed)
+   •  KeySpecification (fix prop contract or create simplified version)
+   •  CarActionButtons (add vehicle-specific share/favorite functionality)
+   •  FinancingTabs (connect to banks query)
+   •  Loading states and skeletons
+   •  Animations and transitions
 ---
 
 ## Objective

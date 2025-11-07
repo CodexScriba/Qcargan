@@ -306,6 +306,174 @@ export async function generateMetadata({ params }: PageProps) {
 
 ---
 
+## Pre-Task 4 – Sections 1-6 & Pre-Task 5 Preparation
+
+**Date Completed**: 2025-11-07
+
+This session completed all remaining sections of Pre-Task 4 (sections 1-6) and established the prerequisites for Pre-Task 5, creating the complete foundation for Task 4 (Vehicle Detail Page) and Task 5 (Vehicle Listings Page).
+
+### Section 1: Environment & Data Readiness ✅
+**Status**: Already complete (verified)
+- Database credentials configured
+- Seed script exists
+- Drizzle migrations ready
+
+### Section 2: Query Hardening ✅
+**Status**: Already complete (verified)
+- All queries filter unpublished vehicles
+- Active organization filtering
+- Image URL conversion working
+- N+1 patterns eliminated
+
+### Section 3: Component Migration ✅
+**Status**: Already complete (verified)
+- All 8+ components production-ready
+- Proper TypeScript contracts
+- Component barrel exports updated
+
+### Section 4: Shared Types & Utilities ✅
+**Status**: Newly completed
+
+Created centralized type definitions with inference-based approach:
+
+#### Files Created
+1. **`types/vehicle.ts`** - 12+ vehicle-related types
+   - `VehicleDetail` - Inferred from `getVehicleBySlug`
+   - `VehicleListItem` - Inferred from `getVehicles`
+   - `VehicleSpecifications` - Full specs type
+   - `VehiclePricing` - Pricing with organization
+   - `VehicleMedia` - Image and media types
+   - And more...
+
+2. **`types/organization.ts`** - 5 organization types
+   - `Organization` - Full organization data
+   - `OrganizationType` - AGENCY/DEALER/IMPORTER
+   - Contact and address types
+
+3. **`types/bank.ts`** - 4 bank and financing types
+   - `Bank` - Bank entity
+   - `FinancingTerms` - Financing details
+   - APR range types
+
+**Benefits**:
+- Types automatically stay in sync with query changes
+- Uses inference: `type VehicleDetail = Awaited<ReturnType<typeof getVehicleBySlug>>`
+- Better IDE autocomplete
+- Eliminates manual interface maintenance
+
+### Section 5: Routing & Metadata Helpers ✅
+**Status**: Newly completed
+
+Created SEO infrastructure for vehicle pages:
+
+#### Files Created
+4. **`lib/seo/vehicle.ts`** - 4 SEO helper functions
+   - `buildVehicleMetadata()` - Complete metadata generation
+   - `buildVehicleJsonLd()` - Structured data (JSON-LD)
+   - `getCanonicalUrl()` - i18n-aware canonical URLs
+   - `getAlternateUrls()` - hreflang alternate URLs
+
+**Features**:
+- Open Graph and Twitter Card support
+- JSON-LD structured data for search engines
+- i18n-aware canonical and alternate URLs
+- Reusable across vehicle pages
+
+### Section 6: Page Scaffolding ✅
+**Status**: Newly completed
+
+Created the vehicle detail page with core integrations:
+
+#### Files Created
+5. **`app/[locale]/vehicles/[slug]/page.tsx`** - Vehicle detail page
+
+**Components Integrated**:
+- ✅ ProductTitle - Brand, model, year, specs
+- ✅ Image display - Basic implementation
+- ✅ SellerCard - Pricing with organizations
+- ✅ VehicleAllSpecs - Full specifications
+- ✅ TrafficLightReviews - Placeholder implementation
+- ✅ ServicesShowcase - Services display
+- ⚠️ CarActionButtons - Basic placeholder (needs vehicle-specific functionality)
+- ⚠️ KeySpecification - Inline replacement (component has prop mismatch)
+- ⏳ FinancingTabs - Not yet integrated
+
+**Features**:
+- Next.js 16 async params compatibility
+- SEO metadata generation with `generateMetadata()`
+- Proper 404 handling
+- i18n translations
+- Build passes and server boots successfully
+
+### Files Created Summary
+
+**Total**: 5 new files, ~664 lines of code
+
+1. `types/vehicle.ts` - Vehicle type system
+2. `types/organization.ts` - Organization types
+3. `types/bank.ts` - Bank and financing types
+4. `lib/seo/vehicle.ts` - SEO helpers
+5. `app/[locale]/vehicles/[slug]/page.tsx` - Vehicle detail page
+
+### Testing Results
+
+**Automated**:
+- ✅ TypeScript compiles without errors
+- ✅ Build passes (`bun run build` succeeds)
+- ✅ Server starts successfully (2.2s)
+- ✅ No runtime errors
+
+**Manual** (Pending Seeded Data):
+- Requires database seeding for full testing
+- Core component integrations verified in code
+- Some components need refinement (KeySpecification, CarActionButtons, FinancingTabs)
+- Ready for visual testing once data is seeded
+
+### Architecture Highlights
+
+#### 1. Type Inference Strategy
+Types stay in sync with queries automatically:
+```typescript
+// VehicleDetail type definition (types/vehicle.ts)
+export type VehicleDetail = Awaited<ReturnType<typeof import('@/lib/db/queries/vehicles').getVehicleBySlug>>
+
+// Usage in page
+import type { VehicleDetail } from '@/types/vehicle'
+const vehicle: VehicleDetail | null = await getVehicleBySlug(slug)
+```
+
+#### 2. SEO Helper Pattern
+Extracted metadata logic for reusability:
+```typescript
+export async function generateMetadata({ params }: PageProps) {
+  const vehicle = await getVehicleBySlug(slug)
+  return buildVehicleMetadata({ vehicle, locale })
+}
+```
+
+#### 3. Component Integration Flow
+```
+Vehicle Data
+  ├─→ ProductTitle (brand, model, year, specs) ✅
+  ├─→ SellerCard (pricing with organizations) ✅
+  ├─→ Inline spec cards (KeySpecification has prop mismatch) ⚠️
+  ├─→ VehicleAllSpecs (full specs) ✅
+  ├─→ CarActionButtons (basic placeholder) ⚠️
+  └─→ TrafficLightReviews (placeholder) ✅
+```
+
+### Remaining Work for Task 4
+
+1. Integrate KeySpecification component properly or create simplified version
+2. Add vehicle-specific functionality to CarActionButtons
+3. Add proper image carousel component
+4. Connect FinancingTabs to banks query
+5. Add loading states and skeletons
+6. Implement animations and transitions
+7. Add share/favorite functionality
+
+---
+
 ## Testing & Verification
 
 ### Automated Tests
@@ -426,6 +594,28 @@ components/
    └─ index.ts
 ```
 
+### Type Definitions
+```
+types/
+├─ vehicle.ts              (12+ vehicle types)
+├─ organization.ts         (5 organization types)
+└─ bank.ts                 (4 bank types)
+```
+
+### SEO Infrastructure
+```
+lib/seo/
+└─ vehicle.ts              (4 SEO helper functions)
+```
+
+### Pages
+```
+app/[locale]/
+└─ vehicles/
+   └─ [slug]/
+      └─ page.tsx          (vehicle detail page)
+```
+
 ### Tests
 ```
 tests/
@@ -449,12 +639,18 @@ tests/
 
 ## Next Steps
 
-### Immediate (Task 4)
-1. **Vehicle Detail Page** (`app/[locale]/vehicles/[slug]/page.tsx`)
-   - Use `getVehicleBySlug()` to fetch data
-   - Wire ProductTitle, ImageCarousel, SellerCard, VehicleAllSpecs components
-   - Implement SEO metadata with `generateMetadata()`
-   - Add CarActionButtons, FinancingTabs, TrafficLightReviews
+### Immediate (Task 4 - Final Polish)
+1. **Complete Vehicle Detail Page** (`app/[locale]/vehicles/[slug]/page.tsx`)
+   - ✅ Base page structure implemented
+   - ✅ Core components integrated (ProductTitle, SellerCard, VehicleAllSpecs, TrafficLightReviews)
+   - ✅ SEO metadata with `generateMetadata()` implemented
+   - 🔨 Refine KeySpecification component or create simplified version
+   - 🔨 Add vehicle-specific functionality to CarActionButtons
+   - 🔨 Add proper image carousel component
+   - 🔨 Connect FinancingTabs to banks query
+   - 🔨 Add loading states and skeletons
+   - 🔨 Implement animations and transitions
+   - 🔨 Add share/favorite functionality
 
 ### Immediate (Task 5)
 2. **Vehicle Listings Page** (`app/[locale]/vehicles/page.tsx`)
@@ -510,11 +706,20 @@ tests/
 - 77% query count reduction (13→3)
 - Performance optimized for Phase 1
 
-✅ **Pre-Task 4**: Component Migration
+✅ **Pre-Task 4 (Step 3)**: Component Migration
 - All product components refined with proper contracts
 - KeySpecification and ServicesShowcase relocated
 - Barrel exports updated
 - Sandbox page updated with new props
+
+✅ **Pre-Task 4 (Sections 1-6)**: Infrastructure & Page Scaffolding
+- Environment and data readiness verified
+- Query hardening verified
+- Shared type system created (3 files)
+- SEO infrastructure created (1 file)
+- Vehicle detail page scaffolded (1 file)
+- Build passes and server boots successfully
+- Core components integrated (ProductTitle, SellerCard, VehicleAllSpecs, TrafficLightReviews)
 
 ---
 
@@ -594,8 +799,8 @@ The architecture is optimized for the initial 6-vehicle dataset while designed t
 ---
 
 **Phase Completed**: 2025-11-07  
-**Total Tasks**: 3 + Pre-Task 4 Step 3  
-**Total Files Created/Modified**: 20+  
-**Total Lines of Code**: ~1,500  
+**Total Tasks**: 3 + Pre-Task 4 (Step 3 + Sections 1-6)  
+**Total Files Created/Modified**: 25+  
+**Total Lines of Code**: ~2,164  
 **Test Coverage**: Automated tests for utilities, manual checklists for queries  
 **Documentation**: Complete with examples and usage patterns
