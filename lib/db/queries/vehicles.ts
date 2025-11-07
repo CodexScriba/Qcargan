@@ -121,13 +121,13 @@ export async function getVehicleBySlug(slug: string) {
   const heroImage = images.find((img) => img.isHero)
   const heroIndex = heroImage ? images.indexOf(heroImage) : 0
 
-  // Convert all storage paths to public/signed URLs
+  // Convert all storage paths to browser-ready signed/public URLs
   const storagePaths = images.map((img) => img.storagePath)
   const publicUrls = await getPublicImageUrls(storagePaths)
 
   const media = {
     images: images.map((img, index) => ({
-      url: publicUrls[index] || img.storagePath, // Fallback to storagePath if URL generation fails
+      url: publicUrls[index], // Always a browser-ready URL (signed or public)
       alt: img.altText || `${vehicle.brand} ${vehicle.model}`,
       isHero: img.isHero,
     })),

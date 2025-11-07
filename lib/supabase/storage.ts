@@ -1,4 +1,4 @@
-import { createClient } from "./server"
+import { createClient as createSupabaseClient } from "@supabase/supabase-js"
 
 /**
  * Storage bucket configuration
@@ -7,7 +7,35 @@ const VEHICLE_IMAGES_BUCKET = "vehicle-images"
 const DEFAULT_SIGNED_URL_EXPIRY = 60 * 60 * 24 * 7 // 7 days in seconds
 
 /**
- * Get a public or signed URL for an image stored in Supabase Storage
+ * Create a service-role Supabase client for storage operations
+ * This client works in all contexts (Server Components, API routes, scripts, tests)
+ * and bypasses RLS for storage bucket access.
+ */
+function createStorageClient() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const serviceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+
+  if (!url || !serviceRoleKey) {
+    throw new Error(
+      "Missing NEXT_PUBLIC_SUPABASE_URL or SUPABASE_SERVICE_ROLE_KEY environment variables"
+    )
+  }
+
+  return createSupabaseClient(url, serviceRoleKey, {
+    auth: {
+      autoRefreshToken: false,
+      persistSession: false,
+    },
+  })
+}
+
+/**
+ * Get a browser-ready URL for an image stored in Supabase Storage
+ *
+ * Strategy:
+ * 1. Try to generate a signed URL (works for both public and private buckets)
+ * 2. If signed URL generation fails, fall back to public URL (public buckets only)
+ * 3. Return empty string if both fail
  *
  * @param storagePath - The path to the file in Supabase storage (e.g., "vehicles/byd-seagull/hero.jpg")
  * @param bucket - The storage bucket name (defaults to vehicle-images)
@@ -16,7 +44,8 @@ const DEFAULT_SIGNED_URL_EXPIRY = 60 * 60 * 24 * 7 // 7 days in seconds
  * @example
  * ```ts
  * const url = await getPublicImageUrl("vehicles/byd-seagull/hero.jpg")
- * // Returns: https://xxx.supabase.co/storage/v1/object/public/vehicle-images/vehicles/byd-seagull/hero.jpg
+ * // Private bucket: https://xxx.supabase.co/storage/v1/object/sign/vehicle-images/vehicles/byd-seagull/hero.jpg?token=...
+ * // Public bucket: https://xxx.supabase.co/storage/v1/object/public/vehicle-images/vehicles/byd-seagull/hero.jpg
  * ```
  */
 export async function getPublicImageUrl(
@@ -28,26 +57,28 @@ export async function getPublicImageUrl(
     return ""
   }
 
-  const supabase = await createClient()
+  const supabase = createStorageClient()
 
-  // Get public URL (works for public buckets)
-  const { data } = supabase.storage.from(bucket).getPublicUrl(storagePath)
-
-  if (data?.publicUrl) {
-    return data.publicUrl
-  }
-
-  // Fallback: try to get a signed URL (for private buckets)
-  const { data: signedData } = await supabase.storage
+  // Try signed URL first (works for both public and private buckets)
+  const { data: signedData, error: signedError } = await supabase.storage
     .from(bucket)
     .createSignedUrl(storagePath, DEFAULT_SIGNED_URL_EXPIRY)
 
-  return signedData?.signedUrl || ""
+  if (!signedError && signedData?.signedUrl) {
+    return signedData.signedUrl
+  }
+
+  // Fallback to public URL (only works if bucket is public)
+  const { data: publicData } = supabase.storage
+    .from(bucket)
+    .getPublicUrl(storagePath)
+
+  return publicData?.publicUrl || ""
 }
 
 /**
- * Get multiple public/signed URLs in batch
- * More efficient than calling getPublicImageUrl multiple times
+ * Get multiple browser-ready URLs in batch
+ * Uses createSignedUrls for efficiency when dealing with private buckets
  *
  * @param storagePaths - Array of storage paths
  * @param bucket - The storage bucket name
@@ -61,9 +92,35 @@ export async function getPublicImageUrls(
     return []
   }
 
-  const supabase = await createClient()
+  // Filter out empty paths and track original indices
+  const validPaths = storagePaths
+    .map((path, index) => ({ path, index }))
+    .filter(({ path }) => path && path.trim() !== "")
 
-  // For public buckets, we can batch get public URLs
+  if (validPaths.length === 0) {
+    return storagePaths.map(() => "")
+  }
+
+  const supabase = createStorageClient()
+
+  // Try batch signed URLs first (most efficient for private buckets)
+  const { data: signedUrls, error: signedError } = await supabase.storage
+    .from(bucket)
+    .createSignedUrls(
+      validPaths.map(({ path }) => path),
+      DEFAULT_SIGNED_URL_EXPIRY
+    )
+
+  if (!signedError && signedUrls && signedUrls.length === validPaths.length) {
+    // Map signed URLs back to original positions
+    const result = new Array(storagePaths.length).fill("")
+    validPaths.forEach(({ index }, i) => {
+      result[index] = signedUrls[i]?.signedUrl || ""
+    })
+    return result
+  }
+
+  // Fallback: individual public URLs (only works for public buckets)
   return storagePaths.map((path) => {
     if (!path || path.trim() === "") return ""
     const { data } = supabase.storage.from(bucket).getPublicUrl(path)
@@ -87,12 +144,25 @@ export async function imageExists(
   }
 
   try {
-    const supabase = await createClient()
+    const supabase = createStorageClient()
+
+    // Extract directory and filename
+    const lastSlashIndex = storagePath.lastIndexOf("/")
+    if (lastSlashIndex === -1) {
+      // No directory structure, search in root
+      const { data, error } = await supabase.storage
+        .from(bucket)
+        .list("", { search: storagePath })
+
+      return !error && !!data && data.length > 0
+    }
+
+    const directory = storagePath.substring(0, lastSlashIndex)
+    const filename = storagePath.substring(lastSlashIndex + 1)
+
     const { data, error } = await supabase.storage
       .from(bucket)
-      .list(storagePath.substring(0, storagePath.lastIndexOf("/")), {
-        search: storagePath.substring(storagePath.lastIndexOf("/") + 1),
-      })
+      .list(directory, { search: filename })
 
     return !error && !!data && data.length > 0
   } catch {
