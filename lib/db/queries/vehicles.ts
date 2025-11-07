@@ -257,7 +257,7 @@ export async function getVehicles(
   const totalCount = Number(countResult?.count ?? 0)
 
   // Build main query with pricing JOIN
-  let query = db
+  const baseQuery = db
     .select({
       id: vehicles.id,
       slug: vehicles.slug,
@@ -292,31 +292,31 @@ export async function getVehicles(
     .where(and(...whereConditions))
 
   // FIX #3: Honor sortOrder for all sort modes
+  // Determine sort order based on parameters
+  let orderByColumn
   if (sortBy === "range") {
-    query = query.orderBy(
+    orderByColumn =
       sortOrder === "desc"
         ? desc(vehicleSpecifications.rangeKmCltc)
         : asc(vehicleSpecifications.rangeKmCltc)
-    )
   } else if (sortBy === "price") {
-    query = query.orderBy(
+    orderByColumn =
       sortOrder === "desc"
         ? desc(pricingSubquery.minPrice)
         : asc(pricingSubquery.minPrice)
-    )
   } else {
     // sortBy === "newest"
-    query = query.orderBy(
+    orderByColumn =
       sortOrder === "desc"
         ? desc(vehicles.createdAt)
         : asc(vehicles.createdAt)
-    )
   }
 
-  // Apply pagination
-  query = query.limit(limit).offset(offset)
-
-  const results = await query
+  // Apply ordering and pagination in a single chain
+  const results = await baseQuery
+    .orderBy(orderByColumn)
+    .limit(limit)
+    .offset(offset)
 
   // FIX #5: Batch fetch hero images for all vehicles (reduces N+1)
   const vehicleIds = results.map((v) => v.id)

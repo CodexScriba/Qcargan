@@ -375,10 +375,21 @@ function buildCtaUrl(entry: RawVehicle, variant: RawVehicle['variations'][number
   return `${base}?text=${message}`
 }
 
-async function seedBanks(transaction: typeof db) {
+async function seedBanks(transaction: Parameters<Parameters<typeof db.transaction>[0]>[0]) {
   const bankRows = BANKS_SEED.map((bank) => ({
     id: stableUuid('bank', bank.slug),
-    ...bank,
+    slug: bank.slug,
+    name: bank.name,
+    logoUrl: bank.logoUrl,
+    websiteUrl: bank.websiteUrl,
+    contactEmail: bank.contactEmail,
+    contactPhone: bank.contactPhone,
+    typicalAprMin: bank.typicalAprMin,
+    typicalAprMax: bank.typicalAprMax,
+    typicalTermMonths: [...bank.typicalTermMonths], // Spread to create mutable array
+    description: bank.description,
+    isFeatured: bank.isFeatured,
+    displayOrder: bank.displayOrder,
     isActive: true
   }))
 
@@ -396,7 +407,7 @@ async function seedBanks(transaction: typeof db) {
   console.log(`[seed] Banks upserted: ${bankRows.length}`)
 }
 
-async function seedOrganizations(transaction: typeof db) {
+async function seedOrganizations(transaction: Parameters<Parameters<typeof db.transaction>[0]>[0]) {
   for (const org of ORGANIZATIONS_SEED) {
     const row = {
       id: stableUuid('org', org.slug),
@@ -406,7 +417,7 @@ async function seedOrganizations(transaction: typeof db) {
       logoUrl: org.logoUrl,
       contact: org.contact,
       official: org.official,
-      badges: org.badges,
+      badges: [...org.badges], // Spread to create mutable array
       description: org.description,
       isActive: true
     } satisfies typeof organizations.$inferInsert
@@ -424,7 +435,7 @@ async function seedOrganizations(transaction: typeof db) {
   console.log(`[seed] Organizations upserted: ${ORGANIZATIONS_SEED.length}`)
 }
 
-async function seedVehiclesBundle(transaction: typeof db, seeds: SeededVehicle[]) {
+async function seedVehiclesBundle(transaction: Parameters<Parameters<typeof db.transaction>[0]>[0], seeds: SeededVehicle[]) {
   for (const seed of seeds) {
     const { vehicle } = seed
     const { id, ...updates } = vehicle
@@ -450,7 +461,7 @@ async function seedVehiclesBundle(transaction: typeof db, seeds: SeededVehicle[]
   console.log(`[seed] Vehicle specs upserted: ${seeds.length}`)
 }
 
-async function seedImages(transaction: typeof db, seeds: SeededVehicle[]) {
+async function seedImages(transaction: Parameters<Parameters<typeof db.transaction>[0]>[0], seeds: SeededVehicle[]) {
   const imageRows = seeds.flatMap((seed) => seed.images)
   for (const image of imageRows) {
     const { id, ...updates } = image
@@ -478,7 +489,7 @@ async function seedImages(transaction: typeof db, seeds: SeededVehicle[]) {
   console.log(`[seed] Vehicle image variants upserted: ${variantRows.length}`)
 }
 
-async function seedPricing(transaction: typeof db, seeds: SeededVehicle[]) {
+async function seedPricing(transaction: Parameters<Parameters<typeof db.transaction>[0]>[0], seeds: SeededVehicle[]) {
   const pricingRows = seeds.flatMap((seed) => seed.pricing)
   for (const row of pricingRows) {
     const { id, ...updates } = row

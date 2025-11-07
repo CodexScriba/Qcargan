@@ -89,7 +89,8 @@ const localePathSet = new Set<string>();
 
 routing.locales.forEach((locale) => {
   (Object.keys(pathnames) as Array<PathnameKey>).forEach((href) => {
-    const localizedPath = getPathname({ locale, href });
+    // Type assertion needed for dynamic routes like /vehicles/[slug]
+    const localizedPath = getPathname({ locale, href: href as any });
 
     localePathSet.add(localizedPath);
 
