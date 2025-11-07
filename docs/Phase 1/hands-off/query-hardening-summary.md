@@ -29,25 +29,22 @@ if (!error && signedUrls && signedUrls.length === validPaths.length) {
 
 **Fix**:
 ```typescript
-// Before: Coupled to Next.js request context
-import { createClient } from "./server" // Uses cookies()
+// Default: request-scoped client (Next.js server/runtime)
+const client = await createServerSupabaseClient()
 
-// After: Environment-agnostic service-role client
-import { createClient as createSupabaseClient } from "@supabase/supabase-js"
+// Fallback: service-role client for scripts/tests where cookies() is unavailable
+const cachedServiceClient = createSupabaseClient(url, serviceRoleKey, {
+  auth: { autoRefreshToken: false, persistSession: false },
+})
 
-function createStorageClient() {
-  return createSupabaseClient(url, serviceRoleKey, {
-    auth: { autoRefreshToken: false, persistSession: false }
-  })
-}
+// Tests can override the factory entirely via __setStorageClientFactory(...)
 ```
 
 **Now works in**:
-- ✅ Server Components
-- ✅ API Routes
-- ✅ Bun scripts (`scripts/seed-production-vehicles.ts`)
-- ✅ Unit tests (no Next.js runtime required)
-- ✅ Smoke tests (pre-task4.md §6)
+- ✅ Server Components (unchanged)
+- ✅ API Routes (request-scoped client)
+- ✅ Bun scripts (`scripts/seed-production-vehicles.ts`) via fallback
+- ✅ Unit tests / smoke tests using the override helper (no Next runtime needed)
 
 ### Issue #3: Tests Were Placeholders ✅ FIXED
 **Problem**: Tests never imported real code, just asserted on local literals. Zero actual code execution.
@@ -69,7 +66,7 @@ test("filters work", async () => {
 
 **Test Strategy**:
 - Import real implementations
-- Mock external dependencies (Supabase client, database)
+- Mock external dependencies (Supabase client via factory override, database via lightweight query builder)
 - Execute actual business logic
 - Verify outputs match expectations
 
