@@ -9,7 +9,8 @@
     "lint": "eslint",
     "drizzle:introspect": "bunx drizzle-kit introspect",
     "drizzle:generate": "bunx drizzle-kit generate",
-    "drizzle:push": "bunx drizzle-kit push"
+    "drizzle:push": "bunx drizzle-kit push",
+    "seed:production-vehicles": "bunx tsx scripts/seed-production-vehicles.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

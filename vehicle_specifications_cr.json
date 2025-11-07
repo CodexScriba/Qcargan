@@ -1,0 +1,2961 @@
+{
+  "vehicles": [
+    {
+      "brand": "BYD",
+      "model": "SEAGULL",
+      "price_cr": "$19,990.00",
+      "variations": [
+        {
+          "name": "Vitality Edition",
+          "battery_usable_kWh": 30.08,
+          "range_km_cltc": 305,
+          "power_hp": 74,
+          "torque_nm": 135,
+          "acceleration_0_50_s": 4.9,
+          "drive": "FWD",
+          "fast_charge_max_kw": 30,
+          "dimensions_mm": {
+            "length": 3780,
+            "width": 1715,
+            "height": 1540,
+            "wheelbase": 2500
+          },
+          "seating_capacity": 4,
+          "interior_features": {
+            "screen_in": 10.1,
+            "instrument_cluster_in": 7,
+            "wireless_charging": false
+          }
+        },
+        {
+          "name": "Freedom Edition",
+          "battery_usable_kWh": 30.08,
+          "range_km_cltc": 305,
+          "power_hp": 74,
+          "torque_nm": 135,
+          "acceleration_0_50_s": 4.9,
+          "drive": "FWD",
+          "fast_charge_max_kw": 30,
+          "dimensions_mm": {
+            "length": 3780,
+            "width": 1715,
+            "height": 1540,
+            "wheelbase": 2500
+          },
+          "seating_capacity": 4,
+          "interior_features": {
+            "screen_in": 10.1,
+            "instrument_cluster_in": 7,
+            "wireless_charging": true
+          }
+        },
+        {
+          "name": "Flying Edition",
+          "battery_usable_kWh": 38.88,
+          "range_km_cltc": 405,
+          "power_hp": 74,
+          "torque_nm": 135,
+          "acceleration_0_50_s": 4.9,
+          "drive": "FWD",
+          "fast_charge_max_kw": 40,
+          "dimensions_mm": {
+            "length": 3780,
+            "width": 1715,
+            "height": 1540,
+            "wheelbase": 2500
+          },
+          "seating_capacity": 4,
+          "interior_features": {
+            "screen_in": 10.1,
+            "instrument_cluster_in": 7,
+            "wireless_charging": true
+          }
+        }
+      ]
+    },
+    {
+      "brand": "BYD",
+      "model": "TANG",
+      "price_cr": "$76,900.00",
+      "variations": [
+        {
+          "name": "Flagship AWD (Costa Rica Launch Model)",
+          "battery_usable_kWh": 108.8,
+          "range_km_wltp": 530,
+          "power_hp": 517,
+          "torque_nm": 700,
+          "acceleration_0_100_s": 4.9,
+          "drive": "AWD",
+          "fast_charge_max_kw": 170,
+          "dimensions_mm": {
+            "length": 4970,
+            "width": 1955,
+            "height": 1745,
+            "wheelbase": 2820
+          },
+          "seating_capacity": 7
+        }
+      ]
+    },
+    {
+      "brand": "Volvo",
+      "model": "EX90",
+      "price_cr": "$119,900.00",
+      "variations": [
+        {
+          "name": "Twin Motor Plus/Ultra (Standard)",
+          "battery_usable_kWh": 107,
+          "range_km_epa_est": 483,
+          "power_hp": 402,
+          "torque_nm": 770,
+          "acceleration_0_100_s": 5.7,
+          "drive": "AWD",
+          "fast_charge_max_kw": 250,
+          "dimensions_mm": {
+            "length": 5037,
+            "width": 1964,
+            "height": 1747,
+            "wheelbase": 3000
+          },
+          "seating_capacity": 7
+        },
+        {
+          "name": "Twin Motor Performance Plus/Ultra",
+          "battery_usable_kWh": 107,
+          "range_km_epa_est": 483,
+          "power_hp": 510,
+          "torque_nm": 910,
+          "acceleration_0_100_s": 4.7,
+          "drive": "AWD",
+          "fast_charge_max_kw": 250,
+          "dimensions_mm": {
+            "length": 5037,
+            "width": 1964,
+            "height": 1747,
+            "wheelbase": 3000
+          },
+          "seating_capacity": 7
+        }
+      ]
+    },
+    {
+      "brand": "Mercedes-Benz",
+      "model": "EQS SUV",
+      "price_cr": "$149,900.00",
+      "variations": [
+        {
+          "name": "EQS 450+ SUV (RWD)",
+          "battery_usable_kWh": 107.8,
+          "range_miles_epa": 305,
+          "range_km_wltp_est": 660,
+          "power_hp": 355,
+          "torque_lb_ft": 419,
+          "acceleration_0_60_s": 6.5,
+          "drive": "RWD",
+          "fast_charge_max_kw": 200,
+          "dimensions_mm": {
+            "length": 5125,
+            "width": 1959,
+            "height": 1718,
+            "wheelbase": 3210
+          },
+          "seating_capacity": "5 (7 optional)"
+        },
+        {
+          "name": "EQS 450 4MATIC SUV (AWD)",
+          "battery_usable_kWh": 107.8,
+          "range_miles_epa": 285,
+          "range_km_wltp_est": 660,
+          "power_hp": 355,
+          "torque_lb_ft": 617,
+          "acceleration_0_60_s": 5.8,
+          "drive": "AWD",
+          "fast_charge_max_kw": 200,
+          "dimensions_mm": {
+            "length": 5125,
+            "width": 1959,
+            "height": 1718,
+            "wheelbase": 3210
+          },
+          "seating_capacity": "5 (7 optional)"
+        },
+        {
+          "name": "EQS 580 4MATIC SUV (AWD)",
+          "battery_usable_kWh": 107.8,
+          "range_miles_epa": 285,
+          "range_km_wltp_est": 660,
+          "power_hp": 536,
+          "torque_lb_ft": 633,
+          "acceleration_0_60_s": 4.5,
+          "drive": "AWD",
+          "fast_charge_max_kw": 200,
+          "dimensions_mm": {
+            "length": 5125,
+            "width": 1959,
+            "height": 1718,
+            "wheelbase": 3210
+          },
+          "seating_capacity": "5 (7 optional)"
+        }
+      ]
+    },
+    {
+      "brand": "Audi",
+      "model": "e-tron RS",
+      "price_cr": "$198,500.00",
+      "variations": [
+        {
+          "name": "RS e-tron GT Performance",
+          "battery_usable_kWh": 97,
+          "range_km_wltp_est": 609,
+          "power_hp": 912,
+          "torque_nm": 1000,
+          "acceleration_0_100_s": 2.5,
+          "drive": "AWD",
+          "fast_charge_max_kw": 320,
+          "architecture": "800V",
+          "dimensions_mm": {
+            "length": 4989,
+            "width": 1964,
+            "height": 1414,
+            "wheelbase": 2900
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "RS e-tron GT (Standard)",
+          "battery_usable_kWh": 97,
+          "range_km_wltp_est": 609,
+          "power_hp": 845,
+          "torque_nm": 1000,
+          "acceleration_0_100_s": 2.8,
+          "drive": "AWD",
+          "fast_charge_max_kw": 320,
+          "architecture": "800V",
+          "dimensions_mm": {
+            "length": 4989,
+            "width": 1964,
+            "height": 1414,
+            "wheelbase": 2900
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Yangwang",
+      "model": "U8",
+      "price_cr": "$225,000.00",
+      "variations": [
+        {
+          "name": "Premium Edition (EREV)",
+          "is_phev": true,
+          "battery_usable_kWh": 49.05,
+          "range_km_cltc_pure_ev": 180,
+          "range_km_cltc_comprehensive": 1000,
+          "engine_type": "2.0L Turbo (Range Extender)",
+          "power_hp": 1184,
+          "torque_nm": 1280,
+          "acceleration_0_100_s": 3.6,
+          "drive": "Quad-Motor AWD",
+          "fast_charge_max_kw": 110,
+          "dimensions_mm": {
+            "length": 5319,
+            "width": 2050,
+            "height": 1930,
+            "wheelbase": 3050
+          },
+          "seating_capacity": 5,
+          "special_features": [
+            "Tank Turn",
+            "Float Mode (Emergency Water Fording)",
+            "DiSus-P Intelligent Hydraulic Body Control System"
+          ]
+        }
+      ]
+    },
+    {
+      "brand": "Kia",
+      "model": "EV9",
+      "price_cr": "$119,000.00",
+      "variations": [
+        {
+          "name": "Light RWD",
+          "battery_usable_kWh": 76.1,
+          "range_miles_epa": 230,
+          "power_hp": 215,
+          "torque_lb_ft": 258,
+          "acceleration_0_60_s": 7.8,
+          "drive": "RWD",
+          "fast_charge_max_kw": 230,
+          "architecture": "800V",
+          "dimensions_mm": {
+            "length": 5010,
+            "width": 1980,
+            "height": 1755,
+            "wheelbase": 3100
+          },
+          "seating_capacity": 7
+        },
+        {
+          "name": "Light Long Range RWD",
+          "battery_usable_kWh": 99.8,
+          "range_miles_epa": 304,
+          "power_hp": 201,
+          "torque_lb_ft": 258,
+          "acceleration_0_60_s": 8.8,
+          "drive": "RWD",
+          "fast_charge_max_kw": 230,
+          "architecture": "800V",
+          "dimensions_mm": {
+            "length": 5010,
+            "width": 1980,
+            "height": 1755,
+            "wheelbase": 3100
+          },
+          "seating_capacity": 7
+        },
+        {
+          "name": "Wind AWD",
+          "battery_usable_kWh": 99.8,
+          "range_miles_epa": 280,
+          "power_hp": 379,
+          "torque_lb_ft": 443,
+          "acceleration_0_60_s": 5.0,
+          "drive": "AWD",
+          "fast_charge_max_kw": 230,
+          "architecture": "800V",
+          "dimensions_mm": {
+            "length": 5010,
+            "width": 1980,
+            "height": 1755,
+            "wheelbase": 3100
+          },
+          "seating_capacity": 7
+        }
+      ]
+    },
+    {
+      "brand": "Dongfeng",
+      "model": "M-Hero",
+      "price_cr": "$140,000.00",
+      "variations": [
+        {
+          "name": "Standard (EREV)",
+          "is_phev": true,
+          "battery_usable_kWh": 65.8,
+          "range_km_cltc_pure_ev": 200,
+          "range_km_cltc_comprehensive": 750,
+          "engine_type": "1.5T (Range Extender)",
+          "power_hp": 800,
+          "torque_nm": 1050,
+          "acceleration_0_100_s": 4.2,
+          "drive": "Quad-Motor AWD",
+          "fast_charge_max_kw": 100,
+          "dimensions_mm": {
+            "length": 4987,
+            "width": 2080,
+            "height": 1935,
+            "wheelbase": 2950
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Audi",
+      "model": "SQ8 e-tron",
+      "price_cr": "$114,500.00",
+      "variations": [
+        {
+          "name": "SQ8 e-tron quattro",
+          "battery_usable_kWh": 106,
+          "range_km_wltp_est": 494,
+          "power_hp": 503,
+          "torque_nm": 973,
+          "acceleration_0_100_s": 4.5,
+          "drive": "e-quattro (Tri-Motor AWD)",
+          "fast_charge_max_kw": 170,
+          "dimensions_mm": {
+            "length": 4915,
+            "width": 1935,
+            "height": 1633,
+            "wheelbase": 2928
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Mercedes-Benz",
+      "model": "EQE SUV",
+      "price_cr": "$109,900.00",
+      "variations": [
+        {
+          "name": "EQE 350+ SUV (RWD)",
+          "battery_usable_kWh": 90.6,
+          "range_miles_epa": 305,
+          "range_km_wltp_est": 660,
+          "power_hp": 288,
+          "torque_lb_ft": 417,
+          "acceleration_0_60_s": 6.3,
+          "drive": "RWD",
+          "fast_charge_max_kw": 170,
+          "dimensions_mm": {
+            "length": 4863,
+            "width": 1940,
+            "height": 1686,
+            "wheelbase": 3030
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "EQE 350 4MATIC SUV (AWD)",
+          "battery_usable_kWh": 90.6,
+          "range_miles_epa": 253,
+          "range_km_wltp_est": 558,
+          "power_hp": 288,
+          "torque_lb_ft": 564,
+          "acceleration_0_60_s": 6.2,
+          "drive": "AWD",
+          "fast_charge_max_kw": 170,
+          "dimensions_mm": {
+            "length": 4863,
+            "width": 1940,
+            "height": 1686,
+            "wheelbase": 3030
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "EQE 500 4MATIC SUV (AWD)",
+          "battery_usable_kWh": 90.6,
+          "range_miles_epa": 253,
+          "range_km_wltp_est": 558,
+          "power_hp": 402,
+          "torque_lb_ft": 633,
+          "acceleration_0_60_s": 4.6,
+          "drive": "AWD",
+          "fast_charge_max_kw": 170,
+          "dimensions_mm": {
+            "length": 4863,
+            "width": 1940,
+            "height": 1686,
+            "wheelbase": 3030
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Zeekr",
+      "model": "009",
+      "price_cr": "$89,900.00",
+      "variations": [
+        {
+          "name": "WE Edition (116 kWh)",
+          "battery_usable_kWh": 116,
+          "range_km_cltc": 702,
+          "power_hp": 536,
+          "torque_nm": 686,
+          "acceleration_0_100_s": 4.5,
+          "drive": "AWD",
+          "fast_charge_max_kw": 150,
+          "dimensions_mm": {
+            "length": 5209,
+            "width": 2024,
+            "height": 1848,
+            "wheelbase": 3205
+          },
+          "seating_capacity": 6
+        },
+        {
+          "name": "ME Edition (140 kWh)",
+          "battery_usable_kWh": 140,
+          "range_km_cltc": 822,
+          "power_hp": 536,
+          "torque_nm": 686,
+          "acceleration_0_100_s": 4.5,
+          "drive": "AWD",
+          "fast_charge_max_kw": 150,
+          "dimensions_mm": {
+            "length": 5209,
+            "width": 2024,
+            "height": 1848,
+            "wheelbase": 3205
+          },
+          "seating_capacity": 6
+        }
+      ]
+    },
+    {
+      "brand": "Denza",
+      "model": "BAO 5 (Fang Cheng Bao 5)",
+      "price_cr": "$89,000.00",
+      "variations": [
+        {
+          "name": "Standard Edition (EREV)",
+          "is_phev": true,
+          "battery_usable_kWh": 31.8,
+          "range_km_cltc_pure_ev": 125,
+          "range_km_cltc_comprehensive": 1200,
+          "engine_type": "1.5L Turbo (Range Extender)",
+          "power_hp": 677,
+          "torque_nm": 760,
+          "acceleration_0_100_s": 4.8,
+          "drive": "Dual-Motor AWD",
+          "fast_charge_max_kw": 60,
+          "dimensions_mm": {
+            "length": 4890,
+            "width": 1970,
+            "height": 1920,
+            "wheelbase": 2800
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "Long Range Edition (EREV)",
+          "is_phev": true,
+          "battery_usable_kWh": 47.8,
+          "range_km_cltc_pure_ev": 210,
+          "range_km_cltc_comprehensive": 1200,
+          "engine_type": "1.5L Turbo (Range Extender)",
+          "power_hp": 677,
+          "torque_nm": 760,
+          "acceleration_0_100_s": 4.8,
+          "drive": "Dual-Motor AWD",
+          "fast_charge_max_kw": 60,
+          "dimensions_mm": {
+            "length": 4890,
+            "width": 1970,
+            "height": 1920,
+            "wheelbase": 2800
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Mercedes-Benz",
+      "model": "EQE Sedan",
+      "price_cr": "$88,000.00",
+      "variations": [
+        {
+          "name": "EQE 350+ Sedan (RWD)",
+          "battery_usable_kWh": 90.6,
+          "range_miles_epa": 305,
+          "range_km_wltp_est": 660,
+          "power_hp": 288,
+          "torque_lb_ft": 417,
+          "acceleration_0_60_s": 6.2,
+          "drive": "RWD",
+          "fast_charge_max_kw": 170,
+          "dimensions_mm": {
+            "length": 4946,
+            "width": 1961,
+            "height": 1512,
+            "wheelbase": 3120
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "EQE 350 4MATIC Sedan (AWD)",
+          "battery_usable_kWh": 90.6,
+          "range_miles_epa": 267,
+          "range_km_wltp_est": 589,
+          "power_hp": 288,
+          "torque_lb_ft": 564,
+          "acceleration_0_60_s": 6.0,
+          "drive": "AWD",
+          "fast_charge_max_kw": 170,
+          "dimensions_mm": {
+            "length": 4946,
+            "width": 1961,
+            "height": 1512,
+            "wheelbase": 3120
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "EQE 500 4MATIC Sedan (AWD)",
+          "battery_usable_kWh": 90.6,
+          "range_miles_epa": 267,
+          "range_km_wltp_est": 589,
+          "power_hp": 402,
+          "torque_lb_ft": 633,
+          "acceleration_0_60_s": 4.5,
+          "drive": "AWD",
+          "fast_charge_max_kw": 170,
+          "dimensions_mm": {
+            "length": 4946,
+            "width": 1961,
+            "height": 1512,
+            "wheelbase": 3120
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Lexus",
+      "model": "RZ450e",
+      "price_cr": "$82,900.00",
+      "variations": [
+        {
+          "name": "RZ 450e Luxury (AWD)",
+          "battery_usable_kWh": 71.4,
+          "range_miles_epa": 220,
+          "range_km_wltp_est": 440,
+          "power_hp": 308,
+          "torque_lb_ft": 320,
+          "acceleration_0_100_s": 5.6,
+          "drive": "DIRECT4 All-wheel Drive",
+          "fast_charge_max_kw": 150,
+          "dimensions_mm": {
+            "length": 4805,
+            "width": 1895,
+            "height": 1635,
+            "wheelbase": 2850
+          },
+          "seating_capacity": 5,
+          "interior_features": {
+            "screen_in": 14,
+            "upholstery": "Ultrasuede",
+            "audio_system": "10-speaker premium"
+          }
+        }
+      ]
+    },
+    {
+      "brand": "Audi",
+      "model": "Q8 e-tron",
+      "price_cr": "$79,500.00",
+      "variations": [
+        {
+          "name": "Q8 50 e-tron quattro",
+          "battery_usable_kWh": 89,
+          "range_km_wltp_est": 491,
+          "power_hp": 335,
+          "torque_nm": 664,
+          "acceleration_0_100_s": 6.0,
+          "drive": "e-quattro (Dual Motor AWD)",
+          "fast_charge_max_kw": 150,
+          "dimensions_mm": {
+            "length": 4915,
+            "width": 1935,
+            "height": 1633,
+            "wheelbase": 2928
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "Q8 55 e-tron quattro",
+          "battery_usable_kWh": 106,
+          "range_km_wltp_est": 582,
+          "power_hp": 402,
+          "torque_nm": 664,
+          "acceleration_0_100_s": 5.6,
+          "drive": "e-quattro (Dual Motor AWD)",
+          "fast_charge_max_kw": 170,
+          "dimensions_mm": {
+            "length": 4915,
+            "width": 1935,
+            "height": 1633,
+            "wheelbase": 2928
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "IM",
+      "model": "LS7",
+      "price_cr": "$79,000.00",
+      "variations": [
+        {
+          "name": "RWD Long Range (100 kWh)",
+          "battery_usable_kWh": 100,
+          "range_km_cltc": 660,
+          "power_hp": 340,
+          "torque_nm": 475,
+          "acceleration_0_100_s": 6.5,
+          "drive": "RWD",
+          "fast_charge_max_kw": 100,
+          "dimensions_mm": {
+            "length": 5049,
+            "width": 2002,
+            "height": 1731,
+            "wheelbase": 3060
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "AWD Performance (100 kWh)",
+          "battery_usable_kWh": 100,
+          "range_km_cltc": 625,
+          "power_hp": 578,
+          "torque_nm": 725,
+          "acceleration_0_100_s": 4.5,
+          "drive": "AWD",
+          "fast_charge_max_kw": 100,
+          "dimensions_mm": {
+            "length": 5049,
+            "width": 2002,
+            "height": 1731,
+            "wheelbase": 3060
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "X-Peng",
+      "model": "G9",
+      "price_cr": "$78,900.00",
+      "variations": [
+        {
+          "name": "RWD Standard Range",
+          "battery_usable_kWh": 75.8,
+          "range_km_wltp": 460,
+          "power_hp": 308,
+          "torque_nm": 430,
+          "acceleration_0_100_s": 6.4,
+          "drive": "RWD",
+          "fast_charge_max_kw": 300,
+          "architecture": "800V",
+          "dimensions_mm": {
+            "length": 4891,
+            "width": 1937,
+            "height": 1680,
+            "wheelbase": 2998
+          },
+          "seating_capacity": 5,
+          "frunk_volume_l": 71
+        },
+        {
+          "name": "RWD Long Range",
+          "battery_usable_kWh": 93.1,
+          "range_km_wltp": 570,
+          "power_hp": 308,
+          "torque_nm": 430,
+          "acceleration_0_100_s": 6.4,
+          "drive": "RWD",
+          "fast_charge_max_kw": 300,
+          "architecture": "800V",
+          "dimensions_mm": {
+            "length": 4891,
+            "width": 1937,
+            "height": 1680,
+            "wheelbase": 2998
+          },
+          "seating_capacity": 5,
+          "frunk_volume_l": 71
+        },
+        {
+          "name": "AWD Performance",
+          "battery_usable_kWh": 93.1,
+          "range_km_wltp": 520,
+          "power_hp": 543,
+          "torque_nm": 717,
+          "acceleration_0_100_s": 3.9,
+          "drive": "AWD",
+          "fast_charge_max_kw": 300,
+          "architecture": "800V",
+          "dimensions_mm": {
+            "length": 4891,
+            "width": 1937,
+            "height": 1680,
+            "wheelbase": 2998
+          },
+          "seating_capacity": 5,
+          "frunk_volume_l": 71
+        }
+      ]
+    },
+    {
+      "brand": "Audi",
+      "model": "Q6 e-tron",
+      "price_cr": "$77,500.00",
+      "variations": [
+        {
+          "name": "Q6 e-tron quattro",
+          "battery_usable_kWh": 94.9,
+          "range_km_wltp": 625,
+          "power_hp": 387,
+          "torque_nm": 535,
+          "acceleration_0_100_s": 5.9,
+          "drive": "e-quattro (Dual Motor AWD)",
+          "fast_charge_max_kw": 270,
+          "architecture": "800V",
+          "dimensions_mm": {
+            "length": 4771,
+            "width": 1939,
+            "height": 1648,
+            "wheelbase": 2899
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "SQ6 e-tron quattro",
+          "battery_usable_kWh": 94.9,
+          "range_km_wltp": 598,
+          "power_hp": 517,
+          "torque_nm": 800,
+          "acceleration_0_100_s": 4.3,
+          "drive": "e-quattro (Dual Motor AWD)",
+          "fast_charge_max_kw": 270,
+          "architecture": "800V",
+          "dimensions_mm": {
+            "length": 4771,
+            "width": 1939,
+            "height": 1648,
+            "wheelbase": 2899
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "X-Peng",
+      "model": "X9",
+      "price_cr": "$74,900.00",
+      "variations": [
+        {
+          "name": "RWD Standard Range",
+          "battery_usable_kWh": 84.5,
+          "range_km_cltc": 610,
+          "power_hp": 315,
+          "torque_nm": 430,
+          "acceleration_0_100_s": 7.7,
+          "drive": "FWD",
+          "fast_charge_max_kw": 315,
+          "architecture": "800V",
+          "dimensions_mm": {
+            "length": 5293,
+            "width": 1988,
+            "height": 1785,
+            "wheelbase": 3160
+          },
+          "seating_capacity": 7
+        },
+        {
+          "name": "RWD Long Range",
+          "battery_usable_kWh": 101.5,
+          "range_km_cltc": 702,
+          "power_hp": 315,
+          "torque_nm": 430,
+          "acceleration_0_100_s": 7.7,
+          "drive": "FWD",
+          "fast_charge_max_kw": 315,
+          "architecture": "800V",
+          "dimensions_mm": {
+            "length": 5293,
+            "width": 1988,
+            "height": 1785,
+            "wheelbase": 3160
+          },
+          "seating_capacity": 7
+        },
+        {
+          "name": "AWD Performance",
+          "battery_usable_kWh": 101.5,
+          "range_km_cltc": 640,
+          "power_hp": 496,
+          "torque_nm": 640,
+          "acceleration_0_100_s": 5.7,
+          "drive": "AWD",
+          "fast_charge_max_kw": 315,
+          "architecture": "800V",
+          "dimensions_mm": {
+            "length": 5293,
+            "width": 1988,
+            "height": 1785,
+            "wheelbase": 3160
+          },
+          "seating_capacity": 7
+        }
+      ]
+    },
+    {
+      "brand": "Zeekr",
+      "model": "001",
+      "price_cr": "$69,900.00",
+      "variations": [
+        {
+          "name": "Long Range RWD",
+          "battery_usable_kWh": 94,
+          "range_km_wltp": 620,
+          "power_hp": 268,
+          "torque_nm": 343,
+          "acceleration_0_100_s": 7.2,
+          "drive": "RWD",
+          "fast_charge_max_kw": 200,
+          "dimensions_mm": {
+            "length": 4970,
+            "width": 1999,
+            "height": 1548,
+            "wheelbase": 3005
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "Performance AWD",
+          "battery_usable_kWh": 94,
+          "range_km_wltp": 580,
+          "power_hp": 536,
+          "torque_nm": 686,
+          "acceleration_0_100_s": 3.8,
+          "drive": "AWD",
+          "fast_charge_max_kw": 200,
+          "dimensions_mm": {
+            "length": 4970,
+            "width": 1999,
+            "height": 1548,
+            "wheelbase": 3005
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "Long Range AWD (100 kWh)",
+          "battery_usable_kWh": 100,
+          "range_km_wltp": 590,
+          "power_hp": 536,
+          "torque_nm": 686,
+          "acceleration_0_100_s": 3.8,
+          "drive": "AWD",
+          "fast_charge_max_kw": 200,
+          "dimensions_mm": {
+            "length": 4970,
+            "width": 1999,
+            "height": 1548,
+            "wheelbase": 3005
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Volvo",
+      "model": "EC40",
+      "price_cr": "$66,900.00",
+      "variations": [
+        {
+          "name": "Single Motor Extended Range",
+          "battery_usable_kWh": 79,
+          "range_km_wltp": 580,
+          "power_hp": 238,
+          "torque_nm": 420,
+          "acceleration_0_100_s": 7.3,
+          "drive": "RWD",
+          "fast_charge_max_kw": 200,
+          "dimensions_mm": {
+            "length": 4440,
+            "width": 1873,
+            "height": 1591,
+            "wheelbase": 2702
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "Twin Motor",
+          "battery_usable_kWh": 79,
+          "range_km_wltp": 540,
+          "power_hp": 408,
+          "torque_nm": 670,
+          "acceleration_0_100_s": 4.7,
+          "drive": "AWD",
+          "fast_charge_max_kw": 200,
+          "dimensions_mm": {
+            "length": 4440,
+            "width": 1873,
+            "height": 1591,
+            "wheelbase": 2702
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Volvo",
+      "model": "C40",
+      "price_cr": "$63,900.00",
+      "variations": [
+        {
+          "name": "Single Motor Extended Range",
+          "battery_usable_kWh": 79,
+          "range_km_wltp": 580,
+          "power_hp": 238,
+          "torque_nm": 420,
+          "acceleration_0_100_s": 7.3,
+          "drive": "RWD",
+          "fast_charge_max_kw": 200,
+          "dimensions_mm": {
+            "length": 4440,
+            "width": 1873,
+            "height": 1591,
+            "wheelbase": 2702
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "Twin Motor",
+          "battery_usable_kWh": 79,
+          "range_km_wltp": 540,
+          "power_hp": 408,
+          "torque_nm": 670,
+          "acceleration_0_100_s": 4.7,
+          "drive": "AWD",
+          "fast_charge_max_kw": 200,
+          "dimensions_mm": {
+            "length": 4440,
+            "width": 1873,
+            "height": 1591,
+            "wheelbase": 2702
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Volvo",
+      "model": "XC40",
+      "price_cr": "$61,900.00",
+      "variations": [
+        {
+          "name": "Single Motor Extended Range (EX40)",
+          "battery_usable_kWh": 79,
+          "range_km_wltp": 570,
+          "power_hp": 238,
+          "torque_nm": 420,
+          "acceleration_0_100_s": 7.3,
+          "drive": "RWD",
+          "fast_charge_max_kw": 200,
+          "dimensions_mm": {
+            "length": 4440,
+            "width": 1873,
+            "height": 1651,
+            "wheelbase": 2702
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "Twin Motor (EX40)",
+          "battery_usable_kWh": 79,
+          "range_km_wltp": 530,
+          "power_hp": 408,
+          "torque_nm": 670,
+          "acceleration_0_100_s": 4.7,
+          "drive": "AWD",
+          "fast_charge_max_kw": 200,
+          "dimensions_mm": {
+            "length": 4440,
+            "width": 1873,
+            "height": 1651,
+            "wheelbase": 2702
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "BYD",
+      "model": "Seal",
+      "price_cr": "$62,000.00",
+      "variations": [
+        {
+          "name": "Dynamic Standard Range",
+          "battery_usable_kWh": 61.4,
+          "range_km_wltp": 460,
+          "power_hp": 201,
+          "torque_nm": 310,
+          "acceleration_0_100_s": 7.5,
+          "drive": "RWD",
+          "fast_charge_max_kw": 110,
+          "dimensions_mm": {
+            "length": 4800,
+            "width": 1875,
+            "height": 1460,
+            "wheelbase": 2920
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "Excellence Extended Range",
+          "battery_usable_kWh": 82.5,
+          "range_km_wltp": 570,
+          "power_hp": 308,
+          "torque_nm": 360,
+          "acceleration_0_100_s": 5.9,
+          "drive": "RWD",
+          "fast_charge_max_kw": 150,
+          "dimensions_mm": {
+            "length": 4800,
+            "width": 1875,
+            "height": 1460,
+            "wheelbase": 2920
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "AWD Performance",
+          "battery_usable_kWh": 82.5,
+          "range_km_wltp": 520,
+          "power_hp": 523,
+          "torque_nm": 670,
+          "acceleration_0_100_s": 3.8,
+          "drive": "AWD",
+          "fast_charge_max_kw": 150,
+          "dimensions_mm": {
+            "length": 4800,
+            "width": 1875,
+            "height": 1460,
+            "wheelbase": 2920
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Kia",
+      "model": "EV5",
+      "price_cr": "$58,900.00",
+      "variations": [
+        {
+          "name": "Standard Range",
+          "battery_usable_kWh": 64,
+          "range_km_cltc": 530,
+          "power_hp": 215,
+          "torque_nm": 310,
+          "acceleration_0_100_s": 8.5,
+          "drive": "FWD",
+          "fast_charge_max_kw": 100,
+          "dimensions_mm": {
+            "length": 4615,
+            "width": 1875,
+            "height": 1715,
+            "wheelbase": 2750
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "Long Range",
+          "battery_usable_kWh": 88,
+          "range_km_cltc": 720,
+          "power_hp": 215,
+          "torque_nm": 310,
+          "acceleration_0_100_s": 8.9,
+          "drive": "FWD",
+          "fast_charge_max_kw": 120,
+          "dimensions_mm": {
+            "length": 4615,
+            "width": 1875,
+            "height": 1715,
+            "wheelbase": 2750
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "X-Peng",
+      "model": "G6",
+      "price_cr": "$58,900.00",
+      "variations": [
+        {
+          "name": "RWD Standard Range",
+          "battery_usable_kWh": 66,
+          "range_km_cltc": 580,
+          "power_hp": 292,
+          "torque_nm": 440,
+          "acceleration_0_100_s": 6.6,
+          "drive": "RWD",
+          "fast_charge_max_kw": 280,
+          "architecture": "800V",
+          "dimensions_mm": {
+            "length": 4753,
+            "width": 1920,
+            "height": 1650,
+            "wheelbase": 2890
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "RWD Long Range",
+          "battery_usable_kWh": 87.5,
+          "range_km_cltc": 755,
+          "power_hp": 292,
+          "torque_nm": 440,
+          "acceleration_0_100_s": 6.6,
+          "drive": "RWD",
+          "fast_charge_max_kw": 280,
+          "architecture": "800V",
+          "dimensions_mm": {
+            "length": 4753,
+            "width": 1920,
+            "height": 1650,
+            "wheelbase": 2890
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "AWD Performance",
+          "battery_usable_kWh": 87.5,
+          "range_km_cltc": 700,
+          "power_hp": 480,
+          "torque_nm": 660,
+          "acceleration_0_100_s": 3.9,
+          "drive": "AWD",
+          "fast_charge_max_kw": 280,
+          "architecture": "800V",
+          "dimensions_mm": {
+            "length": 4753,
+            "width": 1920,
+            "height": 1650,
+            "wheelbase": 2890
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Hyundai",
+      "model": "IONIQ 5",
+      "price_cr": "$57,700.00",
+      "variations": [
+        {
+          "name": "Standard Range RWD",
+          "battery_usable_kWh": 58,
+          "range_miles_epa": 220,
+          "power_hp": 168,
+          "torque_lb_ft": 258,
+          "acceleration_0_100_s": 8.5,
+          "drive": "RWD",
+          "fast_charge_max_kw": 175,
+          "architecture": "800V",
+          "dimensions_mm": {
+            "length": 4635,
+            "width": 1890,
+            "height": 1605,
+            "wheelbase": 3000
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "Long Range RWD",
+          "battery_usable_kWh": 77.4,
+          "range_miles_epa": 303,
+          "power_hp": 225,
+          "torque_lb_ft": 258,
+          "acceleration_0_100_s": 7.4,
+          "drive": "RWD",
+          "fast_charge_max_kw": 235,
+          "architecture": "800V",
+          "dimensions_mm": {
+            "length": 4635,
+            "width": 1890,
+            "height": 1605,
+            "wheelbase": 3000
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "Long Range AWD",
+          "battery_usable_kWh": 77.4,
+          "range_miles_epa": 266,
+          "power_hp": 320,
+          "torque_lb_ft": 446,
+          "acceleration_0_100_s": 5.1,
+          "drive": "AWD",
+          "fast_charge_max_kw": 235,
+          "architecture": "800V",
+          "dimensions_mm": {
+            "length": 4635,
+            "width": 1890,
+            "height": 1605,
+            "wheelbase": 3000
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Toyota",
+      "model": "bZ4X",
+      "price_cr": "$56,200.00",
+      "variations": [
+        {
+          "name": "FWD",
+          "battery_usable_kWh": 71.4,
+          "range_miles_epa": 252,
+          "power_hp": 201,
+          "torque_lb_ft": 196,
+          "acceleration_0_100_s": 7.5,
+          "drive": "FWD",
+          "fast_charge_max_kw": 150,
+          "dimensions_mm": {
+            "length": 4690,
+            "width": 1860,
+            "height": 1650,
+            "wheelbase": 2850
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "AWD",
+          "battery_usable_kWh": 72.8,
+          "range_miles_epa": 228,
+          "power_hp": 214,
+          "torque_lb_ft": 248,
+          "acceleration_0_100_s": 6.9,
+          "drive": "AWD",
+          "fast_charge_max_kw": 100,
+          "dimensions_mm": {
+            "length": 4690,
+            "width": 1860,
+            "height": 1650,
+            "wheelbase": 2850
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "DFSK",
+      "model": "SERES 5",
+      "price_cr": "$51,990.00",
+      "variations": [
+        {
+          "name": "RWD Extended Range (EREV)",
+          "is_phev": true,
+          "battery_usable_kWh": 35,
+          "range_km_cltc_pure_ev": 180,
+          "range_km_cltc_comprehensive": 1200,
+          "engine_type": "1.5L Turbo (Range Extender)",
+          "power_hp": 347,
+          "torque_nm": 520,
+          "acceleration_0_100_s": 6.8,
+          "drive": "RWD",
+          "fast_charge_max_kw": 60,
+          "dimensions_mm": {
+            "length": 4710,
+            "width": 1930,
+            "height": 1620,
+            "wheelbase": 2875
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "AWD Performance (EREV)",
+          "is_phev": true,
+          "battery_usable_kWh": 35,
+          "range_km_cltc_pure_ev": 150,
+          "range_km_cltc_comprehensive": 1100,
+          "engine_type": "1.5L Turbo (Range Extender)",
+          "power_hp": 585,
+          "torque_nm": 960,
+          "acceleration_0_100_s": 4.8,
+          "drive": "AWD",
+          "fast_charge_max_kw": 60,
+          "dimensions_mm": {
+            "length": 4710,
+            "width": 1930,
+            "height": 1620,
+            "wheelbase": 2875
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "BEV (All-Electric)",
+          "is_phev": false,
+          "battery_usable_kWh": 80,
+          "range_km_wltp": 500,
+          "power_hp": 585,
+          "torque_nm": 940,
+          "acceleration_0_100_s": 4.3,
+          "drive": "AWD",
+          "fast_charge_max_kw": 100,
+          "dimensions_mm": {
+            "length": 4710,
+            "width": 1930,
+            "height": 1620,
+            "wheelbase": 2875
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "JAC",
+      "model": "N55 EV",
+      "price_cr": "$50,990.00",
+      "variations": [
+        {
+          "name": "Standard Chassis Cab",
+          "battery_usable_kWh": 96.7,
+          "range_km_cltc": 200,
+          "power_hp": 174,
+          "torque_nm": 1200,
+          "drive": "RWD",
+          "fast_charge_max_kw": 60,
+          "dimensions_mm": {
+            "length": 5995,
+            "width": 1900,
+            "height": 2240,
+            "wheelbase": 3308
+          },
+          "gross_vehicle_mass_kg": 5500,
+          "payload_kg": 2500
+        }
+      ]
+    },
+    {
+      "brand": "BYD",
+      "model": "SEALION",
+      "price_cr": "$49,990.00",
+      "variations": [
+        {
+          "name": "Standard Range RWD",
+          "battery_usable_kWh": 61.4,
+          "range_km_cltc": 550,
+          "power_hp": 201,
+          "torque_nm": 310,
+          "acceleration_0_100_s": 7.5,
+          "drive": "RWD",
+          "fast_charge_max_kw": 110,
+          "dimensions_mm": {
+            "length": 4770,
+            "width": 1910,
+            "height": 1620,
+            "wheelbase": 2900
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "Extended Range RWD",
+          "battery_usable_kWh": 82.5,
+          "range_km_cltc": 650,
+          "power_hp": 308,
+          "torque_nm": 360,
+          "acceleration_0_100_s": 5.9,
+          "drive": "RWD",
+          "fast_charge_max_kw": 150,
+          "dimensions_mm": {
+            "length": 4770,
+            "width": 1910,
+            "height": 1620,
+            "wheelbase": 2900
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Zeekr",
+      "model": "7X",
+      "price_cr": "$49,900.00",
+      "variations": [
+        {
+          "name": "Long Range RWD",
+          "battery_usable_kWh": 86,
+          "range_km_cltc": 688,
+          "power_hp": 416,
+          "torque_nm": 440,
+          "acceleration_0_100_s": 5.6,
+          "drive": "RWD",
+          "fast_charge_max_kw": 360,
+          "architecture": "800V",
+          "dimensions_mm": {
+            "length": 4755,
+            "width": 1950,
+            "height": 1650,
+            "wheelbase": 2900
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "Performance AWD",
+          "battery_usable_kWh": 86,
+          "range_km_cltc": 615,
+          "power_hp": 637,
+          "torque_nm": 810,
+          "acceleration_0_100_s": 3.4,
+          "drive": "AWD",
+          "fast_charge_max_kw": 360,
+          "architecture": "800V",
+          "dimensions_mm": {
+            "length": 4755,
+            "width": 1950,
+            "height": 1650,
+            "wheelbase": 2900
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Kia",
+      "model": "EV3",
+      "price_cr": "$49,900.00",
+      "variations": [
+        {
+          "name": "Standard Range",
+          "battery_usable_kWh": 58.3,
+          "range_km_wltp": 410,
+          "power_hp": 201,
+          "torque_nm": 283,
+          "acceleration_0_100_s": 7.5,
+          "drive": "FWD",
+          "fast_charge_max_kw": 100,
+          "dimensions_mm": {
+            "length": 4300,
+            "width": 1850,
+            "height": 1560,
+            "wheelbase": 2680
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "Long Range",
+          "battery_usable_kWh": 81.4,
+          "range_km_wltp": 600,
+          "power_hp": 201,
+          "torque_nm": 283,
+          "acceleration_0_100_s": 7.7,
+          "drive": "FWD",
+          "fast_charge_max_kw": 128,
+          "dimensions_mm": {
+            "length": 4300,
+            "width": 1850,
+            "height": 1560,
+            "wheelbase": 2680
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Renault",
+      "model": "MASTER",
+      "price_cr": "$46,900.00",
+      "variations": [
+        {
+          "name": "E-Tech L3H2 (87 kWh)",
+          "battery_usable_kWh": 87,
+          "range_km_wltp": 460,
+          "power_hp": 140,
+          "torque_nm": 300,
+          "drive": "FWD",
+          "fast_charge_max_kw": 130,
+          "dimensions_mm": {
+            "length": 6320,
+            "width": 2070,
+            "height": 2499,
+            "wheelbase": 4332
+          },
+          "cargo_volume_m3": 13,
+          "payload_kg": 1625
+        }
+      ]
+    },
+    {
+      "brand": "BYD",
+      "model": "SONG PLUS",
+      "price_cr": "$43,990.00",
+      "variations": [
+        {
+          "name": "EV Extended Range",
+          "battery_usable_kWh": 71.7,
+          "range_km_nedc": 505,
+          "power_hp": 201,
+          "torque_nm": 310,
+          "acceleration_0_100_s": 8.5,
+          "drive": "FWD",
+          "fast_charge_max_kw": 90,
+          "dimensions_mm": {
+            "length": 4705,
+            "width": 1890,
+            "height": 1680,
+            "wheelbase": 2765
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Zeekr",
+      "model": "X",
+      "price_cr": "$42,900.00",
+      "variations": [
+        {
+          "name": "Long Range RWD",
+          "battery_usable_kWh": 69,
+          "range_km_wltp": 440,
+          "power_hp": 272,
+          "torque_nm": 343,
+          "acceleration_0_100_s": 5.8,
+          "drive": "RWD",
+          "fast_charge_max_kw": 150,
+          "dimensions_mm": {
+            "length": 4450,
+            "width": 1836,
+            "height": 1572,
+            "wheelbase": 2750
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "Performance AWD",
+          "battery_usable_kWh": 69,
+          "range_km_wltp": 400,
+          "power_hp": 428,
+          "torque_nm": 543,
+          "acceleration_0_100_s": 3.7,
+          "drive": "AWD",
+          "fast_charge_max_kw": 150,
+          "dimensions_mm": {
+            "length": 4450,
+            "width": 1836,
+            "height": 1572,
+            "wheelbase": 2750
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "KGM",
+      "model": "TORRES",
+      "price_cr": "$41,900.00",
+      "variations": [
+        {
+          "name": "EVX (All-Electric)",
+          "battery_usable_kWh": 73.4,
+          "range_km_wltp": 462,
+          "power_hp": 204,
+          "torque_nm": 339,
+          "acceleration_0_100_s": 8.1,
+          "drive": "FWD",
+          "fast_charge_max_kw": 100,
+          "dimensions_mm": {
+            "length": 4715,
+            "width": 1890,
+            "height": 1725,
+            "wheelbase": 2680
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Changan",
+      "model": "DEEPAL S07",
+      "price_cr": "$40,990.00",
+      "variations": [
+        {
+          "name": "EV Standard Range",
+          "battery_usable_kWh": 58.1,
+          "range_km_cltc": 520,
+          "power_hp": 258,
+          "torque_nm": 320,
+          "acceleration_0_100_s": 6.9,
+          "drive": "RWD",
+          "fast_charge_max_kw": 80,
+          "dimensions_mm": {
+            "length": 4750,
+            "width": 1930,
+            "height": 1625,
+            "wheelbase": 2900
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "EV Long Range",
+          "battery_usable_kWh": 79.9,
+          "range_km_cltc": 620,
+          "power_hp": 258,
+          "torque_nm": 320,
+          "acceleration_0_100_s": 6.9,
+          "drive": "RWD",
+          "fast_charge_max_kw": 80,
+          "dimensions_mm": {
+            "length": 4750,
+            "width": 1930,
+            "height": 1625,
+            "wheelbase": 2900
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Renault",
+      "model": "KANGOO",
+      "price_cr": "$39,990.00",
+      "variations": [
+        {
+          "name": "E-Tech Van",
+          "battery_usable_kWh": 45,
+          "range_km_wltp": 300,
+          "power_hp": 121,
+          "torque_nm": 245,
+          "drive": "FWD",
+          "fast_charge_max_kw": 80,
+          "dimensions_mm": {
+            "length": 4486,
+            "width": 1919,
+            "height": 1836,
+            "wheelbase": 2716
+          },
+          "cargo_volume_m3": 3.9,
+          "payload_kg": 600
+        }
+      ]
+    },
+    {
+      "brand": "MG",
+      "model": "MARVEL R",
+      "price_cr": "$39,900.00",
+      "variations": [
+        {
+          "name": "RWD Performance",
+          "battery_usable_kWh": 70,
+          "range_km_wltp": 402,
+          "power_hp": 177,
+          "torque_nm": 410,
+          "acceleration_0_100_s": 7.9,
+          "drive": "RWD",
+          "fast_charge_max_kw": 90,
+          "dimensions_mm": {
+            "length": 4674,
+            "width": 1919,
+            "height": 1618,
+            "wheelbase": 2800
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "AWD Performance",
+          "battery_usable_kWh": 70,
+          "range_km_wltp": 370,
+          "power_hp": 284,
+          "torque_nm": 665,
+          "acceleration_0_100_s": 4.9,
+          "drive": "AWD",
+          "fast_charge_max_kw": 90,
+          "dimensions_mm": {
+            "length": 4674,
+            "width": 1919,
+            "height": 1618,
+            "wheelbase": 2800
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Link & Co",
+      "model": "02",
+      "price_cr": "$39,900.00",
+      "variations": [
+        {
+          "name": "PHEV",
+          "is_phev": true,
+          "battery_usable_kWh": 17.6,
+          "range_km_wltp_pure_ev": 75,
+          "engine_type": "1.5L Turbo (Hybrid)",
+          "power_hp": 262,
+          "torque_nm": 425,
+          "acceleration_0_100_s": 7.3,
+          "drive": "FWD",
+          "dimensions_mm": {
+            "length": 4448,
+            "width": 1890,
+            "height": 1528,
+            "wheelbase": 2702
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "BEV (All-Electric)",
+          "battery_usable_kWh": 69,
+          "range_km_wltp": 445,
+          "power_hp": 215,
+          "torque_nm": 310,
+          "acceleration_0_100_s": 7.5,
+          "drive": "FWD",
+          "fast_charge_max_kw": 100,
+          "dimensions_mm": {
+            "length": 4448,
+            "width": 1890,
+            "height": 1528,
+            "wheelbase": 2702
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Arcfox",
+      "model": "ALPHA",
+      "price_cr": "$38,990.00",
+      "variations": [
+        {
+          "name": "RWD Standard Range",
+          "battery_usable_kWh": 65.6,
+          "range_km_nedc": 480,
+          "power_hp": 215,
+          "torque_nm": 360,
+          "acceleration_0_100_s": 8.0,
+          "drive": "RWD",
+          "fast_charge_max_kw": 80,
+          "dimensions_mm": {
+            "length": 4788,
+            "width": 1940,
+            "height": 1683,
+            "wheelbase": 2915
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "AWD Long Range",
+          "battery_usable_kWh": 81,
+          "range_km_nedc": 600,
+          "power_hp": 430,
+          "torque_nm": 720,
+          "acceleration_0_100_s": 4.6,
+          "drive": "AWD",
+          "fast_charge_max_kw": 100,
+          "dimensions_mm": {
+            "length": 4788,
+            "width": 1940,
+            "height": 1683,
+            "wheelbase": 2915
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "JAC",
+      "model": "T8 EV",
+      "price_cr": "$38,990.00",
+      "variations": [
+        {
+          "name": "Standard Double Cab",
+          "battery_usable_kWh": 67.2,
+          "range_km_nedc": 300,
+          "power_hp": 147,
+          "torque_nm": 330,
+          "drive": "RWD",
+          "fast_charge_max_kw": 60,
+          "dimensions_mm": {
+            "length": 5325,
+            "width": 1880,
+            "height": 1830,
+            "wheelbase": 3090
+          },
+          "seating_capacity": 5,
+          "payload_kg": 900
+        }
+      ]
+    },
+    {
+      "brand": "Hyundai",
+      "model": "KONA",
+      "price_cr": "$38,900.00",
+      "variations": [
+        {
+          "name": "Standard Range",
+          "battery_usable_kWh": 48.4,
+          "range_km_wltp": 377,
+          "power_hp": 156,
+          "torque_nm": 255,
+          "acceleration_0_100_s": 8.8,
+          "drive": "FWD",
+          "fast_charge_max_kw": 100,
+          "dimensions_mm": {
+            "length": 4355,
+            "width": 1825,
+            "height": 1575,
+            "wheelbase": 2660
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "Long Range",
+          "battery_usable_kWh": 64.8,
+          "range_km_wltp": 514,
+          "power_hp": 218,
+          "torque_nm": 255,
+          "acceleration_0_100_s": 7.8,
+          "drive": "FWD",
+          "fast_charge_max_kw": 100,
+          "dimensions_mm": {
+            "length": 4355,
+            "width": 1825,
+            "height": 1575,
+            "wheelbase": 2660
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Chery",
+      "model": "ICAR 03",
+      "price_cr": "$37,990.00",
+      "variations": [
+        {
+          "name": "RWD Standard Range",
+          "battery_usable_kWh": 50.6,
+          "range_km_cltc": 401,
+          "power_hp": 181,
+          "torque_nm": 220,
+          "acceleration_0_100_s": 8.5,
+          "drive": "RWD",
+          "fast_charge_max_kw": 60,
+          "dimensions_mm": {
+            "length": 4406,
+            "width": 1910,
+            "height": 1715,
+            "wheelbase": 2715
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "AWD Long Range",
+          "battery_usable_kWh": 65.7,
+          "range_km_cltc": 501,
+          "power_hp": 275,
+          "torque_nm": 400,
+          "acceleration_0_100_s": 6.5,
+          "drive": "AWD",
+          "fast_charge_max_kw": 80,
+          "dimensions_mm": {
+            "length": 4406,
+            "width": 1910,
+            "height": 1715,
+            "wheelbase": 2715
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Volvo",
+      "model": "EX30",
+      "price_cr": "$37,900.00",
+      "variations": [
+        {
+          "name": "Single Motor Extended Range",
+          "battery_usable_kWh": 64,
+          "range_km_wltp": 476,
+          "power_hp": 272,
+          "torque_nm": 343,
+          "acceleration_0_100_s": 5.3,
+          "drive": "RWD",
+          "fast_charge_max_kw": 153,
+          "dimensions_mm": {
+            "length": 4233,
+            "width": 1837,
+            "height": 1549,
+            "wheelbase": 2650
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "Twin Motor Performance",
+          "battery_usable_kWh": 64,
+          "range_km_wltp": 450,
+          "power_hp": 428,
+          "torque_nm": 543,
+          "acceleration_0_100_s": 3.6,
+          "drive": "AWD",
+          "fast_charge_max_kw": 153,
+          "dimensions_mm": {
+            "length": 4233,
+            "width": 1837,
+            "height": 1549,
+            "wheelbase": 2650
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Peugeot",
+      "model": "e-2008",
+      "price_cr": "$36,900.00",
+      "variations": [
+        {
+          "name": "Standard Range",
+          "battery_usable_kWh": 46.3,
+          "range_km_wltp": 345,
+          "power_hp": 136,
+          "torque_nm": 260,
+          "acceleration_0_100_s": 9.0,
+          "drive": "FWD",
+          "fast_charge_max_kw": 100,
+          "dimensions_mm": {
+            "length": 4300,
+            "width": 1770,
+            "height": 1530,
+            "wheelbase": 2605
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "Long Range",
+          "battery_usable_kWh": 51,
+          "range_km_wltp": 406,
+          "power_hp": 156,
+          "torque_nm": 260,
+          "acceleration_0_100_s": 8.5,
+          "drive": "FWD",
+          "fast_charge_max_kw": 100,
+          "dimensions_mm": {
+            "length": 4300,
+            "width": 1770,
+            "height": 1530,
+            "wheelbase": 2605
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "JAC",
+      "model": "Panel M3 EV",
+      "price_cr": "$36,490.00",
+      "variations": [
+        {
+          "name": "Standard Van",
+          "battery_usable_kWh": 41.86,
+          "range_km_nedc": 260,
+          "power_hp": 100,
+          "torque_nm": 215,
+          "drive": "FWD",
+          "fast_charge_max_kw": 40,
+          "dimensions_mm": {
+            "length": 5115,
+            "width": 1765,
+            "height": 1900,
+            "wheelbase": 3100
+          },
+          "cargo_volume_m3": 5.2,
+          "payload_kg": 1000
+        }
+      ]
+    },
+    {
+      "brand": "Chery",
+      "model": "eQ7",
+      "price_cr": "$35,990.00",
+      "variations": [
+        {
+          "name": "Standard Range",
+          "battery_usable_kWh": 53.8,
+          "range_km_nedc": 412,
+          "power_hp": 181,
+          "torque_nm": 285,
+          "acceleration_0_100_s": 8.5,
+          "drive": "RWD",
+          "fast_charge_max_kw": 60,
+          "dimensions_mm": {
+            "length": 4675,
+            "width": 1910,
+            "height": 1660,
+            "wheelbase": 2830
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "Long Range",
+          "battery_usable_kWh": 67.1,
+          "range_km_nedc": 512,
+          "power_hp": 208,
+          "torque_nm": 285,
+          "acceleration_0_100_s": 8.0,
+          "drive": "RWD",
+          "fast_charge_max_kw": 80,
+          "dimensions_mm": {
+            "length": 4675,
+            "width": 1910,
+            "height": 1660,
+            "wheelbase": 2830
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Riddara",
+      "model": "RD6",
+      "price_cr": "$35,900.00",
+      "variations": [
+        {
+          "name": "Standard Range RWD",
+          "battery_usable_kWh": 63,
+          "range_km_cltc": 373,
+          "power_hp": 268,
+          "torque_nm": 384,
+          "acceleration_0_100_s": 7.3,
+          "drive": "RWD",
+          "fast_charge_max_kw": 100,
+          "dimensions_mm": {
+            "length": 5260,
+            "width": 1900,
+            "height": 1830,
+            "wheelbase": 3120
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "Long Range AWD",
+          "battery_usable_kWh": 86,
+          "range_km_cltc": 500,
+          "power_hp": 630,
+          "torque_nm": 710,
+          "acceleration_0_100_s": 4.5,
+          "drive": "AWD",
+          "fast_charge_max_kw": 120,
+          "dimensions_mm": {
+            "length": 5260,
+            "width": 1900,
+            "height": 1830,
+            "wheelbase": 3120
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Omoda",
+      "model": "E5",
+      "price_cr": "$35,500.00",
+      "variations": [
+        {
+          "name": "Standard",
+          "battery_usable_kWh": 61,
+          "range_km_wltp": 430,
+          "power_hp": 204,
+          "torque_nm": 340,
+          "acceleration_0_100_s": 7.6,
+          "drive": "FWD",
+          "fast_charge_max_kw": 80,
+          "dimensions_mm": {
+            "length": 4400,
+            "width": 1830,
+            "height": 1588,
+            "wheelbase": 2630
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Neta",
+      "model": "X",
+      "price_cr": "$34,900.00",
+      "variations": [
+        {
+          "name": "Standard Range",
+          "battery_usable_kWh": 51.8,
+          "range_km_cltc": 401,
+          "power_hp": 161,
+          "torque_nm": 210,
+          "acceleration_0_100_s": 9.5,
+          "drive": "FWD",
+          "fast_charge_max_kw": 80,
+          "dimensions_mm": {
+            "length": 4619,
+            "width": 1860,
+            "height": 1628,
+            "wheelbase": 2770
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "Long Range",
+          "battery_usable_kWh": 68.6,
+          "range_km_cltc": 501,
+          "power_hp": 161,
+          "torque_nm": 210,
+          "acceleration_0_100_s": 9.5,
+          "drive": "FWD",
+          "fast_charge_max_kw": 80,
+          "dimensions_mm": {
+            "length": 4619,
+            "width": 1860,
+            "height": 1628,
+            "wheelbase": 2770
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "MG",
+      "model": "ZS EV",
+      "price_cr": "$33,900.00",
+      "variations": [
+        {
+          "name": "Standard Range",
+          "battery_usable_kWh": 49,
+          "range_km_wltp": 320,
+          "power_hp": 177,
+          "torque_nm": 280,
+          "acceleration_0_100_s": 8.6,
+          "drive": "FWD",
+          "fast_charge_max_kw": 80,
+          "dimensions_mm": {
+            "length": 4323,
+            "width": 1809,
+            "height": 1649,
+            "wheelbase": 2581
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "Long Range",
+          "battery_usable_kWh": 72,
+          "range_km_wltp": 440,
+          "power_hp": 156,
+          "torque_nm": 280,
+          "acceleration_0_100_s": 8.6,
+          "drive": "FWD",
+          "fast_charge_max_kw": 92,
+          "dimensions_mm": {
+            "length": 4323,
+            "width": 1809,
+            "height": 1649,
+            "wheelbase": 2581
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "GWM",
+      "model": "ORA 500",
+      "price_cr": "$33,900.00",
+      "variations": [
+        {
+          "name": "Standard Range",
+          "battery_usable_kWh": 48,
+          "range_km_wltp": 310,
+          "power_hp": 171,
+          "torque_nm": 250,
+          "acceleration_0_100_s": 8.3,
+          "drive": "FWD",
+          "fast_charge_max_kw": 80,
+          "dimensions_mm": {
+            "length": 4235,
+            "width": 1825,
+            "height": 1596,
+            "wheelbase": 2650
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "Long Range",
+          "battery_usable_kWh": 63,
+          "range_km_wltp": 420,
+          "power_hp": 171,
+          "torque_nm": 250,
+          "acceleration_0_100_s": 8.3,
+          "drive": "FWD",
+          "fast_charge_max_kw": 80,
+          "dimensions_mm": {
+            "length": 4235,
+            "width": 1825,
+            "height": 1596,
+            "wheelbase": 2650
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "GWM",
+      "model": "ORA 03",
+      "price_cr": "$31,900.00",
+      "variations": [
+        {
+          "name": "Standard Range",
+          "battery_usable_kWh": 48,
+          "range_km_wltp": 310,
+          "power_hp": 171,
+          "torque_nm": 250,
+          "acceleration_0_100_s": 8.3,
+          "drive": "FWD",
+          "fast_charge_max_kw": 80,
+          "dimensions_mm": {
+            "length": 4235,
+            "width": 1825,
+            "height": 1596,
+            "wheelbase": 2650
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "Long Range",
+          "battery_usable_kWh": 63,
+          "range_km_wltp": 420,
+          "power_hp": 171,
+          "torque_nm": 250,
+          "acceleration_0_100_s": 8.3,
+          "drive": "FWD",
+          "fast_charge_max_kw": 80,
+          "dimensions_mm": {
+            "length": 4235,
+            "width": 1825,
+            "height": 1596,
+            "wheelbase": 2650
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Geely",
+      "model": "Geometry C",
+      "price_cr": "$30,900.00",
+      "variations": [
+        {
+          "name": "Standard Range",
+          "battery_usable_kWh": 53,
+          "range_km_nedc": 400,
+          "power_hp": 204,
+          "torque_nm": 310,
+          "acceleration_0_100_s": 7.7,
+          "drive": "FWD",
+          "fast_charge_max_kw": 60,
+          "dimensions_mm": {
+            "length": 4432,
+            "width": 1833,
+            "height": 1560,
+            "wheelbase": 2700
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "Long Range",
+          "battery_usable_kWh": 70,
+          "range_km_nedc": 550,
+          "power_hp": 204,
+          "torque_nm": 310,
+          "acceleration_0_100_s": 7.7,
+          "drive": "FWD",
+          "fast_charge_max_kw": 60,
+          "dimensions_mm": {
+            "length": 4432,
+            "width": 1833,
+            "height": 1560,
+            "wheelbase": 2700
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Nissan",
+      "model": "LEAF",
+      "price_cr": "$29,900.00",
+      "variations": [
+        {
+          "name": "Standard (40 kWh)",
+          "battery_usable_kWh": 39,
+          "range_km_wltp": 270,
+          "power_hp": 147,
+          "torque_nm": 320,
+          "acceleration_0_100_s": 7.9,
+          "drive": "FWD",
+          "fast_charge_max_kw": 50,
+          "dimensions_mm": {
+            "length": 4490,
+            "width": 1788,
+            "height": 1540,
+            "wheelbase": 2700
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "e+ (62 kWh)",
+          "battery_usable_kWh": 59,
+          "range_km_wltp": 385,
+          "power_hp": 214,
+          "torque_nm": 340,
+          "acceleration_0_100_s": 6.9,
+          "drive": "FWD",
+          "fast_charge_max_kw": 100,
+          "dimensions_mm": {
+            "length": 4490,
+            "width": 1788,
+            "height": 1540,
+            "wheelbase": 2700
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "X-Peng",
+      "model": "G3i",
+      "price_cr": "$29,900.00",
+      "variations": [
+        {
+          "name": "Standard Range",
+          "battery_usable_kWh": 55.9,
+          "range_km_nedc": 460,
+          "power_hp": 194,
+          "torque_nm": 300,
+          "acceleration_0_100_s": 8.6,
+          "drive": "FWD",
+          "fast_charge_max_kw": 80,
+          "dimensions_mm": {
+            "length": 4495,
+            "width": 1820,
+            "height": 1610,
+            "wheelbase": 2625
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Geely",
+      "model": "EX5",
+      "price_cr": "$29,900.00",
+      "variations": [
+        {
+          "name": "Standard",
+          "battery_usable_kWh": 53.6,
+          "range_km_nedc": 400,
+          "power_hp": 214,
+          "torque_nm": 320,
+          "acceleration_0_100_s": 7.9,
+          "drive": "FWD",
+          "fast_charge_max_kw": 60,
+          "dimensions_mm": {
+            "length": 4615,
+            "width": 1901,
+            "height": 1670,
+            "wheelbase": 2750
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "MG",
+      "model": "MG4",
+      "price_cr": "$29,900.00",
+      "variations": [
+        {
+          "name": "Standard Range (51 kWh)",
+          "battery_usable_kWh": 50.8,
+          "range_km_wltp": 350,
+          "power_hp": 170,
+          "torque_nm": 250,
+          "acceleration_0_100_s": 7.7,
+          "drive": "RWD",
+          "fast_charge_max_kw": 117,
+          "dimensions_mm": {
+            "length": 4287,
+            "width": 1836,
+            "height": 1504,
+            "wheelbase": 2705
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "Long Range (64 kWh)",
+          "battery_usable_kWh": 61.7,
+          "range_km_wltp": 450,
+          "power_hp": 204,
+          "torque_nm": 250,
+          "acceleration_0_100_s": 7.7,
+          "drive": "RWD",
+          "fast_charge_max_kw": 135,
+          "dimensions_mm": {
+            "length": 4287,
+            "width": 1836,
+            "height": 1504,
+            "wheelbase": 2705
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "Extended Range (77 kWh)",
+          "battery_usable_kWh": 74.4,
+          "range_km_wltp": 520,
+          "power_hp": 245,
+          "torque_nm": 350,
+          "acceleration_0_100_s": 6.5,
+          "drive": "RWD",
+          "fast_charge_max_kw": 144,
+          "dimensions_mm": {
+            "length": 4287,
+            "width": 1836,
+            "height": 1504,
+            "wheelbase": 2705
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "BYD",
+      "model": "S1 PRO",
+      "price_cr": "$28,990.00",
+      "variations": [
+        {
+          "name": "Standard (Yuan Pro)",
+          "battery_usable_kWh": 50.1,
+          "range_km_nedc": 401,
+          "power_hp": 134,
+          "torque_nm": 210,
+          "acceleration_0_50_s": 3.9,
+          "drive": "FWD",
+          "fast_charge_max_kw": 50,
+          "dimensions_mm": {
+            "length": 4375,
+            "width": 1785,
+            "height": 1680,
+            "wheelbase": 2535
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "DFSK",
+      "model": "SERES 3",
+      "price_cr": "$27,990.00",
+      "variations": [
+        {
+          "name": "Standard",
+          "battery_usable_kWh": 52,
+          "range_km_wltp": 301,
+          "power_hp": 161,
+          "torque_nm": 300,
+          "acceleration_0_100_s": 8.9,
+          "drive": "FWD",
+          "fast_charge_max_kw": 50,
+          "dimensions_mm": {
+            "length": 4385,
+            "width": 1850,
+            "height": 1650,
+            "wheelbase": 2655
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Dongfeng",
+      "model": "MAGE EV",
+      "price_cr": "$27,990.00",
+      "variations": [
+        {
+          "name": "Standard",
+          "battery_usable_kWh": 82,
+          "range_km_cltc": 600,
+          "power_hp": 215,
+          "torque_nm": 310,
+          "acceleration_0_100_s": 7.9,
+          "drive": "FWD",
+          "fast_charge_max_kw": 100,
+          "dimensions_mm": {
+            "length": 4720,
+            "width": 1900,
+            "height": 1650,
+            "wheelbase": 2800
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "GAC",
+      "model": "AION Y PLUS",
+      "price_cr": "$27,900.00",
+      "variations": [
+        {
+          "name": "Standard Range",
+          "battery_usable_kWh": 63.2,
+          "range_km_cltc": 510,
+          "power_hp": 201,
+          "torque_nm": 225,
+          "acceleration_0_100_s": 7.9,
+          "drive": "FWD",
+          "fast_charge_max_kw": 80,
+          "dimensions_mm": {
+            "length": 4535,
+            "width": 1870,
+            "height": 1650,
+            "wheelbase": 2750
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Neta",
+      "model": "U",
+      "price_cr": "$26,900.00",
+      "variations": [
+        {
+          "name": "Standard Range",
+          "battery_usable_kWh": 54.3,
+          "range_km_nedc": 400,
+          "power_hp": 161,
+          "torque_nm": 210,
+          "acceleration_0_100_s": 9.5,
+          "drive": "FWD",
+          "fast_charge_max_kw": 80,
+          "dimensions_mm": {
+            "length": 4530,
+            "width": 1860,
+            "height": 1628,
+            "wheelbase": 2770
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "Long Range",
+          "battery_usable_kWh": 68.6,
+          "range_km_nedc": 500,
+          "power_hp": 201,
+          "torque_nm": 310,
+          "acceleration_0_100_s": 7.9,
+          "drive": "FWD",
+          "fast_charge_max_kw": 80,
+          "dimensions_mm": {
+            "length": 4530,
+            "width": 1860,
+            "height": 1628,
+            "wheelbase": 2770
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Dongfeng",
+      "model": "FRIDAY",
+      "price_cr": "$25,990.00",
+      "variations": [
+        {
+          "name": "Standard Range",
+          "battery_usable_kWh": 56.8,
+          "range_km_cltc": 430,
+          "power_hp": 201,
+          "torque_nm": 340,
+          "acceleration_0_100_s": 7.9,
+          "drive": "FWD",
+          "fast_charge_max_kw": 80,
+          "dimensions_mm": {
+            "length": 4600,
+            "width": 1860,
+            "height": 1680,
+            "wheelbase": 2715
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "BYD",
+      "model": "DOLPHIN",
+      "price_cr": "$25,900.00",
+      "variations": [
+        {
+          "name": "Standard Range",
+          "battery_usable_kWh": 44.9,
+          "range_km_wltp": 340,
+          "power_hp": 94,
+          "torque_nm": 180,
+          "acceleration_0_100_s": 12.3,
+          "drive": "FWD",
+          "fast_charge_max_kw": 60,
+          "dimensions_mm": {
+            "length": 4290,
+            "width": 1770,
+            "height": 1570,
+            "wheelbase": 2700
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "Extended Range",
+          "battery_usable_kWh": 60.48,
+          "range_km_wltp": 427,
+          "power_hp": 201,
+          "torque_nm": 310,
+          "acceleration_0_100_s": 7.0,
+          "drive": "FWD",
+          "fast_charge_max_kw": 80,
+          "dimensions_mm": {
+            "length": 4290,
+            "width": 1770,
+            "height": 1570,
+            "wheelbase": 2700
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "JAC",
+      "model": "e-JS4",
+      "price_cr": "$25,700.00",
+      "variations": [
+        {
+          "name": "Standard",
+          "battery_usable_kWh": 55,
+          "range_km_nedc": 402,
+          "power_hp": 190,
+          "torque_nm": 340,
+          "acceleration_0_100_s": 9.8,
+          "drive": "FWD",
+          "fast_charge_max_kw": 60,
+          "dimensions_mm": {
+            "length": 4410,
+            "width": 1800,
+            "height": 1660,
+            "wheelbase": 2620
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "JAC",
+      "model": "E30X",
+      "price_cr": "$21,990.00",
+      "variations": [
+        {
+          "name": "Standard Range",
+          "battery_usable_kWh": 41,
+          "range_km_nedc": 405,
+          "power_hp": 94,
+          "torque_nm": 150,
+          "acceleration_0_100_s": 12.0,
+          "drive": "FWD",
+          "fast_charge_max_kw": 40,
+          "dimensions_mm": {
+            "length": 4000,
+            "width": 1710,
+            "height": 1570,
+            "wheelbase": 2620
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Neta",
+      "model": "V-II",
+      "price_cr": "$21,900.00",
+      "variations": [
+        {
+          "name": "Standard Range",
+          "battery_usable_kWh": 38.5,
+          "range_km_cltc": 301,
+          "power_hp": 94,
+          "torque_nm": 150,
+          "acceleration_0_100_s": 12.0,
+          "drive": "FWD",
+          "fast_charge_max_kw": 40,
+          "dimensions_mm": {
+            "length": 4070,
+            "width": 1690,
+            "height": 1540,
+            "wheelbase": 2420
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Geely",
+      "model": "GEOMETRY E",
+      "price_cr": "$20,900.00",
+      "variations": [
+        {
+          "name": "Standard Range",
+          "battery_usable_kWh": 39.4,
+          "range_km_cltc": 320,
+          "power_hp": 80,
+          "torque_nm": 130,
+          "acceleration_0_100_s": 13.0,
+          "drive": "FWD",
+          "fast_charge_max_kw": 40,
+          "dimensions_mm": {
+            "length": 4006,
+            "width": 1765,
+            "height": 1550,
+            "wheelbase": 2485
+          },
+          "seating_capacity": 5
+        },
+        {
+          "name": "Long Range",
+          "battery_usable_kWh": 49.9,
+          "range_km_cltc": 401,
+          "power_hp": 80,
+          "torque_nm": 130,
+          "acceleration_0_100_s": 13.0,
+          "drive": "FWD",
+          "fast_charge_max_kw": 40,
+          "dimensions_mm": {
+            "length": 4006,
+            "width": 1765,
+            "height": 1550,
+            "wheelbase": 2485
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Dongfeng",
+      "model": "NAMMI 01",
+      "price_cr": "$18,990.00",
+      "variations": [
+        {
+          "name": "Standard Range",
+          "battery_usable_kWh": 31.4,
+          "range_km_cltc": 330,
+          "power_hp": 94,
+          "torque_nm": 160,
+          "acceleration_0_100_s": 10.0,
+          "drive": "FWD",
+          "fast_charge_max_kw": 40,
+          "dimensions_mm": {
+            "length": 4030,
+            "width": 1810,
+            "height": 1570,
+            "wheelbase": 2660
+          },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Dongfeng",
+      "model": "Nano Box",
+      "price_cr": "$16,990.00",
+      "variations": [
+        {
+          "name": "Standard Range",
+          "battery_usable_kWh": 27.2,
+          "range_km_cltc": 330,
+          "power_hp": 44,
+          "torque_nm": 125,
+          "acceleration_0_100_s": 15.0,
+          "drive": "FWD",
+          "fast_charge_max_kw": 20,
+          "dimensions_mm": {
+            "length": 3732,
+            "width": 1579,
+            "height": 1515,
+            "wheelbase": 2423
+          },
+          "seating_capacity": 4
+        }
+      ]
+    },
+    {
+      "brand": "JAC",
+      "model": "e-JS1",
+      "price_cr": "$16,990.00",
+      "variations": [
+        {
+          "name": "Standard",
+          "battery_usable_kWh": 31.4,
+          "range_km_nedc": 302,
+          "power_hp": 60,
+          "torque_nm": 150,
+          "acceleration_0_50_s": 4.6,
+          "drive": "FWD",
+          "fast_charge_max_kw": 40,
+          "dimensions_mm": {
+            "length": 3650,
+            "width": 1670,
+            "height": 1540,
+            "wheelbase": 2390
+          },
+          "seating_capacity": 4
+        }
+      ]
+    },
+    {
+      "brand": "Renault",
+      "model": "KWID E-TECH",
+      "price_cr": "$16,000.00",
+      "variations": [
+        {
+          "name": "Standard",
+          "battery_usable_kWh": 26.8,
+          "range_km_wltp": 298,
+          "power_hp": 65,
+          "torque_nm": 113,
+          "acceleration_0_50_s": 4.1,
+          "drive": "FWD",
+          "fast_charge_max_kw": 30,
+          "dimensions_mm": {
+            "length": 3734,
+            "width": 1759,
+            "height": 1474,
+            "wheelbase": 2423
+          },
+          "seating_capacity": 4
+        }
+      ]
+    },
+    {
+      "brand": "Changan",
+      "model": "LUMIN",
+      "price_cr": "$14,490.00",
+      "variations": [
+        {
+          "name": "Standard Range",
+          "battery_usable_kWh": 12.92,
+          "range_km_cltc": 155,
+          "power_hp": 41,
+          "torque_nm": 83,
+          "acceleration_0_100_s": 15.0,
+          "drive": "FWD",
+          "fast_charge_max_kw": 6.6,
+          "dimensions_mm": {
+            "length": 3270,
+            "width": 1700,
+            "height": 1545,
+            "wheelbase": 1980
+          },
+          "seating_capacity": 4
+        },
+        {
+          "name": "Long Range",
+          "battery_usable_kWh": 27.99,
+          "range_km_cltc": 301,
+          "power_hp": 41,
+          "torque_nm": 83,
+          "acceleration_0_100_s": 15.0,
+          "drive": "FWD",
+          "fast_charge_max_kw": 6.6,
+          "dimensions_mm": {
+            "length": 3270,
+            "width": 1700,
+            "height": 1545,
+            "wheelbase": 1980
+          },
+          "seating_capacity": 4
+        }
+      ]
+    }
+  ]
+}
