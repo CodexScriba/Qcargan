@@ -7,6 +7,14 @@ import {
   vehiclePricing,
   organizations,
 } from "@/lib/db/schema"
+import { getPublicImageUrls } from "@/lib/supabase/storage"
+
+type VehicleQueryDeps = {
+  dbClient?: typeof db
+  storage?: {
+    getPublicImageUrls: typeof getPublicImageUrls
+  }
+}
 
 // ============================================================================
 // TYPES
@@ -41,25 +49,35 @@ export interface VehicleFilters {
 /**
  * Get a single vehicle by slug with all related data
  * Includes: specifications, images (ordered), and pricing with organizations
+ * Only returns published vehicles with active organization pricing
  */
-export async function getVehicleBySlug(slug: string) {
-  const [vehicle] = await db
+export async function getVehicleBySlug(
+  slug: string,
+  deps: VehicleQueryDeps = {}
+) {
+  const dbClient = deps.dbClient ?? db
+  const storage = deps.storage ?? { getPublicImageUrls }
+
+  const [vehicle] = await dbClient
     .select()
     .from(vehicles)
-    .where(eq(vehicles.slug, slug))
+    .where(and(eq(vehicles.slug, slug), eq(vehicles.isPublished, true)))
     .limit(1)
 
   if (!vehicle) return null
+  if (!vehicle.isPublished) {
+    return null
+  }
 
   // Fetch specifications
-  const [specifications] = await db
+  const [specifications] = await dbClient
     .select()
     .from(vehicleSpecifications)
     .where(eq(vehicleSpecifications.vehicleId, vehicle.id))
     .limit(1)
 
   // Fetch images
-  const images = await db
+  const images = await dbClient
     .select({
       id: vehicleImages.id,
       storagePath: vehicleImages.storagePath,
@@ -72,8 +90,8 @@ export async function getVehicleBySlug(slug: string) {
     .where(eq(vehicleImages.vehicleId, vehicle.id))
     .orderBy(asc(vehicleImages.displayOrder))
 
-  // Fetch pricing with organizations
-  const pricing = await db
+  // Fetch pricing with organizations (only active organizations)
+  const pricingResults = await dbClient
     .select({
       id: vehiclePricing.id,
       amount: vehiclePricing.amount,
@@ -84,6 +102,7 @@ export async function getVehicleBySlug(slug: string) {
       perks: vehiclePricing.perks,
       emphasis: vehiclePricing.emphasis,
       displayOrder: vehiclePricing.displayOrder,
+      isActive: vehiclePricing.isActive,
       organization: {
         id: organizations.id,
         slug: organizations.slug,
@@ -93,28 +112,42 @@ export async function getVehicleBySlug(slug: string) {
         contact: organizations.contact,
         official: organizations.official,
         badges: organizations.badges,
+        isActive: organizations.isActive,
       },
     })
     .from(vehiclePricing)
-    .leftJoin(
+    .innerJoin(
       organizations,
       eq(vehiclePricing.organizationId, organizations.id)
     )
     .where(
       and(
         eq(vehiclePricing.vehicleId, vehicle.id),
-        eq(vehiclePricing.isActive, true)
+        eq(vehiclePricing.isActive, true),
+        eq(organizations.isActive, true)
       )
     )
     .orderBy(asc(vehiclePricing.displayOrder), asc(vehiclePricing.amount))
 
-  // Build media object
+  // Convert numeric amount to number for each pricing entry
+  const pricing = pricingResults
+    .filter((entry) => entry.isActive && entry.organization?.isActive)
+    .map((p) => ({
+      ...p,
+      amount: Number(p.amount),
+    }))
+
+  // Build media object with CDN-safe URLs
   const heroImage = images.find((img) => img.isHero)
   const heroIndex = heroImage ? images.indexOf(heroImage) : 0
 
+  // Convert all storage paths to browser-ready signed/public URLs
+  const storagePaths = images.map((img) => img.storagePath)
+  const publicUrls = await storage.getPublicImageUrls(storagePaths)
+
   const media = {
-    images: images.map((img) => ({
-      url: img.storagePath,
+    images: images.map((img, index) => ({
+      url: publicUrls[index] || "",
       alt: img.altText || `${vehicle.brand} ${vehicle.model}`,
       isHero: img.isHero,
     })),
@@ -131,9 +164,16 @@ export async function getVehicleBySlug(slug: string) {
 
 /**
  * Get all pricing for a specific vehicle
+ * Only returns pricing for published vehicles and active organizations
+ * Converts numeric amount to number for consistency
  */
-export async function getVehiclePricing(vehicleId: string) {
-  return db
+export async function getVehiclePricing(
+  vehicleId: string,
+  deps: VehicleQueryDeps = {}
+) {
+  const dbClient = deps.dbClient ?? db
+
+  const pricingResults = await dbClient
     .select({
       id: vehiclePricing.id,
       amount: vehiclePricing.amount,
@@ -144,6 +184,7 @@ export async function getVehiclePricing(vehicleId: string) {
       perks: vehiclePricing.perks,
       emphasis: vehiclePricing.emphasis,
       displayOrder: vehiclePricing.displayOrder,
+      isActive: vehiclePricing.isActive,
       organization: {
         id: organizations.id,
         slug: organizations.slug,
@@ -153,20 +194,32 @@ export async function getVehiclePricing(vehicleId: string) {
         contact: organizations.contact,
         official: organizations.official,
         badges: organizations.badges,
+        isActive: organizations.isActive,
       },
     })
     .from(vehiclePricing)
-    .leftJoin(
+    .innerJoin(
       organizations,
       eq(vehiclePricing.organizationId, organizations.id)
     )
+    .innerJoin(vehicles, eq(vehiclePricing.vehicleId, vehicles.id))
     .where(
       and(
         eq(vehiclePricing.vehicleId, vehicleId),
-        eq(vehiclePricing.isActive, true)
+        eq(vehiclePricing.isActive, true),
+        eq(organizations.isActive, true),
+        eq(vehicles.isPublished, true)
       )
     )
     .orderBy(asc(vehiclePricing.displayOrder), asc(vehiclePricing.amount))
+
+  // Convert numeric amount to number for each pricing entry
+  return pricingResults
+    .filter((entry) => entry.isActive && entry.organization?.isActive)
+    .map((p) => ({
+      ...p,
+      amount: Number(p.amount),
+    }))
 }
 
 // ============================================================================
