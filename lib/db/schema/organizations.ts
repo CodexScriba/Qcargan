@@ -1,4 +1,4 @@
-import { eq, sql } from 'drizzle-orm';
+import { sql } from 'drizzle-orm';
 import { pgTable, uuid, text, boolean, jsonb, timestamp, index, uniqueIndex } from 'drizzle-orm/pg-core';
 
 export type OrganizationContact = {
@@ -52,5 +52,5 @@ export const organizations = pgTable('organizations', {
   uniqueSlug: uniqueIndex('unique_organizations_slug').on(table.slug),
   typeIdx: index('idx_organizations_type').on(table.type),
   activeIdx: index('idx_organizations_active').on(table.isActive)
-    .where(eq(table.isActive, true)),
+    .where(sql`${table.isActive} = true`),
 }));

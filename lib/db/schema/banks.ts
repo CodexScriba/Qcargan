@@ -1,4 +1,4 @@
-import { eq } from 'drizzle-orm';
+import { sql } from 'drizzle-orm';
 import { pgTable, uuid, text, numeric, integer, boolean, timestamp, index, uniqueIndex } from 'drizzle-orm/pg-core';
 
 export const banks = pgTable('banks', {
@@ -35,5 +35,5 @@ export const banks = pgTable('banks', {
   uniqueSlug: uniqueIndex('unique_banks_slug').on(table.slug),
   featuredIdx: index('idx_banks_featured')
     .on(table.isFeatured, table.displayOrder)
-    .where(eq(table.isFeatured, true)),
+    .where(sql`${table.isFeatured} = true`),
 }));
