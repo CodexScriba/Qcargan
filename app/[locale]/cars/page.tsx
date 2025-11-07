@@ -2,15 +2,15 @@ import React from 'react'
 import ProductTitle from '@/components/product/product-title'
 import ImageCarousel from '@/components/ui/image-carousel'
 import { ShowcaseCarousel, type ShowcaseItem } from '@/components/showcase'
-import { SellerCard } from '@/components/product/seller-card'
+import SellerCard from '@/components/product/seller-card'
 import { SeeAllSellersCard } from '@/components/product/see-all-sellers-card'
 import VehicleAllSpecs from '@/components/product/vehicle-all-specs'
-import KeySpecification from './KeySpecification'
+import KeySpecification from '@/components/product/key-specification'
 import { Navigation, Zap, Gauge, Timer, PlugZap } from 'lucide-react'
 import { CarActionButtons } from '@/components/product/car-action-buttons'
 import FinancingTabs from '@/components/banks/FinancingTabs'
-import { TrafficLightReviews } from '@/components/reviews'
-import ServicesShowcase from './ServicesShowcase'
+import TrafficLightReviews from '@/components/product/traffic-light-reviews'
+import ServicesShowcase from '@/components/product/services-showcase'
 
 const page = () => {
   // TODO: Replace with actual data fetching
@@ -19,15 +19,23 @@ const page = () => {
     model: 'Model 3',
     year: 2024,
     variant: 'Long Range',
+    specifications: {
+      rangeKmWltp: 513,
+      batteryKwh: 75,
+      acceleration0To100Sec: 4.4,
+      topSpeedKmh: 233,
+      powerHp: 350,
+      powerKw: 261,
+      chargingDcKw: 250,
+      chargingTimeDcMin: 25,
+      seats: 5,
+      weightKg: 1880,
+      bodyType: 'SEDAN' as const
+    },
     specs: {
-      range: { value: 500, method: 'WLTP' },
-      battery: { kWh: 75 },
-      power: { hp: 350, kW: 261 },
-      zeroTo100: 4.4,
-      topSpeed: 233,
-      charging: {
-        dc: { kW: 250, time: '25 min' }
-      }
+      torque: { nm: 420, lbft: 310 },
+      dimensions: { length: 4694, width: 1933, height: 1443, wheelbase: 2875 },
+      charging: { ac: { kW: 11, time: '8 h to 100%' } }
     },
     media: {
       images: ['/placeholder-car-1.jpg', '/placeholder-car-2.jpg'],
@@ -37,25 +45,41 @@ const page = () => {
 
   const mockOffers = [
     {
-      type: 'agency' as const,
-      label: 'Official Dealer',
-      seller: { name: 'Tesla Store' },
-      amount: 45000,
-      currency: 'USD' as const,
-      availabilityBadge: { label: 'In Stock', tone: 'success' as const },
-      financing: {
-        downPayment: 9000,
-        monthlyPayment: 650,
-        termMonths: 60,
-        displayCurrency: 'USD' as const
+      seller: {
+        id: 'org_1',
+        name: 'Tesla Store Costa Rica',
+        logo: '/placeholder-logo.png',
+        type: 'AGENCY' as const,
+        official: true,
+        badges: ['Factory warranty']
       },
-      cta: { label: 'Contact Dealer', href: '#' },
-      perks: ['Warranty', '1 Year Service']
+      price: { amount: 45000, currency: 'USD' as const },
+      availability: { label: 'In Stock', tone: 'success' as const, estimated_delivery_days: 21 },
+      financing: {
+        down_payment: 9000,
+        monthly_payment: 650,
+        term_months: 60,
+        apr_percent: 4.1,
+        display_currency: 'USD'
+      },
+      cta: { label: 'Contact Dealer', href: 'https://wa.me/50688887777' },
+      perks: ['Warranty', '1 Year Service'],
+      emphasis: 'teal-border' as const
     }
   ]
 
   const mockBanks = [
-    { id: 'bank1', name: 'Bank of America', rates: { apr: 3.5, term: 60 } }
+    {
+      id: 'bank1',
+      name: 'Banco EV',
+      aprMin: 3.5,
+      aprMax: 4.8,
+      terms: [48, 60, 72],
+      websiteUrl: 'https://example-bank.test/ev',
+      contactPhone: '+506 2222 3333',
+      contactEmail: 'ev@bancoev.com',
+      description: 'Specialists in EV financing for Costa Rica.'
+    }
   ]
 
   const mockAccessories: ShowcaseItem[] = [
@@ -75,7 +99,15 @@ const page = () => {
       {/* Hero Section */}
       <div className="card-container rounded-3xl overflow-hidden">
         <div className="space-y-6">
-          <ProductTitle vehicle={mockVehicle} />
+          <ProductTitle
+            brand={mockVehicle.brand}
+            model={mockVehicle.model}
+            year={mockVehicle.year}
+            variant={mockVehicle.variant}
+            rangeKm={mockVehicle.specifications.rangeKmWltp}
+            rangeCycle="WLTP"
+            batteryKwh={mockVehicle.specifications.batteryKwh}
+          />
 
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
             {/* Image Section */}
@@ -93,19 +125,16 @@ const page = () => {
             <div className="space-y-4">
               <CarActionButtons />
 
-              {mockOffers.map((p, idx) => (
+              {mockOffers.map((offer) => (
                 <SellerCard
-                  key={`${p.type}-${idx}`}
-                  type="AGENCY"
-                  label={p.label}
-                  seller={p.seller}
-                  amount={p.amount}
-                  currency={p.currency}
-                  availabilityBadge={p.availabilityBadge}
-                  financing={p.financing}
-                  cta={p.cta}
-                  perks={p.perks}
-                  emphasis="teal-border"
+                  key={offer.seller.id}
+                  seller={offer.seller}
+                  price={offer.price}
+                  availability={offer.availability}
+                  financing={offer.financing}
+                  cta={offer.cta}
+                  perks={offer.perks}
+                  emphasis={offer.emphasis}
                 />
               ))}
 
@@ -131,11 +160,27 @@ const page = () => {
           <h2 className="text-2xl font-bold tracking-tight">Key Specifications</h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-          <KeySpecification icon={Navigation} title="Range" value="500 km WLTP" />
-          <KeySpecification icon={Zap} title="Battery" value="75 kWh" />
+          <KeySpecification
+            icon={Navigation}
+            title="Range"
+            value={`${mockVehicle.specifications.rangeKmWltp} km WLTP`}
+          />
+          <KeySpecification
+            icon={Zap}
+            title="Battery"
+            value={`${mockVehicle.specifications.batteryKwh} kWh`}
+          />
           <KeySpecification icon={PlugZap} title="DC Charging" value="250 kW" />
-          <KeySpecification icon={Timer} title="0-100 km/h" value="4.4s" />
-          <KeySpecification icon={Gauge} title="Top Speed" value="233 km/h" />
+          <KeySpecification
+            icon={Timer}
+            title="0-100 km/h"
+            value={`${mockVehicle.specifications.acceleration0To100Sec}s`}
+          />
+          <KeySpecification
+            icon={Gauge}
+            title="Top Speed"
+            value={`${mockVehicle.specifications.topSpeedKmh} km/h`}
+          />
           <KeySpecification icon={Gauge} title="Power" value="350 hp" />
         </div>
       </section>
@@ -146,12 +191,19 @@ const page = () => {
           <div className="w-1 h-8 bg-gradient-to-b from-[hsl(var(--primary))] to-[hsl(var(--brand))] rounded-full"></div>
           <h2 className="text-2xl font-bold tracking-tight">Owner Reviews</h2>
         </div>
-        <TrafficLightReviews />
+        <TrafficLightReviews positive={72} neutral={18} negative={10} placeholder />
       </section>
 
       {/* All Specs */}
       <section className="card-container rounded-3xl overflow-hidden">
-        <VehicleAllSpecs vehicle={mockVehicle} />
+        <VehicleAllSpecs
+          brand={mockVehicle.brand}
+          model={mockVehicle.model}
+          year={mockVehicle.year}
+          variant={mockVehicle.variant}
+          specifications={mockVehicle.specifications}
+          detailedSpecs={mockVehicle.specs}
+        />
       </section>
 
       {/* Related Accessories */}
