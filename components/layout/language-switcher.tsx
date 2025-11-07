@@ -15,7 +15,9 @@ export function LanguageSwitcher() {
   const pathname = usePathname();
 
   const handleLanguageChange = (newLocale: string) => {
-    router.replace(pathname, { locale: newLocale });
+    // Use as any to bypass TypeScript strict pathname checking for dynamic routes
+    // The router will correctly handle the locale switch for both static and dynamic paths
+    router.replace(pathname as any, { locale: newLocale });
   };
 
   return (

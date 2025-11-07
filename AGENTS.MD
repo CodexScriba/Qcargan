@@ -11,4 +11,8 @@ When receiving a new task, please make sure you read: architecture.md
 /home/cynic/workspace/Qcargan/docs/architecture.md
 It contains file tree, structure and current stage of this project. 
 
-## 
+## Avoid (do not)
+**do not use type **any**
+
+Produce typestrict code. 
+
