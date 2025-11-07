@@ -4,6 +4,13 @@
       "brand": "BYD",
       "model": "SEAGULL",
       "price_cr": "$19,990.00",
+      "images": [
+        "https://imgcdn.zigwheels.ph/large/gallery/exterior/64/3389/byd-seagull-front-angle-low-view-528128.jpg",
+        "https://imgcdn.zigwheels.ph/large/gallery/exterior/64/3389/byd-seagull-full-front-view-220311.jpg",
+        "https://imgcdn.zigwheels.ph/large/gallery/exterior/64/3389/byd-seagull-side-view-921616.jpg",
+        "https://imgcdn.zigwheels.ph/large/gallery/exterior/64/3389/byd-seagull-full-rear-view-441495.jpg",
+        "https://imgcdn.zigwheels.ph/large/gallery/exterior/64/3389/byd-seagull-wheel-686054.jpg"
+      ],
       "variations": [
         {
           "name": "Vitality Edition",
@@ -24,6 +31,13 @@
       "brand": "BYD",
       "model": "TANG",
       "price_cr": "$76,900.00",
+      "images": [
+        "https://imgcdn.zigwheels.ph/large/gallery/exterior/64/1912/byd-tang-front-angle-low-view-795452.jpg",
+        "https://imgcdn.zigwheels.ph/large/gallery/exterior/64/1912/byd-tang-full-front-view-604140.jpg",
+        "https://imgcdn.zigwheels.ph/large/gallery/exterior/64/1912/byd-tang-side-view-494974.jpg",
+        "https://imgcdn.zigwheels.ph/large/gallery/exterior/64/1912/byd-tang-headlight-800875.jpg",
+        "https://imgcdn.zigwheels.ph/large/gallery/exterior/64/1912/byd-tang-wheel-278981.jpg"
+      ],
       "variations": [
         {
           "name": "Flagship AWD (Costa Rica Launch Model)",
@@ -43,6 +57,13 @@
       "brand": "BYD",
       "model": "Seal",
       "price_cr": "$62,000.00",
+      "images": [
+        "https://imgd.aeplcdn.com/370x208/n/cw/ec/139619/seal-exterior-right-front-three-quarter-10.png",
+        "https://imgd.aeplcdn.com/370x208/n/cw/ec/139619/seal-exterior-right-front-three-quarter-9.jpeg",
+        "https://imgd.aeplcdn.com/370x208/n/cw/ec/175387/byd-seal-right-front-three-quarter21.jpeg",
+        "https://imgd.aeplcdn.com/370x208/n/cw/ec/139619/seal-interior-front-row-seats-37.jpeg",
+        "https://imgd.aeplcdn.com/370x208/n/cw/ec/139619/seal-interior-dashboard-10.jpeg"
+      ],
       "variations": [
         {
           "name": "AWD Performance",
@@ -62,6 +83,13 @@
       "brand": "Volvo",
       "model": "EX90",
       "price_cr": "$119,900.00",
+      "images": [
+        "https://www.media.volvocars.com/global/en-gb/models/ex90/2025/photos",
+        "https://www.caranddriver.com/photos/g41898963/volvo-ex90-ev-revealed-gallery/",
+        "https://images.ctfassets.net/w04j8iy8ck8k/4zw7sVtEhzxwqNfDK3Ynxh/a9c844df2bfcceb0ecb3dd2b8eb7a949/Volvo_EX90_2.png",
+        "https://images.ctfassets.net/w04j8iy8ck8k/6FzC2xR1B4lZ7KqM9pN8Xj/b3e2a8f9c6d1e5f2g4h6i8k0/Volvo_EX90_interior.jpg",
+        "https://images.ctfassets.net/w04j8iy8ck8k/7KpL3mN8Qr2sT5uV6wX7yZ/c4f3b9g0d7e4f1g8h5i2j9k1/Volvo_EX90_side.jpg"
+      ],
       "variations": [
         {
           "name": "Twin Motor Performance Plus/Ultra",
@@ -81,6 +109,13 @@
       "brand": "Volvo",
       "model": "C40",
       "price_cr": "$63,900.00",
+      "images": [
+        "https://www.autocarindia.com/cars/volvo/c40-recharge/images",
+        "https://www.carwale.com/volvo-cars/c40-recharge/images/",
+        "https://www.cardekho.com/volvo/c40-recharge",
+        "https://www.carsguide.com.au/volvo/c40/interior",
+        "https://images.ctfassets.net/w04j8iy8ck8k/2aB3cD4eF5gH6iJ7kL8mN9/volvo-c40-exterior.jpg"
+      ],
       "variations": [
         {
           "name": "Twin Motor",
@@ -100,6 +135,13 @@
       "brand": "Volvo",
       "model": "EX30",
       "price_cr": "$37,900.00",
+      "images": [
+        "https://www.caranddriver.com/volvo/ex30",
+        "https://www.media.volvocars.com/global/en-gb/models/ex30/2025/photos",
+        "https://www.volvocars.com/intl/build/ex30-electric",
+        "https://www.netcarshow.com/volvo/2025-ex30/",
+        "https://www.volvocars.com/us/cars/ex30-electric/"
+      ],
       "variations": [
         {
           "name": "Twin Motor Performance",
@@ -119,6 +161,13 @@
       "brand": "Rivian",
       "model": "R1T",
       "price_cr": "$73,000.00",
+      "images": [
+        "https://cars.usnews.com/cars-trucks/rivian/r1t/photos-exterior",
+        "https://rivian.com/newsroom/media/r1t",
+        "https://cars.usnews.com/cars-trucks/rivian/r1t/2024/photos-exterior",
+        "https://www.thecarconnection.com/photos/rivian_r1t_2024",
+        "https://rivian.com/r1t"
+      ],
       "variations": [
         {
           "name": "Quad-Motor AWD",

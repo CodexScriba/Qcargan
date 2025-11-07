@@ -21,6 +21,7 @@ type RawVehicle = {
   brand: string
   model: string
   price_cr: string
+  images?: string[]
   variations: Array<{
     name: string
     battery_usable_kWh?: number
@@ -284,41 +285,42 @@ function buildVehicleSeeds(): SeededVehicle[] {
         bodyType: BODY_TYPE_BY_MODEL[normalizedModel] ?? 'SUV'
       }
 
-      const heroImageId = stableUuid('vehicle-image', `${vehicleId}:hero`)
-      const galleryImageId = stableUuid('vehicle-image', `${vehicleId}:gallery`)
-
-      const images: Array<typeof vehicleImages.$inferInsert> = [
-        {
-          id: heroImageId,
+      // Use actual image URLs from JSON if available, otherwise fall back to placeholder paths
+      const imageUrls = entry.images ?? [heroPath, galleryPath]
+      
+      const images: Array<typeof vehicleImages.$inferInsert> = imageUrls.map((url, index) => {
+        const isHero = index === 0
+        const imageId = stableUuid('vehicle-image', `${vehicleId}:${index}`)
+        
+        return {
+          id: imageId,
           vehicleId,
-          storagePath: heroPath,
-          displayOrder: 0,
-          isHero: true,
-          altText: `${entry.brand} ${entry.model} ${variant.name}`,
-          caption: 'Render hero frontal'
-        },
-        {
-          id: galleryImageId,
-          vehicleId,
-          storagePath: galleryPath,
-          displayOrder: 1,
-          isHero: false,
-          altText: `${entry.brand} ${entry.model} interior`,
-          caption: 'Interior y tecnología'
+          storagePath: url, // Now using actual URLs from JSON
+          displayOrder: index,
+          isHero,
+          altText: isHero 
+            ? `${entry.brand} ${entry.model} ${variant.name}`
+            : `${entry.brand} ${entry.model} - view ${index + 1}`,
+          caption: isHero ? 'Vista principal' : null
         }
-      ]
+      })
 
-      const imageVariants: Array<typeof vehicleImageVariants.$inferInsert> = [
+      // Only create WebP variants for local storage paths (not external URLs)
+      const heroImageId = images[0]?.id
+      const heroImagePath = images[0]?.storagePath
+      const isLocalPath = heroImagePath && !heroImagePath.startsWith('http')
+      
+      const imageVariants: Array<typeof vehicleImageVariants.$inferInsert> = isLocalPath && heroImageId ? [
         {
           id: stableUuid('vehicle-image-variant', `${heroImageId}:webp`),
           sourceImageId: heroImageId,
           variantType: 'webp',
-          storagePath: heroPath.replace(/\\.jpg$/i, '.webp'),
+          storagePath: heroImagePath.replace(/\\.jpg$/i, '.webp'),
           width: 1600,
           height: 900,
           format: 'webp'
         }
-      ]
+      ] : []
 
       const organizationSlug = ORGANIZATION_BY_BRAND[entry.brand]
       if (!organizationSlug) {
