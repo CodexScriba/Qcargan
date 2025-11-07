@@ -147,8 +147,12 @@ export async function getVehicleBySlug(
 
   const media = {
     images: images.map((img, index) => ({
+      id: img.id,
       url: publicUrls[index] || "",
-      alt: img.altText || `${vehicle.brand} ${vehicle.model}`,
+      storagePath: img.storagePath,
+      altText: img.altText,
+      caption: img.caption,
+      displayOrder: img.displayOrder,
       isHero: img.isHero,
     })),
     heroIndex,
