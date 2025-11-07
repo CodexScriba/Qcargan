@@ -69,6 +69,7 @@ The goal of this checklist is to finish every backend and shared-component prere
 
 ---
 ## Tracking Tips
-- Use a markdown checklist inside this file (copy the tasks above and add `[ ]` / `[x]` markers) so you can track completion.
-- After each section, run the relevant tests (`bun test`, targeted component stories, etc.).
-- Commit in logical chunks (e.g., “feat: seed vehicles”, “feat: harden vehicle queries”, “feat: migrate product components”) before starting the full Task 4 UI work.
+- Make sure you don't introduce breaking changes for nextjs 16, sixteen the newest version
+- Avoid using any except if you are working with routes. 
+- Output a file to hands-off with a summary of all files changes or edits you have done. 
+- 
