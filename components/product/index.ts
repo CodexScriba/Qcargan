@@ -13,6 +13,7 @@ export {
   type VehicleStructuredSpecs,
 } from './vehicle-all-specs'
 export { default as KeySpecification, type KeySpecificationProps } from './key-specification'
+export { default as VehicleKeySpecs, type VehicleKeySpecsProps } from './vehicle-key-specs'
 export { default as ServicesShowcase } from './services-showcase'
 export {
   default as TrafficLightReviews,
