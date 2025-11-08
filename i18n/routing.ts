@@ -89,7 +89,13 @@ const localePathSet = new Set<string>();
 
 routing.locales.forEach((locale) => {
   (Object.keys(pathnames) as Array<PathnameKey>).forEach((href) => {
-    // Type assertion needed for dynamic routes like /vehicles/[slug]
+    // Skip dynamic routes (routes with parameters like [slug])
+    // These cannot be pre-computed and need runtime params
+    if (href.includes('[')) {
+      return;
+    }
+
+    // Type assertion needed for static routes
     const localizedPath = getPathname({ locale, href: href as any });
 
     localePathSet.add(localizedPath);

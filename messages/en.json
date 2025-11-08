@@ -236,6 +236,8 @@
       "PICKUP_VAN": "Pickup / Van"
     },
     "pricing": {
+      "title": "Pricing & Availability",
+      "subtitle": "{count, plural, =0 {No sellers available} one {Available at 1 seller} other {Available at # sellers}}",
       "from": "From",
       "sellers": "{count, plural, =0 {0 sellers} one {1 seller} other {# sellers}}",
       "contact": "Contact",
@@ -262,7 +264,8 @@
       "contactForAvailability": "Contact for availability"
     },
     "financing": {
-      "title": "Financing",
+      "title": "Financing Options",
+      "subtitle": "Explore pre-approved financing from our partner banks",
       "downPayment": "Down payment",
       "monthlyPayment": "Monthly payment",
       "term": "{months} months",
@@ -274,6 +277,25 @@
       "neutral": "Neutral",
       "negative": "Negative",
       "noReviews": "No reviews yet"
+    },
+    "actions": {
+      "contactSeller": "Contact seller",
+      "share": "Share",
+      "addToFavorites": "Add to favorites",
+      "addToCompare": "Add to comparison",
+      "removeFromFavorites": "Remove from favorites",
+      "removeFromCompare": "Remove from comparison"
+    },
+    "share": {
+      "text": "Check out this {brand} {model} {year} on QuéCargan",
+      "success": "Vehicle shared",
+      "copiedToClipboard": "Link copied to clipboard",
+      "error": "We couldn't share this vehicle. Try again."
+    },
+    "contact": {
+      "whatsappMessage": "Hi! I'm interested in the {year} {brand} {model}. More info: {url}",
+      "emailSubject": "Inquiry about {year} {brand} {model}",
+      "emailBody": "Hi, I'm interested in the {year} {brand} {model}. Could you share more details? {url}"
     }
   },
   "agencyCard": {

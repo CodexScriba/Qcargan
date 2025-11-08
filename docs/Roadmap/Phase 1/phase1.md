@@ -1161,7 +1161,7 @@ banks (standalone, no FK)
 1. ✅ **Async params/searchParams** - Documented throughout phase1.md with `await params` pattern
 2. ✅ **Async cookies/headers** - Not used in Phase 1, but documented for future
 3. ✅ **Server Components** - Primary data fetching strategy
-4. ✅ **Middleware** - NO BREAKING CHANGES (still `middleware.ts`, NOT renamed to "proxy")
+4. ✅ **Proxy rename** - Next.js 16 replaces `middleware.ts` with `proxy.ts` (per Context7 upgrade notes) and requires the exported handler to be named `proxy`.
 5. ✅ **next-intl compatibility** - Updated for Next.js 15 (see below)
 
 **next-intl Next.js 15 Updates Required**:
@@ -1197,13 +1197,15 @@ export default getRequestConfig(async ({
 - Must return `locale` in config object
 - Fallback to `defaultLocale` if undefined or invalid
 
-**Middleware** (NO CHANGES NEEDED - fully compatible):
+**Proxy middleware** (renamed for Next.js 16):
 ```typescript
-// middleware.ts (UNCHANGED - works with Next.js 15)
+// proxy.ts (renamed from middleware.ts for Next.js 16)
 import createMiddleware from 'next-intl/middleware';
 import {routing} from './i18n/routing';
 
-export default createMiddleware(routing);
+export function proxy(request: Request) {
+  return createMiddleware(routing)(request);
+}
 
 export const config = {
   matcher: '/((?!api|trpc|_next|_vercel|.*\\..*|.*opengraph-image.*).*)'

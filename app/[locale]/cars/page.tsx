@@ -15,6 +15,8 @@ import ServicesShowcase from '@/components/product/services-showcase'
 const page = () => {
   // TODO: Replace with actual data fetching
   const mockVehicle = {
+    id: 'vehicle_mock',
+    slug: 'tesla-model-3-2024',
     brand: 'Tesla',
     model: 'Model 3',
     year: 2024,
@@ -38,7 +40,26 @@ const page = () => {
       charging: { ac: { kW: 11, time: '8 h to 100%' } }
     },
     media: {
-      images: ['/placeholder-car-1.jpg', '/placeholder-car-2.jpg'],
+      images: [
+        {
+          id: 'img_1',
+          url: '/placeholder-car-1.jpg',
+          storagePath: 'placeholder-car-1.jpg',
+          altText: 'Tesla Model 3 exterior view',
+          caption: null,
+          displayOrder: 0,
+          isHero: true
+        },
+        {
+          id: 'img_2',
+          url: '/placeholder-car-2.jpg',
+          storagePath: 'placeholder-car-2.jpg',
+          altText: 'Tesla Model 3 interior view',
+          caption: null,
+          displayOrder: 1,
+          isHero: false
+        }
+      ],
       heroIndex: 0
     }
   }
@@ -94,6 +115,8 @@ const page = () => {
     }
   ]
 
+  const primaryOffer = mockOffers[0]
+
   return (
     <div className="container mx-auto px-4 py-6 max-w-[1600px] space-y-6">
       {/* Hero Section */}
@@ -123,7 +146,20 @@ const page = () => {
 
             {/* Pricing Section */}
             <div className="space-y-4">
-              <CarActionButtons />
+              <CarActionButtons
+                vehicleId={mockVehicle.id}
+                vehicleSlug={mockVehicle.slug}
+                brand={mockVehicle.brand}
+                model={mockVehicle.model}
+                year={mockVehicle.year}
+                variant={mockVehicle.variant}
+                primarySellerContact={{
+                  phone: '+506 2222 3333',
+                  whatsapp: '+506 8888 7777',
+                  email: 'ventas@tesla.cr'
+                }}
+                primaryCta={primaryOffer?.cta}
+              />
 
               {mockOffers.map((offer) => (
                 <SellerCard
