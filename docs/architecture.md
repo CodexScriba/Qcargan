@@ -143,6 +143,12 @@ components/banks/
 └─ FinancingTabs.tsx – FinancingTabs client component that displays available bank financing options with rates and terms.
 ```
 
+### Financing Data Flow
+- The vehicle detail route (`app/[locale]/vehicles/[slug]/page.tsx`) loads vehicle details plus the banks query (`lib/db/queries/banks.ts`) so FinancingTabs renders actual Supabase data instead of placeholders.
+- Banks data is stored in `banks` (see `lib/db/schema/banks.ts`) with APR ranges, term arrays, contact info, and `isFeatured` ordering. Seed a handful of Costa Rican partners (BAC, Banco Nacional, Scotiabank, Popular, Coopealianza) so the UI has realistic content (see `docs/Roadmap/Phase 1/tasks/financingtabs.md` for sample SQL and data requirements).
+- Translations for `vehicle.financing.title`/`subtitle` live in `messages/es.json` and `messages/en.json`, making the Financing section bilingual.
+- The Supabase query runs on the server component, keeps the list cached for a short duration, and the FinancingTabs props map directly from the row fields (`logoUrl`, `typicalAprMin`, `typicalAprMax`, `typicalTermMonths`, contact CTA values).
+
 - **Review components** aggregate and display user feedback:
 
 ```
@@ -156,9 +162,15 @@ components/reviews/
 
 ```
 app/[locale]/cars/
-├─ page.tsx – Main vehicle detail page combining ProductTitle, ImageCarousel, seller pricing cards, key specs, reviews, full specs accordion, related accessories, and EV services showcase. Currently uses mock data placeholders for development.
-├─ KeySpecification.tsx – KeySpecification displays individual spec metrics (range, battery, charging, performance) with icon, title, and value in a hover-animated card.
-└─ ServicesShowcase.tsx – ServicesShowcase client component rendering EV service offerings (mechanics, charging installation, detailing, software, tires, insurance) via ShowcaseCarousel with predefined service data.
+└─ page.tsx – Main vehicle detail page combining ProductTitle, ImageCarousel, seller pricing cards, key specs, reviews, full specs accordion, related accessories, and EV services showcase. Currently uses mock data placeholders for development.
+```
+
+- Shared vehicle detail components now live under `components/product/` to encourage reuse across future listings and microsites:
+
+```
+components/product/
+├─ KeySpecification.tsx – Displays individual spec metrics (range, battery, charging, performance) with icon, title, and value in a hover-animated card.
+└─ ServicesShowcase.tsx – Client component rendering EV service offerings (mechanics, charging installation, detailing, software, tires, insurance) via ShowcaseCarousel with predefined service data.
 ```
 
 Radix 1.x and shadcn components render correctly under React 19; Tailwind 4 currently supports the Next.js compiler pipeline used in v16 (monitor release notes for postcss updates).

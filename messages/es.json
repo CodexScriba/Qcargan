@@ -236,6 +236,8 @@
       "PICKUP_VAN": "Pickup / Van"
     },
     "pricing": {
+      "title": "Precios y Disponibilidad",
+      "subtitle": "{count, plural, =0 {No hay vendedores disponibles} one {Disponible en 1 vendedor} other {Disponible en # vendedores}}",
       "from": "Desde",
       "sellers": "{count, plural, =0 {0 vendedores} one {1 vendedor} other {# vendedores}}",
       "contact": "Contactar",
@@ -262,7 +264,8 @@
       "contactForAvailability": "Contactar para disponibilidad"
     },
     "financing": {
-      "title": "Financiamiento",
+      "title": "Opciones de Financiamiento",
+      "subtitle": "Explora financiamiento pre-aprobado de nuestros bancos aliados",
       "downPayment": "Prima",
       "monthlyPayment": "Pago mensual",
       "term": "{months} meses",
@@ -274,6 +277,25 @@
       "neutral": "Neutrales",
       "negative": "Negativas",
       "noReviews": "Sin reseñas todavía"
+    },
+    "actions": {
+      "contactSeller": "Contactar vendedor",
+      "share": "Compartir",
+      "addToFavorites": "Agregar a favoritos",
+      "addToCompare": "Agregar a comparación",
+      "removeFromFavorites": "Quitar de favoritos",
+      "removeFromCompare": "Quitar de comparación"
+    },
+    "share": {
+      "text": "Mira este {brand} {model} {year} en QuéCargan",
+      "success": "Vehículo compartido",
+      "copiedToClipboard": "Enlace copiado al portapapeles",
+      "error": "No pudimos compartir este vehículo. Intenta de nuevo."
+    },
+    "contact": {
+      "whatsappMessage": "Hola, estoy interesado en el {year} {brand} {model}. Más info: {url}",
+      "emailSubject": "Consulta por {year} {brand} {model}",
+      "emailBody": "Hola, estoy interesado en el {year} {brand} {model}. ¿Podrían compartir más detalles? {url}"
     }
   },
   "agencyCard": {

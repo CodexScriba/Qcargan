@@ -461,6 +461,32 @@ import { Breadcrumbs } from '@/components/ui/breadcrumbs';
 
 ---
 
+## Supabase Financing Data (FinancingTabs)
+
+To make the FinancingTabs component production-ready, supply it with real bank data from Supabase.
+
+### Banks Table / Supabase Requirements
+- **Table**: `banks` (see `lib/db/schema/banks.ts`) – includes `id`, `slug`, `name`, `logoUrl`, `websiteUrl`, `contactPhone`, `contactEmail`, `typicalAprMin`, `typicalAprMax`, `typicalTermMonths`, `description`, `isFeatured`, `displayOrder`, `isActive`.
+- **Query**: Reuse `getBanks()` from `lib/db/queries/banks.ts` (active, ordered, featured-first). Import it into `app/[locale]/vehicles/[slug]/page.tsx` to load banks during SSR.
+- **Field Mapping**: Pass each row to `<FinancingTabs … />` with `logoUrl`, `typicalAprMin/Max`, `typicalTermMonths`, and optional contact fields so badges and CTA links render correctly.
+
+### Data Quality & Seeding
+- Seed the table with 3–5 Costa Rican finance partners (BAC, Banco Nacional, Scotiabank, Banco Popular, Coopealianza). Include APR ranges, terms, descriptions, and contact URLs to avoid empty badges.
+- Sample SQL is provided in `docs/Roadmap/Phase 1/tasks/financingtabs.md` (“Database Seeding Guide”) – run it against the Supabase project or add via the Supabase SQL editor.
+- Logos can be uploaded to Supabase Storage; store the CDN URL in `logoUrl` once available.
+- Keep `isActive = true` for partners you want to show and order them via `displayOrder` (featured ones should have lower values).
+
+### Translation Keys
+- Confirm `messages/es.json` and `messages/en.json` both define `vehicle.financing.title` and `vehicle.financing.subtitle` so the Financing section heading is localized.
+- Add any helper copies used inside `FinancingTabs` (e.g., button labels) to the same locales if they are introduced later.
+
+### Testing Impact
+- When banks exist, the Financing section should render tabs with APR/term badges, logos (or initials fallback), and CTA buttons.
+- When the table is empty (or all rows `isActive = false`), the section should hide gracefully (no FinancingTabs).
+- Ensure requests to Supabase during SSR do not timeout (banks list is small, cacheable).
+
+---
+
 ## Component Props Mapping
 
 ### ProductTitle
