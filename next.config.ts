@@ -13,6 +13,11 @@ const nextConfig: NextConfig = {
         hostname: 'mtbtaiffcxanyymfkkhk.supabase.co',
         pathname: '/storage/v1/object/public/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'imgcdn.zigwheels.ph',
+        pathname: '/**',
+      },
     ],
   },
   async rewrites() {

@@ -3,7 +3,7 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import Image from 'next/image'
 import useEmblaCarousel from 'embla-carousel-react'
-import { ChevronLeft, ChevronRight, ImageOff } from 'lucide-react'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { X } from 'lucide-react'
 import type { VehicleMediaImage } from '@/types/vehicle'
 import { Button } from '@/components/ui/button'
@@ -31,6 +31,10 @@ export default function ImageCarousel({
   const [canScrollNext, setCanScrollNext] = useState(false)
   const [failedImages, setFailedImages] = useState<Set<string>>(new Set())
   const imageIdsKey = useMemo(() => images.map((image) => image.id).join('|'), [images])
+  const visibleImages = useMemo(
+    () => images.filter((image) => image.url && !failedImages.has(image.id)),
+    [images, failedImages]
+  )
 
   // Handle image load errors
   const handleImageError = useCallback((imageId: string) => {
@@ -68,18 +72,20 @@ export default function ImageCarousel({
   const closeModal = useCallback(() => setModalImage(null), [])
 
   useEffect(() => {
-    setFailedImages(new Set())
+    const frameId = requestAnimationFrame(() => setFailedImages(new Set()))
+    return () => cancelAnimationFrame(frameId)
   }, [imageIdsKey])
 
   // Initialize embla and setup listeners
   useEffect(() => {
     if (!emblaApi) return
 
-    updateScrollState()
+    const frameId = requestAnimationFrame(updateScrollState)
     emblaApi.on('select', updateScrollState)
     emblaApi.on('reInit', updateScrollState)
 
     return () => {
+      cancelAnimationFrame(frameId)
       emblaApi.off('select', updateScrollState)
       emblaApi.off('reInit', updateScrollState)
     }
@@ -88,7 +94,7 @@ export default function ImageCarousel({
   // Keyboard navigation - only when not in form fields and carousel has multiple images
   useEffect(() => {
     // Don't attach listener if only 0 or 1 image
-    if (images.length <= 1) return
+    if (visibleImages.length <= 1) return
 
     const handleKeyDown = (event: KeyboardEvent) => {
       // Ignore if user is typing in an input, textarea, select, or contenteditable
@@ -114,10 +120,17 @@ export default function ImageCarousel({
 
     window.addEventListener('keydown', handleKeyDown)
     return () => window.removeEventListener('keydown', handleKeyDown)
-  }, [scrollPrev, scrollNext, images.length])
+  }, [scrollPrev, scrollNext, visibleImages.length])
+
+  const showNavigation = visibleImages.length > 1
+
+  useEffect(() => {
+    if (!emblaApi) return
+    emblaApi.reInit()
+  }, [emblaApi, visibleImages.length])
 
   // Handle empty state
-  if (images.length === 0) {
+  if (visibleImages.length === 0) {
     return (
       <div className={className}>
         <div className="aspect-video bg-muted rounded-lg flex items-center justify-center">
@@ -127,45 +140,35 @@ export default function ImageCarousel({
     )
   }
 
-  // Single image - no navigation needed
-  const showNavigation = images.length > 1
-
   return (
     <div className={className}>
       {/* Main carousel */}
       <div className="relative">
         <div className="overflow-hidden rounded-lg" ref={emblaRef}>
           <div className="flex">
-            {images.map((image, index) => (
+            {visibleImages.map((image, index) => (
               <div
                 key={image.id}
                 className="flex-[0_0_100%] min-w-0"
               >
                 <div className="aspect-video bg-muted relative">
-                  {image.url && !failedImages.has(image.id) ? (
-                    <button
-                      type="button"
-                      onClick={() => openModal(image)}
-                      aria-label={`View ${image.altText || `image ${index + 1}`} in a larger view`}
-                      className="w-full h-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary"
-                    >
-                      <Image
-                        src={image.url}
-                        alt={image.altText || `Vehicle image ${index + 1}`}
-                        fill
-                        sizes="(max-width: 1024px) 100vw, 66vw"
-                        className="object-cover pointer-events-none"
-                        onError={() => handleImageError(image.id)}
-                        priority={index === initialIndex}
-                      />
-                      <span className="sr-only">Click to open enlarged view</span>
-                    </button>
-                  ) : (
-                    <div className="w-full h-full flex flex-col items-center justify-center gap-2">
-                      <ImageOff className="size-12 text-muted-foreground/50" />
-                      <p className="text-muted-foreground text-sm">Image not available</p>
-                    </div>
-                  )}
+                  <button
+                    type="button"
+                    onClick={() => openModal(image)}
+                    aria-label={`View ${image.altText || `image ${index + 1}`} in a larger view`}
+                    className="w-full h-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary"
+                  >
+                    <Image
+                      src={image.url}
+                      alt={image.altText || `Vehicle image ${index + 1}`}
+                      fill
+                      sizes="(max-width: 1024px) 100vw, 66vw"
+                      className="object-cover pointer-events-none"
+                      onError={() => handleImageError(image.id)}
+                      priority={index === initialIndex}
+                    />
+                    <span className="sr-only">Click to open enlarged view</span>
+                  </button>
                   {image.caption && (
                     <div className="absolute bottom-0 left-0 right-0 bg-black/60 text-white px-4 py-2 text-sm">
                       {image.caption}
@@ -206,7 +209,7 @@ export default function ImageCarousel({
         {/* Image counter */}
         {showNavigation && (
           <div className="absolute top-2 right-2 bg-black/60 text-white px-3 py-1 rounded-full text-sm font-medium">
-            {selectedIndex + 1} / {images.length}
+            {selectedIndex + 1} / {visibleImages.length}
           </div>
         )}
       </div>
@@ -214,7 +217,7 @@ export default function ImageCarousel({
       {/* Thumbnail strip */}
       {showNavigation && (
         <div className="mt-4 flex gap-2 overflow-x-auto pb-2">
-          {images.map((image, index) => (
+          {visibleImages.map((image, index) => (
             <button
               key={image.id}
               onClick={() => scrollTo(index)}
@@ -226,20 +229,14 @@ export default function ImageCarousel({
               )}
               aria-label={`Go to image ${index + 1}`}
             >
-              {image.url && !failedImages.has(image.id) ? (
-                <Image
-                  src={image.url}
-                  alt={image.altText || `Thumbnail ${index + 1}`}
-                  fill
-                  sizes="80px"
-                  className="object-cover"
-                  onError={() => handleImageError(image.id)}
-                />
-              ) : (
-                <div className="w-full h-full bg-muted flex items-center justify-center">
-                  <ImageOff className="size-4 text-muted-foreground/50" />
-                </div>
-              )}
+              <Image
+                src={image.url}
+                alt={image.altText || `Thumbnail ${index + 1}`}
+                fill
+                sizes="80px"
+                className="object-cover"
+                onError={() => handleImageError(image.id)}
+              />
             </button>
           ))}
         </div>
