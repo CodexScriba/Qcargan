@@ -1,4 +1,4 @@
-import React from 'react'
+import type { Metadata } from 'next'
 import ProductTitle from '@/components/product/product-title'
 import ImageCarousel from '@/components/ui/image-carousel'
 import { ShowcaseCarousel, type ShowcaseItem } from '@/components/showcase'
@@ -16,7 +16,12 @@ import FinancingTabs from '@/components/banks/FinancingTabs'
 import { TrafficLightReviews } from '@/components/reviews'
 import ServicesShowcase from '@/components/product/services-showcase'
 
-const page = async () => {
+export const metadata: Metadata = {
+  title: 'Featured EV | Qcargan',
+  description: 'Explore detailed specifications, pricing options, financing and services for our featured electric vehicle.',
+}
+
+const CarsPage = async () => {
   // TODO: Make this dynamic - fetch from route params or first published vehicle
   const vehicleSlug = 'byd-seagull-vitality-edition-2024'
 
@@ -41,7 +46,7 @@ const page = async () => {
     power: Gauge,
   }
 
-  // Transform pricing data to match the demo seller card props
+  // Transform pricing data to match the SellerCard props
   const allOffers = vehicleData.pricing
     .map((p) => {
       const financingData = p.financing ?? {}
@@ -56,10 +61,14 @@ const page = async () => {
           ? {
               showMonthly: true,
               termMonths,
-              aprPercent: financingData.apr_percent ?? financingData.aprPercent ?? 0,
-              displayCurrency: (financingData.display_currency ?? financingData.displayCurrency ?? p.currency) as
-                | 'USD'
-                | 'CRC',
+              aprPercent: Number(
+                financingData.apr_percent ??
+                  financingData.aprPercent ??
+                  0
+              ),
+              displayCurrency: (financingData.display_currency ??
+                financingData.displayCurrency ??
+                p.currency) as 'USD' | 'CRC',
             }
           : undefined
 
@@ -73,10 +82,19 @@ const page = async () => {
         },
         amount: Number(p.amount),
         currency: p.currency as 'USD' | 'CRC',
-        availabilityBadge: {
-          label: p.availability?.label ?? undefined,
-          tone: p.availability?.tone,
-        },
+        availabilityBadge: p.availability?.label
+          ? {
+              label: p.availability.label,
+              tone:
+                p.availability.tone === 'danger'
+                  ? 'warning'
+                  : p.availability.tone === 'info' ||
+                    p.availability.tone === 'success' ||
+                    p.availability.tone === 'warning'
+                  ? p.availability.tone
+                  : 'neutral',
+            } as const
+          : undefined,
         financing,
         cta: {
           contactPath: p.cta?.href ?? null,
@@ -87,11 +105,15 @@ const page = async () => {
       }
     })
     .sort((a, b) => {
-      const typeOrder = { AGENCY: 0, DEALER: 1, IMPORTER: 2 }
-      return typeOrder[a.type] - typeOrder[b.type]
+      const typeOrder: Record<'AGENCY' | 'DEALER' | 'IMPORTER', number> = {
+        AGENCY: 0,
+        DEALER: 1,
+        IMPORTER: 2,
+      }
+      return (typeOrder[a.type] ?? 99) - (typeOrder[b.type] ?? 99)
     })
 
-  // Show only first 2 offers (agency + grey_market), rest accessible via "See All"
+  // Show only first 2 offers, rest accessible via "See All"
   const displayedOffers = allOffers.slice(0, 2)
   const totalOffers = allOffers.length
 
@@ -151,7 +173,7 @@ const page = async () => {
 
               {/* See All Sellers Button */}
               <SeeAllSellersCard
-                href="/sellers"
+                href="/vehicles"
                 optionsCount={totalOffers}
               />
 
@@ -239,4 +261,4 @@ const page = async () => {
   )
 }
 
-export default page
+export default CarsPage

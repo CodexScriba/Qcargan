@@ -60,17 +60,18 @@ type SeededVehicle = {
 
 const ORGANIZATIONS_SEED = [
   {
-    slug: 'byd-experience-store',
-    name: 'BYD Experience Store',
+    slug: 'cori-motors',
+    name: 'CoriMotors',
     type: 'AGENCY',
-    logoUrl: 'https://cdn.qcargan.com/logos/byd.png',
+    logoUrl: 'https://cdn.qcargan.com/logos/cori-motors.png',
     official: true,
     badges: ['Casa matriz', 'Entrega rápida'],
-    description: 'Showroom oficial de BYD con soporte completo y entregas en todo Costa Rica.',
+    description:
+      'Concesionario oficial CoriMotors con showroom, entrega y soporte completo en Costa Rica.',
     contact: {
-      phone: '+506 4000 1111',
-      whatsapp: '+506 4000 1111',
-      email: 'ventas@byd.cr',
+      phone: '+506 4000 2222',
+      whatsapp: '+506 4000 2222',
+      email: 'ventas@corimotors.cr',
       address: 'Sabana Norte, San José'
     }
   },
@@ -152,7 +153,7 @@ const BANKS_SEED = [
 ] as const
 
 const ORGANIZATION_BY_BRAND: Record<string, (typeof ORGANIZATIONS_SEED)[number]['slug']> = {
-  BYD: 'byd-experience-store',
+  BYD: 'cori-motors',
   Volvo: 'volvo-autostar',
   Rivian: 'latam-ev-collective'
 }

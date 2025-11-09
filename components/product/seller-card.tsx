@@ -26,7 +26,7 @@ interface Financing {
   showMonthly: boolean
   termMonths: number
   aprPercent: number
-  displayCurrency: 'USD'
+  displayCurrency: 'USD' | 'CRC'
 }
 
 interface SellerCardProps extends React.ComponentPropsWithoutRef<typeof Card> {
@@ -34,7 +34,7 @@ interface SellerCardProps extends React.ComponentPropsWithoutRef<typeof Card> {
   label?: string
   seller?: SellerInfo
   amount: number
-  currency: 'USD'
+  currency: 'USD' | 'CRC'
   availabilityBadge?: SellerBadge
   financing?: Financing
   cta?: {
@@ -69,9 +69,10 @@ const SellerCard = React.forwardRef<React.ElementRef<typeof Card>, SellerCardPro
     const t = useTranslations('sellerCard')
     const [isExpanded, setIsExpanded] = React.useState(false)
 
+    const resolvedCurrency = currency ?? 'USD'
     const formattedPrice = new Intl.NumberFormat('en-US', {
       style: 'currency',
-      currency,
+      currency: resolvedCurrency,
       maximumFractionDigits: 0
     }).format(amount)
 
@@ -79,10 +80,11 @@ const SellerCard = React.forwardRef<React.ElementRef<typeof Card>, SellerCardPro
       ? Math.round(amount / financing.termMonths)
       : null
 
+    const monthlyCurrency = financing?.displayCurrency ?? resolvedCurrency
     const formattedMonthlyPayment = monthlyPayment
       ? new Intl.NumberFormat('en-US', {
           style: 'currency',
-          currency: financing?.displayCurrency || 'USD',
+          currency: monthlyCurrency,
           maximumFractionDigits: 0
         }).format(monthlyPayment)
       : null
