@@ -67,7 +67,7 @@ export default function ProductTitle({
         </h1>
       </div>
       {subtitleText && (
-        <p className="text-[0.75rem] font-semibold uppercase tracking-[0.3em] text-[hsl(var(--muted-foreground))]">
+        <p className="text-[0.75rem] font-semibold tracking-[0.3em] text-[hsl(var(--muted-foreground))]">
           {subtitleText}
         </p>
       )}
