@@ -63,6 +63,7 @@ export default function AdminDashboard() {
   };
 
   const handleEdit = (row: any) => {
+    if (!row?.id) return;
     setEditingId(row.id);
     setEditedData({ ...row });
   };
@@ -298,56 +299,65 @@ export default function AdminDashboard() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredData.map((row, idx) => (
-                    <tr
-                      key={row.id}
-                      className={`border-b border-[hsl(var(--border))] transition-colors hover:bg-[hsl(var(--muted)/0.2)] ${
-                        editingId === row.id ? "bg-[hsl(var(--accent)/0.05)]" : ""
-                      } ${idx % 2 === 0 ? "bg-[hsl(var(--card)/0.5)]" : "bg-transparent"}`}
-                    >
-                      <td className="px-4 py-3 text-xs font-mono text-[hsl(var(--muted-foreground))]">
-                        {row.id.substring(0, 8)}...
-                      </td>
-                      {columns.map((col) => (
-                        <td key={col} className="px-4 py-3 text-sm text-[hsl(var(--foreground))]">
-                          {renderCell(row, col)}
+                  {filteredData.map((row, idx) => {
+                    const rowId = typeof row?.id === "string" ? row.id : undefined;
+                    const isEditingRow = rowId !== undefined && editingId === rowId;
+                    const displayId = rowId ? `${rowId.substring(0, 8)}...` : "—";
+                    const rowKey = rowId ?? `row-${idx}-${activeTable}`;
+
+                    return (
+                      <tr
+                        key={rowKey}
+                        className={`border-b border-[hsl(var(--border))] transition-colors hover:bg-[hsl(var(--muted)/0.2)] ${
+                          isEditingRow ? "bg-[hsl(var(--accent)/0.05)]" : ""
+                        } ${idx % 2 === 0 ? "bg-[hsl(var(--card)/0.5)]" : "bg-transparent"}`}
+                      >
+                        <td className="px-4 py-3 text-xs font-mono text-[hsl(var(--muted-foreground))]">
+                          {displayId}
                         </td>
-                      ))}
-                      <td className="px-4 py-3 text-right">
-                        {editingId === row.id ? (
-                          <div className="flex justify-end gap-2">
-                            <button
-                              onClick={handleSave}
-                              className="rounded-lg bg-[hsl(var(--accent))] px-3 py-1.5 text-xs font-medium text-[hsl(var(--accent-foreground))] shadow-md transition-all hover:bg-[hsl(var(--accent)/0.9)] hover:shadow-lg"
-                            >
-                              💾 Save
-                            </button>
-                            <button
-                              onClick={handleCancel}
-                              className="rounded-lg bg-[hsl(var(--muted))] px-3 py-1.5 text-xs font-medium text-[hsl(var(--muted-foreground))] transition-all hover:bg-[hsl(var(--muted)/0.8)]"
-                            >
-                              ✕ Cancel
-                            </button>
-                          </div>
-                        ) : (
-                          <div className="flex justify-end gap-2">
-                            <button
-                              onClick={() => handleEdit(row)}
-                              className="rounded-lg bg-[hsl(var(--primary))] px-3 py-1.5 text-xs font-medium text-[hsl(var(--primary-foreground))] shadow-md transition-all hover:bg-[hsl(var(--primary)/0.9)] hover:shadow-lg"
-                            >
-                              ✏️ Edit
-                            </button>
-                            <button
-                              onClick={() => handleDelete(row.id)}
-                              className="rounded-lg bg-[hsl(var(--destructive))] px-3 py-1.5 text-xs font-medium text-[hsl(var(--destructive-foreground))] shadow-md transition-all hover:bg-[hsl(var(--destructive)/0.9)] hover:shadow-lg"
-                            >
-                              🗑️ Delete
-                            </button>
-                          </div>
-                        )}
-                      </td>
-                    </tr>
-                  ))}
+                        {columns.map((col) => (
+                          <td key={col} className="px-4 py-3 text-sm text-[hsl(var(--foreground))]">
+                            {renderCell(row, col)}
+                          </td>
+                        ))}
+                        <td className="px-4 py-3 text-right">
+                          {isEditingRow ? (
+                            <div className="flex justify-end gap-2">
+                              <button
+                                onClick={handleSave}
+                                className="rounded-lg bg-[hsl(var(--accent))] px-3 py-1.5 text-xs font-medium text-[hsl(var(--accent-foreground))] shadow-md transition-all hover:bg-[hsl(var(--accent)/0.9)] hover:shadow-lg"
+                              >
+                                💾 Save
+                              </button>
+                              <button
+                                onClick={handleCancel}
+                                className="rounded-lg bg-[hsl(var(--muted))] px-3 py-1.5 text-xs font-medium text-[hsl(var(--muted-foreground))] transition-all hover:bg-[hsl(var(--muted)/0.8)]"
+                              >
+                                ✕ Cancel
+                              </button>
+                            </div>
+                          ) : rowId ? (
+                            <div className="flex justify-end gap-2">
+                              <button
+                                onClick={() => handleEdit(row)}
+                                className="rounded-lg bg-[hsl(var(--primary))] px-3 py-1.5 text-xs font-medium text-[hsl(var(--primary-foreground))] shadow-md transition-all hover:bg-[hsl(var(--primary)/0.9)] hover:shadow-lg"
+                              >
+                                ✏️ Edit
+                              </button>
+                              <button
+                                onClick={() => handleDelete(rowId)}
+                                className="rounded-lg bg-[hsl(var(--destructive))] px-3 py-1.5 text-xs font-medium text-[hsl(var(--destructive-foreground))] shadow-md transition-all hover:bg-[hsl(var(--destructive)/0.9)] hover:shadow-lg"
+                              >
+                                🗑️ Delete
+                              </button>
+                            </div>
+                          ) : (
+                            <span className="text-xs text-[hsl(var(--muted-foreground))]">No ID</span>
+                          )}
+                        </td>
+                      </tr>
+                    );
+                  })}
                 </tbody>
               </table>
             </div>
