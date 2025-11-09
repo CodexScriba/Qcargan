@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import Image from 'next/image'
 import useEmblaCarousel from 'embla-carousel-react'
 import { ChevronLeft, ChevronRight, ImageOff } from 'lucide-react'
@@ -30,6 +30,7 @@ export default function ImageCarousel({
   const [canScrollPrev, setCanScrollPrev] = useState(false)
   const [canScrollNext, setCanScrollNext] = useState(false)
   const [failedImages, setFailedImages] = useState<Set<string>>(new Set())
+  const imageIdsKey = useMemo(() => images.map((image) => image.id).join('|'), [images])
 
   // Handle image load errors
   const handleImageError = useCallback((imageId: string) => {
@@ -65,6 +66,10 @@ export default function ImageCarousel({
     setModalImage(image)
   }, [])
   const closeModal = useCallback(() => setModalImage(null), [])
+
+  useEffect(() => {
+    setFailedImages(new Set())
+  }, [imageIdsKey])
 
   // Initialize embla and setup listeners
   useEffect(() => {
@@ -258,14 +263,17 @@ export default function ImageCarousel({
             >
               <X className="size-6" />
             </button>
-            <img
+            <Image
               src={modalImage.url}
               alt={modalImage.altText || 'Enlarged vehicle image'}
+              width={1200}
+              height={900}
               className="w-full h-full max-h-[90vh] object-contain rounded-2xl shadow-2xl"
               onError={() => {
                 handleImageError(modalImage.id)
                 closeModal()
               }}
+              priority
             />
           </div>
         </div>
