@@ -62,8 +62,9 @@ lib/db/schema/
 ## Seed Data & Supabase Environment
 - `scripts/seed-production-vehicles.ts` ingests `cardatasample.json`, generates deterministic UUIDs/slugs, and upserts banks, organizations, vehicles, specs, media assets, and pricing. The script is idempotent and safe to re-run in CI/CD.
 - Run via `bun run seed:production-vehicles` (see `package.json` scripts). The script loads env vars through `dotenv`, so `.env.local` must define the Supabase connection strings/keys.
+- `scripts/update-organizations.ts` handles specific organization updates such as adding new dealers and updating existing ones. Run via `bun run update:organizations` (see `package.json` scripts).
 - Pre-seed snapshot (taken before first run) confirmed empty vehicle tables (`vehicles:1`, `vehicle_specifications:0`, etc.) to document baseline state.
-- Post-seed counts (after two runs) stabilize at: `banks:3`, `organizations:6` (3 legacy + 3 seed), `vehicles:8` (1 legacy + 7 seed), `vehicle_specifications:7`, `vehicle_pricing:10`, `vehicle_images:14`, `vehicle_image_variants:7`.
+- Post-seed counts (after two runs) stabilize at: `banks:3`, `organizations:6` (3 legacy + 3 seed), `vehicles:8` (1 legacy + 7 seed), `vehicle_specifications:7`, `vehicle_pricing:10`, `vehicle_images:14`, `vehicle_image_variants:7`. After organization updates, the count includes GoElectric and updated Volvo Car CR.
 - Seeded assets assume CDN storage paths (`vehicles/{brand}/{model}-{variant}-hero.jpg`) and pair each hero image with a derived WebP variant for future CDN signing work.
 
 **Materialized views** (Phase 2+): 
@@ -192,6 +193,13 @@ scripts/utils/
 └─ identifiers.ts – Slug generation (slugify) and stable UUID creation (stableUuid) utilities for consistent identifier patterns across data seeding and migration scripts.
 ```
 
+- **Organization update script** (`scripts/update-organizations.ts`) handles specific organization updates such as adding new dealers and updating existing ones:
+
+```
+scripts/
+└─ update-organizations.ts – Script to execute organization updates like adding GoElectric and updating Volvo AutoStar to Volvo Car CR.
+```
+
 **Note:** Reference scripts are for pattern guidance only. A new production-quality `seed-production-vehicles.ts` script will be created from scratch for Phase 0.
 
 ## Internationalization, Forms & Validation
@@ -238,6 +246,13 @@ DIRECT_URL=<supabase_direct_url>
 - **Media URLs**: All image paths converted to browser-ready signed URLs in query results.
 
 > Query functions are production-ready and return fully typed, CDN-safe data.
+
+### ✅ Completed: Organization Updates
+- **Organization updates applied**: Added GoElectric (DEALER) and updated Volvo AutoStar to Volvo Car CR (AGENCY) using `scripts/update-organizations.ts`.
+- **Data consistency**: All organization records maintain proper type constraints (AGENCY, DEALER, IMPORTER) and contact information.
+- **Scripts**: `package.json` now includes `update:organizations` command for future organization maintenance.
+
+> Organizations table now includes GoElectric as an electric vehicle dealer and correctly identifies Volvo Car CR as the official agency.
 
 ## Next.js 16 Specific Guidance
 1. Middleware has been renamed to **proxy**; ensure files and exports adopt the new convention (`proxy.ts`, `export function proxy()`).

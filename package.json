@@ -10,7 +10,8 @@
     "drizzle:introspect": "bunx drizzle-kit introspect",
     "drizzle:generate": "bunx drizzle-kit generate",
     "drizzle:push": "bunx drizzle-kit push",
-    "seed:production-vehicles": "bunx tsx scripts/seed-production-vehicles.ts"
+    "seed:production-vehicles": "bunx tsx scripts/seed-production-vehicles.ts",
+    "update:organizations": "bunx tsx scripts/update-organizations.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
