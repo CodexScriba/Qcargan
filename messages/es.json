@@ -298,6 +298,10 @@
       "emailBody": "Hola, estoy interesado en el {year} {brand} {model}. ¿Podrían compartir más detalles? {url}"
     }
   },
+  "sellerCard": {
+    "contact": "Contactar",
+    "details": "Ver detalles"
+  },
   "agencyCard": {
     "contact": "Contactar",
     "details": "Ver detalles",
