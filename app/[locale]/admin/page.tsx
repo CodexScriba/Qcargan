@@ -63,7 +63,8 @@ export default function AdminDashboard() {
   };
 
   const handleEdit = (row: any) => {
-    setEditingId(row.id);
+    const primaryKey = row.id || row.vehicleId;
+    setEditingId(primaryKey);
     setEditedData({ ...row });
   };
 
@@ -123,8 +124,9 @@ export default function AdminDashboard() {
 
   const renderCell = (row: any, key: string) => {
     const value = row[key];
-    const isEditing = editingId === row.id;
-    const cellId = `${row.id}-${key}`;
+    const primaryKey = row.id || row.vehicleId || '';
+    const isEditing = editingId === primaryKey;
+    const cellId = `${primaryKey}-${key}`;
 
     // Handle different data types
     if (value === null || value === undefined) {
@@ -200,7 +202,12 @@ export default function AdminDashboard() {
     );
   };
 
-  const columns = data.length > 0 ? Object.keys(data[0]).filter((key) => key !== "id") : [];
+  const columns = data.length > 0 ? Object.keys(data[0]).filter((key) => key !== "id" && key !== "vehicleId") : [];
+
+  // Get the primary key for the current table (id or vehicleId)
+  const getPrimaryKey = (row: any) => {
+    return row.id || row.vehicleId || '';
+  };
 
   return (
     <div className="min-h-screen bg-background p-4 sm:p-6">
@@ -298,15 +305,17 @@ export default function AdminDashboard() {
                   </tr>
                 </thead>
                 <tbody>
-                  {filteredData.map((row, idx) => (
+                  {filteredData.map((row, idx) => {
+                    const primaryKey = getPrimaryKey(row);
+                    return (
                     <tr
-                      key={row.id}
+                      key={primaryKey || idx}
                       className={`border-b border-[hsl(var(--border))] transition-colors hover:bg-[hsl(var(--muted)/0.2)] ${
-                        editingId === row.id ? "bg-[hsl(var(--accent)/0.05)]" : ""
+                        editingId === primaryKey ? "bg-[hsl(var(--accent)/0.05)]" : ""
                       } ${idx % 2 === 0 ? "bg-[hsl(var(--card)/0.5)]" : "bg-transparent"}`}
                     >
                       <td className="px-4 py-3 text-xs font-mono text-[hsl(var(--muted-foreground))]">
-                        {row.id.substring(0, 8)}...
+                        {primaryKey ? `${primaryKey.substring(0, 8)}...` : `Row ${idx + 1}`}
                       </td>
                       {columns.map((col) => (
                         <td key={col} className="px-4 py-3 text-sm text-[hsl(var(--foreground))]">
@@ -314,7 +323,7 @@ export default function AdminDashboard() {
                         </td>
                       ))}
                       <td className="px-4 py-3 text-right">
-                        {editingId === row.id ? (
+                        {editingId === primaryKey ? (
                           <div className="flex justify-end gap-2">
                             <button
                               onClick={handleSave}
@@ -338,7 +347,7 @@ export default function AdminDashboard() {
                               ✏️ Edit
                             </button>
                             <button
-                              onClick={() => handleDelete(row.id)}
+                              onClick={() => handleDelete(primaryKey)}
                               className="rounded-lg bg-[hsl(var(--destructive))] px-3 py-1.5 text-xs font-medium text-[hsl(var(--destructive-foreground))] shadow-md transition-all hover:bg-[hsl(var(--destructive)/0.9)] hover:shadow-lg"
                             >
                               🗑️ Delete
@@ -347,7 +356,8 @@ export default function AdminDashboard() {
                         )}
                       </td>
                     </tr>
-                  ))}
+                  );
+                  })}
                 </tbody>
               </table>
             </div>

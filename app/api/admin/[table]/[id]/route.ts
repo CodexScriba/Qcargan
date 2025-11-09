@@ -20,6 +20,16 @@ const tableMap: Record<string, any> = {
   vehicle_images: vehicleImages,
 };
 
+// Map table names to their primary key field
+const primaryKeyMap: Record<string, string> = {
+  banks: "id",
+  vehicles: "id",
+  organizations: "id",
+  vehicle_pricing: "id",
+  vehicle_specifications: "vehicleId",
+  vehicle_images: "id",
+};
+
 // UPDATE a record
 export async function PUT(
   request: Request,
@@ -38,14 +48,17 @@ export async function PUT(
 
     const body = await request.json();
 
-    // Remove id from update data if present
-    const { id: _, ...updateData } = body;
+    // Get the primary key field for this table
+    const primaryKeyField = primaryKeyMap[table] || "id";
 
-    // Update the record
+    // Remove primary key from update data
+    const { id: _, vehicleId: __, ...updateData } = body;
+
+    // Update the record using the correct primary key field
     await db
       .update(tableSchema)
       .set(updateData)
-      .where(eq(tableSchema.id, id));
+      .where(eq(tableSchema[primaryKeyField], id));
 
     return NextResponse.json({ success: true });
   } catch (error) {
@@ -73,7 +86,10 @@ export async function DELETE(
       );
     }
 
-    await db.delete(tableSchema).where(eq(tableSchema.id, id));
+    // Get the primary key field for this table
+    const primaryKeyField = primaryKeyMap[table] || "id";
+
+    await db.delete(tableSchema).where(eq(tableSchema[primaryKeyField], id));
 
     return NextResponse.json({ success: true });
   } catch (error) {
