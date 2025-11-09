@@ -3,6 +3,7 @@
 import React, { useCallback, useEffect, useState } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { X } from 'lucide-react'
 import type { VehicleMediaImage } from '@/types/vehicle'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
@@ -51,6 +52,12 @@ export default function ImageCarousel({
     },
     [emblaApi]
   )
+  const [modalImage, setModalImage] = useState<VehicleMediaImage | null>(null)
+  const openModal = useCallback((image: VehicleMediaImage) => {
+    if (!image.url) return
+    setModalImage(image)
+  }, [])
+  const closeModal = useCallback(() => setModalImage(null), [])
 
   // Initialize embla and setup listeners
   useEffect(() => {
@@ -124,11 +131,19 @@ export default function ImageCarousel({
               >
                 <div className="aspect-video bg-muted relative">
                   {image.url ? (
-                    <img
-                      src={image.url}
-                      alt={image.altText || `Vehicle image ${index + 1}`}
-                      className="w-full h-full object-cover"
-                    />
+                    <button
+                      type="button"
+                      onClick={() => openModal(image)}
+                      aria-label={`View ${image.altText || `image ${index + 1}`} in a larger view`}
+                      className="w-full h-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary"
+                    >
+                      <img
+                        src={image.url}
+                        alt={image.altText || `Vehicle image ${index + 1}`}
+                        className="w-full h-full object-cover pointer-events-none"
+                      />
+                      <span className="sr-only">Click to open enlarged view</span>
+                    </button>
                   ) : (
                     <div className="w-full h-full flex items-center justify-center">
                       <p className="text-muted-foreground text-sm">Image not available</p>
@@ -205,13 +220,35 @@ export default function ImageCarousel({
                   <span className="text-xs text-muted-foreground">N/A</span>
                 </div>
               )}
-              {image.isHero && (
-                <div className="absolute top-1 left-1 bg-primary text-primary-foreground text-xs px-1.5 py-0.5 rounded">
-                  Hero
-                </div>
-              )}
             </button>
           ))}
+        </div>
+      )}
+      {modalImage && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 py-6"
+          aria-modal="true"
+          role="dialog"
+          onClick={closeModal}
+        >
+          <div
+            className="relative w-full max-w-[90vw] max-h-[90vh]"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={closeModal}
+              className="absolute right-3 top-3 z-10 rounded-full bg-[hsl(var(--primary))] p-2.5 text-[hsl(var(--primary-foreground))] shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[hsl(var(--primary))]"
+              aria-label="Close full image view"
+            >
+              <X className="size-6" />
+            </button>
+            <img
+              src={modalImage.url}
+              alt={modalImage.altText || 'Enlarged vehicle image'}
+              className="w-full h-full max-h-[90vh] object-contain rounded-2xl shadow-2xl"
+            />
+          </div>
         </div>
       )}
     </div>
