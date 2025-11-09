@@ -9,7 +9,7 @@ interface CarActionButtonsProps {
   className?: string
 }
 
-const CarActionButtons: React.FC<CarActionButtonsProps> = ({ className }) => {
+export const CarActionButtons: React.FC<CarActionButtonsProps> = ({ className }) => {
   const [favoriteState, setFavoriteState] = useState<'default' | 'loading' | 'selected'>('default')
   const [compareState, setCompareState] = useState<'default' | 'loading' | 'selected'>('default')
 
@@ -102,4 +102,5 @@ const CarActionButtons: React.FC<CarActionButtonsProps> = ({ className }) => {
   )
 }
 
+export { CarActionButtons }
 export default CarActionButtons

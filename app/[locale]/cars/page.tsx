@@ -4,7 +4,7 @@ import ImageCarousel from '@/components/ui/image-carousel'
 import { ShowcaseCarousel, type ShowcaseItem } from '@/components/showcase'
 import { SellerCard } from '@/components/product/seller-card'
 import { SeeAllSellersCard } from '@/components/product/see-all-sellers-card'
-import HeroActionButtons from '@/components/product/hero-action-buttons'
+import { CarActionButtons } from '@/components/product/hero-action-buttons'
 import { getVehicleBySlug } from '@/lib/db/queries/vehicles'
 import { getBanks } from '@/lib/db/queries/banks'
 import VehicleAllSpecs from '@/components/product/vehicle-all-specs'
@@ -131,7 +131,7 @@ const page = async () => {
             {/* Pricing Section - 1 column */}
             <div className="space-y-4">
               {/* Action Buttons Row - Client Component */}
-              <HeroActionButtons className="mb-3" />
+              <CarActionButtons />
 
               {displayedOffers.map((offer, idx) => (
                 <SellerCard
