@@ -47,6 +47,7 @@ const pathnames = {
     en: "/vehicles",
     es: "/vehiculos",
   },
+  "/cars": "/cars",
   "/vehicles/[slug]": {
     en: "/vehicles/[slug]",
     es: "/vehiculos/[slug]",

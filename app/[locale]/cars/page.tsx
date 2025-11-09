@@ -2,171 +2,146 @@ import React from 'react'
 import ProductTitle from '@/components/product/product-title'
 import ImageCarousel from '@/components/ui/image-carousel'
 import { ShowcaseCarousel, type ShowcaseItem } from '@/components/showcase'
-import SellerCard from '@/components/product/seller-card'
+import { SellerCard } from '@/components/product/seller-card'
 import { SeeAllSellersCard } from '@/components/product/see-all-sellers-card'
+import HeroActionButtons from '@/components/product/hero-action-buttons'
+import { getVehicleBySlug } from '@/lib/db/queries/vehicles'
+import { getBanks } from '@/lib/db/queries/banks'
 import VehicleAllSpecs from '@/components/product/vehicle-all-specs'
 import KeySpecification from '@/components/product/key-specification'
-import { Navigation, Zap, Gauge, Timer, PlugZap } from 'lucide-react'
-import { CarActionButtons } from '@/components/product/car-action-buttons'
+import { buildVehicleHeroSpecsInput } from '@/lib/vehicle/adapters'
+import { toHeroSpecs } from '@/lib/vehicle/specs'
+import { Navigation, Zap, Gauge, Timer, PlugZap, type LucideIcon } from 'lucide-react'
 import FinancingTabs from '@/components/banks/FinancingTabs'
-import TrafficLightReviews from '@/components/product/traffic-light-reviews'
+import { TrafficLightReviews } from '@/components/reviews'
 import ServicesShowcase from '@/components/product/services-showcase'
 
-const page = () => {
-  // TODO: Replace with actual data fetching
-  const mockVehicle = {
-    id: 'vehicle_mock',
-    slug: 'tesla-model-3-2024',
-    brand: 'Tesla',
-    model: 'Model 3',
-    year: 2024,
-    variant: 'Long Range',
-    specifications: {
-      rangeKmWltp: 513,
-      batteryKwh: 75,
-      acceleration0To100Sec: 4.4,
-      topSpeedKmh: 233,
-      powerHp: 350,
-      powerKw: 261,
-      chargingDcKw: 250,
-      chargingTimeDcMin: 25,
-      seats: 5,
-      weightKg: 1880,
-      bodyType: 'SEDAN' as const
-    },
-    specs: {
-      torque: { nm: 420, lbft: 310 },
-      dimensions: { length: 4694, width: 1933, height: 1443, wheelbase: 2875 },
-      charging: { ac: { kW: 11, time: '8 h to 100%' } }
-    },
-    media: {
-      images: [
-        {
-          id: 'img_1',
-          url: '/placeholder-car-1.jpg',
-          storagePath: 'placeholder-car-1.jpg',
-          altText: 'Tesla Model 3 exterior view',
-          caption: null,
-          displayOrder: 0,
-          isHero: true
-        },
-        {
-          id: 'img_2',
-          url: '/placeholder-car-2.jpg',
-          storagePath: 'placeholder-car-2.jpg',
-          altText: 'Tesla Model 3 interior view',
-          caption: null,
-          displayOrder: 1,
-          isHero: false
-        }
-      ],
-      heroIndex: 0
-    }
+const page = async () => {
+  // TODO: Make this dynamic - fetch from route params or first published vehicle
+  const vehicleSlug = 'byd-seagull-vitality-edition-2024'
+
+  // Fetch complete vehicle data with pricing and images
+  const vehicleData = await getVehicleBySlug(vehicleSlug)
+
+  if (!vehicleData) {
+    return <div className="container mx-auto px-4 py-6">No vehicles found</div>
   }
 
-  const mockOffers = [
-    {
-      seller: {
-        id: 'org_1',
-        name: 'Tesla Store Costa Rica',
-        logo: '/placeholder-logo.png',
-        type: 'AGENCY' as const,
-        official: true,
-        badges: ['Factory warranty']
-      },
-      price: { amount: 45000, currency: 'USD' as const },
-      availability: { label: 'In Stock', tone: 'success' as const, estimated_delivery_days: 21 },
-      financing: {
-        down_payment: 9000,
-        monthly_payment: 650,
-        term_months: 60,
-        apr_percent: 4.1,
-        display_currency: 'USD'
-      },
-      cta: { label: 'Contact Dealer', href: 'https://wa.me/50688887777' },
-      perks: ['Warranty', '1 Year Service'],
-      emphasis: 'teal-border' as const
-    }
-  ]
+  // Fetch banks for financing options
+  const banksData = await getBanks()
 
-  const mockBanks = [
-    {
-      id: 'bank1',
-      name: 'Banco EV',
-      aprMin: 3.5,
-      aprMax: 4.8,
-      terms: [48, 60, 72],
-      websiteUrl: 'https://example-bank.test/ev',
-      contactPhone: '+506 2222 3333',
-      contactEmail: 'ev@bancoev.com',
-      description: 'Specialists in EV financing for Costa Rica.'
-    }
-  ]
+  const heroSpecsInput = buildVehicleHeroSpecsInput(vehicleData.specifications ?? null)
+  const heroSpecs = toHeroSpecs(heroSpecsInput)
+  const specIconMap: Record<string, LucideIcon> = {
+    range: Navigation,
+    battery: Zap,
+    dc: PlugZap,
+    zeroTo100: Timer,
+    topSpeed: Gauge,
+    power: Gauge,
+  }
 
-  const mockAccessories: ShowcaseItem[] = [
-    {
-      id: 'acc1',
-      name: 'Premium Floor Mats',
-      description: 'All-weather protection',
-      image: '/placeholder-acc-1.jpg',
-      alt: 'Floor mats',
-      ctaLabel: 'Shop Now',
-      ctaHref: '#'
-    }
-  ]
+  // Transform pricing data to match the demo seller card props
+  const allOffers = vehicleData.pricing
+    .map((p) => {
+      const financingData = p.financing ?? {}
+      const termMonths = financingData.term_months ?? financingData.termMonths
+      const emphasisValue = (p.emphasis ?? (p.organization.type === 'AGENCY' ? 'teal-border' : 'none')) as
+        | 'none'
+        | 'teal-border'
+        | 'teal-glow'
 
-  const primaryOffer = mockOffers[0]
+      const financing =
+        typeof termMonths === 'number' && termMonths > 0
+          ? {
+              showMonthly: true,
+              termMonths,
+              aprPercent: financingData.apr_percent ?? financingData.aprPercent ?? 0,
+              displayCurrency: (financingData.display_currency ?? financingData.displayCurrency ?? p.currency) as
+                | 'USD'
+                | 'CRC',
+            }
+          : undefined
+
+      return {
+        type: p.organization.type,
+        label: p.cta?.label,
+        seller: {
+          name: p.organization.name,
+          official: p.organization.official,
+          badges: p.organization.badges ?? [],
+        },
+        amount: Number(p.amount),
+        currency: p.currency as 'USD' | 'CRC',
+        availabilityBadge: {
+          label: p.availability?.label ?? undefined,
+          tone: p.availability?.tone,
+        },
+        financing,
+        cta: {
+          contactPath: p.cta?.href ?? null,
+          detailsPath: null,
+        },
+        perks: p.perks ?? [],
+        emphasis: emphasisValue,
+      }
+    })
+    .sort((a, b) => {
+      const typeOrder = { AGENCY: 0, DEALER: 1, IMPORTER: 2 }
+      return typeOrder[a.type] - typeOrder[b.type]
+    })
+
+  // Show only first 2 offers (agency + grey_market), rest accessible via "See All"
+  const displayedOffers = allOffers.slice(0, 2)
+  const totalOffers = allOffers.length
+
+  // Use the vehicle data directly (it already has the correct structure from getVehicleBySlug)
+  const vehicle = vehicleData
+
+  // Accessories - empty for now until products table is implemented
+  const accessories: ShowcaseItem[] = []
 
   return (
     <div className="container mx-auto px-4 py-6 max-w-[1600px] space-y-6">
-      {/* Hero Section */}
+      {/* Hero Section - Minimalist Card */}
       <div className="card-container rounded-3xl overflow-hidden">
         <div className="space-y-6">
           <ProductTitle
-            brand={mockVehicle.brand}
-            model={mockVehicle.model}
-            year={mockVehicle.year}
-            variant={mockVehicle.variant}
-            rangeKm={mockVehicle.specifications.rangeKmWltp}
-            rangeCycle="WLTP"
-            batteryKwh={mockVehicle.specifications.batteryKwh}
+            brand={vehicle.brand}
+            model={vehicle.model}
+            year={vehicle.year}
+            variant={vehicle.variant}
+            rangeKm={vehicle.specifications?.rangeKmWltp || vehicle.specifications?.rangeKmCltc}
+            rangeCycle={vehicle.specifications?.rangeKmWltp ? 'WLTP' : 'CLTC'}
+            batteryKwh={vehicle.specifications?.batteryKwh ? Number(vehicle.specifications.batteryKwh) : null}
           />
 
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
-            {/* Image Section */}
+            {/* Image Section - 2 columns */}
             <div className="lg:col-span-2">
               <div className="rounded-2xl overflow-hidden border border-[hsl(var(--border)/0.1)] dark:border-none">
                 <ImageCarousel
-                  images={mockVehicle.media.images}
-                  initialIndex={mockVehicle.media.heroIndex}
+                  images={vehicle.media.images}
+                  initialIndex={vehicle.media.heroIndex}
                   className="w-full"
                 />
               </div>
             </div>
 
-            {/* Pricing Section */}
+            {/* Pricing Section - 1 column */}
             <div className="space-y-4">
-              <CarActionButtons
-                vehicleId={mockVehicle.id}
-                vehicleSlug={mockVehicle.slug}
-                brand={mockVehicle.brand}
-                model={mockVehicle.model}
-                year={mockVehicle.year}
-                variant={mockVehicle.variant}
-                primarySellerContact={{
-                  phone: '+506 2222 3333',
-                  whatsapp: '+506 8888 7777',
-                  email: 'ventas@tesla.cr'
-                }}
-                primaryCta={primaryOffer?.cta}
-              />
+              {/* Action Buttons Row - Client Component */}
+              <HeroActionButtons className="mb-3" />
 
-              {mockOffers.map((offer) => (
+              {displayedOffers.map((offer, idx) => (
                 <SellerCard
-                  key={offer.seller.id}
+                  key={`${offer.seller?.name ?? offer.type}-${idx}`}
+                  type={offer.type}
+                  label={offer.label}
                   seller={offer.seller}
-                  price={offer.price}
-                  availability={offer.availability}
+                  amount={offer.amount}
+                  currency={offer.currency}
+                  availabilityBadge={offer.availabilityBadge}
                   financing={offer.financing}
                   cta={offer.cta}
                   perks={offer.perks}
@@ -174,81 +149,75 @@ const page = () => {
                 />
               ))}
 
-              <SeeAllSellersCard href="/vehicles" optionsCount={3} />
+              {/* See All Sellers Button */}
+              <SeeAllSellersCard
+                href="/sellers"
+                optionsCount={totalOffers}
+              />
 
-              {/* Financing Options */}
+              {/* Financing Options - Below Sellers */}
               <div className="pt-4 border-t border-[hsl(var(--border)/0.2)]">
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-1 h-6 bg-gradient-to-b from-[hsl(var(--primary))] to-[hsl(var(--brand))] rounded-full"></div>
                   <h3 className="text-lg font-bold tracking-tight">Financing Options</h3>
                 </div>
-                <FinancingTabs banks={mockBanks} />
+                <FinancingTabs banks={banksData} />
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Key Specifications */}
+      {/* Key Specifications - Horizontal Cards */}
       <section className="card-container rounded-3xl overflow-hidden space-y-6">
         <div className="flex items-center gap-3">
           <div className="w-1 h-8 bg-gradient-to-b from-[hsl(var(--primary))] to-[hsl(var(--brand))] rounded-full"></div>
           <h2 className="text-2xl font-bold tracking-tight">Key Specifications</h2>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
-          <KeySpecification
-            icon={Navigation}
-            title="Range"
-            value={`${mockVehicle.specifications.rangeKmWltp} km WLTP`}
-          />
-          <KeySpecification
-            icon={Zap}
-            title="Battery"
-            value={`${mockVehicle.specifications.batteryKwh} kWh`}
-          />
-          <KeySpecification icon={PlugZap} title="DC Charging" value="250 kW" />
-          <KeySpecification
-            icon={Timer}
-            title="0-100 km/h"
-            value={`${mockVehicle.specifications.acceleration0To100Sec}s`}
-          />
-          <KeySpecification
-            icon={Gauge}
-            title="Top Speed"
-            value={`${mockVehicle.specifications.topSpeedKmh} km/h`}
-          />
-          <KeySpecification icon={Gauge} title="Power" value="350 hp" />
+          {heroSpecs.map((spec) => {
+            const Icon = specIconMap[spec.key] ?? Gauge
+            return (
+              <KeySpecification
+                key={spec.key}
+                icon={Icon}
+                title={spec.title}
+                value={spec.value}
+                ariaLabel={spec.ariaLabel}
+              />
+            )
+          })}
         </div>
       </section>
 
-      {/* Owner Reviews */}
+      {/* Traffic Light Reviews - Streamlined */}
       <section className="card-container owner-reviews-shell rounded-3xl overflow-hidden space-y-6">
         <div className="flex items-center gap-3">
           <div className="w-1 h-8 bg-gradient-to-b from-[hsl(var(--primary))] to-[hsl(var(--brand))] rounded-full"></div>
           <h2 className="text-2xl font-bold tracking-tight">Owner Reviews</h2>
         </div>
-        <TrafficLightReviews positive={72} neutral={18} negative={10} placeholder />
+        <TrafficLightReviews />
       </section>
 
-      {/* All Specs */}
+      {/* All Specs - Minimal Accordion */}
       <section className="card-container rounded-3xl overflow-hidden">
         <VehicleAllSpecs
-          brand={mockVehicle.brand}
-          model={mockVehicle.model}
-          year={mockVehicle.year}
-          variant={mockVehicle.variant}
-          specifications={mockVehicle.specifications}
-          detailedSpecs={mockVehicle.specs}
+          brand={vehicle.brand}
+          model={vehicle.model}
+          year={vehicle.year}
+          variant={vehicle.variant}
+          specifications={vehicle.specifications}
+          detailedSpecs={vehicle.specs}
         />
       </section>
 
-      {/* Related Accessories */}
+      {/* Related Accessories - Modern Carousel */}
       <section className="card-container rounded-3xl overflow-hidden space-y-6">
         <div className="flex items-center gap-3">
           <div className="w-1 h-8 bg-gradient-to-b from-[hsl(var(--primary))] to-[hsl(var(--brand))] rounded-full"></div>
           <h2 className="text-2xl font-bold tracking-tight">Related Accessories</h2>
         </div>
-        <ShowcaseCarousel title={null} items={mockAccessories} />
+        <ShowcaseCarousel title={null} items={accessories} />
       </section>
 
       {/* EV Services & Support */}
