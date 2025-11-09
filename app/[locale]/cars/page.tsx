@@ -103,7 +103,7 @@ const page = async () => {
 
   return (
     <div className="container mx-auto px-4 py-6 max-w-[1600px] space-y-6">
-      {/* Hero Section - Minimalist Card */}
+      {/* Primary Section - Minimalist Card */}
       <div className="card-container rounded-3xl overflow-hidden">
         <div className="space-y-6">
           <ProductTitle
