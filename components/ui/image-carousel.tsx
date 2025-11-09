@@ -1,8 +1,9 @@
 'use client'
 
 import React, { useCallback, useEffect, useState } from 'react'
+import Image from 'next/image'
 import useEmblaCarousel from 'embla-carousel-react'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { ChevronLeft, ChevronRight, ImageOff } from 'lucide-react'
 import { X } from 'lucide-react'
 import type { VehicleMediaImage } from '@/types/vehicle'
 import { Button } from '@/components/ui/button'
@@ -28,6 +29,12 @@ export default function ImageCarousel({
   const [selectedIndex, setSelectedIndex] = useState(initialIndex)
   const [canScrollPrev, setCanScrollPrev] = useState(false)
   const [canScrollNext, setCanScrollNext] = useState(false)
+  const [failedImages, setFailedImages] = useState<Set<string>>(new Set())
+
+  // Handle image load errors
+  const handleImageError = useCallback((imageId: string) => {
+    setFailedImages(prev => new Set(prev).add(imageId))
+  }, [])
 
   // Update scroll state
   const updateScrollState = useCallback(() => {
@@ -130,22 +137,27 @@ export default function ImageCarousel({
                 className="flex-[0_0_100%] min-w-0"
               >
                 <div className="aspect-video bg-muted relative">
-                  {image.url ? (
+                  {image.url && !failedImages.has(image.id) ? (
                     <button
                       type="button"
                       onClick={() => openModal(image)}
                       aria-label={`View ${image.altText || `image ${index + 1}`} in a larger view`}
                       className="w-full h-full text-left focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary"
                     >
-                      <img
+                      <Image
                         src={image.url}
                         alt={image.altText || `Vehicle image ${index + 1}`}
-                        className="w-full h-full object-cover pointer-events-none"
+                        fill
+                        sizes="(max-width: 1024px) 100vw, 66vw"
+                        className="object-cover pointer-events-none"
+                        onError={() => handleImageError(image.id)}
+                        priority={index === initialIndex}
                       />
                       <span className="sr-only">Click to open enlarged view</span>
                     </button>
                   ) : (
-                    <div className="w-full h-full flex items-center justify-center">
+                    <div className="w-full h-full flex flex-col items-center justify-center gap-2">
+                      <ImageOff className="size-12 text-muted-foreground/50" />
                       <p className="text-muted-foreground text-sm">Image not available</p>
                     </div>
                   )}
@@ -209,22 +221,25 @@ export default function ImageCarousel({
               )}
               aria-label={`Go to image ${index + 1}`}
             >
-              {image.url ? (
-                <img
+              {image.url && !failedImages.has(image.id) ? (
+                <Image
                   src={image.url}
                   alt={image.altText || `Thumbnail ${index + 1}`}
-                  className="w-full h-full object-cover"
+                  fill
+                  sizes="80px"
+                  className="object-cover"
+                  onError={() => handleImageError(image.id)}
                 />
               ) : (
                 <div className="w-full h-full bg-muted flex items-center justify-center">
-                  <span className="text-xs text-muted-foreground">N/A</span>
+                  <ImageOff className="size-4 text-muted-foreground/50" />
                 </div>
               )}
             </button>
           ))}
         </div>
       )}
-      {modalImage && (
+      {modalImage && !failedImages.has(modalImage.id) && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 py-6"
           aria-modal="true"
@@ -247,6 +262,10 @@ export default function ImageCarousel({
               src={modalImage.url}
               alt={modalImage.altText || 'Enlarged vehicle image'}
               className="w-full h-full max-h-[90vh] object-contain rounded-2xl shadow-2xl"
+              onError={() => {
+                handleImageError(modalImage.id)
+                closeModal()
+              }}
             />
           </div>
         </div>
