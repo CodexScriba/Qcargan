@@ -11,7 +11,15 @@ import {
 } from "@/lib/db/schema";
 
 // Map table names to schema objects
-const tableMap: Record<string, any> = {
+const tableMap: Record<
+  string,
+  | typeof banks
+  | typeof vehicles
+  | typeof organizations
+  | typeof vehiclePricing
+  | typeof vehicleSpecifications
+  | typeof vehicleImages
+> = {
   banks,
   vehicles,
   organizations,
@@ -38,7 +46,7 @@ export async function PUT(
     }
 
     const rawBody = await request.text();
-    let body: any;
+    let body: unknown;
     try {
       body = rawBody ? JSON.parse(rawBody) : {};
     } catch (e) {
@@ -54,7 +62,15 @@ export async function PUT(
       );
     }
 
-    const { id: _omitId, ...updateData } = body;
+    if (typeof body !== "object" || body === null || Array.isArray(body)) {
+      console.error("[admin][PUT] Body is not a JSON object", { table, id, body });
+      return NextResponse.json(
+        { error: "Request body must be a JSON object" },
+        { status: 400 }
+      );
+    }
+
+    const { id: _omitId, ...updateData } = body as Record<string, unknown>;
 
     // Basic guard: do not run empty update
     if (!updateData || Object.keys(updateData).length === 0) {
@@ -100,10 +116,32 @@ export async function PUT(
       normalizedUpdate[key] = value;
     }
 
+    // Resolve the primary key column name per table explicitly to avoid relying on "in" checks and "any" casts.
+    const tableIdColumn: Record<string, string> = {
+      banks: "id",
+      vehicles: "id",
+      organizations: "id",
+      vehicle_pricing: "id",
+      vehicle_specifications: "vehicleId",
+      vehicle_images: "id",
+    };
+
+    const pkColumn = tableIdColumn[table];
+    if (!pkColumn) {
+      console.error("[admin][PUT] No primary key mapping for table", { table, id });
+      return NextResponse.json(
+        { error: "No primary key mapping for table" },
+        { status: 500 }
+      );
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const pk = (tableSchema as any)[pkColumn];
+
     const result = await db
       .update(tableSchema)
       .set(normalizedUpdate)
-      .where(eq(tableSchema.id, id))
+      .where(eq(pk, id))
       .returning();
 
     if (!result || result.length === 0) {
@@ -140,7 +178,28 @@ export async function DELETE(
       );
     }
 
-    await db.delete(tableSchema).where(eq(tableSchema.id, id));
+    const tableIdColumn: Record<string, string> = {
+      banks: "id",
+      vehicles: "id",
+      organizations: "id",
+      vehicle_pricing: "id",
+      vehicle_specifications: "vehicleId",
+      vehicle_images: "id",
+    };
+
+    const pkColumn = tableIdColumn[table];
+    if (!pkColumn) {
+      console.error("[admin][DELETE] No primary key mapping for table", { table, id });
+      return NextResponse.json(
+        { error: "No primary key mapping for table" },
+        { status: 500 }
+      );
+    }
+
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const pk = (tableSchema as any)[pkColumn];
+
+    await db.delete(tableSchema).where(eq(pk, id));
 
     return NextResponse.json({ success: true });
   } catch (error) {
