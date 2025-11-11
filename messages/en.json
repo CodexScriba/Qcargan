@@ -301,7 +301,7 @@
   "sellerCard": {
     "contact": "Contact",
     "details": "View details",
-    "viewSellerStorefront": "View {{name}}'s storefront",
+    "viewSellerStorefront": "View {name}'s storefront",
     "viewStorefront": "Visit storefront"
   },
   "agencyCard": {
