@@ -12,7 +12,7 @@ import { Badge } from '@/components/ui/badge'
 
 interface SellerInfo {
   name: string
-  slug: string
+  slug?: string
   official?: boolean
   badges?: string[]
 }
