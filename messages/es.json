@@ -300,7 +300,9 @@
   },
   "sellerCard": {
     "contact": "Contactar",
-    "details": "Ver detalles"
+    "details": "Ver detalles",
+    "viewSellerStorefront": "Ver tienda de {{name}}",
+    "viewStorefront": "Visitar tienda"
   },
   "agencyCard": {
     "contact": "Contactar",
