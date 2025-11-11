@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
 
 // Table tabs configuration
 const TABLES = [
@@ -14,14 +16,16 @@ const TABLES = [
 
 type TableId = (typeof TABLES)[number]["id"];
 
+type AdminRow = Record<string, unknown>;
+
 export default function AdminDashboard() {
   const [activeTable, setActiveTable] = useState<TableId>("banks");
-  const [data, setData] = useState<any[]>([]);
-  const [filteredData, setFilteredData] = useState<any[]>([]);
+  const [data, setData] = useState<AdminRow[]>([]);
+  const [filteredData, setFilteredData] = useState<AdminRow[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const [editedData, setEditedData] = useState<any>({});
+  const [editedData, setEditedData] = useState<AdminRow>({});
   const [searchTerm, setSearchTerm] = useState("");
   const [expandedJson, setExpandedJson] = useState<Set<string>>(new Set());
 
@@ -62,27 +66,65 @@ export default function AdminDashboard() {
     }
   };
 
-  const handleEdit = (row: any) => {
-    if (!row?.id) return;
-    setEditingId(row.id);
+  const handleEdit = (row: AdminRow) => {
+    const { id } = row as { id?: unknown };
+    if (!id) {
+      console.warn("[AdminDashboard.handleEdit()] Missing row.id", { row });
+      setError("Cannot edit this row because it has no ID.");
+      return;
+    }
+
+    const stringId = String(id);
+    console.log("[AdminDashboard.handleEdit()] Enter edit mode", {
+      activeTable,
+      id: stringId,
+      row,
+    });
+
+    setEditingId(stringId);
     setEditedData({ ...row });
   };
 
   const handleSave = async () => {
+    if (!editingId) {
+      console.error("[AdminDashboard.handleSave()] No editingId set");
+      setError("No record selected for saving.");
+      return;
+    }
+
     try {
+      console.log("[AdminDashboard.handleSave()] Sending update", {
+        activeTable,
+        editingId,
+        payload: editedData,
+      });
+
       const response = await fetch(`/api/admin/${activeTable}/${editingId}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(editedData),
       });
 
-      if (!response.ok) throw new Error("Failed to update");
+      if (!response.ok) {
+        const text = await response.text().catch(() => "");
+        console.error(
+          "[AdminDashboard.handleSave()] Update failed",
+          response.status,
+          text
+        );
+        throw new Error(`Failed to update (status ${response.status})`);
+      }
 
+      console.log("[AdminDashboard.handleSave()] Update success, refetching");
       await fetchData();
       setEditingId(null);
       setEditedData({});
+      setError(null);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Failed to save");
+      console.error("[AdminDashboard.handleSave()] Error", err);
+      setError(
+        err instanceof Error ? err.message : "Failed to save changes"
+      );
     }
   };
 
@@ -106,8 +148,8 @@ export default function AdminDashboard() {
     setEditedData({});
   };
 
-  const handleFieldChange = (field: string, value: any) => {
-    setEditedData((prev: any) => ({ ...prev, [field]: value }));
+  const handleFieldChange = (field: string, value: unknown) => {
+    setEditedData((prev) => ({ ...prev, [field]: value }));
   };
 
   const toggleJsonExpand = (id: string) => {
@@ -122,10 +164,11 @@ export default function AdminDashboard() {
     });
   };
 
-  const renderCell = (row: any, key: string) => {
+  const renderCell = (row: AdminRow, key: string) => {
     const value = row[key];
-    const isEditing = editingId === row.id;
-    const cellId = `${row.id}-${key}`;
+    const { id } = row as { id?: unknown };
+    const isEditing = !!id && editingId === String(id);
+    const cellId = `${id}-${key}`;
 
     // Handle different data types
     if (value === null || value === undefined) {
@@ -134,10 +177,14 @@ export default function AdminDashboard() {
 
     if (typeof value === "boolean") {
       if (isEditing) {
+        const boolVal =
+          typeof editedData[key] === "boolean"
+            ? (editedData[key] as boolean)
+            : value;
         return (
           <input
             type="checkbox"
-            checked={editedData[key] ?? value}
+            checked={boolVal}
             onChange={(e) => handleFieldChange(key, e.target.checked)}
             className="h-4 w-4 rounded border-[hsl(var(--border))] text-[hsl(var(--accent))] focus:ring-[hsl(var(--ring))]"
           />
@@ -182,10 +229,15 @@ export default function AdminDashboard() {
     }
 
     if (isEditing) {
+      const current =
+        typeof editedData[key] === "string" ||
+        typeof editedData[key] === "number"
+          ? (editedData[key] as string | number)
+          : value;
       return (
         <input
           type="text"
-          value={editedData[key] ?? value}
+          value={current as string | number}
           onChange={(e) => handleFieldChange(key, e.target.value)}
           className="w-full rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--input))] px-3 py-1.5 text-sm text-[hsl(var(--foreground))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
         />
@@ -205,59 +257,80 @@ export default function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-background p-4 sm:p-6">
-      <div className="mx-auto max-w-[1800px]">
+      <div className="mx-auto max-w-[1800px] space-y-4">
         {/* Header */}
-        <div className="card-container mb-6 sm:mb-8">
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="space-y-2">
-              <h1 className="text-2xl font-semibold tracking-tight text-[hsl(var(--title-blue))] sm:text-3xl">
-                ⚡ Admin Dashboard
-              </h1>
-              <p className="text-sm text-[hsl(var(--muted-foreground))]">
-                Temporary admin panel for managing your Supabase content
+        <div className="card-container mb-2 sm:mb-4">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+            <div className="space-y-1.5">
+              <div className="flex items-center gap-2">
+                <h1 className="text-2xl font-semibold tracking-tight text-[hsl(var(--title-blue))] sm:text-3xl">
+                  ⚡ Admin Dashboard
+                </h1>
+                <Badge
+                  variant="outline"
+                  className="text-[10px] uppercase tracking-wide border-[hsl(var(--border))] text-[hsl(var(--muted-foreground))]"
+                >
+                  Internal
+                </Badge>
+              </div>
+              <p className="text-xs sm:text-sm text-[hsl(var(--muted-foreground))]">
+                Manage banks, vehicles, organizations and related data. Changes are applied immediately.
               </p>
             </div>
 
             {/* Search Bar */}
-            <div className="relative w-full sm:w-80">
-              <input
-                type="text"
-                placeholder="Search records..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--input))] px-4 py-2.5 pl-10 text-sm text-[hsl(var(--foreground))] placeholder:text-[hsl(var(--muted-foreground))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
-              />
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[hsl(var(--muted-foreground))]">
-                🔍
-              </span>
+            <div className="flex flex-col gap-1.5 sm:items-end">
+              <div className="relative w-full sm:w-80">
+                <input
+                  type="text"
+                  placeholder="Search across all visible fields..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full rounded-lg border border-[hsl(var(--border))] bg-[hsl(var(--input))] px-4 py-2.5 pl-9 text-xs sm:text-sm text-[hsl(var(--foreground))] placeholder:text-[hsl(var(--muted-foreground))] focus:outline-none focus:ring-2 focus:ring-[hsl(var(--ring))]"
+                />
+                <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-[hsl(var(--muted-foreground))] text-sm">
+                  🔍
+                </span>
+              </div>
+              <div className="flex items-center gap-2 text-[9px] text-[hsl(var(--muted-foreground))]">
+                <span className="inline-flex h-2 w-2 rounded-full bg-[hsl(var(--accent))]" />
+                Live filter · Use Refresh if data changes externally
+              </div>
             </div>
           </div>
         </div>
 
         {/* Table Tabs */}
-        <div className="mb-6 flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
-          {TABLES.map((table) => (
-            <button
-              key={table.id}
-              onClick={() => setActiveTable(table.id)}
-              className={`flex shrink-0 items-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium transition-all ${
-                activeTable === table.id
-                  ? "bg-[hsl(var(--accent))] text-[hsl(var(--accent-foreground))] shadow-lg ring-2 ring-[hsl(var(--accent)/0.3)]"
-                  : "bg-[hsl(var(--card))] text-[hsl(var(--muted-foreground))] hover:bg-[hsl(var(--muted))] hover:text-[hsl(var(--foreground))] hover:shadow-md"
-              }`}
-            >
-              <span className="text-lg">{table.icon}</span>
-              <span>{table.label}</span>
-            </button>
-          ))}
+        <div className="flex items-center justify-between gap-2">
+          <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-hide">
+            {TABLES.map((table) => (
+              <button
+                key={table.id}
+                onClick={() => setActiveTable(table.id)}
+                className={`flex shrink-0 items-center gap-2 rounded-full px-3.5 py-2 text-[11px] sm:text-xs font-medium transition-all border ${
+                  activeTable === table.id
+                    ? "bg-[hsl(var(--accent))] text-[hsl(var(--accent-foreground))] border-transparent shadow-sm"
+                    : "bg-[hsl(var(--card))] text-[hsl(var(--muted-foreground))] border-[hsl(var(--border))] hover:bg-[hsl(var(--muted))] hover:text-[hsl(var(--foreground))]"
+                }`}
+              >
+                <span className="text-base">{table.icon}</span>
+                <span>{table.label}</span>
+              </button>
+            ))}
+          </div>
+          <div className="hidden sm:flex items-center gap-2 text-[9px] text-[hsl(var(--muted-foreground))]">
+            <span className="inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
+            Inline editing: Edit → modify → Save / Cancel
+          </div>
         </div>
 
-        {/* Error Message */}
+        {/* Error / Status */}
         {error && (
-          <div className="mb-6 flex items-center gap-3 rounded-lg border border-[hsl(var(--destructive))] bg-[hsl(var(--destructive)/0.1)] p-4 text-sm text-[hsl(var(--destructive))]">
-            <span className="text-xl">⚠️</span>
-            <div>
-              <strong>Error:</strong> {error}
+          <div className="mt-2 flex items-start gap-2 rounded-lg border border-[hsl(var(--destructive))] bg-[hsl(var(--destructive)/0.06)] px-3 py-2 text-[10px] sm:text-xs text-[hsl(var(--destructive))]">
+            <span className="mt-0.5 text-base">⚠️</span>
+            <div className="space-y-0.5">
+              <div className="font-semibold">Action failed</div>
+              <div>{error}</div>
             </div>
           </div>
         )}
@@ -279,26 +352,26 @@ export default function AdminDashboard() {
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="w-full border-collapse">
-                <thead className="bg-[hsl(var(--muted)/0.3)]">
-                  <tr className="border-b-2 border-[hsl(var(--border))]">
-                    <th className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[hsl(var(--muted-foreground))]">
+              <table className="w-full border-collapse text-xs sm:text-sm">
+                <thead className="bg-[hsl(var(--muted)/0.4)]">
+                  <tr className="border-b border-[hsl(var(--border))]">
+                    <th className="px-3 py-2 text-left text-[9px] sm:text-[10px] font-semibold uppercase tracking-wide text-[hsl(var(--muted-foreground))]">
                       ID
                     </th>
                     {columns.map((col) => (
                       <th
                         key={col}
-                        className="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wider text-[hsl(var(--muted-foreground))]"
+                        className="px-3 py-2 text-left text-[9px] sm:text-[10px] font-semibold uppercase tracking-wide text-[hsl(var(--muted-foreground))]"
                       >
                         {col.replace(/([A-Z])/g, " $1").replace(/_/g, " ").trim()}
                       </th>
                     ))}
-                    <th className="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wider text-[hsl(var(--muted-foreground))]">
+                    <th className="px-3 py-2 text-right text-[9px] sm:text-[10px] font-semibold uppercase tracking-wide text-[hsl(var(--muted-foreground))]">
                       Actions
                     </th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody className="divide-y divide-[hsl(var(--border))]">
                   {filteredData.map((row, idx) => {
                     const rowId = typeof row?.id === "string" ? row.id : undefined;
                     const isEditingRow = rowId !== undefined && editingId === rowId;
@@ -308,51 +381,66 @@ export default function AdminDashboard() {
                     return (
                       <tr
                         key={rowKey}
-                        className={`border-b border-[hsl(var(--border))] transition-colors hover:bg-[hsl(var(--muted)/0.2)] ${
-                          isEditingRow ? "bg-[hsl(var(--accent)/0.05)]" : ""
-                        } ${idx % 2 === 0 ? "bg-[hsl(var(--card)/0.5)]" : "bg-transparent"}`}
+                        className={`transition-colors hover:bg-[hsl(var(--muted)/0.12)] ${
+                          isEditingRow
+                            ? "bg-[hsl(var(--accent)/0.04)]"
+                            : idx % 2 === 0
+                            ? "bg-[hsl(var(--card)/0.4)]"
+                            : ""
+                        }`}
                       >
-                        <td className="px-4 py-3 text-xs font-mono text-[hsl(var(--muted-foreground))]">
+                        <td className="px-3 py-2 text-[10px] font-mono text-[hsl(var(--muted-foreground))]">
                           {displayId}
                         </td>
                         {columns.map((col) => (
-                          <td key={col} className="px-4 py-3 text-sm text-[hsl(var(--foreground))]">
+                          <td
+                            key={col}
+                            className="px-3 py-2 align-top text-[11px] text-[hsl(var(--foreground))]"
+                          >
                             {renderCell(row, col)}
                           </td>
                         ))}
-                        <td className="px-4 py-3 text-right">
+                        <td className="px-3 py-2 text-right">
                           {isEditingRow ? (
-                            <div className="flex justify-end gap-2">
-                              <button
+                            <div className="flex justify-end gap-1.5">
+                              <Button
+                                size="sm"
+                                className="h-7 px-2 text-[10px] bg-[hsl(var(--accent))] text-[hsl(var(--accent-foreground))]"
                                 onClick={handleSave}
-                                className="rounded-lg bg-[hsl(var(--accent))] px-3 py-1.5 text-xs font-medium text-[hsl(var(--accent-foreground))] shadow-md transition-all hover:bg-[hsl(var(--accent)/0.9)] hover:shadow-lg"
                               >
                                 💾 Save
-                              </button>
-                              <button
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="outline"
+                                className="h-7 px-2 text-[10px]"
                                 onClick={handleCancel}
-                                className="rounded-lg bg-[hsl(var(--muted))] px-3 py-1.5 text-xs font-medium text-[hsl(var(--muted-foreground))] transition-all hover:bg-[hsl(var(--muted)/0.8)]"
                               >
                                 ✕ Cancel
-                              </button>
+                              </Button>
                             </div>
                           ) : rowId ? (
-                            <div className="flex justify-end gap-2">
-                              <button
+                            <div className="flex justify-end gap-1.5">
+                              <Button
+                                size="sm"
+                                className="h-7 px-2 text-[10px]"
                                 onClick={() => handleEdit(row)}
-                                className="rounded-lg bg-[hsl(var(--primary))] px-3 py-1.5 text-xs font-medium text-[hsl(var(--primary-foreground))] shadow-md transition-all hover:bg-[hsl(var(--primary)/0.9)] hover:shadow-lg"
                               >
                                 ✏️ Edit
-                              </button>
-                              <button
+                              </Button>
+                              <Button
+                                size="sm"
+                                variant="destructive"
+                                className="h-7 px-2 text-[10px]"
                                 onClick={() => handleDelete(rowId)}
-                                className="rounded-lg bg-[hsl(var(--destructive))] px-3 py-1.5 text-xs font-medium text-[hsl(var(--destructive-foreground))] shadow-md transition-all hover:bg-[hsl(var(--destructive)/0.9)] hover:shadow-lg"
                               >
                                 🗑️ Delete
-                              </button>
+                              </Button>
                             </div>
                           ) : (
-                            <span className="text-xs text-[hsl(var(--muted-foreground))]">No ID</span>
+                            <span className="text-[9px] text-[hsl(var(--muted-foreground))]">
+                              No ID
+                            </span>
                           )}
                         </td>
                       </tr>
@@ -365,21 +453,36 @@ export default function AdminDashboard() {
         </div>
 
         {/* Stats Footer */}
-        <div className="mt-6 flex flex-col gap-4 rounded-lg bg-[hsl(var(--card))] px-6 py-4 shadow-md sm:flex-row sm:items-center sm:justify-between" data-slot="card">
-          <div className="text-sm text-[hsl(var(--muted-foreground))]">
-            Showing{" "}
-            <strong className="text-[hsl(var(--foreground))]">{filteredData.length}</strong>
-            {searchTerm && ` of ${data.length}`} records in{" "}
-            <strong className="text-[hsl(var(--foreground))]">{activeTable}</strong> table
+        <div
+          className="mt-4 flex flex-col gap-3 rounded-lg bg-[hsl(var(--card))] px-4 py-3 shadow-sm sm:flex-row sm:items-center sm:justify-between"
+          data-slot="card"
+        >
+          <div className="space-y-0.5 text-[10px] sm:text-xs text-[hsl(var(--muted-foreground))]">
+            <div>
+              Showing{" "}
+              <strong className="text-[hsl(var(--foreground))]">
+                {filteredData.length}
+              </strong>
+              {searchTerm && ` of ${data.length}`} records in{" "}
+              <strong className="text-[hsl(var(--foreground))]">
+                {activeTable}
+              </strong>
+            </div>
+            <div className="text-[9px] text-[hsl(var(--muted-foreground))]">
+              Tip: Use the search to quickly locate records. Use the table
+              pills above to switch datasets.
+            </div>
           </div>
-          <button
-            onClick={fetchData}
-            disabled={loading}
-            className="flex items-center justify-center gap-2 rounded-lg bg-[hsl(var(--accent))] px-4 py-2 text-sm font-medium text-[hsl(var(--accent-foreground))] shadow-md transition-all hover:bg-[hsl(var(--accent)/0.9)] hover:shadow-lg disabled:opacity-50"
-          >
-            <span className={loading ? "animate-spin" : ""}>🔄</span>
-            Refresh
-          </button>
+          <div className="flex items-center gap-2">
+            <Button
+              onClick={fetchData}
+              disabled={loading}
+              className="flex items-center gap-1.5 rounded-md bg-[hsl(var(--accent))] px-3 py-1.5 text-[10px] sm:text-xs font-medium text-[hsl(var(--accent-foreground))] disabled:opacity-60"
+            >
+              <span className={loading ? "animate-spin" : ""}>🔄</span>
+              Refresh
+            </Button>
+          </div>
         </div>
       </div>
     </div>

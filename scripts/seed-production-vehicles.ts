@@ -60,18 +60,18 @@ type SeededVehicle = {
 
 const ORGANIZATIONS_SEED = [
   {
-    slug: 'cori-motors',
-    name: 'CoriMotors',
+    slug: 'coricar',
+    name: 'Coricar',
     type: 'AGENCY',
-    logoUrl: 'https://cdn.qcargan.com/logos/cori-motors.png',
+    logoUrl: 'https://cdn.qcargan.com/logos/coricar.png',
     official: true,
     badges: ['Casa matriz', 'Entrega rápida'],
     description:
-      'Concesionario oficial CoriMotors con showroom, entrega y soporte completo en Costa Rica.',
+      'Concesionario oficial Coricar con showroom, entrega y soporte completo en Costa Rica.',
     contact: {
       phone: '+506 4000 2222',
       whatsapp: '+506 4000 2222',
-      email: 'ventas@corimotors.cr',
+      email: 'ventas@coricar.cr',
       address: 'Sabana Norte, San José'
     }
   },
@@ -153,7 +153,7 @@ const BANKS_SEED = [
 ] as const
 
 const ORGANIZATION_BY_BRAND: Record<string, (typeof ORGANIZATIONS_SEED)[number]['slug']> = {
-  BYD: 'cori-motors',
+  BYD: 'coricar',
   Volvo: 'volvo-autostar',
   Rivian: 'latam-ev-collective'
 }
