@@ -49,7 +49,6 @@ export function LanguageSwitcher() {
               )}
             />
             <span className="text-base leading-none">{flag}</span>
-            <span className="hidden sm:inline">{name}</span>
           </button>
         );
       })}
