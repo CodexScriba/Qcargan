@@ -604,6 +604,28 @@ Create production-ready vehicle detail pages displaying real data from Supabase 
 - Loading skeletons
 - Smooth transitions and animations
 
+### Task 4.5: Seller Storefront Backend Foundation (NEW)
+**Status**: In Progress
+**Detailed Spec**: `docs/Roadmap/Phase 1/tasks/seller-storefronts.md`
+
+**Phase 1 Scope** (Backend + UI prep only):
+- [ ] Add `getOrganizationVehicles()` query to `lib/db/queries/organizations.ts`
+- [ ] Update `SellerCard` component: remove "See more details" dropdown
+- [ ] Make seller name clickable in `SellerCard` (links to `/sellers/[slug]`)
+- [ ] Add hover tooltip "Visit storefront" on seller name
+- [ ] Update vehicle detail page to pass `seller.slug` to `SellerCard`
+- [ ] Add translation keys: `sellerCard.viewStorefront`, `sellerCard.viewSellerStorefront`
+- [ ] Test TypeScript compilation and build
+
+**Phase 2 Scope** (Full storefront - Phase 4):
+- Will implement complete seller storefront pages (`/sellers/[slug]`)
+- Build SellerHeader, VehicleInventoryCard, Breadcrumbs components
+- See Phase 4 Task 4.5 for full implementation details
+
+**Deliverable**: Backend queries ready + SellerCard UI updated to support future storefronts
+
+---
+
 ### Success Criteria
 - ✅ 6 unique vehicles with complete data in Supabase
 - ✅ 2 brands/organizations properly linked
@@ -614,6 +636,8 @@ Create production-ready vehicle detail pages displaying real data from Supabase 
 - ✅ Pages are localized (es/en)
 - ✅ Mobile responsive
 - ✅ No hardcoded data, everything from database
+- [ ] Seller names are clickable with hover tooltip (Task 4.5)
+- [ ] Backend query `getOrganizationVehicles()` ready for Phase 4 (Task 4.5)
 
 ---
 
@@ -847,28 +871,36 @@ Help buyers evaluate vehicles and sellers through reviews, ratings, and organiza
 
 **Deliverable**: Real-time ratings aggregation
 
-### Organization Profiles
+### Seller Storefronts
 
-#### 4.5: Organization Profile Pages
-- [ ] Create `/[locale]/organizations/[slug]` page
-- [ ] Display organization name, type, description
-- [ ] Show contact information (phone, email, WhatsApp)
-- [ ] Display organization logo and branding
-- [ ] List vehicles sold by this organization
-- [ ] Show organization reviews and rating
-- [ ] Add "Contact Seller" CTA (WhatsApp link)
+> **Note**: Seller storefront backend foundation was implemented in Phase 1 Task 4.5. Full storefront pages will be built in Phase 4.
 
-**Deliverable**: Public organization profile pages
+#### 4.5: Seller Storefront Pages
+**See detailed spec**: `docs/Roadmap/Phase 1/tasks/seller-storefronts.md`
 
-#### 4.6: Organization Directory
-- [ ] Create `/[locale]/organizations` page
+- [ ] Create `/[locale]/sellers/[slug]` page (seller storefront)
+- [ ] Build SellerHeader component (name, type, contact buttons, description)
+- [ ] Build VehicleInventoryCard component (vehicle cards for storefront)
+- [ ] Build Breadcrumbs component (Home > Sellers > [Name])
+- [ ] Display organization info with contact buttons (Phone, WhatsApp, Email)
+- [ ] Show vehicle inventory grid using `getOrganizationVehicles` query
+- [ ] Handle empty state (no vehicles listed)
+- [ ] Add translations for seller pages (en/es)
+- [ ] Generate metadata and structured data (Organization schema)
+
+**Backend support**: ✅ `getOrganizationVehicles()` query ready (Phase 1 Task 4.5)
+
+**Deliverable**: Full seller storefront pages with inventory
+
+#### 4.6: Sellers Directory (Optional)
+- [ ] Create `/[locale]/sellers` page (directory of all sellers)
 - [ ] Display grid/list of all organizations
-- [ ] Add filters (by type: dealer/importer, by location)
+- [ ] Add filters (by type: Agency/Dealer/Importer)
 - [ ] Show preview card (logo, name, rating, vehicle count)
-- [ ] Make cards link to organization profile
+- [ ] Make cards link to seller storefront
 - [ ] Add search functionality
 
-**Deliverable**: Organization directory with filtering
+**Deliverable**: Seller directory for discovery
 
 ### Inquiry System
 
