@@ -1,8 +1,9 @@
 "use client"
 
 import * as React from 'react'
+import Link from 'next/link'
 import { useTranslations } from 'next-intl'
-import { ArrowRight, ChevronDown, Shield, Calendar, Battery } from 'lucide-react'
+import { ArrowRight, Shield, Calendar, Battery } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 import { Card, CardContent, CardFooter } from '@/components/ui/card'
@@ -11,6 +12,7 @@ import { Badge } from '@/components/ui/badge'
 
 interface SellerInfo {
   name: string
+  slug?: string
   official?: boolean
   badges?: string[]
 }
@@ -67,7 +69,6 @@ const SellerCard = React.forwardRef<React.ElementRef<typeof Card>, SellerCardPro
     ref
   ) => {
     const t = useTranslations('sellerCard')
-    const [isExpanded, setIsExpanded] = React.useState(false)
 
     const resolvedCurrency = currency ?? 'USD'
     const formattedPrice = new Intl.NumberFormat('en-US', {
@@ -108,7 +109,20 @@ const SellerCard = React.forwardRef<React.ElementRef<typeof Card>, SellerCardPro
           {/* Seller name + availability */}
           {(seller?.name || availabilityBadge?.label) && (
             <div className="flex items-center gap-2">
-              {seller?.name && (
+              {seller?.name && seller?.slug && (
+                <Link
+                  href={`/sellers/${seller.slug}`}
+                  className="group relative font-semibold leading-none text-sm truncate hover:text-primary transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded"
+                  aria-label={t('viewSellerStorefront', { name: seller.name })}
+                >
+                  <span className="group-hover:underline">{seller.name}</span>
+                  {/* Tooltip on hover */}
+                  <span className="absolute bottom-full left-0 mb-2 hidden group-hover:block px-2 py-1 text-xs bg-popover text-popover-foreground border rounded shadow-lg whitespace-nowrap z-10">
+                    {t('viewStorefront')}
+                  </span>
+                </Link>
+              )}
+              {seller?.name && !seller?.slug && (
                 <h3 className="font-semibold leading-none text-sm truncate">{seller.name}</h3>
               )}
               {availabilityBadge?.label && (
@@ -164,29 +178,7 @@ const SellerCard = React.forwardRef<React.ElementRef<typeof Card>, SellerCardPro
         </CardContent>
 
         <CardFooter className="pt-0">
-          <div className="flex items-center justify-start gap-2 w-full">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setIsExpanded(!isExpanded)}
-              className="h-8 px-2 text-muted-foreground hover:text-foreground"
-              aria-expanded={isExpanded}
-            >
-              {t('details')}
-              <ChevronDown className={cn('transition-transform', isExpanded && 'rotate-180')} />
-            </Button>
-          </div>
-
-          {isExpanded && (
-            <div className="pt-2 border-t text-muted-foreground">
-              <div className="grid grid-cols-2 gap-x-4 gap-y-1 text-xs">
-                <div>✓ 0 km delivery</div>
-                <div>✓ Official warranty</div>
-                <div>✓ Service & parts</div>
-                <div>✓ Bank financing</div>
-              </div>
-            </div>
-          )}
+          {/* Footer intentionally left empty - details moved to seller storefront */}
         </CardFooter>
       </Card>
     )

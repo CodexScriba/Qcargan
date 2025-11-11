@@ -109,6 +109,7 @@ export default async function VehicleDetailPage({ params }: PageProps) {
         label: p.cta?.label,
         seller: {
           name: p.organization.name,
+          slug: p.organization.slug,
           official: p.organization.official,
           badges: p.organization.badges ?? [],
         },
