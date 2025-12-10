@@ -1,0 +1,188 @@
+{
+  "vehicles": [
+    {
+      "brand": "BYD",
+      "model": "SEAGULL",
+      "price_cr": "$19,990.00",
+      "images": [
+        "https://imgcdn.zigwheels.ph/large/gallery/exterior/64/3389/byd-seagull-front-angle-low-view-528128.jpg",
+        "https://imgcdn.zigwheels.ph/large/gallery/exterior/64/3389/byd-seagull-full-front-view-220311.jpg",
+        "https://imgcdn.zigwheels.ph/large/gallery/exterior/64/3389/byd-seagull-side-view-921616.jpg",
+        "https://imgcdn.zigwheels.ph/large/gallery/exterior/64/3389/byd-seagull-full-rear-view-441495.jpg",
+        "https://imgcdn.zigwheels.ph/large/gallery/exterior/64/3389/byd-seagull-wheel-686054.jpg"
+      ],
+      "variations": [
+        {
+          "name": "Vitality Edition",
+          "battery_usable_kWh": 30.08,
+          "range_km_cltc": 305,
+          "power_hp": 74,
+          "torque_nm": 135,
+          "acceleration_0_50_s": 4.9,
+          "drive": "FWD",
+          "fast_charge_max_kw": 30,
+          "dimensions_mm": { "length": 3780, "width": 1715, "height": 1540, "wheelbase": 2500 },
+          "seating_capacity": 4,
+          "interior_features": { "screen_in": 10.1, "instrument_cluster_in": 7, "wireless_charging": false }
+        }
+      ]
+    },
+    {
+      "brand": "BYD",
+      "model": "TANG",
+      "price_cr": "$76,900.00",
+      "images": [
+        "https://imgcdn.zigwheels.ph/large/gallery/exterior/64/1912/byd-tang-front-angle-low-view-795452.jpg",
+        "https://imgcdn.zigwheels.ph/large/gallery/exterior/64/1912/byd-tang-full-front-view-604140.jpg",
+        "https://imgcdn.zigwheels.ph/large/gallery/exterior/64/1912/byd-tang-side-view-494974.jpg",
+        "https://imgcdn.zigwheels.ph/large/gallery/exterior/64/1912/byd-tang-headlight-800875.jpg",
+        "https://imgcdn.zigwheels.ph/large/gallery/exterior/64/1912/byd-tang-wheel-278981.jpg"
+      ],
+      "variations": [
+        {
+          "name": "Flagship AWD (Costa Rica Launch Model)",
+          "battery_usable_kWh": 108.8,
+          "range_km_wltp": 530,
+          "power_hp": 517,
+          "torque_nm": 700,
+          "acceleration_0_100_s": 4.9,
+          "drive": "AWD",
+          "fast_charge_max_kw": 170,
+          "dimensions_mm": { "length": 4970, "width": 1955, "height": 1745, "wheelbase": 2820 },
+          "seating_capacity": 7
+        }
+      ]
+    },
+    {
+      "brand": "BYD",
+      "model": "Seal",
+      "price_cr": "$62,000.00",
+      "images": [
+        "https://imgd.aeplcdn.com/370x208/n/cw/ec/139619/seal-exterior-right-front-three-quarter-10.png",
+        "https://imgd.aeplcdn.com/370x208/n/cw/ec/139619/seal-exterior-right-front-three-quarter-9.jpeg",
+        "https://imgd.aeplcdn.com/370x208/n/cw/ec/175387/byd-seal-right-front-three-quarter21.jpeg",
+        "https://imgd.aeplcdn.com/370x208/n/cw/ec/139619/seal-interior-front-row-seats-37.jpeg",
+        "https://imgd.aeplcdn.com/370x208/n/cw/ec/139619/seal-interior-dashboard-10.jpeg"
+      ],
+      "variations": [
+        {
+          "name": "AWD Performance",
+          "battery_usable_kWh": 82.5,
+          "range_km_wltp": 520,
+          "power_hp": 523,
+          "torque_nm": 670,
+          "acceleration_0_100_s": 3.8,
+          "drive": "AWD",
+          "fast_charge_max_kw": 150,
+          "dimensions_mm": { "length": 4800, "width": 1875, "height": 1460, "wheelbase": 2920 },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Volvo",
+      "model": "EX90",
+      "price_cr": "$119,900.00",
+      "images": [
+        "https://www.media.volvocars.com/global/en-gb/models/ex90/2025/photos",
+        "https://www.caranddriver.com/photos/g41898963/volvo-ex90-ev-revealed-gallery/",
+        "https://images.ctfassets.net/w04j8iy8ck8k/4zw7sVtEhzxwqNfDK3Ynxh/a9c844df2bfcceb0ecb3dd2b8eb7a949/Volvo_EX90_2.png",
+        "https://images.ctfassets.net/w04j8iy8ck8k/6FzC2xR1B4lZ7KqM9pN8Xj/b3e2a8f9c6d1e5f2g4h6i8k0/Volvo_EX90_interior.jpg",
+        "https://images.ctfassets.net/w04j8iy8ck8k/7KpL3mN8Qr2sT5uV6wX7yZ/c4f3b9g0d7e4f1g8h5i2j9k1/Volvo_EX90_side.jpg"
+      ],
+      "variations": [
+        {
+          "name": "Twin Motor Performance Plus/Ultra",
+          "battery_usable_kWh": 107,
+          "range_km_epa_est": 483,
+          "power_hp": 510,
+          "torque_nm": 910,
+          "acceleration_0_100_s": 4.7,
+          "drive": "AWD",
+          "fast_charge_max_kw": 250,
+          "dimensions_mm": { "length": 5037, "width": 1964, "height": 1747, "wheelbase": 3000 },
+          "seating_capacity": 7
+        }
+      ]
+    },
+    {
+      "brand": "Volvo",
+      "model": "C40",
+      "price_cr": "$63,900.00",
+      "images": [
+        "https://www.autocarindia.com/cars/volvo/c40-recharge/images",
+        "https://www.carwale.com/volvo-cars/c40-recharge/images/",
+        "https://www.cardekho.com/volvo/c40-recharge",
+        "https://www.carsguide.com.au/volvo/c40/interior",
+        "https://images.ctfassets.net/w04j8iy8ck8k/2aB3cD4eF5gH6iJ7kL8mN9/volvo-c40-exterior.jpg"
+      ],
+      "variations": [
+        {
+          "name": "Twin Motor",
+          "battery_usable_kWh": 79,
+          "range_km_wltp": 540,
+          "power_hp": 408,
+          "torque_nm": 670,
+          "acceleration_0_100_s": 4.7,
+          "drive": "AWD",
+          "fast_charge_max_kw": 200,
+          "dimensions_mm": { "length": 4440, "width": 1873, "height": 1591, "wheelbase": 2702 },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Volvo",
+      "model": "EX30",
+      "price_cr": "$37,900.00",
+      "images": [
+        "https://www.caranddriver.com/volvo/ex30",
+        "https://www.media.volvocars.com/global/en-gb/models/ex30/2025/photos",
+        "https://www.volvocars.com/intl/build/ex30-electric",
+        "https://www.netcarshow.com/volvo/2025-ex30/",
+        "https://www.volvocars.com/us/cars/ex30-electric/"
+      ],
+      "variations": [
+        {
+          "name": "Twin Motor Performance",
+          "battery_usable_kWh": 64,
+          "range_km_wltp": 450,
+          "power_hp": 428,
+          "torque_nm": 543,
+          "acceleration_0_100_s": 3.6,
+          "drive": "AWD",
+          "fast_charge_max_kw": 153,
+          "dimensions_mm": { "length": 4233, "width": 1837, "height": 1549, "wheelbase": 2650 },
+          "seating_capacity": 5
+        }
+      ]
+    },
+    {
+      "brand": "Rivian",
+      "model": "R1T",
+      "price_cr": "$73,000.00",
+      "images": [
+        "https://cars.usnews.com/cars-trucks/rivian/r1t/photos-exterior",
+        "https://rivian.com/newsroom/media/r1t",
+        "https://cars.usnews.com/cars-trucks/rivian/r1t/2024/photos-exterior",
+        "https://www.thecarconnection.com/photos/rivian_r1t_2024",
+        "https://rivian.com/r1t"
+      ],
+      "variations": [
+        {
+          "name": "Quad-Motor AWD",
+          "battery_usable_kWh": 128.9,
+          "range_km_epa_est": 528,
+          "power_hp": 835,
+          "torque_nm": 1231,
+          "acceleration_0_100_s": 3.0,
+          "drive": "AWD",
+          "fast_charge_max_kw": 220,
+          "dimensions_mm": { "length": 5514, "width": 2078, "height": 1986, "wheelbase": 3452 },
+          "seating_capacity": 5,
+          "special_features": ["Gear Tunnel", "Air Suspension"]
+        }
+      ]
+    }
+  ]
+}

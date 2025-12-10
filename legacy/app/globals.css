@@ -1,0 +1,978 @@
+@import "tailwindcss";
+
+/* Tailwind v4 theme overrides */
+@theme {
+  --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* =========================================================
+   QueCargan Design Tokens (light + dark)
+   Notes:
+   - Brand/Accent (#0ED9B3) is for rings, outlines, small pills.
+   - Primary CTA (#09866F) uses white text (AA).
+   - Never use white text directly on Accent (contrast rule).
+   - Radius baseline ≈ 10px.
+   ========================================================= */
+
+@layer base {
+  :root {
+    color-scheme: light;
+     /* Base (Light) - Modern Clean Foundation */
+    --app-background: 200 62% 97%;      /* cool mist backdrop */
+    --background: var(--app-background);
+    --foreground: 220 28% 16%;          /* crisp charcoal */
+    --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+
+    /* Brand / Accent - Liquid Glass Lagoon */
+    --brand: 188 82% 45%;
+    --brand-foreground: 220 28% 16%; 
+
+    /* Primary - Deep Atlantic */
+    --primary: 208 88% 38%;
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary - Translucent Frost */
+    --secondary: 200 42% 97%;
+    --secondary-foreground: 220 22% 24%;
+
+    /* Muted - Soft Steel */
+    --muted: 198 46% 94%;
+    --muted-foreground: 220 15% 38%;
+
+    /* Accent - Fresh Teal Pop */
+    --accent: 168 80% 54%;
+    --accent-foreground: 220 28% 16%;
+
+    /* Structural - Liquid Glass Surfaces */
+    --card: 0 0% 100% / 0.75;
+    --card-foreground: 220 25% 18%;
+    --surface: 198 50% 96% / 0.62;
+    --surface-foreground: 220 22% 20%;
+    --surface-border: 202 46% 85% / 0.45;
+    --surface-shadow: 220 25% 12% / 0.06;
+    --card-container-start: 0 0% 100% / 0.78;
+    --card-container-end: 195 75% 96% / 0.6;
+    --card-container-angle: 135deg;
+    --popover: 0 0% 100% / 0.85;
+    --popover-foreground: 220 28% 16%;
+    --border: 204 45% 86%;
+    --border-subtle: 204 45% 90%;
+    --input: 0 0% 100%;
+    --ring: 193 92% 52%;
+    --radius: 0.75rem;
+    --destructive: 4 84% 62%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Enhanced Typography Colors */
+    --dark-blue: 210 72% 26%;
+    --title-blue: 210 68% 32%;
+
+    /* "On Dark" Helpers for overlays */
+    --on-dark-bg: 225 95% 12%;
+    --on-dark-fg: 0 0% 100%;
+
+    /* Sidebar - Clean Navigation */
+    --sidebar: 0 0% 100% / 0.7;
+    --sidebar-foreground: 220 22% 22%;
+    --sidebar-primary: 193 92% 52%;
+    --sidebar-primary-foreground: 0 0% 100%;
+
+    /* Market Route Labels */
+    --route-agency: 203 88% 46%;        /* aqua blue */
+    --route-grey: 38 92% 58%;           /* amber */
+    --route-import: 262 78% 50%;        /* violet */
+
+    /* Charts - Refined Palette */
+    --chart-1: 193 92% 52%;
+    --chart-2: 203 88% 46%;
+    --chart-3: 262 78% 50%;
+    --chart-4: 38 92% 58%;
+    --chart-5: 160 68% 38%;
+
+    /* Semantics - Enhanced Accessibility */
+    --semantic-error: 4 84% 62%;
+    --semantic-success: 160 68% 38%;
+
+    /* Badge System */
+    --badge-secondary-bg: 200 40% 94%;
+
+    /* New Modern Tokens */
+    --glass-highlight: 0 0% 100% / 0.82;
+    --glass-surface: 195 78% 97% / 0.68;
+    --glass-tint: 198 62% 92% / 0.5;
+    --glass-border: 202 46% 85% / 0.45;
+    --shadow-soft: 220 40% 18% / 0.08;
+    --shadow-hover: 220 40% 18% / 0.16;
+    --gradient-hero: 198 96% 85%;       /* shimmering hero glow */
+  }
+
+  .dark {
+    color-scheme: dark;
+    /* Base (Dark) — deep midnight glass with electric cyan refractions */
+    --background: 226 66% 6%;
+    --foreground: 213 32% 88%;
+    --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+    --font-sans: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
+
+    /* Electric accent system */
+    --neon-teal: 202 100% 62%;
+    --neon-teal-light: 196 100% 70%;
+    --neon-charge: 68 100% 62%;
+    --neon-warning: 54 98% 66%;
+
+    /* Brand / Primary blues */
+    --brand: 195 92% 60%;
+    --brand-foreground: 216 36% 92%;
+    --dark-blue: 217 68% 24%;
+    --title-blue: 215 58% 48%;
+
+    /* CTA + accent usage */
+    --primary: 204 100% 52%;
+    --primary-foreground: 0 0% 99%;
+    --accent: 214 86% 30%;
+    --accent-foreground: 0 0% 100%;
+
+    /* Hierarchy + muted */
+    --secondary: 222 60% 28%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 218 32% 28%;
+    --muted-foreground: 212 28% 72%;
+
+    /* Structural surfaces */
+    --card: 221 62% 20% / 0.32;
+    --card-foreground: 214 36% 92%;
+    --surface: 224 58% 16% / 0.26;
+    --surface-foreground: 213 36% 90%;
+    --surface-border: 196 100% 70% / 0.18;
+    --surface-shadow: 221 80% 6% / 0.45;
+    --card-container-start: 222 70% 22% / 0.36;
+    --card-container-end: 232 76% 12% / 0.34;
+    --card-container-angle: 152deg;
+    --card-gradient-start: 210 100% 60% / 0.18;
+    --card-gradient-end: 220 90% 46% / 0.14;
+    --card-highlight: 0 0% 100% / 0.08;
+    --card-glow: 196 100% 70% / 0.32;
+    --glass-highlight: 0 0% 100% / 0.12;
+    --glass-surface: 222 64% 18% / 0.28;
+    --glass-tint: 220 72% 12% / 0.32;
+    --glass-border: 196 100% 70% / 0.22;
+    --popover: 224 58% 16% / 0.5;
+    --popover-foreground: 214 36% 92%;
+    --border: 196 100% 70% / 0.18;
+    --border-subtle: 196 100% 70% / 0.1;
+    --border-neon: 196 100% 68% / 0.4;
+    --input: 224 58% 16% / 0.38;
+    --ring: 196 100% 70%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    /* Sidebar */
+    --sidebar: 224 58% 16% / 0.3;
+    --sidebar-foreground: 214 36% 90%;
+    --sidebar-primary: 196 100% 70%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 224 58% 16% / 0.45;
+    --sidebar-accent-foreground: 214 36% 90%;
+    --sidebar-border: 196 100% 70% / 0.16;
+    --sidebar-ring: 196 100% 70%;
+
+    /* Semantic */
+    --semantic-warning: 54 98% 66%;
+    --semantic-success: 152 63% 40%;
+    --semantic-error: 0 84% 60%;
+
+    /* Pricing colors - High contrast for readability */
+    --price-primary: 0 0% 100%;          /* pure white - main price */
+    --price-accent: 0 0% 85%;            /* light gray - monthly/secondary */
+    --price-highlight: 0 0% 100%;        /* white - special offers */
+    --price-glow: 0 0% 100% / 0.15;      /* white glow */
+
+    /* Ambient glows */
+    --neon-glow-teal: 196 100% 70% / 0.16;
+    --neon-glow-cyan: 198 100% 64% / 0.14;
+    --neon-glow-green: 150 96% 60% / 0.18;
+
+    /* Badge backgrounds */
+    --badge-secondary-bg: 224 58% 16% / 0.45;
+  }
+}
+
+/* Base application of tokens - Modern Clean Foundation */
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+    outline-color: hsl(var(--ring) / 0.6);
+  }
+
+  html {
+    background-color: hsl(var(--background));
+  }
+
+  body {
+    background:
+      radial-gradient(1200px circle at 10% 8%, hsl(198 95% 88% / 0.55) 0%, transparent 62%),
+      radial-gradient(900px circle at 82% 18%, hsl(190 92% 86% / 0.4) 0%, transparent 60%),
+      radial-gradient(680px circle at 50% 95%, hsl(205 80% 90% / 0.35) 0%, transparent 70%),
+      linear-gradient(160deg, hsl(198 60% 98%) 0%, hsl(202 64% 96%) 45%, hsl(208 56% 95%) 100%);
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    position: relative;
+  }
+
+  .dark body {
+    background:
+      radial-gradient(1200px circle at 8% 6%, hsl(var(--neon-glow-cyan)) 0%, transparent 58%),
+      radial-gradient(980px circle at 88% 18%, hsl(var(--neon-glow-teal)) 0%, transparent 62%),
+      radial-gradient(760px circle at 50% 110%, hsl(var(--neon-glow-green)) 0%, transparent 70%),
+      linear-gradient(160deg, hsl(226 66% 6%) 0%, hsl(228 58% 8%) 45%, hsl(232 52% 11%) 100%);
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+  }
+
+  /* Sophisticated noise texture for depth */
+  body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140" viewBox="0 0 140 140"><filter id="n"><feTurbulence baseFrequency="0.82" numOctaves="3" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0.015 0 0 0 0 0.015 0 0 0 0 0.02 0 0 0 0.018 0"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.06" /></svg>');
+    mix-blend-mode: overlay;
+    opacity: 0.35;
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  .dark body::before {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="140" height="140" viewBox="0 0 140 140"><filter id="n"><feTurbulence baseFrequency="0.72" numOctaves="3" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 0.05 0 0 0 0 0.12 0 0 0 0 0.18 0 0 0 0.16 0"/></filter><rect width="100%" height="100%" filter="url(%23n)" opacity="0.45" /></svg>');
+    mix-blend-mode: screen;
+    opacity: 0.22;
+  }
+
+  /* Light mode subtle gradient overlay */
+  body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background:
+      linear-gradient(135deg,
+        hsl(188 82% 60% / 0.12) 0%,
+        transparent 25%,
+        hsl(192 95% 75% / 0.1) 55%,
+        transparent 100%);
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  /* Dark mode cosmic grid overlay */
+  .dark body::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image:
+      linear-gradient(hsl(0 0% 100% / 0.03) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(0 0% 100% / 0.03) 1px, transparent 1px),
+      radial-gradient(circle at 12% -10%, hsl(var(--neon-glow-cyan) / 0.8) 0%, transparent 60%),
+      radial-gradient(circle at 88% 120%, hsl(var(--neon-glow-teal) / 0.75) 0%, transparent 68%);
+    background-size: 60px 60px, 60px 60px, 100% 100%, 100% 100%;
+    background-blend-mode: screen;
+    pointer-events: none;
+    z-index: -1;
+    opacity: 0.85;
+  }
+
+  /* Enhanced focus styles */
+  :focus-visible {
+    outline: 2px solid hsl(var(--ring));
+    outline-offset: 3px;
+    box-shadow: 0 0 0 1px hsl(var(--ring) / 0.2);
+  }
+}
+
+/* Light mode Card */
+[data-slot="card"] {
+  background: hsl(var(--card));
+  color: hsl(var(--card-foreground));
+  border-radius: calc(var(--radius) + 0.5rem);
+  border: 1px solid hsl(var(--border));
+  box-shadow: 0 14px 40px hsl(var(--surface-shadow));
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Remove border in light theme */
+html:not(.dark) [data-slot="card"] {
+  border: 0;
+}
+
+/* Hover depth */
+[data-slot="card"]:hover {
+  box-shadow:
+    0 20px 50px hsl(var(--shadow-hover)),
+    0 6px 20px hsl(var(--surface-shadow));
+  border-color: hsl(var(--glass-border));
+  transform: translateY(-3px);
+}
+
+/* Accent sweep line (top) */
+[data-slot="card"]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, hsl(var(--accent) / 0.35), transparent);
+  opacity: 0;
+  transition: opacity 240ms ease;
+}
+
+[data-slot="card"]:hover::before {
+  opacity: 1;
+}
+
+/* Dark mode card styling with electric navy mood */
+.dark [data-slot="card"] {
+  border-radius: calc(var(--radius) + 0.25rem);
+  border: 1px solid hsl(var(--border));
+  background: hsl(var(--card));
+  color: hsl(var(--card-foreground));
+  box-shadow:
+    0 0 20px hsl(220 100% 70% / 0.08),
+    0 0 40px hsl(220 100% 60% / 0.04),
+    0 4px 12px hsl(220 70% 5% / 0.3),
+    inset 0 1px 0 hsl(0 0% 100% / 0.08),
+    inset 0 -1px 0 hsl(222 44% 6% / 0.6);
+  backdrop-filter: blur(8px) saturate(130%);
+  position: relative;
+  overflow: hidden;
+}
+
+.dark [data-slot="card"]:hover {
+  box-shadow:
+    0 0 26px hsl(var(--border-neon)),
+    0 8px 20px hsl(220 70% 8% / 0.35),
+    inset 0 1px 0 hsl(0 0% 100% / 0.12);
+  border-color: hsl(var(--border-neon));
+}
+
+/* Subtle animated neon accent line for cards */
+.dark [data-slot="card"]::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, hsl(var(--neon-teal-light) / 0.6), transparent);
+  filter: blur(4px);
+  animation: neon-sweep 8s ease-in-out infinite;
+  opacity: 1;
+}
+
+@keyframes neon-sweep {
+  0% { left: -100%; opacity: 0.4; }
+  50% { left: 100%; opacity: 0.8; }
+  100% { left: 100%; opacity: 0.4; }
+}
+
+/* Typography hierarchy in cards */
+[data-slot="card"] h1,
+[data-slot="card"] h2,
+[data-slot="card"] h3 {
+  color: hsl(var(--card-foreground));
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+[data-slot="card"] p,
+[data-slot="card"] small,
+[data-slot="card"] .text-muted {
+  color: hsl(var(--muted-foreground));
+  line-height: 1.6;
+}
+
+/* Utility sugar (kept minimal and token-driven) */
+.on-dark-chip {
+  background: hsl(var(--on-dark-bg));
+  color: hsl(var(--on-dark-fg));
+  padding: .25rem .5rem;
+  border-radius: .5rem;
+}
+
+/* Subtle gradient helper for large surfaces (2–5%) */
+.bg-gradient-subtle {
+  background-image:
+    linear-gradient(135deg, hsl(var(--background)) 0%, hsl(var(--background) / 0.95) 100%);
+}
+
+/* Utility to force card surfaces to pure white with subtle shadow */
+.card-surface {
+  background-color: hsl(var(--card));
+  color: hsl(var(--card-foreground));
+  box-shadow: 0 6px 18px hsl(219 18% 20% / 0.06);
+  border: 1px solid hsl(var(--border));
+}
+
+.hero-card {
+  background: hsl(var(--card));
+}
+
+/* Card hover (soft depth) — use on interactive cards only */
+.card-hover {
+  transition: transform 200ms ease-out, box-shadow 200ms ease-out;
+}
+.card-hover:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px hsl(0 0% 0% / 0.10);
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .card-hover, .bg-gradient-subtle {
+    transition: none !important;
+  }
+}
+
+/* Hide scrollbar utility for carousel thumbnails */
+.scrollbar-hide {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
+
+/* Modern Button System - Sophisticated Interactions */
+.btn-primary {
+  background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--brand)) 100%);
+  color: hsl(var(--primary-foreground));
+  border: 1px solid hsl(var(--border));
+  border-radius: calc(var(--radius) - 2px);
+  box-shadow: 
+    0 4px 14px hsl(var(--shadow-soft)),
+    inset 0 1px 0 hsl(0 0% 100% / 0.1);
+  transition: all 200ms var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    hsl(var(--accent) / 0.2), 
+    transparent);
+  transition: left 600ms ease;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 
+    0 8px 24px hsl(var(--shadow-hover)),
+    inset 0 1px 0 hsl(0 0% 100% / 0.15);
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-primary:active {
+  transform: translateY(-1px);
+  box-shadow: 
+    0 4px 12px hsl(var(--shadow-soft)),
+    inset 0 1px 0 hsl(0 0% 100% / 0.1);
+}
+
+/* Dark mode button enhancements */
+.dark .btn-primary {
+  background: linear-gradient(90deg, hsl(var(--neon-teal)) 0%, hsl(var(--neon-teal-light)) 100%);
+  border-color: hsl(var(--neon-teal) / 0.5);
+  box-shadow: 
+    0 0 20px hsl(var(--neon-teal) / 0.3),
+    0 8px 26px hsl(var(--neon-teal) / 0.12),
+    inset 0 -6px 12px hsl(0 0% 0% / 0.12);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.dark .btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 
+    0 0 30px hsl(var(--neon-teal) / 0.5),
+    0 18px 40px hsl(var(--neon-teal) / 0.15),
+    inset 0 -6px 12px hsl(0 0% 0% / 0.12);
+  border-color: hsl(var(--neon-teal-light));
+}
+
+/* Icon System - Refined Interactions */
+.icon {
+  color: hsl(var(--primary));
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 180ms var(--transition-smooth);
+  border-radius: 50%;
+  padding: 0.25rem;
+}
+
+.icon:hover {
+  color: hsl(var(--accent));
+  background: hsl(var(--accent) / 0.08);
+  transform: scale(1.05);
+}
+
+.icon-accent {
+  color: hsl(var(--accent));
+  transition: all 180ms var(--transition-smooth);
+  border-radius: 50%;
+  padding: 0.25rem;
+}
+
+.icon-accent:hover {
+  color: hsl(var(--primary));
+  background: hsl(var(--primary) / 0.1);
+  transform: scale(1.05);
+}
+
+/* Dark mode icon enhancements */
+.dark .icon:hover {
+  color: hsl(var(--neon-teal-light));
+  background: transparent;
+  filter: drop-shadow(0 0 8px hsl(var(--neon-teal) / 0.4));
+}
+
+.dark .icon-accent:hover {
+  color: hsl(var(--neon-charge));
+  background: transparent;
+  filter: drop-shadow(0 0 8px hsl(var(--neon-charge) / 0.4));
+}
+
+/* Eye-catching Elements - Subtle Sophistication */
+.eye-catch {
+  color: hsl(var(--accent));
+  background: linear-gradient(135deg, 
+    hsl(var(--card)), 
+    hsl(var(--surface)));
+  border: 1px solid hsl(var(--border));
+  border-radius: var(--radius);
+  box-shadow: 
+    0 4px 16px hsl(var(--shadow-soft)),
+    inset 0 1px 0 hsl(0 0% 100% / 0.5);
+  transition: all 240ms var(--transition-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.eye-catch::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    hsl(var(--accent) / 0.15), 
+    transparent);
+  transition: left 800ms ease;
+}
+
+.eye-catch:hover {
+  transform: translateY(-2px) scale(1.01);
+  box-shadow: 
+    0 8px 24px hsl(var(--shadow-hover)),
+    inset 0 1px 0 hsl(0 0% 100% / 0.6);
+  border-color: hsl(var(--accent));
+}
+
+.eye-catch:hover::after {
+  left: 100%;
+}
+
+.dark .eye-catch {
+  background: hsl(var(--card));
+  border-color: hsl(var(--border));
+  color: hsl(var(--accent));
+  box-shadow: 
+    0 6px 18px hsl(var(--accent) / 0.12),
+    0 0 20px hsl(var(--neon-charge) / 0.2);
+  position: relative;
+}
+
+.dark .eye-catch::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle, hsl(var(--neon-charge) / 0.3), transparent 70%);
+  transform: translate(-50%, -50%);
+  transition: width 300ms ease, height 300ms ease;
+}
+
+.dark .eye-catch::after {
+  content: none;
+}
+
+.dark .eye-catch:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow: 
+    0 12px 32px hsl(var(--accent) / 0.18),
+    0 0 30px hsl(var(--neon-charge) / 0.4);
+  color: hsl(var(--neon-charge));
+}
+
+.dark .eye-catch:hover::before {
+  width: 100%;
+  height: 100%;
+}
+
+
+/* Modern Card System - Sophisticated Containers */
+.card-container {
+  padding: 2rem;
+  border-radius: calc(var(--radius) * 1.5);
+  background: linear-gradient(
+    var(--card-container-angle),
+    hsl(var(--glass-highlight)) 0%,
+    hsl(var(--card-container-start)) 45%,
+    hsl(var(--card-container-end)) 100%);
+  border: 1px solid hsl(var(--glass-border));
+  box-shadow:
+    0 20px 48px hsl(var(--shadow-soft)),
+    0 2px 12px hsl(var(--foreground) / 0.08),
+    inset 0 1px 0 hsl(0 0% 100% / 0.6);
+  backdrop-filter: blur(26px) saturate(180%);
+  -webkit-backdrop-filter: blur(26px) saturate(180%);
+  position: relative;
+  overflow: hidden;
+  transition: all 320ms var(--transition-smooth);
+}
+
+.card-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(120deg,
+    transparent,
+    hsl(var(--brand) / 0.18),
+    transparent);
+  opacity: 0.75;
+}
+
+/* Dark mode glass morphism containers */
+.dark .card-container {
+  background: linear-gradient(
+    var(--card-container-angle),
+    hsl(var(--glass-surface)) 0%,
+    hsl(var(--card-container-start)) 45%,
+    hsl(var(--card-container-end)) 100%);
+  border: 1px solid hsl(var(--glass-border));
+  box-shadow:
+    0 24px 60px hsl(var(--surface-shadow)),
+    0 12px 36px hsl(var(--card-glow)),
+    inset 0 1px 0 hsl(var(--glass-highlight));
+  backdrop-filter: blur(28px) saturate(200%);
+  -webkit-backdrop-filter: blur(28px) saturate(200%);
+}
+
+.dark .card-container::before {
+  background: linear-gradient(100deg,
+    transparent,
+    hsl(var(--border-neon)),
+    transparent);
+  opacity: 0.55;
+}
+
+/* =========================================================
+   Owner Reviews — dark mode facelift (matches reference)
+   ========================================================= */
+.owner-reviews-shell {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.5rem;
+  background: linear-gradient(160deg,
+      hsl(var(--glass-highlight)) 0%,
+      hsl(var(--glass-surface)) 48%,
+      hsl(var(--glass-tint)) 100%);
+  border: 1px solid hsl(var(--glass-border));
+  box-shadow:
+    0 28px 60px hsl(var(--shadow-soft)),
+    0 12px 28px hsl(var(--foreground) / 0.08),
+    inset 0 1px 0 hsl(0 0% 100% / 0.55);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+}
+
+.dark .owner-reviews-shell {
+  border: 1px solid hsl(var(--glass-border));
+  background: linear-gradient(
+      var(--card-container-angle),
+      hsl(var(--glass-surface)) 0%,
+      hsl(var(--card-container-start)) 48%,
+      hsl(var(--card-container-end)) 100%);
+  box-shadow:
+    0 32px 80px hsl(var(--surface-shadow)),
+    0 16px 36px hsl(var(--card-glow)),
+    inset 0 1px 0 hsl(var(--glass-highlight));
+  backdrop-filter: blur(26px) saturate(200%);
+  -webkit-backdrop-filter: blur(26px) saturate(200%);
+}
+
+.dark .owner-reviews-shell::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background:
+    radial-gradient(circle at 20% 0%, hsl(var(--neon-glow-cyan)) 0%, transparent 58%),
+    radial-gradient(circle at 90% 90%, hsl(var(--neon-glow-teal)) 0%, transparent 55%);
+  opacity: 0.8;
+  pointer-events: none;
+}
+
+.dark .owner-reviews-shell::after {
+  content: '';
+  position: absolute;
+  inset: 1px;
+  border-radius: calc(1.5rem - 1px);
+  background: linear-gradient(150deg,
+      hsl(222 70% 14% / 0.95) 0%,
+      hsl(222 70% 9% / 0.98) 100%);
+  box-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.04);
+  pointer-events: none;
+}
+
+.dark .owner-reviews-shell > * {
+  position: relative;
+  z-index: 1;
+}
+
+.dark .owner-reviews-grid {
+  gap: clamp(1.25rem, 1.6vw, 1.75rem);
+}
+
+.owner-reviews-sidebar {
+  position: relative;
+  overflow: hidden;
+  background: hsl(0 0% 100%);
+  border: 1px solid hsl(var(--border) / 0.28);
+  box-shadow:
+    0 18px 32px rgba(28, 35, 53, 0.08),
+    0 8px 18px rgba(28, 35, 53, 0.04);
+}
+
+.dark .owner-reviews-sidebar {
+  border: 1px solid hsl(215 92% 78% / 0.18);
+  background: linear-gradient(205deg,
+      hsl(222 78% 12% / 0.86) 0%,
+      hsl(223 88% 7% / 0.94) 100%);
+  box-shadow:
+    0 30px 60px rgba(2, 6, 22, 0.52),
+    0 14px 32px rgba(1, 5, 18, 0.42);
+}
+
+.dark .owner-reviews-sidebar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: linear-gradient(200deg, hsl(221 92% 62% / 0.14), transparent 60%);
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+
+.dark .owner-review-tip {
+  background: linear-gradient(120deg, rgba(42, 65, 118, 0.68) 0%, rgba(21, 33, 66, 0.9) 100%);
+  border-color: hsl(220 64% 72% / 0.22);
+  color: hsl(var(--muted-foreground));
+  box-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.05);
+}
+
+.owner-review-tip {
+  background: linear-gradient(120deg, hsl(220 45% 96%) 0%, hsl(0 0% 100%) 100%);
+  border-color: hsl(var(--border) / 0.35);
+  color: hsl(var(--muted-foreground));
+  box-shadow: inset 0 1px 0 hsl(0 0% 100% / 0.8);
+}
+
+.dark .owner-review-total {
+  background: linear-gradient(135deg, hsl(167 88% 45% / 0.14) 0%, hsl(221 72% 60% / 0.28) 100%);
+  border: 1px solid hsl(215 90% 68% / 0.3);
+  box-shadow:
+    0 12px 28px rgba(12, 20, 48, 0.4),
+    inset 0 1px 0 hsl(0 0% 100% / 0.08);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.owner-review-total {
+  background: linear-gradient(135deg, hsl(169 87% 90%) 0%, hsl(216 33% 96%) 100%);
+  border: 1px solid hsl(var(--border) / 0.3);
+  box-shadow:
+    0 10px 20px rgba(34, 46, 84, 0.08),
+    inset 0 1px 0 hsl(0 0% 100% / 0.9);
+  color: hsl(var(--title-blue));
+  letter-spacing: 0.02em;
+}
+
+.owner-reviews-panel {
+  position: relative;
+  overflow: hidden;
+  background: hsl(0 0% 100%);
+  border: 1px solid hsl(var(--border) / 0.22);
+  box-shadow:
+    0 28px 60px rgba(15, 23, 42, 0.08),
+    0 10px 22px rgba(34, 46, 84, 0.06);
+}
+
+.dark .owner-reviews-panel {
+  border: 1px solid hsl(215 92% 78% / 0.18);
+  background: linear-gradient(170deg,
+      hsl(222 80% 11% / 0.88) 0%,
+      hsl(224 86% 6% / 0.96) 100%);
+  box-shadow:
+    0 36px 72px rgba(2, 6, 22, 0.56),
+    0 14px 30px rgba(1, 5, 18, 0.45);
+}
+
+.dark .owner-reviews-panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 12px;
+  right: 12px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, hsl(var(--border-neon)), transparent);
+  opacity: 0.65;
+}
+
+.owner-reviews-header {
+  border-bottom: 1px solid transparent;
+}
+
+.dark .owner-reviews-header {
+  border-bottom-color: hsl(0 0% 100% / 0.06);
+  padding-bottom: 1rem;
+  margin-bottom: 1.25rem;
+}
+
+.dark .owner-review-cta {
+  background: linear-gradient(100deg, hsl(var(--neon-teal)) 0%, hsl(var(--neon-teal-light)) 100%);
+  border: 1px solid hsl(var(--neon-teal) / 0.55);
+  box-shadow:
+    0 18px 35px hsl(var(--neon-teal) / 0.32),
+    0 0 20px hsl(var(--neon-teal) / 0.25);
+  text-shadow: 0 2px 8px hsl(220 90% 20% / 0.35);
+}
+
+.dark .owner-review-cta:hover {
+  box-shadow:
+    0 24px 42px hsl(var(--neon-teal) / 0.4),
+    0 0 26px hsl(var(--neon-teal-light) / 0.35);
+  transform: translateY(-2px);
+}
+
+.owner-review-item {
+  background: hsl(0 0% 100%);
+  border-color: hsl(var(--border) / 0.6);
+  box-shadow:
+    0 16px 28px rgba(15, 23, 42, 0.08),
+    0 6px 14px rgba(34, 46, 84, 0.05);
+}
+
+.dark .owner-review-ghost {
+  background: linear-gradient(100deg, hsl(220 72% 20% / 0.65) 0%, hsl(220 70% 15% / 0.9) 100%);
+  border: 1px solid hsl(215 90% 70% / 0.22);
+  color: hsl(var(--foreground));
+  box-shadow:
+    0 18px 32px rgba(6, 12, 32, 0.45),
+    inset 0 1px 0 hsl(0 0% 100% / 0.05);
+}
+
+.dark .owner-review-ghost:hover {
+  background: linear-gradient(100deg, hsl(220 72% 24% / 0.7) 0%, hsl(220 70% 18% / 0.95) 100%);
+  transform: translateY(-2px);
+}
+
+.dark .owner-review-item {
+  background: linear-gradient(150deg,
+      hsl(223 78% 13% / 0.88) 0%,
+      hsl(224 84% 7% / 0.95) 100%);
+  border-color: hsl(0 0% 100% / 0.06);
+  box-shadow:
+    0 20px 46px rgba(2, 6, 22, 0.55),
+    0 6px 18px rgba(1, 4, 16, 0.4);
+}
+
+.dark .owner-review-item:hover {
+  border-color: hsl(0 0% 100% / 0.18);
+  box-shadow:
+    0 24px 52px rgba(6, 12, 36, 0.6),
+    0 6px 18px rgba(2, 6, 24, 0.45);
+}
+
+.owner-review-item:hover {
+  border-color: hsl(var(--border) / 0.8);
+  box-shadow:
+    0 20px 36px rgba(15, 23, 42, 0.1),
+    0 10px 18px rgba(34, 46, 84, 0.08);
+}
+
+.dark .owner-review-avatar {
+  box-shadow:
+    0 10px 30px rgba(8, 15, 40, 0.45),
+    0 0 24px rgba(80, 150, 255, 0.28);
+}
+
+.owner-review-avatar {
+  box-shadow:
+    0 12px 24px rgba(28, 35, 53, 0.12),
+    inset 0 1px 0 hsl(0 0% 100% / 0.65);
+}
+
+.dark .owner-review-item .review-actions button {
+  background: linear-gradient(110deg, hsl(220 68% 18% / 0.6) 0%, hsl(220 70% 14% / 0.6) 100%);
+  border: 1px solid hsl(0 0% 100% / 0.08);
+  color: hsl(var(--foreground));
+  transition: border-color 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+}
+
+.owner-review-item .review-actions button {
+  background: linear-gradient(110deg, hsl(220 43% 96%) 0%, hsl(0 0% 100%) 100%);
+  border: 1px solid hsl(var(--border) / 0.4);
+  color: hsl(var(--title-blue));
+}
+
+.dark .owner-review-item .review-actions button:hover {
+  border-color: hsl(var(--border-neon));
+  box-shadow: 0 0 16px hsl(var(--border-neon));
+  transform: translateY(-1px);
+}
+
+.owner-review-item .review-actions button:hover {
+  border-color: hsl(var(--border) / 0.6);
+  box-shadow: 0 10px 18px rgba(34, 46, 84, 0.08);
+}
