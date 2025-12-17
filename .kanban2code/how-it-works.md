@@ -6,7 +6,6 @@ Welcome to your new Kanban board!
 - **inbox/**: New tasks start here.
 - **projects/**: Organize tasks by project.
 - **_archive/**: Completed tasks go here.
-- **_templates/**: Markdown templates for tasks.
 
 ## Workflow
 1. Create a task in the sidebar.
