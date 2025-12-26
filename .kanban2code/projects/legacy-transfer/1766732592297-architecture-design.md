@@ -1,5 +1,5 @@
 ---
-stage: code
+stage: completed
 tags:
   - architecture
   - p0
@@ -57,3 +57,20 @@ Create `/ARCHITECTURE.md` at the project root containing:
 ## Reference
 
 Legacy codebase available at `/home/cynic/workspace/Qcargan/legacy/` for reference (do not copy, rewrite).
+
+## Definition of Done
+
+- [x] ARCHITECTURE.md created at project root
+- [x] Project Northstar documented with vision and design philosophy
+- [x] Tech Stack Reference with all dependencies and versions
+- [x] Target File Tree Structure documented with all directories and key files
+- [x] Integration Inventory for Supabase, next-intl, PostHog, Drizzle, shadcn/ui
+- [x] Deployment Architecture with Coolify configuration and environment variables
+- [x] Design System Reference with glassmorphic tokens and component patterns
+- [x] Database Schema Overview with core tables and design principles
+- [x] Security Best Practices documented
+- [x] Development Workflow and deployment instructions
+
+## Audit
+
+ARCHITECTURE.md
