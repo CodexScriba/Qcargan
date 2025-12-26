@@ -54,13 +54,6 @@ Create `/ARCHITECTURE.md` at the project root containing:
    - Environment variables needed
    - Database connection (pooler vs direct)
 
-## Second Deliverable: Phase Tasks
-
-Break down the 8 phases from the roadmap into individual task files, each with clear acceptance criteria.
-
-##
-File tree, create a file tree of the existing codebase. 
-
 ## Reference
 
 Legacy codebase available at `/home/cynic/workspace/Qcargan/legacy/` for reference (do not copy, rewrite).
