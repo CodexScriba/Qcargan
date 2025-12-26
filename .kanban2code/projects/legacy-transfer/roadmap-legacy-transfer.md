@@ -1,8 +1,9 @@
 ---
-stage: plan
+stage: code
 tags: []
-contexts: []
-agent: splitter
+contexts:
+  - _context/skill/nextjs-core-skills.md
+agent: auditor
 ---
 # Legacy Transfer: QueCargan Rebuild
 
@@ -39,10 +40,12 @@ The original codebase was compromised due to a react2shell vulnerability, requir
 - Used cars marketplace beyond waitlist page
 - Mobile app or native implementations
 
+> **Note:** Checkboxes track implementation progress. Checked items are complete; unchecked items are planned scope.
+
 ## Features to Rebuild
 
 ### Architecture Documentation
-- [ ] ARCHITECTURE.md (project northstar, tech stack, file tree, integrations, deployment)
+- [x] ARCHITECTURE.md (project northstar, tech stack, file tree, integrations, deployment)
 
 ### Foundation Layer
 - [ ] Environment setup (.env with fresh Supabase keys)
@@ -201,6 +204,23 @@ The original codebase was compromised due to a react2shell vulnerability, requir
 - Review all dependencies for known vulnerabilities
 - Use `@supabase/ssr` for secure cookie-based sessions
 
+### HTTP Security Headers (post-incident priority)
+Configure in `next.config.ts` headers:
+- `X-Frame-Options: DENY` - Prevent clickjacking
+- `X-Content-Type-Options: nosniff` - Prevent MIME sniffing
+- `Referrer-Policy: strict-origin-when-cross-origin` - Control referrer leakage
+- `Permissions-Policy` - Disable unused browser features
+- `Content-Security-Policy` - Restrict resource loading (define script-src, style-src, img-src)
+
+Example CSP baseline for this stack:
+```
+default-src 'self';
+script-src 'self' 'unsafe-inline' 'unsafe-eval' *.supabase.co *.posthog.com;
+style-src 'self' 'unsafe-inline';
+img-src 'self' data: blob: *.supabase.co;
+connect-src 'self' *.supabase.co *.posthog.com;
+```
+
 ### Design System Reference (from legacy)
 The legacy glassmorphic system used:
 - Cool mist backgrounds (200° 62% 97%)
@@ -300,11 +320,36 @@ The QueCargan rebuild follows a **modular, security-first architecture** built o
 
 ```bash
 # Required new packages
-bun add drizzle-orm postgres @supabase/ssr next-intl posthog-js posthog-node dotenv
+bun add drizzle-orm postgres @supabase/ssr next-intl posthog-js posthog-node
 
-# Dev dependencies
-bun add -D drizzle-kit
+# Dev dependencies (ORM tooling + testing)
+bun add -D drizzle-kit vitest @vitejs/plugin-react @playwright/test
 ```
+
+**Note:** `dotenv` is not needed - Next.js natively loads `.env*` files.
+
+### Testing Stack
+
+**Scripts to add to `package.json`:**
+```json
+{
+  "scripts": {
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
+    "test:e2e": "playwright test",
+    "test:e2e:ui": "playwright test --ui"
+  }
+}
+```
+
+**Configuration files:**
+- `vitest.config.ts` - Vitest config with React plugin
+- `playwright.config.ts` - Playwright config for E2E tests
+
+**Test file conventions:**
+- Unit/Integration: `*.test.ts` or `*.test.tsx` alongside source files
+- E2E: `tests/*.spec.ts` in project root
 
 ### Constraints
 
@@ -433,8 +478,9 @@ bun add -D drizzle-kit
 - [ ] Locale detection from URL working
 
 **Files:**
-- `proxy.ts` - create - combined middleware handler
-- `next.config.ts` - modify - enable middleware
+- `proxy.ts` - create - combined middleware handler (Next.js 16 convention, replaces deprecated middleware.ts)
+
+**Note:** In Next.js 16, `proxy.ts` at project root is the standard request interception layer. No next.config.ts changes needed - Next.js auto-detects the file.
 
 **Tests:**
 - [ ] Integration: `/` routes to Spanish content
@@ -1017,3 +1063,45 @@ bun add -D drizzle-kit
 5. **Tailwind v4:** No tailwind.config.js - use @theme in CSS
 6. **PostHog SSR:** Initialize differently for server vs client
 7. **Middleware Ordering:** Supabase session MUST run before i18n routing
+
+---
+
+## Review
+
+**Rating: 7/10**
+
+**Verdict: NEEDS WORK**
+
+### Summary
+Comprehensive and well-structured roadmap with strong security intent, but a few execution-spec inaccuracies (middleware + route naming) and missing test tooling make it risky to treat as the source of truth without a quick polish pass.
+
+### Findings
+
+#### Blockers (must fix)
+- [ ] Clarify the middleware approach: Task 2.2 references `proxy.ts` plus “enable middleware” in `next.config.ts`, but Next’s convention is `middleware.ts` at repo root (or document the indirection explicitly) - `.kanban2code/projects/legacy-transfer/roadmap-legacy-transfer.md:436`
+- [ ] Align route/directory naming across docs: roadmap uses Spanish `/vehiculos` routes but `ARCHITECTURE.md`’s target tree uses `app/[locale]/vehicles/` - `ARCHITECTURE.md:67`
+
+#### High Priority
+- [ ] Define the testing stack and scripts (roadmap repeatedly calls for Unit/Integration/E2E checks, but the repo currently has no `test` script/runner) - `package.json:5`
+- [ ] Sync roadmap progress with current repo state: `ARCHITECTURE.md` exists, but the “Architecture Documentation” checkbox is still unchecked - `.kanban2code/projects/legacy-transfer/roadmap-legacy-transfer.md:45`
+
+#### Medium Priority
+- [ ] Expand “Security Considerations” to include baseline HTTP security headers/CSP guidance (especially important post-incident) - `.kanban2code/projects/legacy-transfer/roadmap-legacy-transfer.md:197`
+- [ ] Consider dropping `dotenv` from the “Required new packages” list unless there’s a concrete need (Next loads `.env*` natively) - `.kanban2code/projects/legacy-transfer/roadmap-legacy-transfer.md:303`
+
+#### Low Priority / Nits
+- [ ] Consider adding a brief “Docs are living” note explaining whether checkboxes represent current progress or planned scope (to avoid ambiguity when tasks complete) - `.kanban2code/projects/legacy-transfer/roadmap-legacy-transfer.md:42`
+
+### Test Assessment
+- Coverage: Needs improvement (no test harness defined yet)
+- Missing tests: N/A for this document; define tooling first, then ensure each phase’s “Unit/Integration/E2E” items map to runnable commands
+
+### What's Good
+- Clear phased build order and parity-focused scope
+- Security-first defaults (fresh credentials, RLS emphasis, input validation, dependency review)
+- Useful “Gotchas” section that anticipates Next/Supabase/Drizzle pitfalls
+
+### Recommendations
+- Update Task 2.2 to match the intended middleware file/location and remove references to “enabling middleware” in `next.config.ts` unless you truly need config changes.
+- Align the target route naming (`vehiculos`) consistently across the roadmap, architecture doc tree, and eventual `pathnames` mapping.
+- Choose and document a test stack now (e.g., `vitest` for unit/integration + `@playwright/test` for E2E), add `test` scripts, then keep the roadmap test checklists tied to those scripts.

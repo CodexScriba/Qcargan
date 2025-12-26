@@ -64,7 +64,7 @@ qcargan/
 │   │   │   ├── recuperar/    # Forgot password
 │   │   │   └── actualizar-clave/ # Update password
 │   │   ├── precios/         # Pricing page
-│   │   ├── vehicles/         # Vehicle pages
+│   │   ├── vehiculos/        # Vehicle pages (Spanish route)
 │   │   │   ├── page.tsx      # Vehicle listing
 │   │   │   └── [slug]/       # Vehicle detail
 │   │   ├── servicios/        # Services page
