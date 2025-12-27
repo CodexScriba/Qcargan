@@ -1,9 +1,8 @@
 ---
 stage: code
 tags: []
-contexts:
-  - _context/skill/nextjs-core-skills.md
-agent: auditor
+contexts: []
+agent: "02-\U0001F3DB️architect"
 ---
 # Legacy Transfer: QueCargan Rebuild
 
