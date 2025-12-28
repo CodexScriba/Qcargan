@@ -1,7 +1,19 @@
 ---
 stage: code
 tags: []
-contexts: []
+contexts:
+  - _context/skills/nextjs-core-skills.md
+  - _context/skills/react-core-skills.md
+  - _context/skills/skill-next-intl.md
+  - _context/skills/skill-supabase-ssr.md
+  - _context/skills/skill-drizzle-orm.md
+  - _context/skills/skill-tailwindcss-v4.md
+  - _context/skills/skill-server-actions-mutations.md
+  - _context/skills/skill-http-security-headers.md
+  - _context/skills/skill-vitest-playwright-testing.md
+  - _context/skills/skill-posthog-analytics.md
+  - _context/skills/skill-routing-layouts.md
+  - _context/skills/skill-metadata-seo.md
 agent: "02-\U0001F3DB️architect"
 ---
 # Legacy Transfer: QueCargan Rebuild
@@ -1035,10 +1047,11 @@ bun add -D drizzle-kit vitest @vitejs/plugin-react @playwright/test
    - Export navigation helpers from routing.ts
    - Call `setRequestLocale` in layout before rendering
 
-3. **Middleware Pattern:**
-   - Combine Supabase session refresh with i18n routing
+3. **Proxy Pattern (proxy.ts):**
+   - Combine Supabase session refresh with i18n routing in `proxy.ts`
    - Transfer cookies between response objects
    - Use matcher to skip static files
+   - Note: Next.js 16 uses `proxy.ts` instead of deprecated `middleware.ts`
 
 4. **Schema Pattern:**
    - One file per domain entity
@@ -1061,7 +1074,7 @@ bun add -D drizzle-kit vitest @vitejs/plugin-react @playwright/test
 4. **next-intl Static Params:** Must export `generateStaticParams` in locale layout
 5. **Tailwind v4:** No tailwind.config.js - use @theme in CSS
 6. **PostHog SSR:** Initialize differently for server vs client
-7. **Middleware Ordering:** Supabase session MUST run before i18n routing
+7. **Proxy Ordering:** In `proxy.ts`, Supabase session refresh MUST run before i18n routing
 
 ---
 

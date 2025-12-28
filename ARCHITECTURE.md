@@ -15,7 +15,10 @@
 
 ### Database & Backend
 - **Supabase** `^2.87.1` - Auth, Database (PostgreSQL), Storage
-- **Drizzle ORM** - Type-safe database access with migrations
+- **@supabase/ssr** `^0.8.0` - Server-side session handling for Next.js
+- **Drizzle ORM** `^0.45.1` - Type-safe database access with migrations
+- **Drizzle Kit** `^0.31.8` - Migration tooling and studio
+- **postgres** `^3.4.7` - PostgreSQL driver
 - **PostgreSQL** - Primary database via Supabase
 
 ### Authentication
@@ -23,7 +26,7 @@
 - **@supabase/ssr** - Server-side session handling for Next.js
 
 ### Internationalization
-- **next-intl** - Routing-aware translations with locale middleware
+- **next-intl** `^4.6.1` - Routing-aware translations with locale proxy
 - **Default Locale**: Spanish (es)
 - **Secondary Locale**: English (en)
 
@@ -40,7 +43,13 @@
 - **@hookform/resolvers** - Zod integration with React Hook Form
 
 ### Analytics
-- **PostHog** - Product analytics and event tracking
+- **posthog-js** `^1.310.1` - Client-side product analytics
+- **posthog-node** `^5.18.0` - Server-side analytics
+
+### Testing
+- **Vitest** `^4.0.16` - Unit and integration testing
+- **@vitejs/plugin-react** `^5.1.2` - React plugin for Vitest
+- **@playwright/test** `^1.57.0` - End-to-end testing
 
 ### Hosting & Deployment
 - **Coolify** - Self-hosted deployment platform
@@ -107,7 +116,8 @@ qcargan/
 ├── public/                   # Static assets
 ├── hooks/                    # Custom React hooks
 ├── types/                    # TypeScript type definitions
-├── tests/                    # Test files
+├── tests/                    # E2E test files (Playwright)
+│   └── *.spec.ts             # E2E test specs
 ├── .env                      # Environment variables (gitignored)
 ├── .env.local                # Local environment (gitignored)
 ├── .gitignore
@@ -117,9 +127,11 @@ qcargan/
 ├── eslint.config.mjs
 ├── next.config.ts            # Next.js configuration
 ├── package.json
+├── playwright.config.ts      # Playwright E2E test configuration
 ├── postcss.config.mjs
-├── proxy.ts                  # Next.js 16 proxy middleware
+├── proxy.ts                  # Next.js 16 proxy (replaces middleware.ts)
 ├── tsconfig.json
+├── vitest.config.ts          # Vitest unit/integration test configuration
 └── ARCHITECTURE.md           # This file
 ```
 
@@ -332,6 +344,69 @@ NODE_ENV=production
 - Enable Row Level Security on all tables
 - Create policies for authenticated vs anonymous access
 - Validate user permissions on all mutations
+
+---
+
+## Testing Strategy
+
+### Test Stack
+
+**Unit & Integration Tests (Vitest)**:
+- File pattern: `*.test.ts` or `*.test.tsx` alongside source files
+- Run: `bun test` or `bun test:ui` for interactive mode
+- Coverage: `bun test:coverage`
+
+**End-to-End Tests (Playwright)**:
+- File pattern: `tests/*.spec.ts` in project root
+- Run: `bun test:e2e` or `bun test:e2e:ui` for interactive mode
+- Browser testing across Chromium, Firefox, WebKit
+
+### Test Scripts
+
+```bash
+bun test              # Run Vitest unit/integration tests
+bun test:ui           # Vitest with interactive UI
+bun test:coverage     # Vitest with coverage report
+bun test:e2e          # Run Playwright E2E tests
+bun test:e2e:ui       # Playwright with interactive UI
+```
+
+### Testing Conventions
+
+**Unit Tests**:
+- Test files co-located with source: `Button.tsx` → `Button.test.tsx`
+- Focus on component behavior, not implementation
+- Mock external dependencies (Supabase, fetch, etc.)
+
+**Integration Tests**:
+- Test component interactions and data flow
+- Mock Next.js request scope (cookies, headers) via `vi.mock`
+- Test Server Actions with mocked database
+
+**E2E Tests**:
+- Test complete user flows (login, browse vehicles, etc.)
+- Use Playwright's locator strategies for reliable selectors
+- Test both locales (es/en) for i18n coverage
+
+### Mocking Patterns
+
+**Next.js Headers/Cookies**:
+```typescript
+vi.mock('next/headers', () => ({
+  cookies: () => ({ get: vi.fn(), set: vi.fn() }),
+  headers: () => new Headers(),
+}))
+```
+
+**Supabase Client**:
+```typescript
+vi.mock('@/lib/supabase/server', () => ({
+  createClient: () => ({
+    from: vi.fn().mockReturnThis(),
+    select: vi.fn().mockResolvedValue({ data: [], error: null }),
+  }),
+}))
+```
 
 ---
 
