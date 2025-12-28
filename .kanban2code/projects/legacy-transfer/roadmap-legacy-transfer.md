@@ -1,5 +1,5 @@
 ---
-stage: code
+stage: plan
 tags: []
 contexts:
   - _context/skills/nextjs-core-skills.md
