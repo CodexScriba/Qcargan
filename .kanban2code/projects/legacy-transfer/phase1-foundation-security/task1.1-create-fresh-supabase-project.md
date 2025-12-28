@@ -1,8 +1,12 @@
 ---
-stage: plan
-tags: [chore, p1]
+stage: completed
+tags:
+  - chore
+  - p1
 agent: planner
-contexts: [ai-guide, _context/skills/skill-supabase-ssr.md]
+contexts:
+  - ai-guide
+  - _context/skills/skill-supabase-ssr.md
 parent: roadmap-legacy-transfer
 ---
 

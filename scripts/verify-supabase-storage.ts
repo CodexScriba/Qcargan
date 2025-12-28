@@ -1,12 +1,15 @@
 import { createClient } from "@supabase/supabase-js";
 import postgres from "postgres";
 
-function loadDotEnv(dotEnvPath = ".env") {
-  try {
-    const file = Bun.file(dotEnvPath);
-    if (!file.exists()) return;
-    const text = file.text();
-    return text.then((raw: string) => {
+async function loadDotEnv(dotEnvPath = ".env.local"): Promise<void> {
+  const candidates = [dotEnvPath, ".env"];
+
+  for (const candidate of candidates) {
+    try {
+      const file = Bun.file(candidate);
+      if (!file.exists()) continue;
+      const raw = await file.text();
+
       for (const line of raw.split(/\r?\n/)) {
         const trimmed = line.trim();
         if (!trimmed || trimmed.startsWith("#")) continue;
@@ -22,9 +25,11 @@ function loadDotEnv(dotEnvPath = ".env") {
         }
         if (!(key in process.env)) process.env[key] = value;
       }
-    });
-  } catch {
-    // ignore .env parsing errors; fall back to process.env
+
+      return;
+    } catch {
+      // ignore .env parsing errors; fall back to process.env
+    }
   }
 }
 
@@ -100,7 +105,6 @@ async function main() {
     }
 
     // Print minimal, non-secret output suitable for task evidence.
-    // eslint-disable-next-line no-console
     console.log(
       JSON.stringify(
         {

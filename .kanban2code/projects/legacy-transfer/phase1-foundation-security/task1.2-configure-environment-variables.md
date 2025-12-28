@@ -1,8 +1,12 @@
 ---
-stage: plan
-tags: [chore, p1]
-agent: planner
-contexts: [ai-guide, _context/skills/nextjs-core-skills.md]
+stage: completed
+tags:
+  - chore
+  - p1
+agent: 06-✅auditor
+contexts:
+  - ai-guide
+  - _context/skills/nextjs-core-skills.md
 parent: roadmap-legacy-transfer
 ---
 

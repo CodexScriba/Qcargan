@@ -1,11 +1,14 @@
 import postgres from "postgres";
 
-function loadDotEnv(dotEnvPath = ".env") {
-  try {
-    const file = Bun.file(dotEnvPath);
-    if (!file.exists()) return;
-    const text = file.text();
-    return text.then((raw: string) => {
+async function loadDotEnv(dotEnvPath = ".env.local"): Promise<void> {
+  const candidates = [dotEnvPath, ".env"];
+
+  for (const candidate of candidates) {
+    try {
+      const file = Bun.file(candidate);
+      if (!file.exists()) continue;
+      const raw = await file.text();
+
       for (const line of raw.split(/\r?\n/)) {
         const trimmed = line.trim();
         if (!trimmed || trimmed.startsWith("#")) continue;
@@ -21,9 +24,11 @@ function loadDotEnv(dotEnvPath = ".env") {
         }
         if (!(key in process.env)) process.env[key] = value;
       }
-    });
-  } catch {
-    // ignore
+
+      return;
+    } catch {
+      // ignore .env parsing errors; fall back to process.env
+    }
   }
 }
 
@@ -53,7 +58,6 @@ async function main() {
     `;
 
     if (rows.length > 0) {
-      // eslint-disable-next-line no-console
       console.error(
         JSON.stringify(
           { ok: false, message: "RLS is disabled on one or more public tables.", tables: rows },
@@ -65,7 +69,6 @@ async function main() {
       return;
     }
 
-    // eslint-disable-next-line no-console
     console.log(JSON.stringify({ ok: true, message: "All public tables have RLS enabled." }, null, 2));
   } finally {
     await sql.end({ timeout: 5 });
@@ -73,4 +76,3 @@ async function main() {
 }
 
 await main();
-
