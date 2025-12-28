@@ -1,8 +1,7 @@
 ---
-stage: plan
-tags: []
+stage: completed
+tags: [rebuild, security]
 contexts:
-  - _context/skills/nextjs-core-skills.md
   - _context/skills/react-core-skills.md
   - _context/skills/skill-next-intl.md
   - _context/skills/skill-supabase-ssr.md
@@ -14,7 +13,9 @@ contexts:
   - _context/skills/skill-posthog-analytics.md
   - _context/skills/skill-routing-layouts.md
   - _context/skills/skill-metadata-seo.md
-agent: "02-\U0001F3DB️architect"
+  - _context/skills/nextjs-core-skills.md
+  - ai-guide
+agent: 03-✂️splitter
 ---
 # Legacy Transfer: QueCargan Rebuild
 
