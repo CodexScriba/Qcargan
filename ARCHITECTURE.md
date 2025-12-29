@@ -103,6 +103,7 @@ qcargan/
 │   │   ├── server.ts         # Server client
 │   │   └── storage.ts        # Storage helpers
 │   ├── i18n/                 # Internationalization
+│   │   ├── navigation.ts     # Locale-aware navigation helpers
 │   │   ├── routing.ts        # next-intl routing config
 │   │   └── request.ts        # Request config
 │   └── utils.ts              # Shared utilities
@@ -171,6 +172,7 @@ SUPABASE_SERVICE_ROLE_KEY=<service_role_key>
 **Key Files**:
 - `i18n.ts` - Locale configuration and getMessages helper
 - `lib/i18n/routing.ts` - Routing configuration with defineRouting
+- `lib/i18n/navigation.ts` - Locale-aware navigation helpers (Link, useRouter, etc.)
 - `lib/i18n/request.ts` - Request config for SSR
 - `messages/es.json` - Spanish translations
 - `messages/en.json` - English translations

@@ -1,0 +1,241 @@
+{
+  "common": {
+    "error": {
+      "unknown": "Ocurrió un error"
+    }
+  },
+  "Home": {
+    "heroTitle": "Bienvenido a Qcargan",
+    "heroDescription": "Tu destino para vehículos eléctricos."
+  },
+  "auth": {
+    "login": {
+      "title": "Iniciar Sesión",
+      "description": "Ingresa tu email para iniciar sesión",
+      "welcome": "Hola de nuevo",
+      "subtitle": "Inicia sesión para continuar",
+      "identifier": "Email",
+      "email": "Email",
+      "password": "Contraseña",
+      "forgot": "¿Olvidaste tu contraseña?",
+      "submit": "Iniciar Sesión",
+      "submitting": "Iniciando sesión...",
+      "signup": "¿No tienes una cuenta?",
+      "signupLink": "Registrarse",
+      "orContinueWith": "O continuar con",
+      "remember": "Recuérdame",
+      "error": {
+        "invalidCredentials": "Credenciales inválidas. Inténtalo de nuevo."
+      },
+      "oauth": {
+        "google": "Google",
+        "facebook": "Facebook"
+      }
+    },
+    "signup": {
+      "title": "Registrarse",
+      "description": "Crear una nueva cuenta",
+      "email": "Email",
+      "displayName": "Nombre visible",
+      "displayNameHelp": "Este será tu nombre visible",
+      "password": "Contraseña",
+      "repeat": "Repetir Contraseña",
+      "submit": "Registrarse",
+      "submitting": "Creando cuenta...",
+      "haveAccount": "¿Ya tienes una cuenta?",
+      "loginLink": "Iniciar Sesión",
+      "passwordsMismatch": "Las contraseñas no coinciden"
+    },
+    "signUpSuccess": {
+      "title": "Bienvenido a Qcargan",
+      "subtitle": "Confirma tu email para activar tu espacio de trabajo.",
+      "confirmation": "Acabamos de enviar un enlace de confirmación a tu bandeja de entrada. Ábrelo para verificar tu cuenta y desbloquear el panel.",
+      "tipsTitle": "¿No encuentras el correo?",
+      "tips": "Revisa spam o promociones y agrega hola@quecargan.com a tus remitentes seguros.",
+      "ctaLogin": "Ir a iniciar sesión",
+      "ctaHome": "Volver al inicio"
+    },
+    "forgot": {
+      "title": "Restablecer tu Contraseña",
+      "description": "Escribe tu email y te enviaremos un enlace para restablecer tu contraseña",
+      "email": "Email",
+      "submit": "Enviar email de restablecimiento",
+      "submitting": "Enviando...",
+      "successTitle": "Revisa tu Email",
+      "successDescription": "Instrucciones de restablecimiento enviadas",
+      "successBody": "Si te registraste usando tu email y contraseña, recibirás un email para restablecer tu contraseña."
+    },
+    "update": {
+      "title": "Restablecer tu Contraseña",
+      "description": "Por favor ingresa tu nueva contraseña.",
+      "password": "Nueva contraseña",
+      "submit": "Guardar nueva contraseña",
+      "submitting": "Guardando..."
+    }
+  },
+  "nav": {
+    "home": "Inicio",
+    "pricing": "Precios",
+    "newCars": "Autos Nuevos",
+    "usedCars": "Autos Usados",
+    "services": "Servicios",
+    "shop": "Tienda",
+    "login": "Ingresar",
+    "signUp": "Crear cuenta",
+    "join": "Unirse",
+    "searchPlaceholder": "Buscar vehículos, servicios...",
+    "navigate": "Navegar",
+    "exploreModels": "Explorar Modelos Eléctricos",
+    "browseAll": "Ver Todos los Vehículos",
+    "newest": "Más Recientes",
+    "newestDesc": "Explora los últimos lanzamientos eléctricos",
+    "bestValue": "Mejor Valor",
+    "bestValueDesc": "Excelentes precios en todas las categorías",
+    "topRated": "Mejor Calificados",
+    "topRatedDesc": "Favoritos de clientes con reseñas estelares",
+    "sedan": "Sedán",
+    "sedanDesc": "Cómodo, elegante y diseñado para viajes largos con maletero dedicado.",
+    "suv": "SUV (Compacta y Grande)",
+    "suvDesc": "Espaciosa y versátil, perfecta para familias o aventuras de fin de semana.",
+    "city": "Ciudad (Hatchback y Compacto)",
+    "cityDesc": "Ágil y fácil de estacionar, ideal para la vida urbana densa.",
+    "pickups": "Pickups y Vans",
+    "pickupsDesc": "Listo para el trabajo o carga con diseños interiores flexibles.",
+    "usedMarketplace": "Mercado de Vehículos Eléctricos Usados",
+    "usedMarketplaceDesc": "Estamos construyendo un espacio dedicado para listar, cotizar y vender vehículos eléctricos usados con compradores verificados. Únete a la lista de acceso anticipado y recibe notificaciones cuando el mercado se lance.",
+    "comingSoon": "Próximamente",
+    "listVehicle": "Lista tu vehículo",
+    "listVehicleDesc": "Flujo de listado guiado con todos los campos específicos para vehículos eléctricos.",
+    "transparentPricing": "Precios transparentes",
+    "transparentPricingDesc": "Información del mercado te ayuda a establecer el precio correcto.",
+    "scheduleViewings": "Agendar visitas",
+    "scheduleViewingsDesc": "Coordina visitas con compradores verificados en un solo lugar.",
+    "joinWaitlist": "Únete a la lista de espera",
+    "exploreServices": "Explora nuestros servicios asociados",
+    "viewAllServices": "Ver Todos los Servicios",
+    "specialists": "Especialistas",
+    "trustedNetwork": "Red de confianza",
+    "featured": "Destacado",
+    "financingTitle": "Orientación de Financiamiento",
+    "financingDesc": "Opciones de financiamiento flexibles para cada presupuesto de vehículos eléctricos.",
+    "seeFinancing": "Ver socios de financiamiento",
+    "electricians": "Electricistas Certificados",
+    "electriciansDesc": "Instalación, mantenimiento y reparación de estaciones de carga en el hogar.",
+    "workshops": "Talleres Mecánicos",
+    "workshopsDesc": "Reparaciones y mantenimiento profesional adaptado para vehículos eléctricos.",
+    "detailing": "Estudios de Detallado",
+    "detailingDesc": "Recubrimientos protectores y sesiones de limpieza profunda para tu vehículo.",
+    "insurance": "Socios de Seguros",
+    "insuranceDesc": "Cotizaciones de aseguradoras especializadas en vehículos eléctricos.",
+    "financingService": "Financiamiento",
+    "financingServiceDesc": "Compara tasas de interés y elige el plan que se ajuste a tu viaje.",
+    "electriciansService": "Electricistas",
+    "electriciansServiceDesc": "Encuentra electricistas de vehículos eléctricos certificados cerca de ti para instalaciones seguras de cargadores.",
+    "mechanicsService": "Mecánicos",
+    "mechanicsServiceDesc": "Diagnósticos y mantenimiento de técnicos de vehículos eléctricos de confianza.",
+    "detailingService": "Detallado",
+    "detailingServiceDesc": "Mantén tu auto fresco como en el concesionario con paquetes de detallado seleccionados.",
+    "insuranceService": "Seguros",
+    "insuranceServiceDesc": "Protege tu inversión con cobertura diseñada para la propiedad de vehículos eléctricos.",
+    "shopAll": "Comprar todos los accesorios",
+    "exploreStore": "Explorar la tienda",
+    "portableChargers": "Cargadores Portátiles",
+    "portableChargersDesc": "Carga donde vayas con cargadores compactos para vehículos eléctricos.",
+    "wallChargers": "Cargadores de Pared",
+    "wallChargersDesc": "Instalaciones de carga confiables en el hogar u oficina.",
+    "accessories": "Accesorios",
+    "accessoriesDesc": "Mejora tu viaje con accesorios seleccionados.",
+    "tires": "Llantas",
+    "tiresDesc": "Llantas optimizadas para vehículos eléctricos en todo terreno.",
+    "portableChargersShop": "Cargadores Portátiles",
+    "portableChargersShopDesc": "Lleva energía de respaldo a cualquier lugar con cargadores compactos.",
+    "wallChargersShop": "Cargadores de Pared",
+    "wallChargersShopDesc": "Cargadores fijos con entrega de energía rápida y segura.",
+    "accessoriesShop": "Accesorios",
+    "accessoriesShopDesc": "Personaliza la experiencia con organizadores y más.",
+    "tiresShop": "Llantas",
+    "tiresShopDesc": "Llantas listas para el rendimiento seleccionadas para vehículos eléctricos."
+  },
+  "vehicles": {
+    "title": "Vehículos Eléctricos",
+    "specs": {
+      "range": "Autonomía",
+      "battery": "Batería",
+      "acceleration": "0-100 km/h",
+      "seats": "Asientos",
+      "charging": "Carga Rápida",
+      "power": "Potencia",
+      "topSpeed": "Velocidad Máxima",
+      "weight": "Peso",
+      "dimensions": "Dimensiones"
+    },
+    "bodyType": {
+      "SEDAN": "Sedán",
+      "CITY": "Ciudad",
+      "SUV": "SUV",
+      "PICKUP_VAN": "Pickup / Van"
+    },
+    "pricing": {
+      "title": "Precios y Disponibilidad",
+      "subtitle": "{count, plural, =0 {No hay vendedores disponibles} one {Disponible en 1 vendedor} other {Disponible en # vendedores}}",
+      "from": "Desde",
+      "sellers": "{count, plural, =0 {0 vendedores} one {1 vendedor} other {# vendedores}}",
+      "contact": "Contactar",
+      "viewDetails": "Ver detalles",
+      "getQuote": "Cotizar",
+      "checkAvailability": "Consultar disponibilidad"
+    },
+    "filters": {
+      "all": "Todos",
+      "priceRange": "Rango de precio",
+      "rangeMin": "Autonomía mínima",
+      "seatsMin": "Asientos mínimos",
+      "bodyType": "Tipo de carrocería",
+      "brand": "Marca",
+      "sortBy": "Ordenar por",
+      "sortPrice": "Precio",
+      "sortRange": "Autonomía",
+      "sortNewest": "Más recientes"
+    },
+    "availability": {
+      "inStock": "En stock",
+      "preOrder": "Pre-orden",
+      "availableSoon": "Disponible pronto",
+      "contactForAvailability": "Contactar para disponibilidad"
+    },
+    "financing": {
+      "title": "Opciones de Financiamiento",
+      "subtitle": "Explora financiamiento pre-aprobado de nuestros bancos aliados",
+      "downPayment": "Prima",
+      "monthlyPayment": "Pago mensual",
+      "term": "{months} meses",
+      "aprRate": "Tasa APR"
+    },
+    "reviews": {
+      "title": "Reseñas de usuarios",
+      "positive": "Positivas",
+      "neutral": "Neutrales",
+      "negative": "Negativas",
+      "noReviews": "Sin reseñas todavía"
+    },
+    "actions": {
+      "contactSeller": "Contactar vendedor",
+      "share": "Compartir",
+      "addToFavorites": "Agregar a favoritos",
+      "addToCompare": "Agregar a comparación",
+      "removeFromFavorites": "Quitar de favoritos",
+      "removeFromCompare": "Quitar de comparación"
+    },
+    "share": {
+      "text": "Mira este {brand} {model} {year} en QuéCargan",
+      "success": "Vehículo compartido",
+      "copiedToClipboard": "Enlace copiado al portapapeles",
+      "error": "No pudimos compartir este vehículo. Intenta de nuevo."
+    },
+    "contact": {
+      "whatsappMessage": "Hola, estoy interesado en el {year} {brand} {model}. Más info: {url}",
+      "emailSubject": "Consulta por {year} {brand} {model}",
+      "emailBody": "Hola, estoy interesado en el {year} {brand} {model}. ¿Podrían compartir más detalles? {url}"
+    }
+  }
+}
