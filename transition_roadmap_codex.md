@@ -10,7 +10,7 @@ This roadmap lists what to bring over from `legacy/` and the order to do it so c
 ## Phase 0 — Baseline alignment (before moving code)
 
 1) **Decide what the “new” project keeps vs adopts from legacy**
-- [ ] **Font**: keep new `Geist` (`app/layout.tsx`) vs switch to legacy `Poppins` (`legacy/app/layout.tsx`) and its CSS var `--font-poppins`.
+- [x] **Font**: switch to `Poppins` (`app/layout.tsx`) and CSS var `--font-poppins`.
 - [ ] **Theme system**: keep legacy `next-themes` + `ThemeProvider` (`legacy/app/layout.tsx`, `legacy/components/layout/theme-switcher.tsx`) and ensure `app/globals.css` supports `.dark`.
 - [ ] **i18n routing shape**: keep legacy `app/[locale]/...` + default-locale root page (`legacy/app/page.tsx`, `legacy/app/[locale]/layout.tsx`) and `next-intl` routing (`legacy/i18n/routing.ts`).
 - [ ] **Supabase auth strategy**: adopt legacy SSR approach (`legacy/lib/supabase/*`) instead of the current client-only `lib/supabaseClient.ts`.
@@ -76,8 +76,7 @@ This roadmap lists what to bring over from `legacy/` and the order to do it so c
 - [ ] If adopting legacy Poppins:
   - Bring `Poppins` setup from `legacy/app/layout.tsx` into root `app/layout.tsx`
   - Ensure `--font-sans` resolves to `--font-poppins` (legacy already does in CSS).
-- [ ] If staying on Geist:
-  - Update legacy CSS tokens that reference `--font-poppins` to use `--font-geist-sans` (or introduce an alias var).
+- [x] Font decision: use `--font-poppins` as the app sans font token.
 
 10) **Restore theme toggling**
 - [ ] Bring `next-themes` provider usage from `legacy/app/layout.tsx` into root `app/layout.tsx`.
