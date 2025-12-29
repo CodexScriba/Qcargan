@@ -1,8 +1,12 @@
 ---
 stage: plan
-tags: [feature, p1]
+tags:
+  - feature
+  - p1
 agent: planner
-contexts: [ai-guide, _context/skills/nextjs-core-skills.md]
+contexts:
+  - ai-guide
+  - _context/skills/nextjs-core-skills.md
 parent: roadmap-legacy-transfer
 ---
 
