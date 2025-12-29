@@ -1,5 +1,5 @@
-import { drizzle } from 'drizzle-orm/postgres-js'
-import postgres from 'postgres'
+import { drizzle } from 'drizzle-orm/node-postgres'
+import { Pool } from 'pg'
 
 import * as schema from './schema'
 
@@ -11,14 +11,21 @@ if (!resolvedConnectionString) {
 }
 
 const globalForDb = globalThis as unknown as {
-  conn?: postgres.Sql
+  pool?: Pool
 }
 
-const client = globalForDb.conn ?? postgres(resolvedConnectionString, { max: 1 })
+const pool =
+  globalForDb.pool ??
+  new Pool({
+    connectionString: resolvedConnectionString,
+    max: 10,
+    idleTimeoutMillis: 30_000,
+    connectionTimeoutMillis: 2_000
+  })
 
 if (process.env.NODE_ENV !== 'production') {
-  globalForDb.conn = client
+  globalForDb.pool = pool
 }
 
-export const db = drizzle(client, { schema })
-export { client }
+export const db = drizzle({ client: pool, schema })
+export { pool }

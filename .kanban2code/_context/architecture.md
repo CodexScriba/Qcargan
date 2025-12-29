@@ -29,3 +29,5 @@ See: [ARCHITECTURE.md](../../ARCHITECTURE.md) for the full architecture document
   - Validation: Added tests to ensure key parity between locales.
 - **Route Pathnames (2025-12-29)**: Defined all 40+ localized route paths in `lib/i18n/routing.ts`.
   - Validated Spanish localization for paths like `/auth/ingresar` and `/vehiculos`.
+- **Database Client (2025-12-29)**: Configured Drizzle to use `drizzle-orm/node-postgres` with a shared `pg.Pool`.
+  - Files: `drizzle.config.ts`, `lib/db/index.ts`, `lib/db/__tests__/client.test.ts`, `package.json`.
