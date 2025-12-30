@@ -31,3 +31,6 @@ See: [ARCHITECTURE.md](../../ARCHITECTURE.md) for the full architecture document
   - Validated Spanish localization for paths like `/auth/ingresar` and `/vehiculos`.
 - **Database Client (2025-12-29)**: Configured Drizzle to use `drizzle-orm/node-postgres` with a shared `pg.Pool`.
   - Files: `drizzle.config.ts`, `lib/db/index.ts`, `lib/db/__tests__/client.test.ts`, `package.json`.
+- **Database Schemas (2025-12-29)**: Ported core tables from legacy to Drizzle ORM with strict typing.
+  - Files: `lib/db/schema/organizations.ts`, `lib/db/schema/vehicle-pricing.ts`, `lib/db/schema/vehicle-images.ts`, `lib/db/schema/banks.ts`, `lib/db/schema/profiles.ts`, `lib/db/schema/vehicles.ts`, `lib/db/schema/index.ts`.
+  - Features: JSONB strict typing, Supabase `auth.users` linking, composite indexes.

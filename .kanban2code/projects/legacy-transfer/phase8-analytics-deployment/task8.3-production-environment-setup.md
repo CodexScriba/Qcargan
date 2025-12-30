@@ -1,7 +1,7 @@
 ---
 stage: plan
 tags: [chore, p1]
-agent: planner
+agent: 04-📋planner
 contexts: [ai-guide]
 parent: roadmap-legacy-transfer
 ---

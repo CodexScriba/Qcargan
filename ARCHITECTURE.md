@@ -315,7 +315,11 @@ NODE_ENV=production
 
 - Use Drizzle Kit for schema migrations
 - Version-controlled migration files in `drizzle/migrations/`
-- Run migrations via `bun run drizzle-kit push` or `bun run drizzle-kit migrate`
+- **Database Schemas (2025-12-29)**: Ported core tables from legacy to Drizzle ORM with strict typing.
+  - Files: `lib/db/schema/organizations.ts`, `lib/db/schema/vehicle-pricing.ts`, `lib/db/schema/vehicle-images.ts`, `lib/db/schema/banks.ts`, `lib/db/schema/profiles.ts`, `lib/db/schema/vehicles.ts`, `lib/db/schema/index.ts`.
+  - Features: JSONB strict typing, Supabase `auth.users` linking, composite indexes.
+- **Database Migrations (2025-12-29)**: Generated initial Drizzle migration for core schema.
+  - Files: `drizzle/0000_overrated_kree.sql`.
 
 ---
 

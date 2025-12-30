@@ -1,7 +1,7 @@
 ---
 stage: plan
 tags: [chore, p1]
-agent: planner
+agent: 04-📋planner
 contexts: [ai-guide, _context/skills/skill-http-security-headers.md]
 parent: roadmap-legacy-transfer
 ---

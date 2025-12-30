@@ -1,7 +1,7 @@
 ---
 stage: plan
 tags: [feature, p2]
-agent: planner
+agent: 04-📋planner
 contexts: [ai-guide, _context/skills/react-core-skills.md]
 parent: roadmap-legacy-transfer
 ---

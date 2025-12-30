@@ -1,8 +1,13 @@
 ---
 stage: plan
-tags: [feature, p1]
-agent: planner
-contexts: [ai-guide, _context/skills/skill-server-actions-mutations.md, _context/skills/skill-supabase-ssr.md]
+tags:
+  - feature
+  - p1
+agent: 04-📋planner
+contexts:
+  - ai-guide
+  - _context/skills/skill-server-actions-mutations.md
+  - _context/skills/skill-supabase-ssr.md
 parent: roadmap-legacy-transfer
 ---
 

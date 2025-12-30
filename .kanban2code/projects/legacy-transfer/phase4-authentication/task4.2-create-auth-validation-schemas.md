@@ -1,8 +1,12 @@
 ---
 stage: plan
-tags: [chore, p2]
-agent: planner
-contexts: [ai-guide, _context/skills/skill-server-actions-mutations.md]
+tags:
+  - chore
+  - p2
+agent: "04-\U0001F4CBplanner"
+contexts:
+  - ai-guide
+  - _context/skills/skill-server-actions-mutations.md
 parent: roadmap-legacy-transfer
 ---
 

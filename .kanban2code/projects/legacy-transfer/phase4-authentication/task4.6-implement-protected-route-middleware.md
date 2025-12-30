@@ -1,7 +1,7 @@
 ---
 stage: plan
 tags: [feature, p1]
-agent: planner
+agent: 04-📋planner
 contexts: [ai-guide, _context/skills/skill-supabase-ssr.md, _context/skills/skill-routing-layouts.md]
 parent: roadmap-legacy-transfer
 ---

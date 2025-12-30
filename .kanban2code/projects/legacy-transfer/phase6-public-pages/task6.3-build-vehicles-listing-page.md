@@ -1,7 +1,7 @@
 ---
 stage: plan
 tags: [feature, p1]
-agent: planner
+agent: 04-📋planner
 contexts: [ai-guide, _context/skills/react-core-skills.md, _context/skills/skill-drizzle-orm.md, _context/skills/skill-tailwindcss-v4.md]
 parent: roadmap-legacy-transfer
 ---
