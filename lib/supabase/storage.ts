@@ -56,8 +56,8 @@ async function resolveStorageClient(): Promise<SupabaseClient> {
     return createServiceRoleClient()
   }
 
-  const { supabase } = await import('@/lib/supabaseClient')
-  return supabase
+  const { createClient } = await import('@/lib/supabase/client')
+  return createClient()
 }
 
 function isExternalUrl(value: string) {

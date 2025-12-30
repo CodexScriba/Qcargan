@@ -14,6 +14,9 @@ This context file links to the main architecture documentation.
 See: [ARCHITECTURE.md](../../ARCHITECTURE.md) for the full architecture documentation including directory structure.
 
 ## Recent Updates
+- **Supabase SSR Clients (2025-12-29)**: Added per-request Supabase clients and middleware session refresh helpers.
+  - Files: `lib/supabase/client.ts`, `lib/supabase/server.ts`, `lib/supabase/middleware.ts`, `lib/supabase/__tests__/client.test.ts`, `lib/supabase/__tests__/server.test.ts`, `lib/supabase/__tests__/middleware.test.ts`.
+  - Wiring: `proxy.ts` now uses `lib/supabase/middleware.ts`; `lib/supabase/proxy.ts` is superseded for session refresh.
 - **Internationalization (2025-12-28)**: Core `next-intl` configuration implemented.
   - Locales: `es` (default), `en`.
   - Prefix strategy: `as-needed`.
