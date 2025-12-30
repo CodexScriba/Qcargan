@@ -4,7 +4,7 @@ description: Codebase and project description
 scope: global
 created: '2025-12-17'
 file_references:
-  - docs/architecture.md
+  - ARCHITECTURE.md
 ---
 
 # Architecture Context
@@ -14,6 +14,9 @@ This context file links to the main architecture documentation.
 See: [ARCHITECTURE.md](../../ARCHITECTURE.md) for the full architecture documentation including directory structure.
 
 ## Recent Updates
+
+- **Auth validation schemas (2025-12-30)**: Added Zod validation for auth forms (login, sign up, forgot password, update password).
+  - Files: `lib/validation/auth.ts`, `lib/validation/__tests__/auth.test.ts`.
 - **Supabase SSR Clients (2025-12-29)**: Added per-request Supabase clients and middleware session refresh helpers.
   - Files: `lib/supabase/client.ts`, `lib/supabase/server.ts`, `lib/supabase/middleware.ts`, `lib/supabase/__tests__/client.test.ts`, `lib/supabase/__tests__/server.test.ts`, `lib/supabase/__tests__/middleware.test.ts`.
   - Wiring: `proxy.ts` now uses `lib/supabase/middleware.ts`; `lib/supabase/proxy.ts` is superseded for session refresh.
