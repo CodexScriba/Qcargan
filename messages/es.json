@@ -44,7 +44,10 @@
       "submitting": "Creando cuenta...",
       "haveAccount": "¿Ya tienes una cuenta?",
       "loginLink": "Iniciar Sesión",
-      "passwordsMismatch": "Las contraseñas no coinciden"
+      "passwordsMismatch": "Las contraseñas no coinciden",
+      "error": {
+        "signUpFailed": "No se pudo crear la cuenta. Inténtalo de nuevo."
+      }
     },
     "signUpSuccess": {
       "title": "Bienvenido a Qcargan",

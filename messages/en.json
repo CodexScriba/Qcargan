@@ -44,7 +44,10 @@
       "submitting": "Creating an account...",
       "haveAccount": "Already have an account?",
       "loginLink": "Login",
-      "passwordsMismatch": "Passwords do not match"
+      "passwordsMismatch": "Passwords do not match",
+      "error": {
+        "signUpFailed": "Unable to create account. Please try again."
+      }
     },
     "signUpSuccess": {
       "title": "Welcome to Qcargan",
