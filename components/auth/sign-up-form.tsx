@@ -4,6 +4,7 @@ import { useActionState, useEffect, useRef, useCallback } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useTranslations } from "next-intl"
+import { Mail, Lock, ShieldCheck, UserPlus, Loader2 } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Link, useRouter } from "@/lib/i18n/navigation"
@@ -100,8 +101,9 @@ export function SignUpForm({ className }: { className?: string }) {
           <div className="grid gap-2">
             <Label
               htmlFor="email"
-              className="flex items-center gap-2 text-[13px] font-bold text-[hsl(var(--foreground))]"
+              className="flex items-center gap-2 text-[14px] font-bold text-[hsl(var(--foreground))]"
             >
+              <Mail className="size-4 text-muted-foreground" />
               {t("email")}
             </Label>
             <Input
@@ -115,7 +117,7 @@ export function SignUpForm({ className }: { className?: string }) {
               {...register("email")}
             />
             {emailError && (
-              <p id="email-error" className="text-sm text-red-500">
+              <p id="email-error" className="text-[14px] text-red-500">
                 {emailError}
               </p>
             )}
@@ -124,8 +126,9 @@ export function SignUpForm({ className }: { className?: string }) {
           <div className="grid gap-2">
             <Label
               htmlFor="password"
-              className="flex items-center gap-2 text-[13px] font-bold text-[hsl(var(--foreground))]"
+              className="flex items-center gap-2 text-[14px] font-bold text-[hsl(var(--foreground))]"
             >
+              <Lock className="size-4 text-muted-foreground" />
               {t("password")}
             </Label>
             <Input
@@ -137,7 +140,7 @@ export function SignUpForm({ className }: { className?: string }) {
               {...register("password")}
             />
             {passwordError && (
-              <p id="password-error" className="text-sm text-red-500">
+              <p id="password-error" className="text-[14px] text-red-500">
                 {passwordError}
               </p>
             )}
@@ -146,8 +149,9 @@ export function SignUpForm({ className }: { className?: string }) {
           <div className="grid gap-2">
             <Label
               htmlFor="confirmPassword"
-              className="flex items-center gap-2 text-[13px] font-bold text-[hsl(var(--foreground))]"
+              className="flex items-center gap-2 text-[14px] font-bold text-[hsl(var(--foreground))]"
             >
+              <ShieldCheck className="size-4 text-muted-foreground" />
               {t("repeat")}
             </Label>
             <Input
@@ -159,7 +163,7 @@ export function SignUpForm({ className }: { className?: string }) {
               {...register("confirmPassword")}
             />
             {confirmPasswordError && (
-              <p id="confirm-password-error" className="text-sm text-red-500">
+              <p id="confirm-password-error" className="text-[14px] text-red-500">
                 {confirmPasswordError}
               </p>
             )}
@@ -168,7 +172,7 @@ export function SignUpForm({ className }: { className?: string }) {
           {rootError && (
             <p
               ref={rootErrorRef}
-              className="text-sm text-red-500"
+              className="text-[14px] text-red-500"
               role="alert"
               tabIndex={-1}
             >
@@ -179,10 +183,15 @@ export function SignUpForm({ className }: { className?: string }) {
           <div className="grid justify-items-center gap-2 mt-2">
             <Button
               type="submit"
-              className={cn("w-full justify-center", submitClass)}
+              className={cn("w-full justify-center gap-2", submitClass)}
               style={{ width: "calc((100% - 10px) / 2)" }}
               disabled={isPending}
             >
+              {isPending ? (
+                <Loader2 className="size-4 animate-spin" />
+              ) : (
+                <UserPlus className="size-4" />
+              )}
               {isPending ? t("submitting") : t("submit")}
             </Button>
           </div>
@@ -191,7 +200,7 @@ export function SignUpForm({ className }: { className?: string }) {
 
           <div className="flex items-center gap-2 my-1" aria-hidden="true">
             <Separator className="flex-1" />
-            <span className="text-xs text-[hsl(var(--muted-foreground))]">
+            <span className="text-[14px] text-muted-foreground">
               {tLogin("orContinueWith")}
             </span>
             <Separator className="flex-1" />
@@ -243,11 +252,11 @@ export function SignUpForm({ className }: { className?: string }) {
           </div>
         </div>
 
-        <div className="mt-6 text-center text-sm text-slate-600">
+        <div className="mt-6 text-center text-[14px] text-slate-600">
           {t("haveAccount")}{" "}
           <Link
             href="/auth/login"
-            className="font-semibold text-[hsl(var(--primary))] hover:underline"
+            className="font-semibold text-primary hover:underline"
           >
             {t("loginLink")}
           </Link>

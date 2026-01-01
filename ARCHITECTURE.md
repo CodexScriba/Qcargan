@@ -35,7 +35,7 @@
 - **shadcn/ui** `^3.5.0` - Component library built on Radix UI
 - **Radix UI** - Unstyled, accessible component primitives
 - **next-themes** - Theme management (light/dark mode)
-- **lucide-react** - Icon library
+- **lucide-react** `^0.562.0` - Icon library
 
 ### Forms & Validation
 - **React Hook Form** `^7.68.0` - Form state management
