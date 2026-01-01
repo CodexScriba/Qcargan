@@ -57,73 +57,74 @@
 
 /* =========================================================
    Light Mode Tokens
+   Premium light blue theme - Clean EV aesthetic
    ========================================================= */
 :root {
   color-scheme: light;
   --radius: 0.75rem;
 
-  /* Base - Cool Mist Foundation */
-  --background: 200 62% 97%;
-  --foreground: 220 28% 16%;
+  /* Base - Cool Blue Mist */
+  --background: 210 45% 97%;           /* Subtle blue-white */
+  --foreground: 220 35% 14%;           /* Deep blue-gray text */
   --transition-smooth: cubic-bezier(0.22, 1, 0.36, 1);
 
-  /* Brand / Accent - Teal Lagoon */
-  --brand: 188 82% 45%;
-  --brand-foreground: 220 28% 16%;
+  /* Brand / Accent - Electric Cyan */
+  --brand: 197 90% 45%;                /* Matches dark mode cyan */
+  --brand-foreground: 220 35% 14%;
 
-  /* Primary - Deep Atlantic Blue */
-  --primary: 208 88% 38%;
+  /* Primary - Vibrant Blue */
+  --primary: 210 90% 42%;              /* Rich blue */
   --primary-foreground: 0 0% 100%;
 
-  /* Secondary - Translucent Frost */
-  --secondary: 200 42% 97%;
-  --secondary-foreground: 220 22% 24%;
+  /* Secondary - Blue Frost */
+  --secondary: 210 40% 95%;
+  --secondary-foreground: 220 30% 22%;
 
-  /* Muted - Soft Steel */
-  --muted: 198 46% 94%;
-  --muted-foreground: 220 15% 38%;
+  /* Muted - Soft Blue Steel */
+  --muted: 210 35% 93%;
+  --muted-foreground: 220 20% 42%;
 
-  /* Accent - Fresh Teal */
-  --accent: 168 80% 54%;
-  --accent-foreground: 220 28% 16%;
+  /* Accent - Electric Teal */
+  --accent: 197 90% 45%;
+  --accent-foreground: 220 35% 14%;
 
-  /* Structural - Glassmorphism Surfaces */
-  --card: 0 0% 100% / 0.75;
-  --card-foreground: 220 25% 18%;
-  --surface: 198 50% 96% / 0.62;
-  --surface-foreground: 220 22% 20%;
-  --popover: 0 0% 100% / 0.85;
-  --popover-foreground: 220 28% 16%;
+  /* Structural - Blue-tinted Surfaces */
+  --card: 0 0% 100% / 0.80;
+  --card-foreground: 220 30% 16%;
+  --surface: 210 45% 97% / 0.70;
+  --surface-foreground: 220 28% 18%;
+  --popover: 0 0% 100% / 0.90;
+  --popover-foreground: 220 35% 14%;
 
-  /* Borders & Inputs */
-  --border: 204 45% 86%;
-  --border-subtle: 204 45% 90%;
+  /* Borders & Inputs - Blue tinted */
+  --border: 210 35% 88%;
+  --border-subtle: 210 30% 92%;
   --input: 0 0% 100%;
-  --ring: 193 92% 52%;
+  --ring: 197 90% 50%;
 
   /* Destructive */
-  --destructive: 4 84% 62%;
+  --destructive: 4 84% 58%;
   --destructive-foreground: 0 0% 100%;
 
   /* Typography Colors */
-  --dark-blue: 210 72% 26%;
-  --title-blue: 210 68% 32%;
+  --dark-blue: 215 70% 28%;
+  --title-blue: 215 65% 32%;
 
-  /* Glass Effects */
-  --glass-highlight: 0 0% 100% / 0.82;
-  --glass-surface: 195 78% 97% / 0.68;
-  --glass-tint: 198 62% 92% / 0.5;
-  --glass-border: 202 46% 85% / 0.45;
+  /* Glass Effects - Blue tinted */
+  --glass-highlight: 210 50% 100% / 0.85;
+  --glass-surface: 210 60% 97% / 0.72;
+  --glass-tint: 210 50% 94% / 0.55;
+  --glass-border: 210 40% 88% / 0.50;
 
   /* Card Container Gradient */
-  --card-container-start: 0 0% 100% / 0.78;
-  --card-container-end: 195 75% 96% / 0.6;
+  --card-container-start: 0 0% 100% / 0.82;
+  --card-container-end: 210 60% 97% / 0.65;
   --card-container-angle: 135deg;
 
-  /* Shadows */
-  --shadow-soft: 220 40% 18% / 0.08;
-  --shadow-hover: 220 40% 18% / 0.16;
-  --surface-shadow: 220 25% 12% / 0.06;
+  /* Shadows - Blue tinted */
+  --shadow-soft: 220 50% 25% / 0.08;
+  --shadow-hover: 220 50% 25% / 0.14;
+  --surface-shadow: 220 40% 20% / 0.06;
 }
 
 /* =========================================================
@@ -220,10 +221,10 @@
 
   body {
     background:
-      radial-gradient(1200px circle at 10% 8%, hsl(198 95% 88% / 0.55) 0%, transparent 62%),
-      radial-gradient(900px circle at 82% 18%, hsl(190 92% 86% / 0.4) 0%, transparent 60%),
-      radial-gradient(680px circle at 50% 95%, hsl(205 80% 90% / 0.35) 0%, transparent 70%),
-      linear-gradient(160deg, hsl(198 60% 98%) 0%, hsl(202 64% 96%) 45%, hsl(208 56% 95%) 100%);
+      radial-gradient(1200px 600px at 70% -5%, hsl(200 90% 88% / 0.45) 0%, transparent 55%),
+      radial-gradient(900px 500px at 5% 10%, hsl(220 80% 90% / 0.35) 0%, transparent 50%),
+      radial-gradient(600px 400px at 90% 85%, hsl(210 70% 92% / 0.30) 0%, transparent 50%),
+      linear-gradient(180deg, hsl(210 45% 98%) 0%, hsl(212 50% 96%) 50%, hsl(215 45% 95%) 100%);
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
     -webkit-font-smoothing: antialiased;
@@ -264,9 +265,9 @@
     position: fixed;
     inset: 0;
     background: linear-gradient(135deg,
-      hsl(188 82% 60% / 0.12) 0%,
-      transparent 25%,
-      hsl(192 95% 75% / 0.1) 55%,
+      hsl(210 80% 70% / 0.08) 0%,
+      transparent 30%,
+      hsl(200 90% 80% / 0.06) 60%,
       transparent 100%);
     pointer-events: none;
     z-index: -1;
