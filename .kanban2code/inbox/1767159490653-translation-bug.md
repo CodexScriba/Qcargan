@@ -1,11 +1,11 @@
 ---
-stage: audit
+stage: completed
 agent: auditor
 tags: []
-contexts:
-  - skills/nextjs-core-skills
-  - skills/skill-next-intl
-skills: []
+contexts: []
+skills:
+  - nextjs-core-skills
+  - skill-next-intl
 ---
 
 # translation bug
