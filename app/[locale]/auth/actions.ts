@@ -1,9 +1,21 @@
 "use server"
 
-import { headers } from "next/headers"
 import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
 import { LoginSchema, SignUpSchema } from "@/lib/validation/auth"
+
+function getSiteUrl(): string {
+  // Use configured SITE_URL first (most reliable)
+  if (process.env.NEXT_PUBLIC_SITE_URL) {
+    return process.env.NEXT_PUBLIC_SITE_URL
+  }
+  // Vercel provides VERCEL_URL in production/preview
+  if (process.env.VERCEL_URL) {
+    return `https://${process.env.VERCEL_URL}`
+  }
+  // Fallback for local development
+  return "http://localhost:3000"
+}
 
 export type LoginState = {
   error?: string
@@ -47,7 +59,7 @@ export async function loginAction(
   }
 
   // redirect() throws NEXT_REDIRECT, this return is unreachable but satisfies TypeScript
-  redirect("/protected")
+  redirect("/dashboard")
   return {}
 }
 
@@ -86,13 +98,8 @@ export async function signUpAction(
 
   const supabase = await createClient()
 
-  // Get the origin from request headers for email redirect
-  const headersList = await headers()
-  const origin = headersList.get("origin") ?? headersList.get("x-forwarded-host")
-  const protocol = headersList.get("x-forwarded-proto") ?? "https"
-  const emailRedirectTo = origin
-    ? `${origin.startsWith("http") ? origin : `${protocol}://${origin}`}/auth/callback`
-    : undefined
+  // Use configured site URL for email redirect (avoids untrusted header injection)
+  const emailRedirectTo = `${getSiteUrl()}/auth/callback`
 
   const { error } = await supabase.auth.signUp({
     email: result.data.email,

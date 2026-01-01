@@ -130,22 +130,6 @@ export function LoginForm({ className }: { className?: string }) {
             )}
           </div>
 
-          <div className="remember-row flex items-center justify-between gap-3 my-1.5 mb-0.5">
-            <label className="inline-flex items-center gap-2 text-[14px] text-[hsl(var(--foreground))]">
-              <input
-                type="checkbox"
-                className="h-4 w-4 rounded border border-[hsl(var(--border))] align-middle"
-              />
-              {t("remember")}
-            </label>
-            <Link
-              href="/auth/forgot-password"
-              className="text-[14px] font-semibold text-[hsl(var(--primary))] hover:underline"
-            >
-              {t("forgot")}
-            </Link>
-          </div>
-
           {rootError && (
             <p
               ref={rootErrorRef}
@@ -157,11 +141,10 @@ export function LoginForm({ className }: { className?: string }) {
             </p>
           )}
 
-          <div className="grid justify-items-center gap-2 mt-2">
+          <div className="grid gap-2 mt-2">
             <Button
               type="submit"
               className={cn("w-full justify-center gap-2", submitClass)}
-              style={{ width: "calc((100% - 10px) / 2)" }}
               disabled={isPending}
             >
               {isPending ? (

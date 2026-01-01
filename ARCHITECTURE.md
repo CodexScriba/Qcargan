@@ -64,14 +64,19 @@
 qcargan/
 ├── .kanban2code/              # Kanban2Code task management
 ├── app/                       # Next.js App Router
+│   ├── auth/                  # Non-localized utility routes
+│   │   └── callback/          # Supabase email confirmation callback
 │   ├── [locale]/             # Localized routes
 │   │   ├── layout.tsx        # Root layout with font/theme providers
 │   │   ├── page.tsx          # Home page
 │   │   ├── auth/             # Authentication pages
-│   │   │   ├── ingresar/     # Login
-│   │   │   ├── registrar/   # Sign up
-│   │   │   ├── recuperar/    # Forgot password
-│   │   │   └── actualizar-clave/ # Update password
+│   │   │   ├── actions.ts    # Server actions
+│   │   │   ├── login/        # Login (es: /ingresar)
+│   │   │   ├── sign-up/      # Sign up (es: /registrar)
+│   │   │   ├── sign-up-success/ # Success page
+│   │   │   ├── forgot-password/ # Forgot password (es: /recuperar)
+│   │   │   └── update-password/ # Update password (es: /actualizar-clave)
+│   │   ├── dashboard/        # Localized dashboard landing
 │   │   ├── precios/         # Pricing page
 │   │   ├── vehiculos/        # Vehicle pages (Spanish route)
 │   │   │   ├── page.tsx      # Vehicle listing

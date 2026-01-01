@@ -32,6 +32,7 @@ const pathnames = {
   },
   "/auth/sign-up-success": "/auth/sign-up-success",
   "/auth/error": "/auth/error",
+  "/dashboard": "/dashboard",
   "/test": {
     en: "/test",
     es: "/prueba",
