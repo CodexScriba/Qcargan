@@ -91,6 +91,9 @@ qcargan/
 │   │   ├── language-switcher.tsx
 │   │   └── theme-switcher.tsx
 │   ├── auth/                 # Authentication components
+│   │   ├── login-form.tsx
+│   │   ├── sign-up-form.tsx
+│   │   └── auth-image.tsx    # Theme-aware hero images
 │   ├── product/              # Vehicle display components
 │   └── agency/               # Agency/Dealer components
 ├── lib/
