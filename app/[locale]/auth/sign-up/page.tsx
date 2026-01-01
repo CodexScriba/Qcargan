@@ -1,9 +1,9 @@
-import Image from "next/image"
 import { getTranslations, setRequestLocale } from "next-intl/server"
 import { UserPlus } from "lucide-react"
 
 import { Card } from "@/components/ui/card"
 import { SignUpForm } from "@/components/auth/sign-up-form"
+import { AuthImage } from "@/components/auth/auth-image"
 
 type PageProps = {
   params: Promise<{ locale: string }>
@@ -35,20 +35,7 @@ export default async function SignUpPage({ params }: PageProps) {
             <SignUpForm />
           </div>
           <div className="relative hidden md:block overflow-hidden">
-            <div className="absolute inset-0">
-              <Image
-                alt="EV charging station hero"
-                src="/images/auth/login-hero.png"
-                fill
-                className="object-cover object-[-0%_center] rounded-[22px]"
-                priority
-                sizes="(max-width: 768px) 0vw, 50vw"
-              />
-              <div
-                className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_top,rgba(0,0,0,.65)_0%,rgba(0,0,0,.28)_25%,rgba(0,0,0,0)_55%)] rounded-[22px]"
-                aria-hidden="true"
-              />
-            </div>
+            <AuthImage />
           </div>
         </div>
       </Card>

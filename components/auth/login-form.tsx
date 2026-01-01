@@ -4,6 +4,7 @@ import { useActionState, useEffect, useRef, useCallback } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useTranslations } from "next-intl"
+import { Mail, Lock, LogIn, Loader2 } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Link } from "@/lib/i18n/navigation"
@@ -82,8 +83,9 @@ export function LoginForm({ className }: { className?: string }) {
           <div className="grid gap-2">
             <Label
               htmlFor="email"
-              className="flex items-center gap-2 text-[13px] font-bold text-[hsl(var(--foreground))]"
+              className="flex items-center gap-2 text-[14px] font-bold text-[hsl(var(--foreground))]"
             >
+              <Mail className="size-4 text-muted-foreground" />
               {t("email")}
             </Label>
             <Input
@@ -97,7 +99,7 @@ export function LoginForm({ className }: { className?: string }) {
               {...register("email")}
             />
             {emailError && (
-              <p id="email-error" className="text-sm text-red-500">
+              <p id="email-error" className="text-[14px] text-red-500">
                 {emailError}
               </p>
             )}
@@ -107,8 +109,9 @@ export function LoginForm({ className }: { className?: string }) {
             <div className="flex items-center">
               <Label
                 htmlFor="password"
-                className="flex items-center gap-2 text-[13px] font-bold text-[hsl(var(--foreground))]"
+                className="flex items-center gap-2 text-[14px] font-bold text-[hsl(var(--foreground))]"
               >
+                <Lock className="size-4 text-muted-foreground" />
                 {t("password")}
               </Label>
             </div>
@@ -121,14 +124,14 @@ export function LoginForm({ className }: { className?: string }) {
               {...register("password")}
             />
             {passwordError && (
-              <p id="password-error" className="text-sm text-red-500">
+              <p id="password-error" className="text-[14px] text-red-500">
                 {passwordError}
               </p>
             )}
           </div>
 
           <div className="remember-row flex items-center justify-between gap-3 my-1.5 mb-0.5">
-            <label className="inline-flex items-center gap-2 text-[13px] text-[hsl(var(--foreground))]">
+            <label className="inline-flex items-center gap-2 text-[14px] text-[hsl(var(--foreground))]">
               <input
                 type="checkbox"
                 className="h-4 w-4 rounded border border-[hsl(var(--border))] align-middle"
@@ -137,7 +140,7 @@ export function LoginForm({ className }: { className?: string }) {
             </label>
             <Link
               href="/auth/forgot-password"
-              className="text-[13px] font-semibold text-[hsl(var(--primary))] hover:underline"
+              className="text-[14px] font-semibold text-[hsl(var(--primary))] hover:underline"
             >
               {t("forgot")}
             </Link>
@@ -146,7 +149,7 @@ export function LoginForm({ className }: { className?: string }) {
           {rootError && (
             <p
               ref={rootErrorRef}
-              className="text-sm text-red-500"
+              className="text-[14px] text-red-500"
               role="alert"
               tabIndex={-1}
             >
@@ -157,10 +160,15 @@ export function LoginForm({ className }: { className?: string }) {
           <div className="grid justify-items-center gap-2 mt-2">
             <Button
               type="submit"
-              className={cn("w-full justify-center", submitClass)}
+              className={cn("w-full justify-center gap-2", submitClass)}
               style={{ width: "calc((100% - 10px) / 2)" }}
               disabled={isPending}
             >
+              {isPending ? (
+                <Loader2 className="size-4 animate-spin" />
+              ) : (
+                <LogIn className="size-4" />
+              )}
               {isPending ? t("submitting") : t("submit")}
             </Button>
           </div>
@@ -169,7 +177,7 @@ export function LoginForm({ className }: { className?: string }) {
 
           <div className="flex items-center gap-2 my-1" aria-hidden="true">
             <Separator className="flex-1" />
-            <span className="text-xs text-[hsl(var(--muted-foreground))]">
+            <span className="text-[14px] text-muted-foreground">
               {t("orContinueWith")}
             </span>
             <Separator className="flex-1" />
@@ -221,7 +229,7 @@ export function LoginForm({ className }: { className?: string }) {
           </div>
         </div>
 
-        <div className="mt-6 text-center text-sm text-slate-600">
+        <div className="mt-6 text-center text-[14px] text-slate-600">
           {t("signup")}{" "}
           <Link
             href="/auth/sign-up"
