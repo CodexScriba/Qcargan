@@ -128,49 +128,51 @@
 
 /* =========================================================
    Dark Mode Tokens
+   Premium dark blue theme - EV aesthetic
    ========================================================= */
 .dark {
   color-scheme: dark;
 
-  /* Base - Deep Midnight */
-  --background: 226 66% 6%;
-  --foreground: 213 32% 88%;
+  /* Base - Deep Navy Blue */
+  --background: 222 47% 5%;            /* Deep navy */
+  --foreground: 210 30% 94%;           /* Soft white-blue */
 
   /* Electric accent system */
-  --neon-teal: 202 100% 62%;
-  --neon-teal-light: 196 100% 70%;
+  --neon-teal: 197 100% 63%;           /* #41c1ff - electric cyan */
+  --neon-teal-light: 197 100% 70%;
+  --neon-purple: 262 100% 77%;         /* #a88bff - soft purple */
   --neon-charge: 68 100% 62%;
 
   /* Brand / Primary */
-  --brand: 195 92% 60%;
-  --brand-foreground: 216 36% 92%;
-  --primary: 204 100% 52%;
-  --primary-foreground: 0 0% 99%;
+  --brand: 197 100% 63%;               /* Electric cyan */
+  --brand-foreground: 210 30% 94%;
+  --primary: 210 100% 55%;             /* Vibrant blue */
+  --primary-foreground: 0 0% 100%;
 
   /* Accent */
-  --accent: 214 86% 30%;
-  --accent-foreground: 0 0% 100%;
+  --accent: 197 100% 63%;
+  --accent-foreground: 222 47% 5%;
 
   /* Hierarchy */
-  --secondary: 222 60% 28%;
-  --secondary-foreground: 0 0% 100%;
-  --muted: 218 32% 28%;
-  --muted-foreground: 212 28% 72%;
+  --secondary: 220 40% 14%;
+  --secondary-foreground: 210 30% 94%;
+  --muted: 220 35% 18%;
+  --muted-foreground: 215 25% 65%;
 
-  /* Structural surfaces */
-  --card: 221 62% 20% / 0.32;
-  --card-foreground: 214 36% 92%;
-  --surface: 224 58% 16% / 0.26;
-  --surface-foreground: 213 36% 90%;
-  --popover: 224 58% 16% / 0.5;
-  --popover-foreground: 214 36% 92%;
+  /* Structural surfaces - Blue-tinted */
+  --card: 222 45% 10%;                 /* Dark navy card */
+  --card-foreground: 210 30% 94%;
+  --surface: 222 42% 12%;
+  --surface-foreground: 210 30% 94%;
+  --popover: 222 45% 10%;
+  --popover-foreground: 210 30% 94%;
 
-  /* Borders */
-  --border: 196 100% 70% / 0.18;
-  --border-subtle: 196 100% 70% / 0.1;
-  --border-neon: 196 100% 68% / 0.4;
-  --input: 224 58% 16% / 0.38;
-  --ring: 196 100% 70%;
+  /* Borders - Subtle blue-white */
+  --border: 210 30% 80% / 0.10;
+  --border-subtle: 210 30% 80% / 0.06;
+  --border-neon: 197 100% 63% / 0.40;
+  --input: 222 40% 14%;
+  --ring: 197 100% 63%;
 
   /* Destructive */
   --destructive: 0 84% 60%;
@@ -178,29 +180,29 @@
 
   /* Typography */
   --dark-blue: 217 68% 24%;
-  --title-blue: 215 58% 48%;
+  --title-blue: 197 100% 63%;
 
-  /* Glass Effects */
-  --glass-highlight: 0 0% 100% / 0.12;
-  --glass-surface: 222 64% 18% / 0.28;
-  --glass-tint: 220 72% 12% / 0.32;
-  --glass-border: 196 100% 70% / 0.22;
+  /* Glass Effects - Blue tinted */
+  --glass-highlight: 210 50% 90% / 0.08;
+  --glass-surface: 220 50% 80% / 0.04;
+  --glass-tint: 220 50% 80% / 0.03;
+  --glass-border: 210 40% 80% / 0.10;
 
   /* Card Container Gradient */
-  --card-container-start: 222 70% 22% / 0.36;
-  --card-container-end: 232 76% 12% / 0.34;
-  --card-container-angle: 152deg;
-  --card-glow: 196 100% 70% / 0.32;
+  --card-container-start: 210 50% 90% / 0.06;
+  --card-container-end: 220 50% 80% / 0.02;
+  --card-container-angle: 180deg;
+  --card-glow: 197 100% 63% / 0.12;
 
-  /* Shadows */
-  --shadow-soft: 220 40% 18% / 0.08;
-  --shadow-hover: 220 40% 18% / 0.16;
-  --surface-shadow: 221 80% 6% / 0.45;
+  /* Shadows - Deep blue */
+  --shadow-soft: 222 60% 3% / 0.50;
+  --shadow-hover: 222 60% 3% / 0.60;
+  --surface-shadow: 222 60% 3% / 0.45;
 
-  /* Ambient glows */
-  --neon-glow-teal: 196 100% 70% / 0.16;
-  --neon-glow-cyan: 198 100% 64% / 0.14;
-  --neon-glow-green: 150 96% 60% / 0.18;
+  /* Ambient glows for hero/background */
+  --neon-glow-teal: 197 100% 63% / 0.18;
+  --neon-glow-cyan: 200 100% 60% / 0.15;
+  --neon-glow-purple: 240 80% 65% / 0.12;
 }
 
 /* =========================================================
@@ -231,10 +233,10 @@
 
   .dark body {
     background:
-      radial-gradient(1200px circle at 8% 6%, hsl(var(--neon-glow-cyan)) 0%, transparent 58%),
-      radial-gradient(980px circle at 88% 18%, hsl(var(--neon-glow-teal)) 0%, transparent 62%),
-      radial-gradient(760px circle at 50% 110%, hsl(var(--neon-glow-green)) 0%, transparent 70%),
-      linear-gradient(160deg, hsl(226 66% 6%) 0%, hsl(228 58% 8%) 45%, hsl(232 52% 11%) 100%);
+      radial-gradient(1200px 600px at 70% -10%, hsl(var(--neon-glow-cyan)) 0%, transparent 55%),
+      radial-gradient(900px 500px at 5% 15%, hsl(var(--neon-glow-purple)) 0%, transparent 50%),
+      radial-gradient(600px 400px at 90% 90%, hsl(220 80% 50% / 0.08) 0%, transparent 50%),
+      linear-gradient(180deg, hsl(222 47% 5%) 0%, hsl(225 50% 4%) 100%);
     background-color: hsl(var(--background));
   }
 
@@ -271,14 +273,7 @@
   }
 
   .dark body::after {
-    background-image:
-      linear-gradient(hsl(0 0% 100% / 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(0 0% 100% / 0.03) 1px, transparent 1px),
-      radial-gradient(circle at 12% -10%, hsl(var(--neon-glow-cyan) / 0.8) 0%, transparent 60%),
-      radial-gradient(circle at 88% 120%, hsl(var(--neon-glow-teal) / 0.75) 0%, transparent 68%);
-    background-size: 60px 60px, 60px 60px, 100% 100%, 100% 100%;
-    background-blend-mode: screen;
-    opacity: 0.85;
+    background: none;
   }
 
   /* Focus styles */
@@ -329,24 +324,20 @@
 .dark .card-container {
   background: linear-gradient(
     var(--card-container-angle),
-    hsl(var(--glass-surface)) 0%,
-    hsl(var(--card-container-start)) 45%,
-    hsl(var(--card-container-end)) 100%);
+    hsl(var(--glass-highlight)) 0%,
+    hsl(var(--glass-surface)) 100%);
   border: 1px solid hsl(var(--glass-border));
-  box-shadow:
-    0 24px 60px hsl(var(--surface-shadow)),
-    0 12px 36px hsl(var(--card-glow)),
-    inset 0 1px 0 hsl(var(--glass-highlight));
-  backdrop-filter: blur(28px) saturate(200%);
-  -webkit-backdrop-filter: blur(28px) saturate(200%);
+  box-shadow: 0 10px 30px hsl(var(--shadow-soft));
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
 }
 
 .dark .card-container::before {
-  background: linear-gradient(100deg,
+  background: linear-gradient(90deg,
     transparent,
     hsl(var(--border-neon)),
     transparent);
-  opacity: 0.55;
+  opacity: 0.4;
 }
 
 /* =========================================================
@@ -381,6 +372,18 @@
   transform: translateY(-2px);
 }
 
+.dark .card {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  box-shadow: 0 10px 30px hsl(var(--shadow-soft));
+  backdrop-filter: none;
+}
+
+.dark .card:hover {
+  box-shadow: 0 12px 40px hsl(var(--shadow-hover));
+  border-color: hsl(var(--border-neon));
+}
+
 /* shadcn Card compatibility */
 [data-slot="card"] {
   background: hsl(var(--card));
@@ -409,19 +412,15 @@ html:not(.dark) [data-slot="card"] {
 .dark [data-slot="card"] {
   border: 1px solid hsl(var(--border));
   background: hsl(var(--card));
-  box-shadow:
-    0 0 20px hsl(220 100% 70% / 0.08),
-    0 4px 12px hsl(220 70% 5% / 0.3),
-    inset 0 1px 0 hsl(0 0% 100% / 0.08);
-  backdrop-filter: blur(8px) saturate(130%);
+  box-shadow: 0 10px 30px hsl(var(--shadow-soft));
+  backdrop-filter: none;
+  border-radius: 16px;
 }
 
 .dark [data-slot="card"]:hover {
-  box-shadow:
-    0 0 26px hsl(var(--border-neon)),
-    0 8px 20px hsl(220 70% 8% / 0.35),
-    inset 0 1px 0 hsl(0 0% 100% / 0.12);
+  box-shadow: 0 12px 40px hsl(var(--shadow-hover));
   border-color: hsl(var(--border-neon));
+  transform: translateY(-2px);
 }
 
 /* =========================================================
@@ -469,17 +468,33 @@ html:not(.dark) [data-slot="card"] {
 }
 
 .dark .btn-primary {
-  background: linear-gradient(90deg, hsl(var(--neon-teal)) 0%, hsl(var(--neon-teal-light)) 100%);
-  box-shadow:
-    0 0 20px hsl(var(--neon-teal) / 0.3),
-    0 8px 26px hsl(var(--neon-teal) / 0.12);
+  background: linear-gradient(180deg, hsl(210 100% 60%) 0%, hsl(210 100% 45%) 100%);
+  border: 1px solid hsl(210 100% 50% / 0.5);
+  box-shadow: 0 10px 24px hsl(210 100% 50% / 0.35);
 }
 
 .dark .btn-primary:hover {
-  transform: translateY(-3px);
-  box-shadow:
-    0 0 30px hsl(var(--neon-teal) / 0.5),
-    0 18px 40px hsl(var(--neon-teal) / 0.15);
+  transform: translateY(-1px);
+  filter: brightness(1.05);
+  box-shadow: 0 12px 28px hsl(210 100% 50% / 0.4);
+}
+
+.dark .btn-secondary {
+  background: linear-gradient(180deg, hsl(215 20% 18%) 0%, hsl(220 25% 10%) 100%);
+  border: 1px solid hsl(var(--border));
+}
+
+.dark .btn-secondary:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 24px hsl(var(--shadow-soft));
+}
+
+.dark .btn-ghost {
+  border: 1px solid hsl(var(--border));
+}
+
+.dark .btn-ghost:hover {
+  background-color: hsl(0 0% 100% / 0.05);
 }
 
 .btn-secondary {
