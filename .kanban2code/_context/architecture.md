@@ -19,3 +19,4 @@ See: [docs/architecture.md](docs/architecture.md) for the full architecture docu
 - task4.6-implement-protected-route-middleware: added protected route logic to `lib/supabase/proxy.ts` with locale-aware authentication checks, tests in `lib/supabase/__tests__/proxy.test.ts` | date: 2026-01-02
 - task4.5-build-password-reset-flow: added callback redirect safety test (`app/auth/callback/__tests__/route.test.ts`); hardened callback redirect handling in `app/auth/callback/route.ts` | date: 2026-01-01
 - task5.1-create-root-layout-with-providers: configured root layout (`app/layout.tsx`) with ThemeProvider, Poppins font, and SEO metadata | date: 2026-01-02
+- task5.2-build-navbar-component: added navbar components (`components/layout/navbar/Navbar.tsx`, `NavLinks.tsx`, `MobileMenu.tsx`, `Logo.tsx`), language switcher (`components/layout/language-switcher.tsx`) | date: 2026-01-02
