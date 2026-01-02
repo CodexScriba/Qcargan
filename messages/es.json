@@ -58,6 +58,12 @@
       "ctaLogin": "Ir a iniciar sesión",
       "ctaHome": "Volver al inicio"
     },
+    "error": {
+      "title": "Este enlace ha expirado",
+      "description": "Solicita un nuevo enlace para continuar.",
+      "ctaLogin": "Ir a iniciar sesión",
+      "ctaHome": "Volver al inicio"
+    },
     "forgot": {
       "title": "Restablecer tu Contraseña",
       "description": "Escribe tu email y te enviaremos un enlace para restablecer tu contraseña",
@@ -66,14 +72,29 @@
       "submitting": "Enviando...",
       "successTitle": "Revisa tu Email",
       "successDescription": "Instrucciones de restablecimiento enviadas",
-      "successBody": "Si te registraste usando tu email y contraseña, recibirás un email para restablecer tu contraseña."
+      "successBody": "Si te registraste usando tu email y contraseña, recibirás un email para restablecer tu contraseña.",
+      "remembered": "¿Recordaste tu contraseña?",
+      "backToLogin": "Volver a iniciar sesión",
+      "error": {
+        "resetFailed": "No pudimos enviar el email. Inténtalo de nuevo."
+      }
     },
     "update": {
       "title": "Restablecer tu Contraseña",
       "description": "Por favor ingresa tu nueva contraseña.",
       "password": "Nueva contraseña",
       "submit": "Guardar nueva contraseña",
-      "submitting": "Guardando..."
+      "confirmPassword": "Repetir contraseña",
+      "submitting": "Guardando...",
+      "successTitle": "Contraseña actualizada",
+      "successDescription": "Ya puedes iniciar sesión con tu nueva contraseña.",
+      "sessionMissingTitle": "El enlace necesita una nueva sesión",
+      "sessionMissingDescription": "Solicita un nuevo email para restablecer tu contraseña.",
+      "sessionMissingCta": "Solicitar nuevo enlace",
+      "error": {
+        "sessionMissing": "Tu sesión de restablecimiento expiró. Solicita un nuevo enlace.",
+        "updateFailed": "No pudimos actualizar tu contraseña. Inténtalo de nuevo."
+      }
     }
   },
   "nav": {

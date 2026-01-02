@@ -106,7 +106,7 @@ export function LoginForm({ className }: { className?: string }) {
           </div>
 
           <div className="grid gap-2">
-            <div className="flex items-center">
+            <div className="flex items-center justify-between">
               <Label
                 htmlFor="password"
                 className="flex items-center gap-2 text-[14px] font-bold text-[hsl(var(--foreground))]"
@@ -114,6 +114,12 @@ export function LoginForm({ className }: { className?: string }) {
                 <Lock className="size-4 text-muted-foreground" />
                 {t("password")}
               </Label>
+              <Link
+                href="/auth/forgot-password"
+                className="text-xs font-semibold text-[hsl(var(--primary))] hover:underline"
+              >
+                {t("forgot")}
+              </Link>
             </div>
             <Input
               id="password"

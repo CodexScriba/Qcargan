@@ -58,6 +58,12 @@
       "ctaLogin": "Go to login",
       "ctaHome": "Return home"
     },
+    "error": {
+      "title": "This link has expired",
+      "description": "Request a new reset link to continue.",
+      "ctaLogin": "Go to login",
+      "ctaHome": "Return home"
+    },
     "forgot": {
       "title": "Reset Your Password",
       "description": "Type in your email and we'll send you a link to reset your password",
@@ -66,14 +72,29 @@
       "submitting": "Sending...",
       "successTitle": "Check Your Email",
       "successDescription": "Password reset instructions sent",
-      "successBody": "If you registered using your email and password, you will receive a password reset email."
+      "successBody": "If you registered using your email and password, you will receive a password reset email.",
+      "remembered": "Remembered your password?",
+      "backToLogin": "Back to login",
+      "error": {
+        "resetFailed": "Unable to send reset email. Please try again."
+      }
     },
     "update": {
       "title": "Reset Your Password",
       "description": "Please enter your new password below.",
       "password": "New password",
+      "confirmPassword": "Repeat password",
       "submit": "Save new password",
-      "submitting": "Saving..."
+      "submitting": "Saving...",
+      "successTitle": "Password updated",
+      "successDescription": "You can now sign in with your new password.",
+      "sessionMissingTitle": "Reset link needs a new session",
+      "sessionMissingDescription": "Request a fresh reset email to update your password.",
+      "sessionMissingCta": "Request new link",
+      "error": {
+        "sessionMissing": "Your reset session expired. Request a new link.",
+        "updateFailed": "Unable to update password. Please try again."
+      }
     }
   },
   "nav": {

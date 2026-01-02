@@ -8,6 +8,9 @@ process.env.NEXT_PUBLIC_SITE_URL = "https://example.com"
 
 const signUpMock = vi.fn()
 const signInWithPasswordMock = vi.fn()
+const resetPasswordForEmailMock = vi.fn()
+const updateUserMock = vi.fn()
+const getUserMock = vi.fn()
 
 vi.mock("next/headers", () => ({
   cookies: vi.fn(() =>
@@ -31,6 +34,9 @@ vi.mock("@supabase/ssr", () => ({
     auth: {
       signUp: signUpMock,
       signInWithPassword: signInWithPasswordMock,
+      resetPasswordForEmail: resetPasswordForEmailMock,
+      updateUser: updateUserMock,
+      getUser: getUserMock,
     },
   })),
 }))
@@ -237,5 +243,130 @@ describe("signUpAction", () => {
         email: "test@example.com",
       })
     )
+  })
+})
+
+describe("forgotPasswordAction", () => {
+  beforeEach(() => {
+    vi.clearAllMocks()
+  })
+
+  it("returns field error for invalid email", async () => {
+    const { forgotPasswordAction } = await import("../actions")
+
+    const formData = new FormData()
+    formData.set("email", "not-an-email")
+
+    const result = await forgotPasswordAction({}, formData)
+
+    expect(result.fieldErrors?.email).toBeDefined()
+    expect(resetPasswordForEmailMock).not.toHaveBeenCalled()
+  })
+
+  it("calls supabase resetPasswordForEmail with redirect", async () => {
+    resetPasswordForEmailMock.mockResolvedValueOnce({ error: null })
+
+    const { forgotPasswordAction } = await import("../actions")
+
+    const formData = new FormData()
+    formData.set("email", "test@example.com")
+
+    const result = await forgotPasswordAction({}, formData)
+
+    expect(resetPasswordForEmailMock).toHaveBeenCalledWith(
+      "test@example.com",
+      {
+        redirectTo: `${process.env.NEXT_PUBLIC_SITE_URL}/auth/callback?next=/auth/update-password`,
+      }
+    )
+    expect(result.success).toBe(true)
+  })
+
+  it("returns error when supabase resetPasswordForEmail fails", async () => {
+    resetPasswordForEmailMock.mockResolvedValueOnce({
+      error: new Error("Reset failed"),
+    })
+
+    const { forgotPasswordAction } = await import("../actions")
+
+    const formData = new FormData()
+    formData.set("email", "test@example.com")
+
+    const result = await forgotPasswordAction({}, formData)
+
+    expect(result.error).toBe("resetFailed")
+  })
+})
+
+describe("updatePasswordAction", () => {
+  beforeEach(() => {
+    vi.clearAllMocks()
+  })
+
+  it("returns field error for password mismatch", async () => {
+    const { updatePasswordAction } = await import("../actions")
+
+    const formData = new FormData()
+    formData.set("password", "123456")
+    formData.set("confirmPassword", "654321")
+
+    const result = await updatePasswordAction({}, formData)
+
+    expect(result.fieldErrors?.confirmPassword).toBeDefined()
+    expect(updateUserMock).not.toHaveBeenCalled()
+  })
+
+  it("returns error when session is missing", async () => {
+    getUserMock.mockResolvedValueOnce({ data: { user: null }, error: null })
+
+    const { updatePasswordAction } = await import("../actions")
+
+    const formData = new FormData()
+    formData.set("password", "password123")
+    formData.set("confirmPassword", "password123")
+
+    const result = await updatePasswordAction({}, formData)
+
+    expect(result.error).toBe("sessionMissing")
+    expect(updateUserMock).not.toHaveBeenCalled()
+  })
+
+  it("calls supabase updateUser when session exists", async () => {
+    getUserMock.mockResolvedValueOnce({
+      data: { user: { id: "user-1" } },
+      error: null,
+    })
+    updateUserMock.mockResolvedValueOnce({ error: null })
+
+    const { updatePasswordAction } = await import("../actions")
+
+    const formData = new FormData()
+    formData.set("password", "password123")
+    formData.set("confirmPassword", "password123")
+
+    const result = await updatePasswordAction({}, formData)
+
+    expect(updateUserMock).toHaveBeenCalledWith({ password: "password123" })
+    expect(result.success).toBe(true)
+  })
+
+  it("returns error when supabase updateUser fails", async () => {
+    getUserMock.mockResolvedValueOnce({
+      data: { user: { id: "user-1" } },
+      error: null,
+    })
+    updateUserMock.mockResolvedValueOnce({
+      error: new Error("Update failed"),
+    })
+
+    const { updatePasswordAction } = await import("../actions")
+
+    const formData = new FormData()
+    formData.set("password", "password123")
+    formData.set("confirmPassword", "password123")
+
+    const result = await updatePasswordAction({}, formData)
+
+    expect(result.error).toBe("updateFailed")
   })
 })

@@ -2,7 +2,12 @@
 
 import { redirect } from "next/navigation"
 import { createClient } from "@/lib/supabase/server"
-import { LoginSchema, SignUpSchema } from "@/lib/validation/auth"
+import {
+  ForgotPasswordSchema,
+  LoginSchema,
+  SignUpSchema,
+  UpdatePasswordSchema,
+} from "@/lib/validation/auth"
 
 function getSiteUrl(): string {
   // Use configured SITE_URL first (most reliable)
@@ -115,5 +120,99 @@ export async function signUpAction(
   }
 
   // Return success flag - the client will handle redirect to success page
+  return { success: true }
+}
+
+export type ForgotPasswordState = {
+  error?: string
+  fieldErrors?: {
+    email?: string
+  }
+  success?: boolean
+}
+
+export async function forgotPasswordAction(
+  _prevState: ForgotPasswordState,
+  formData: FormData
+): Promise<ForgotPasswordState> {
+  const rawData = {
+    email: formData.get("email"),
+  }
+
+  const result = ForgotPasswordSchema.safeParse(rawData)
+
+  if (!result.success) {
+    const fieldErrors: ForgotPasswordState["fieldErrors"] = {}
+    for (const issue of result.error.issues) {
+      const field = issue.path[0] as keyof typeof fieldErrors
+      if (field) {
+        fieldErrors[field] = issue.message
+      }
+    }
+    return { fieldErrors }
+  }
+
+  const supabase = await createClient()
+  const emailRedirectTo = `${getSiteUrl()}/auth/callback?next=/auth/update-password`
+  const { error } = await supabase.auth.resetPasswordForEmail(
+    result.data.email,
+    {
+      redirectTo: emailRedirectTo,
+    }
+  )
+
+  if (error) {
+    return { error: "resetFailed" }
+  }
+
+  return { success: true }
+}
+
+export type UpdatePasswordState = {
+  error?: string
+  fieldErrors?: {
+    password?: string
+    confirmPassword?: string
+  }
+  success?: boolean
+}
+
+export async function updatePasswordAction(
+  _prevState: UpdatePasswordState,
+  formData: FormData
+): Promise<UpdatePasswordState> {
+  const rawData = {
+    password: formData.get("password"),
+    confirmPassword: formData.get("confirmPassword"),
+  }
+
+  const result = UpdatePasswordSchema.safeParse(rawData)
+
+  if (!result.success) {
+    const fieldErrors: UpdatePasswordState["fieldErrors"] = {}
+    for (const issue of result.error.issues) {
+      const field = issue.path[0] as keyof typeof fieldErrors
+      if (field) {
+        fieldErrors[field] = issue.message
+      }
+    }
+    return { fieldErrors }
+  }
+
+  const supabase = await createClient()
+  const { data, error: userError } = await supabase.auth.getUser()
+
+  if (userError || !data?.user) {
+    return { error: "sessionMissing" }
+  }
+
+  const { error } = await supabase.auth.updateUser({
+    password: result.data.password,
+  })
+
+  if (error) {
+    return { error: "updateFailed" }
+  }
+
   return { success: true }
 }

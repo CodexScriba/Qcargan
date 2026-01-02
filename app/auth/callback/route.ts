@@ -2,11 +2,19 @@ import { NextResponse, type NextRequest } from "next/server"
 import { createServerClient } from "@supabase/ssr"
 import { hasLocale } from "next-intl"
 
-import { routing } from "@/lib/i18n/routing"
+import { routing, type PathnameKey } from "@/lib/i18n/routing"
 import { getPathname } from "@/lib/i18n/navigation"
 import { hasEnvVars } from "@/lib/utils"
 
 const LOCALE_COOKIE_KEYS = ["NEXT_LOCALE", "locale", "preferred_locale"]
+
+export function isSafeNextPath(value: string): boolean {
+  return value.startsWith("/") && !value.startsWith("//")
+}
+
+function isPathnameKey(value: string): value is PathnameKey {
+  return Object.prototype.hasOwnProperty.call(routing.pathnames, value)
+}
 
 function detectLocale(request: NextRequest) {
   for (const key of LOCALE_COOKIE_KEYS) {
@@ -45,17 +53,31 @@ function detectLocale(request: NextRequest) {
 export async function GET(request: NextRequest) {
   const code = request.nextUrl.searchParams.get("code")
   const hasError = request.nextUrl.searchParams.has("error")
+  const next = request.nextUrl.searchParams.get("next")
   const locale = detectLocale(request)
   const origin = request.nextUrl.origin
-  const dashboardUrl = new URL(`/${locale}/dashboard`, origin)
+  const dashboardPath = getPathname({ locale, href: "/dashboard" })
   const loginPath = getPathname({ locale, href: "/auth/login" })
+  const errorPath = getPathname({ locale, href: "/auth/error" })
   const loginUrl = new URL(loginPath, origin)
+  const errorUrl = new URL(errorPath, origin)
 
   if (!code || hasError || !hasEnvVars) {
-    return NextResponse.redirect(loginUrl)
+    return NextResponse.redirect(errorUrl)
   }
 
-  let redirectUrl = dashboardUrl
+  let redirectUrl = new URL(dashboardPath, origin)
+  if (next && isSafeNextPath(next)) {
+    if (isPathnameKey(next)) {
+      const localizedNext = getPathname({
+        locale,
+        href: next,
+      })
+      redirectUrl = new URL(localizedNext, origin)
+    } else {
+      redirectUrl = new URL(next, origin)
+    }
+  }
   let response = NextResponse.redirect(redirectUrl)
 
   const supabaseKey =
@@ -82,7 +104,7 @@ export async function GET(request: NextRequest) {
 
   const { error } = await supabase.auth.exchangeCodeForSession(code)
   if (error) {
-    redirectUrl = loginUrl
+    redirectUrl = errorUrl
     response = NextResponse.redirect(redirectUrl)
   }
 

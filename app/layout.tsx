@@ -4,6 +4,10 @@ import "./globals.css";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { routing } from "@/lib/i18n/routing";
 
+const defaultUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : "http://localhost:3000";
+
 const poppins = Poppins({
   variable: "--font-poppins",
   weight: ["400", "500", "600", "700", "800"],
@@ -12,8 +16,10 @@ const poppins = Poppins({
 });
 
 export const metadata: Metadata = {
-  title: "QueCargan",
-  description: "The Future of Web Design",
+  metadataBase: new URL(defaultUrl),
+  title: "QueCargan - The Future of Web Design",
+  description:
+    "We're building something extraordinary. A new way to create, design, and collaborate on the web.",
 };
 
 export default function RootLayout({
@@ -22,7 +28,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang={routing.defaultLocale} suppressHydrationWarning className={`${poppins.variable} font-sans`}>
+    <html
+      lang={routing.defaultLocale}
+      suppressHydrationWarning
+      className={`${poppins.variable} font-sans`}
+    >
       <body className="antialiased">
         <ThemeProvider
           attribute="class"
