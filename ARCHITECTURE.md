@@ -94,7 +94,8 @@ qcargan/
 │   ├── layout/               # Layout components
 │   │   ├── navbar/
 │   │   ├── language-switcher.tsx
-│   │   └── theme-switcher.tsx
+│   │   ├── theme-switcher.tsx
+│   │   └── Logo.tsx
 │   ├── auth/                 # Authentication components
 │   │   ├── login-form.tsx
 │   │   ├── sign-up-form.tsx

@@ -9,7 +9,7 @@ import { ThemeSwitcher } from "@/components/layout/theme-switcher"
 import { Button } from "@/components/ui/button"
 import { Link } from "@/lib/i18n/navigation"
 
-import { Logo } from "./Logo"
+import { Logo } from "@/components/layout/Logo"
 import { MobileMenu } from "./MobileMenu"
 import { NavLinks } from "./NavLinks"
 

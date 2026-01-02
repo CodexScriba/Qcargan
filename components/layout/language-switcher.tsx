@@ -16,6 +16,7 @@ export function LanguageSwitcher() {
   const pathname = usePathname()
 
   const handleLanguageChange = (newLocale: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any -- next-intl strict pathname typing requires cast for dynamic routes
     router.replace(pathname as any, { locale: newLocale })
   }
 
@@ -41,15 +42,16 @@ export function LanguageSwitcher() {
                 : "text-muted-foreground/70 hover:bg-background/70 hover:text-foreground"
             )}
           >
-          <span
-            className={cn(
-              "absolute inset-0 -z-10 rounded-full bg-gradient-to-br from-primary/40 via-primary/30 to-transparent opacity-0 transition-opacity duration-300",
-              isActive && "opacity-60"
-            )}
-          />
-          <span className="text-base leading-none">{flag}</span>
-          <span className="sr-only">{name}</span>
-        </button>
+            <span
+              className={cn(
+                "absolute inset-0 -z-10 rounded-full bg-linear-to-br from-primary/40 via-primary/30 to-transparent opacity-0 transition-opacity duration-300",
+                isActive && "opacity-60"
+              )}
+            />
+            <span className="text-base leading-none">{flag}</span>
+            <span className="sr-only">{name}</span>
+          </button>
+        )
       })}
     </div>
   )

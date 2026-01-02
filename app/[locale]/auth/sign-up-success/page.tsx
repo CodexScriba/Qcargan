@@ -12,13 +12,9 @@ export default async function SignUpSuccessPage({ params }: PageProps) {
   const t = await getTranslations("auth.signUpSuccess")
 
   return (
-    <div className="relative min-h-screen bg-background text-foreground">
-      <main className="mx-auto flex w-full max-w-[1600px] flex-1 items-center justify-center px-4 py-24 sm:px-6 lg:px-12">
-        <section className="card-container w-full max-w-2xl">
-          <div
-            className="flex flex-col items-center gap-8 p-8 text-center sm:p-12"
-            data-slot="card"
-          >
+    <main className="mx-auto flex w-full max-w-[1600px] flex-1 items-center justify-center px-4 py-24 sm:px-6 lg:px-12">
+      <section className="card-container w-full max-w-2xl">
+        <div className="flex flex-col items-center gap-8 p-8 text-center sm:p-12">
             <div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-[hsl(var(--secondary)/0.55)] text-3xl">
               <span aria-hidden="true">🎉</span>
               <span className="sr-only">{t("title")}</span>
@@ -28,7 +24,7 @@ export default async function SignUpSuccessPage({ params }: PageProps) {
                 className="mx-auto h-[3px] w-16 rounded-full bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--brand))]"
                 aria-hidden="true"
               />
-              <h1 className="text-balance text-3xl font-semibold tracking-tight text-[hsl(var(--title-blue))] sm:text-4xl">
+              <h1 className="bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--brand))] bg-clip-text text-balance text-3xl font-semibold tracking-tight text-transparent sm:text-4xl">
                 {t("title")}
               </h1>
               <p className="max-w-xl text-pretty text-[hsl(var(--muted-foreground))]">
@@ -61,9 +57,8 @@ export default async function SignUpSuccessPage({ params }: PageProps) {
                 {t("ctaHome")}
               </Link>
             </div>
-          </div>
-        </section>
-      </main>
-    </div>
+        </div>
+      </section>
+    </main>
   )
 }
