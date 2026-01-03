@@ -81,3 +81,4 @@ export const routing = defineRouting({
 
 export type Locale = (typeof routing.locales)[number]
 export type PathnameKey = keyof typeof pathnames
+export type PathnameValue = typeof pathnames[PathnameKey]

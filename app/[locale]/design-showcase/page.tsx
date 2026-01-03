@@ -22,7 +22,7 @@ export default function DesignShowcasePage() {
         <div className="card-container rounded-3xl space-y-6">
           {/* Section Header with Accent Bar */}
           <div className="flex items-center gap-3">
-            <div className="w-1 h-8 bg-gradient-to-b from-[hsl(var(--primary))] to-[hsl(var(--brand))] rounded-full" />
+            <div className="w-1 h-8 gradient-primary-brand-vertical rounded-full" />
             <div>
               <h2 className="text-2xl font-bold tracking-tight">Charging Stations</h2>
               <p className="text-sm text-muted-foreground">Your network at a glance</p>
@@ -90,7 +90,7 @@ export default function DesignShowcasePage() {
         {/* Container with Table */}
         <div className="card-container rounded-3xl space-y-6">
           <div className="flex items-center gap-3">
-            <div className="w-1 h-8 bg-gradient-to-b from-[hsl(var(--primary))] to-[hsl(var(--brand))] rounded-full" />
+            <div className="w-1 h-8 gradient-primary-brand-vertical rounded-full" />
             <div>
               <h2 className="text-2xl font-bold tracking-tight">Recent Sessions</h2>
               <p className="text-sm text-muted-foreground">Last 24 hours of charging activity</p>
@@ -163,7 +163,7 @@ export default function DesignShowcasePage() {
         {/* Form Elements Section */}
         <div className="card-container rounded-3xl space-y-6">
           <div className="flex items-center gap-3">
-            <div className="w-1 h-8 bg-gradient-to-b from-[hsl(var(--primary))] to-[hsl(var(--brand))] rounded-full" />
+            <div className="w-1 h-8 gradient-primary-brand-vertical rounded-full" />
             <div>
               <h2 className="text-2xl font-bold tracking-tight">Form Elements</h2>
               <p className="text-sm text-muted-foreground">Input styles and buttons</p>

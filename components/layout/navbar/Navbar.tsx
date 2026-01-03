@@ -48,7 +48,7 @@ export function Navbar() {
   return (
     <header
       ref={headerRef}
-      className="sticky top-0 z-50 w-full border-b border-[hsl(var(--border))] bg-muted/40 text-foreground shadow-[0_6px_20px_-15px_rgba(15,23,42,0.4)] backdrop-blur supports-[backdrop-filter]:bg-muted/20"
+      className="sticky top-0 z-50 w-full border-b border-border bg-muted/40 text-foreground shadow-[0_6px_20px_-15px_rgba(15,23,42,0.4)] backdrop-blur supports-backdrop-filter:bg-muted/20"
     >
       <div className="hidden lg:block">
         <nav className="flex h-20 w-full items-center gap-6 px-6">
@@ -59,14 +59,14 @@ export function Navbar() {
           <div className="flex items-center gap-3">
             <LanguageSwitcher />
             <ThemeSwitcher />
-            <Button asChild variant="ghost" className="gap-2 transition-all duration-300 hover:-translate-y-[1px]">
-              <Link href={"/auth/login" as any}>
+            <Button asChild variant="ghost" className="gap-2 transition-all duration-300 hover:-translate-y-px">
+              <Link href="/auth/login">
                 <LogIn className="h-4 w-4" />
                 {t("login")}
               </Link>
             </Button>
             <Button asChild className="gap-2 shadow-[0_22px_40px_-25px_rgba(59,130,246,0.85)]">
-              <Link href={"/auth/sign-up" as any}>
+              <Link href="/auth/sign-up">
                 {t("signUp")}
                 <ArrowRight className="h-4 w-4" />
               </Link>
@@ -88,15 +88,15 @@ export function Navbar() {
               asChild
               variant="ghost"
               size="sm"
-              className="gap-2 transition-all duration-300 hover:-translate-y-[1px]"
+              className="gap-2 transition-all duration-300 hover:-translate-y-px"
             >
-              <Link href={"/auth/login" as any}>
+              <Link href="/auth/login">
                 <LogIn className="h-4 w-4" />
                 {t("login")}
               </Link>
             </Button>
             <Button asChild size="sm" className="gap-2 shadow-[0_22px_40px_-25px_rgba(59,130,246,0.85)]">
-              <Link href={"/auth/sign-up" as any}>
+              <Link href="/auth/sign-up">
                 {t("join")}
                 <ArrowRight className="h-4 w-4" />
               </Link>

@@ -21,22 +21,22 @@ export default async function SignUpSuccessPage({ params }: PageProps) {
             </div>
             <div className="space-y-4">
               <div
-                className="mx-auto h-[3px] w-16 rounded-full bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--brand))]"
+                className="mx-auto h-[3px] w-16 rounded-full gradient-primary-brand"
                 aria-hidden="true"
               />
-              <h1 className="bg-gradient-to-r from-[hsl(var(--primary))] to-[hsl(var(--brand))] bg-clip-text text-balance text-3xl font-semibold tracking-tight text-transparent sm:text-4xl">
+              <h1 className="gradient-primary-brand-text text-balance text-3xl font-semibold tracking-tight sm:text-4xl">
                 {t("title")}
               </h1>
-              <p className="max-w-xl text-pretty text-[hsl(var(--muted-foreground))]">
+              <p className="max-w-xl text-pretty text-muted-foreground">
                 {t("subtitle")}
               </p>
             </div>
-            <div className="flex flex-col items-center gap-3 rounded-3xl border border-[hsl(var(--surface-border))] bg-[hsl(var(--surface))] px-6 py-5 text-center text-[hsl(var(--surface-foreground))] sm:px-8 sm:py-6">
+            <div className="flex flex-col items-center gap-3 rounded-3xl border border-[hsl(var(--surface-border))] bg-surface px-6 py-5 text-center text-[hsl(var(--surface-foreground))] sm:px-8 sm:py-6">
               <div className="inline-flex items-center gap-2 text-sm font-semibold text-[hsl(var(--surface-foreground))]">
                 <span aria-hidden="true">📧</span>
                 <span>{t("confirmation")}</span>
               </div>
-              <p className="text-sm font-medium text-[hsl(var(--muted-foreground))]">
+              <p className="text-sm font-medium text-muted-foreground">
                 {t("tipsTitle")}
               </p>
               <p className="text-sm leading-relaxed text-[hsl(var(--surface-foreground))]">
@@ -52,7 +52,7 @@ export default async function SignUpSuccessPage({ params }: PageProps) {
               </Link>
               <Link
                 href="/"
-                className="card-hover inline-flex items-center justify-center rounded-full border border-[hsl(var(--border))] bg-[hsl(var(--card))] px-6 py-3 text-sm font-semibold text-[hsl(var(--dark-blue))] transition hover:-translate-y-0.5 hover:shadow-lg"
+                className="card-hover inline-flex items-center justify-center rounded-full border border-border bg-card px-6 py-3 text-sm font-semibold text-dark-blue transition hover:-translate-y-0.5 hover:shadow-lg"
               >
                 {t("ctaHome")}
               </Link>

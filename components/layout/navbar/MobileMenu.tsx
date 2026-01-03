@@ -17,14 +17,14 @@ export function MobileMenu() {
     <Sheet open={open} onOpenChange={setOpen}>
       <SheetTrigger asChild>
         <Button variant="ghost" size="icon" aria-label={t("navigate")}
-          className="transition-all duration-300 hover:-translate-y-[1px]"
+          className="transition-all duration-300 hover:-translate-y-px"
         >
           <Menu className="h-5 w-5" />
         </Button>
       </SheetTrigger>
       <SheetContent
         side="right"
-        className="bg-muted/60 backdrop-blur supports-[backdrop-filter]:bg-muted/40"
+        className="bg-muted/60 backdrop-blur supports-backdrop-filter:bg-muted/40"
       >
         <SheetHeader>
           <SheetTitle className="text-lg">{t("navigate")}</SheetTitle>
@@ -33,13 +33,13 @@ export function MobileMenu() {
           <NavLinks orientation="vertical" onNavigate={() => setOpen(false)} />
           <div className="mt-auto flex flex-col gap-3 p-4">
             <Button asChild variant="outline" className="gap-2">
-              <Link href={"/auth/login" as any} onClick={() => setOpen(false)}>
+              <Link href="/auth/login" onClick={() => setOpen(false)}>
                 <LogIn className="h-4 w-4" />
                 {t("login")}
               </Link>
             </Button>
             <Button asChild className="gap-2 shadow-[0_22px_40px_-25px_rgba(59,130,246,0.85)]">
-              <Link href={"/auth/sign-up" as any} onClick={() => setOpen(false)}>
+              <Link href="/auth/sign-up" onClick={() => setOpen(false)}>
                 {t("signUp")}
                 <ArrowRight className="h-4 w-4" />
               </Link>

@@ -2,7 +2,7 @@
 
 import Image from "next/image"
 import { useTheme } from "next-themes"
-import { useEffect, useState } from "react"
+import { useSyncExternalStore } from "react"
 
 import { Link } from "@/lib/i18n/navigation"
 import { cn } from "@/lib/utils"
@@ -12,13 +12,15 @@ const logoSources = {
   light: "/images/logo/logo-light.png",
 }
 
-export function Logo({ className }: { className?: string }) {
-  const [mounted, setMounted] = useState(false)
-  const { resolvedTheme } = useTheme()
+const emptySubscribe = () => () => {}
 
-  useEffect(() => {
-    setMounted(true)
-  }, [])
+export function Logo({ className }: { className?: string }) {
+  const mounted = useSyncExternalStore(
+    emptySubscribe,
+    () => true,
+    () => false
+  )
+  const { resolvedTheme } = useTheme()
 
   if (!mounted) {
     return (
