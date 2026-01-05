@@ -5,8 +5,12 @@
     }
   },
   "Home": {
-    "heroTitle": "Welcome to Qcargan",
-    "heroDescription": "Your destination for electric vehicles."
+    "heroTitle": "Discover electric vehicles",
+    "heroSubtitle": "Your destination to explore, compare, and reserve the best electric vehicles on the market.",
+    "cta": {
+      "signup": "Create account",
+      "login": "Sign in"
+    }
   },
   "auth": {
     "login": {

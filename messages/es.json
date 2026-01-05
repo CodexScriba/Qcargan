@@ -5,8 +5,12 @@
     }
   },
   "Home": {
-    "heroTitle": "Bienvenido a Qcargan",
-    "heroDescription": "Tu destino para vehículos eléctricos."
+    "heroTitle": "Descubre vehículos eléctricos",
+    "heroSubtitle": "Tu destino para explorar, cotizar y reservar los mejores vehículos eléctricos del mercado.",
+    "cta": {
+      "signup": "Crear cuenta",
+      "login": "Ingresar"
+    }
   },
   "auth": {
     "login": {

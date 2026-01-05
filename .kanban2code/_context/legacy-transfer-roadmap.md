@@ -1,6 +1,8 @@
 ---
 stage: completed
-tags: [rebuild, security]
+tags:
+  - rebuild
+  - security
 contexts:
   - _context/skills/react-core-skills.md
   - _context/skills/skill-next-intl.md
@@ -16,6 +18,12 @@ contexts:
   - _context/skills/nextjs-core-skills.md
   - ai-guide
 agent: 03-✂️splitter
+name: Legacy-transfer-roadmap
+description: roadmap to upate.
+scope: global
+created: '2026-01-05'
+file_references:
+  - projects/legacy-transfer/roadmap-legacy-transfer.md
 ---
 # Legacy Transfer: QueCargan Rebuild
 
@@ -841,30 +849,26 @@ bun add -D drizzle-kit vitest @vitejs/plugin-react @playwright/test
 
 #### Task 6.1: Build Landing Page
 **Definition of Done:**
-- [x] Hero section with headline and subheading
-- [x] Two CTAs: Sign up (primary) and Login (secondary)
-- [x] Responsive design (mobile, tablet, desktop)
-- [x] Translations in Spanish and English
+- [ ] Hero section with headline, subhead, CTA/waitlist
+- [ ] Value props section highlighting key benefits
+- [ ] Final CTA section
+- [ ] Glassmorphic design applied
 
 **Files:**
-- `app/[locale]/page.tsx` - modify - hero landing page
-- `messages/es.json` - modify - add Home translations
-- `messages/en.json` - modify - add Home translations
+- `app/[locale]/page.tsx` - modify - complete landing page
 
 **Tests:**
-- [x] Visual: Hero section renders correctly
-- [x] Integration: CTAs link to auth pages
-- [x] Build: `bun run build` succeeds
-- [ ] Manual: Test both Spanish and English locales
+- [ ] Visual: All sections render correctly
+- [ ] Visual: Glassmorphic effects visible
+- [ ] Integration: CTAs functional
 
 ---
 
 #### Task 6.2: Build Placeholder Pages
 **Definition of Done:**
-- [ ] Services page with "Coming Soon" structure and email capture
-- [ ] Shop page with "Coming Soon" structure and email capture
-- [ ] Used cars waitlist page with email capture form
-- [ ] All pages properly localized (Spanish/English)
+- [ ] Services page with "Coming Soon" structure
+- [ ] Shop page with "Coming Soon" structure
+- [ ] Used cars waitlist page with email capture
 
 **Files:**
 - `app/[locale]/servicios/page.tsx` - create
@@ -873,8 +877,7 @@ bun add -D drizzle-kit vitest @vitejs/plugin-react @playwright/test
 
 **Tests:**
 - [ ] Visual: Pages render correctly
-- [ ] Integration: Email capture forms submit
-- [ ] Navigation: Links accessible from navbar
+- [ ] Integration: Waitlist form submits
 
 ---
 
