@@ -5,17 +5,25 @@
     }
   },
   "Home": {
-    "hero": {
-      "title": "QueCargan: tu copiloto eléctrico",
-      "subtitle": "Explora modelos eléctricos, compara el costo total y prepárate para cargar: todo lo que necesitas para pasarte a lo eléctrico en un solo lugar.",
-      "cta": "Crear cuenta",
-      "ctaAriaLabel": "Crear una cuenta",
-      "imageAlt": "Un vehículo eléctrico moderno cargando en una estación futurista al atardecer, con el skyline de una ciudad inteligente al fondo."
-    }
+    "heroBadge": "Movilidad eléctrica, sin complicaciones",
+    "heroTitleStart": "QueCargan",
+    "heroTitleEnd": "tu copiloto eléctrico",
+    "heroSubtitle": "Explora modelos eléctricos, compara el costo total y prepárate para cargar: todo lo que necesitas para pasarte a lo eléctrico en un solo lugar.",
+    "cta": {
+      "signup": "Crear cuenta",
+      "login": "Iniciar sesión"
+    },
+    "stats": {
+      "rangeLabel": "Autonomía",
+      "rangeValue": "500 km+",
+      "accelerationLabel": "0-100 km/h",
+      "accelerationValue": "3,2 s"
+    },
+    "imageAlt": "Vehículo eléctrico"
   },
   "auth": {
     "login": {
-      "title": "Iniciar Sesión",
+      "title": "Iniciar sesión",
       "description": "Ingresa tu email para iniciar sesión",
       "welcome": "Hola de nuevo",
       "subtitle": "Inicia sesión para continuar",
@@ -23,10 +31,10 @@
       "email": "Email",
       "password": "Contraseña",
       "forgot": "¿Olvidaste tu contraseña?",
-      "submit": "Iniciar Sesión",
+      "submit": "Iniciar sesión",
       "submitting": "Iniciando sesión...",
       "signup": "¿No tienes una cuenta?",
-      "signupLink": "Registrarse",
+      "signupLink": "Crear cuenta",
       "orContinueWith": "O continuar con",
       "remember": "Recuérdame",
       "error": {
@@ -38,24 +46,24 @@
       }
     },
     "signup": {
-      "title": "Registrarse",
-      "description": "Crear una nueva cuenta",
+      "title": "Crear cuenta",
+      "description": "Crea una cuenta nueva",
       "email": "Email",
       "displayName": "Nombre visible",
       "displayNameHelp": "Este será tu nombre visible",
       "password": "Contraseña",
-      "repeat": "Repetir Contraseña",
-      "submit": "Registrarse",
+      "repeat": "Repetir contraseña",
+      "submit": "Crear cuenta",
       "submitting": "Creando cuenta...",
       "haveAccount": "¿Ya tienes una cuenta?",
-      "loginLink": "Iniciar Sesión",
+      "loginLink": "Iniciar sesión",
       "passwordsMismatch": "Las contraseñas no coinciden",
       "error": {
         "signUpFailed": "No se pudo crear la cuenta. Inténtalo de nuevo."
       }
     },
     "signUpSuccess": {
-      "title": "Bienvenido a Qcargan",
+      "title": "Bienvenido a QueCargan",
       "subtitle": "Confirma tu email para activar tu espacio de trabajo.",
       "confirmation": "Acabamos de enviar un enlace de confirmación a tu bandeja de entrada. Ábrelo para verificar tu cuenta y desbloquear el panel.",
       "tipsTitle": "¿No encuentras el correo?",
@@ -70,12 +78,12 @@
       "ctaHome": "Volver al inicio"
     },
     "forgot": {
-      "title": "Restablecer tu Contraseña",
+      "title": "Restablecer tu contraseña",
       "description": "Escribe tu email y te enviaremos un enlace para restablecer tu contraseña",
       "email": "Email",
       "submit": "Enviar email de restablecimiento",
       "submitting": "Enviando...",
-      "successTitle": "Revisa tu Email",
+      "successTitle": "Revisa tu email",
       "successDescription": "Instrucciones de restablecimiento enviadas",
       "successBody": "Si te registraste usando tu email y contraseña, recibirás un email para restablecer tu contraseña.",
       "remembered": "¿Recordaste tu contraseña?",
@@ -85,7 +93,7 @@
       }
     },
     "update": {
-      "title": "Restablecer tu Contraseña",
+      "title": "Restablecer tu contraseña",
       "description": "Por favor ingresa tu nueva contraseña.",
       "password": "Nueva contraseña",
       "submit": "Guardar nueva contraseña",
@@ -109,9 +117,9 @@
     "usedCars": "Autos Usados",
     "services": "Servicios",
     "shop": "Tienda",
-    "login": "Ingresar",
+    "login": "Iniciar sesión",
     "signUp": "Crear cuenta",
-    "join": "Unirse",
+    "join": "Crear cuenta",
     "searchPlaceholder": "Buscar vehículos, servicios...",
     "navigate": "Navegar",
     "exploreModels": "Explorar Modelos Eléctricos",

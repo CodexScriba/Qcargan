@@ -1,9 +1,14 @@
 ---
-stage: plan
-tags: [chore, p2]
-agent: 04-📋planner
-contexts: [ai-guide, _context/skills/skill-next-intl.md]
+stage: completed
+tags:
+  - chore
+  - p2
+agent: auditor
+contexts:
+  - ai-guide
 parent: roadmap-legacy-transfer
+skills:
+  - skill-next-intl
 ---
 
 # Complete Translation Files
@@ -14,8 +19,8 @@ All UI strings for landing page and auth flows translated to Spanish and English
 ## Definition of Done
 - [x] Landing page translations (Home.heroTitle, heroSubtitle, cta.signup, cta.login)
 - [x] Auth page translations (login, signup, password reset, etc.)
-- [ ] No missing translation warnings in console
-- [ ] Consistent terminology across pages
+- [x] No missing translation warnings in console
+- [x] Consistent terminology across pages
 
 ## Files
 - `messages/es.json` - modify - complete translations for landing + auth
@@ -31,3 +36,9 @@ All UI strings for landing page and auth flows translated to Spanish and English
 Phase 7: Polish & Security
 Scope limited to landing page and auth flows (marketplace features deferred).
 Legacy reference: `/legacy/messages/`
+
+## Audit
+app/[locale]/page.tsx
+app/[locale]/__tests__/page.test.tsx
+messages/en.json
+messages/es.json

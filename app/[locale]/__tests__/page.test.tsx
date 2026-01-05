@@ -26,7 +26,18 @@ vi.mock("next-intl/server", () => ({
 describe("HomePage Integration", () => {
   it("renders translated content from server translations", async () => {
     currentMessages = {
-      "Home.hero": { title: "Test Title", subtitle: "Test Subtitle", cta: "CTA" },
+      Home: {
+        heroBadge: "Badge",
+        heroTitleStart: "Test Title",
+        heroTitleEnd: "Test Suffix",
+        heroSubtitle: "Test Subtitle",
+        "cta.signup": "CTA",
+        imageAlt: "Alt text",
+        "stats.rangeLabel": "Range",
+        "stats.rangeValue": "500 km+",
+        "stats.accelerationLabel": "0-100 km/h",
+        "stats.accelerationValue": "3.2s",
+      },
     }
 
     const params = Promise.resolve({ locale: "es" })
@@ -35,6 +46,7 @@ describe("HomePage Integration", () => {
     render(ui)
 
     expect(screen.getByText("Test Title")).toBeInTheDocument()
+    expect(screen.getByText("Test Suffix")).toBeInTheDocument()
     expect(screen.getByText("Test Subtitle")).toBeInTheDocument()
     expect(screen.getByText("CTA")).toBeInTheDocument()
   })

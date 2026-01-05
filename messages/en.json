@@ -5,26 +5,34 @@
     }
   },
   "Home": {
-    "hero": {
-      "title": "QueCargan: your EV co-pilot",
-      "subtitle": "Explore electric models, compare total cost, and get ready to charge—everything you need to go electric in one place.",
-      "cta": "Create your account",
-      "ctaAriaLabel": "Create an account",
-      "imageAlt": "A modern electric vehicle charging at a futuristic station at dusk, with a smart city skyline in the background."
-    }
+    "heroBadge": "Electric mobility, simplified",
+    "heroTitleStart": "QueCargan",
+    "heroTitleEnd": "your EV co-pilot",
+    "heroSubtitle": "Explore electric models, compare total cost, and get ready to charge—everything you need to go electric in one place.",
+    "cta": {
+      "signup": "Create your account",
+      "login": "Log in"
+    },
+    "stats": {
+      "rangeLabel": "Range",
+      "rangeValue": "500 km+",
+      "accelerationLabel": "0-100 km/h",
+      "accelerationValue": "3.2s"
+    },
+    "imageAlt": "Electric vehicle"
   },
   "auth": {
     "login": {
-      "title": "Login",
-      "description": "Enter your email to login",
+      "title": "Log in",
+      "description": "Enter your email to log in",
       "welcome": "Welcome back",
       "subtitle": "Sign in to continue",
       "identifier": "Email",
       "email": "Email",
       "password": "Password",
       "forgot": "Forgot your password?",
-      "submit": "Login",
-      "submitting": "Logging in...",
+      "submit": "Log in",
+      "submitting": "Logging in…",
       "signup": "Don't have an account?",
       "signupLink": "Sign up",
       "orContinueWith": "Or continue with",
@@ -46,27 +54,27 @@
       "password": "Password",
       "repeat": "Repeat Password",
       "submit": "Sign up",
-      "submitting": "Creating an account...",
+      "submitting": "Creating an account…",
       "haveAccount": "Already have an account?",
-      "loginLink": "Login",
+      "loginLink": "Log in",
       "passwordsMismatch": "Passwords do not match",
       "error": {
         "signUpFailed": "Unable to create account. Please try again."
       }
     },
     "signUpSuccess": {
-      "title": "Welcome to Que Cargan",
+      "title": "Welcome to QueCargan",
       "subtitle": "Confirm your email to activate your workspace.",
       "confirmation": "We just sent a confirmation link to your inbox. Open it to verify your account and unlock the dashboard.",
       "tipsTitle": "Can't find the email?",
       "tips": "Check spam or promotions and add hola@quecargan.com to your safe sender list.",
-      "ctaLogin": "Go to login",
+      "ctaLogin": "Go to log in",
       "ctaHome": "Return home"
     },
     "error": {
       "title": "This link has expired",
       "description": "Request a new reset link to continue.",
-      "ctaLogin": "Go to login",
+      "ctaLogin": "Go to log in",
       "ctaHome": "Return home"
     },
     "forgot": {
@@ -74,8 +82,8 @@
       "description": "Type in your email and we'll send you a link to reset your password",
       "email": "Email",
       "submit": "Send reset email",
-      "submitting": "Sending...",
-      "successTitle": "Check Your Email",
+      "submitting": "Sending…",
+      "successTitle": "Check your email",
       "successDescription": "Password reset instructions sent",
       "successBody": "If you registered using your email and password, you will receive a password reset email.",
       "remembered": "Remembered your password?",
@@ -90,7 +98,7 @@
       "password": "New password",
       "confirmPassword": "Repeat password",
       "submit": "Save new password",
-      "submitting": "Saving...",
+      "submitting": "Saving…",
       "successTitle": "Password updated",
       "successDescription": "You can now sign in with your new password.",
       "sessionMissingTitle": "Reset link needs a new session",
@@ -109,9 +117,9 @@
     "usedCars": "Used Cars",
     "services": "Services",
     "shop": "Shop",
-    "login": "Login",
-    "signUp": "Create account",
-    "join": "Join",
+    "login": "Log in",
+    "signUp": "Sign up",
+    "join": "Sign up",
     "searchPlaceholder": "Search vehicles, services...",
     "navigate": "Navigate",
     "exploreModels": "Explore Electric Models",
