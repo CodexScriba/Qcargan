@@ -46,13 +46,9 @@ export async function updateSession(request: NextRequest) {
     return response
   }
 
-  const supabaseKey =
-    process.env.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_OR_ANON_KEY ??
-    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
-
   const supabase = createServerClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
-    supabaseKey!,
+    process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
     {
       cookies: {
         getAll() {
