@@ -1,9 +1,15 @@
 ---
 stage: plan
-tags: [feature, p1]
-agent: 04-📋planner
-contexts: [ai-guide, _context/skills/react-core-skills.md, _context/skills/skill-tailwindcss-v4.md]
+tags:
+  - feature
+  - p1
+agent: "04-\U0001F4CBplanner"
+contexts:
+  - ai-guide
 parent: roadmap-legacy-transfer
+skills:
+  - react-core-skills
+  - skill-tailwindcss-v4
 ---
 
 # Build Home Page
