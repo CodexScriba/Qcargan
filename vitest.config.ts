@@ -7,6 +7,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "@": fileURLToPath(new URL("./", import.meta.url)),
+      "next/navigation": "next/navigation.js",
     },
   },
   test: {

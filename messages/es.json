@@ -5,11 +5,12 @@
     }
   },
   "Home": {
-    "heroTitle": "Descubre vehículos eléctricos",
-    "heroSubtitle": "Tu destino para explorar, cotizar y reservar los mejores vehículos eléctricos del mercado.",
-    "cta": {
-      "signup": "Crear cuenta",
-      "login": "Ingresar"
+    "hero": {
+      "title": "QueCargan: tu copiloto eléctrico",
+      "subtitle": "Explora modelos eléctricos, compara el costo total y prepárate para cargar: todo lo que necesitas para pasarte a lo eléctrico en un solo lugar.",
+      "cta": "Crear cuenta",
+      "ctaAriaLabel": "Crear una cuenta",
+      "imageAlt": "Un vehículo eléctrico moderno cargando en una estación futurista al atardecer, con el skyline de una ciudad inteligente al fondo."
     }
   },
   "auth": {
@@ -264,6 +265,61 @@
       "whatsappMessage": "Hola, estoy interesado en el {year} {brand} {model}. Más info: {url}",
       "emailSubject": "Consulta por {year} {brand} {model}",
       "emailBody": "Hola, estoy interesado en el {year} {brand} {model}. ¿Podrían compartir más detalles? {url}"
+    }
+  },
+  "services": {
+    "placeholder": {
+      "title": "Servicios Próximamente",
+      "subtitle": "Estamos construyendo un directorio completo de servicios para vehículos eléctricos",
+      "description": "Desde electricistas certificados hasta mecánicos especializados, estamos curando los mejores proveedores de servicios para propietarios de vehículos eléctricos.",
+      "features": {
+        "financing": "Orientación de Financiamiento",
+        "electricians": "Electricistas Certificados",
+        "workshops": "Talleres Mecánicos",
+        "detailing": "Estudios de Detallado",
+        "insurance": "Socios de Seguros"
+      },
+      "emailLabel": "Ingresa tu email para recibir notificaciones cuando lancemos",
+      "submitButton": "Únete a la lista de espera",
+      "submitting": "Uniéndose...",
+      "successMessage": "¡Estás en la lista! Te notificaremos cuando se lancen los servicios.",
+      "errorMessage": "Algo salió mal. Por favor inténtalo de nuevo."
+    }
+  },
+  "shop": {
+    "placeholder": {
+      "title": "Tienda Próximamente",
+      "subtitle": "Tu tienda todo en uno para accesorios de vehículos eléctricos",
+      "description": "Descubre cargadores, accesorios y llantas curados diseñados específicamente para vehículos eléctricos.",
+      "features": {
+        "portableChargers": "Cargadores Portátiles",
+        "wallChargers": "Cargadores de Pared",
+        "accessories": "Accesorios",
+        "tires": "Llantas Optimizadas para Vehículos Eléctricos"
+      },
+      "emailLabel": "Ingresa tu email para recibir notificaciones cuando lancemos",
+      "submitButton": "Únete a la lista de espera",
+      "submitting": "Uniéndose...",
+      "successMessage": "¡Estás en la lista! Te notificaremos cuando se lance la tienda.",
+      "errorMessage": "Algo salió mal. Por favor inténtalo de nuevo."
+    }
+  },
+  "usedCars": {
+    "waitlist": {
+      "title": "Mercado de Vehículos Eléctricos Usados Próximamente",
+      "subtitle": "Compra y vende vehículos eléctricos usados con confianza",
+      "description": "Estamos creando un mercado dedicado para vehículos eléctricos usados con compradores verificados, precios transparentes y flujos de listado guiados.",
+      "features": {
+        "listVehicle": "Lista tu Vehículo",
+        "transparentPricing": "Precios Transparentes",
+        "verifiedBuyers": "Compradores Verificados",
+        "scheduleViewings": "Agendar Visitas"
+      },
+      "emailLabel": "Ingresa tu email para unirte a la lista de espera",
+      "submitButton": "Únete a la lista de espera",
+      "submitting": "Uniéndose...",
+      "successMessage": "¡Estás en la lista! Te notificaremos cuando se lance el mercado.",
+      "errorMessage": "Algo salió mal. Por favor inténtalo de nuevo."
     }
   }
 }

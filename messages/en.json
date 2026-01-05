@@ -5,11 +5,12 @@
     }
   },
   "Home": {
-    "heroTitle": "Discover electric vehicles",
-    "heroSubtitle": "Your destination to explore, compare, and reserve the best electric vehicles on the market.",
-    "cta": {
-      "signup": "Create account",
-      "login": "Sign in"
+    "hero": {
+      "title": "QueCargan: your EV co-pilot",
+      "subtitle": "Explore electric models, compare total cost, and get ready to charge—everything you need to go electric in one place.",
+      "cta": "Create your account",
+      "ctaAriaLabel": "Create an account",
+      "imageAlt": "A modern electric vehicle charging at a futuristic station at dusk, with a smart city skyline in the background."
     }
   },
   "auth": {
@@ -264,6 +265,61 @@
       "whatsappMessage": "Hi! I'm interested in the {year} {brand} {model}. More info: {url}",
       "emailSubject": "Inquiry about {year} {brand} {model}",
       "emailBody": "Hi, I'm interested in the {year} {brand} {model}. Could you share more details? {url}"
+    }
+  },
+  "services": {
+    "placeholder": {
+      "title": "Services Coming Soon",
+      "subtitle": "We're building a comprehensive directory of EV services",
+      "description": "From certified electricians to specialized mechanics, we're curating the best service providers for electric vehicle owners.",
+      "features": {
+        "financing": "Financing Guidance",
+        "electricians": "Certified Electricians",
+        "workshops": "Mechanic Workshops",
+        "detailing": "Detailing Studios",
+        "insurance": "Insurance Partners"
+      },
+      "emailLabel": "Enter your email to get notified when we launch",
+      "submitButton": "Join the waitlist",
+      "submitting": "Joining...",
+      "successMessage": "You're on the list! We'll notify you when services launch.",
+      "errorMessage": "Something went wrong. Please try again."
+    }
+  },
+  "shop": {
+    "placeholder": {
+      "title": "Shop Coming Soon",
+      "subtitle": "Your one-stop shop for EV accessories",
+      "description": "Discover curated chargers, accessories, and tires designed specifically for electric vehicles.",
+      "features": {
+        "portableChargers": "Portable Chargers",
+        "wallChargers": "Wall Chargers",
+        "accessories": "Accessories",
+        "tires": "EV-Optimized Tires"
+      },
+      "emailLabel": "Enter your email to get notified when we launch",
+      "submitButton": "Join the waitlist",
+      "submitting": "Joining...",
+      "successMessage": "You're on the list! We'll notify you when the shop launches.",
+      "errorMessage": "Something went wrong. Please try again."
+    }
+  },
+  "usedCars": {
+    "waitlist": {
+      "title": "Used EV Marketplace Coming Soon",
+      "subtitle": "Buy and sell pre-loved electric vehicles with confidence",
+      "description": "We're creating a dedicated marketplace for used electric vehicles with verified buyers, transparent pricing, and guided listing workflows.",
+      "features": {
+        "listVehicle": "List Your Vehicle",
+        "transparentPricing": "Transparent Pricing",
+        "verifiedBuyers": "Verified Buyers",
+        "scheduleViewings": "Schedule Viewings"
+      },
+      "emailLabel": "Enter your email to join the waitlist",
+      "submitButton": "Join the waitlist",
+      "submitting": "Joining...",
+      "successMessage": "You're on the list! We'll notify you when the marketplace launches.",
+      "errorMessage": "Something went wrong. Please try again."
     }
   }
 }

@@ -5,6 +5,18 @@ import HomePage from "../page"
 
 let currentMessages: Record<string, Record<string, string>> = {}
 
+vi.mock("next/image", () => ({
+  default: ({ fill, priority, ...props }: any) => <img {...props} />,
+}))
+
+vi.mock("@/lib/i18n/navigation", () => ({
+  Link: ({ href, children, ...props }: any) => (
+    <a href={href} {...props}>
+      {children}
+    </a>
+  ),
+}))
+
 vi.mock("next-intl/server", () => ({
   setRequestLocale: vi.fn(),
   getTranslations: async (namespace: string) => (key: string) =>
@@ -14,10 +26,7 @@ vi.mock("next-intl/server", () => ({
 describe("HomePage Integration", () => {
   it("renders translated content from server translations", async () => {
     currentMessages = {
-      Home: {
-        heroTitle: "Test Title",
-        heroDescription: "Test Description",
-      },
+      "Home.hero": { title: "Test Title", subtitle: "Test Subtitle", cta: "CTA" },
     }
 
     const params = Promise.resolve({ locale: "es" })
@@ -26,7 +35,7 @@ describe("HomePage Integration", () => {
     render(ui)
 
     expect(screen.getByText("Test Title")).toBeInTheDocument()
-    expect(screen.getByText("Test Description")).toBeInTheDocument()
-    expect(screen.getByText("Locale: es")).toBeInTheDocument()
+    expect(screen.getByText("Test Subtitle")).toBeInTheDocument()
+    expect(screen.getByText("CTA")).toBeInTheDocument()
   })
 })
