@@ -84,10 +84,10 @@ export function SignUpForm({ className }: { className?: string }) {
   )
 
   const inputClass =
-    "bg-[hsl(var(--input))] border-[hsl(var(--border))] rounded-[14px] px-[14px] py-[12px] text-[14px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[hsl(var(--ring))] focus-visible:outline-offset-2"
+    "bg-input border-border rounded-[14px] px-[14px] py-[12px] text-[14px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-2"
 
   const submitClass =
-    "rounded-full bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] font-bold shadow-[0_6px_12px_rgba(2,0,68,.12)] hover:translate-y-[-1px] hover:shadow-[0_10px_18px_rgba(2,0,68,.18)] transition-transform"
+    "rounded-full bg-primary text-primary-foreground font-bold shadow-[0_6px_12px_rgba(2,0,68,.12)] hover:translate-y-[-1px] hover:shadow-[0_10px_18px_rgba(2,0,68,.18)] transition-transform"
 
   return (
     <div className={cn("flex flex-col gap-4", className)}>
@@ -101,7 +101,7 @@ export function SignUpForm({ className }: { className?: string }) {
           <div className="grid gap-2">
             <Label
               htmlFor="email"
-              className="flex items-center gap-2 text-[14px] font-bold text-[hsl(var(--foreground))]"
+              className="flex items-center gap-2 text-[14px] font-bold text-foreground"
             >
               <Mail className="size-4 text-muted-foreground" />
               {t("email")}
@@ -126,7 +126,7 @@ export function SignUpForm({ className }: { className?: string }) {
           <div className="grid gap-2">
             <Label
               htmlFor="password"
-              className="flex items-center gap-2 text-[14px] font-bold text-[hsl(var(--foreground))]"
+              className="flex items-center gap-2 text-[14px] font-bold text-foreground"
             >
               <Lock className="size-4 text-muted-foreground" />
               {t("password")}
@@ -149,7 +149,7 @@ export function SignUpForm({ className }: { className?: string }) {
           <div className="grid gap-2">
             <Label
               htmlFor="confirmPassword"
-              className="flex items-center gap-2 text-[14px] font-bold text-[hsl(var(--foreground))]"
+              className="flex items-center gap-2 text-[14px] font-bold text-foreground"
             >
               <ShieldCheck className="size-4 text-muted-foreground" />
               {t("repeat")}
@@ -196,7 +196,7 @@ export function SignUpForm({ className }: { className?: string }) {
             </Button>
           </div>
 
-          <div className="h-px w-full bg-[hsl(var(--border))]" aria-hidden="true" />
+          <div className="h-px w-full bg-border" aria-hidden="true" />
 
           <div className="flex items-center gap-2 my-1" aria-hidden="true">
             <Separator className="flex-1" />
@@ -206,13 +206,13 @@ export function SignUpForm({ className }: { className?: string }) {
             <Separator className="flex-1" />
           </div>
 
-          <div className="h-px w-full bg-[hsl(var(--border))]" aria-hidden="true" />
+          <div className="h-px w-full bg-border" aria-hidden="true" />
 
           <div className="grid grid-cols-2 gap-2">
             <Button
               type="button"
               variant="outline"
-              className="w-full justify-center bg-white border-[hsl(var(--border))] shadow-none font-semibold text-[hsl(var(--foreground))] rounded-full"
+              className="w-full justify-center bg-white border-border shadow-none font-semibold text-foreground rounded-full"
               disabled
               aria-disabled="true"
             >
@@ -232,7 +232,7 @@ export function SignUpForm({ className }: { className?: string }) {
             <Button
               type="button"
               variant="outline"
-              className="w-full justify-center bg-white border-[hsl(var(--border))] shadow-none font-semibold text-[hsl(var(--foreground))] rounded-full"
+              className="w-full justify-center bg-white border-border shadow-none font-semibold text-foreground rounded-full"
               disabled
               aria-disabled="true"
             >

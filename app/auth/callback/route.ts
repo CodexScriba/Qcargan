@@ -71,7 +71,7 @@ export async function GET(request: NextRequest) {
     if (isPathnameKey(next)) {
       const localizedNext = getPathname({
         locale,
-        href: next,
+        href: next as Parameters<typeof getPathname>[0]["href"],
       })
       redirectUrl = new URL(localizedNext, origin)
     } else {

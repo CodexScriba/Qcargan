@@ -24,7 +24,7 @@ export default async function LoginPage({ params }: PageProps) {
                 <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-primary">
                   <LogIn className="size-6" />
                 </div>
-                <h1 className="text-[clamp(22px,3vw,32px)] font-extrabold tracking-tight text-[hsl(var(--dark-blue))]">
+                <h1 className="text-[clamp(22px,3vw,32px)] font-extrabold tracking-tight text-dark-blue">
                   {t("welcome")}
                 </h1>
               </div>

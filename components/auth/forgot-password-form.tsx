@@ -67,25 +67,25 @@ export function ForgotPasswordForm({ className }: { className?: string }) {
   )
 
   const inputClass =
-    "bg-[hsl(var(--input))] border-[hsl(var(--border))] rounded-[14px] px-[14px] py-[12px] text-[14px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[hsl(var(--ring))] focus-visible:outline-offset-2"
+    "bg-input border-border rounded-[14px] px-[14px] py-[12px] text-[14px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-ring focus-visible:outline-offset-2"
 
   const submitClass =
-    "rounded-full bg-[hsl(var(--primary))] text-[hsl(var(--primary-foreground))] font-bold shadow-[0_6px_12px_rgba(2,0,68,.12)] hover:translate-y-[-1px] hover:shadow-[0_10px_18px_rgba(2,0,68,.18)] transition-transform"
+    "rounded-full bg-primary text-primary-foreground font-bold shadow-[0_6px_12px_rgba(2,0,68,.12)] hover:translate-y-[-1px] hover:shadow-[0_10px_18px_rgba(2,0,68,.18)] transition-transform"
 
   if (state.success) {
     return (
       <div className={cn("flex flex-col gap-6", className)} aria-live="polite">
-        <div className="rounded-3xl border border-[hsl(var(--border))] bg-[hsl(var(--card))] p-6 text-center">
-          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[hsl(var(--secondary)/0.6)] text-[hsl(var(--title-blue))]">
+        <div className="rounded-3xl border border-border bg-card p-6 text-center">
+          <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-secondary/60 text-title-blue">
             <MailCheck className="size-6" />
           </div>
-          <h2 className="text-lg font-semibold text-[hsl(var(--title-blue))]">
+          <h2 className="text-lg font-semibold text-title-blue">
             {t("successTitle")}
           </h2>
           <p className="mt-2 text-sm text-muted-foreground">
             {t("successDescription")}
           </p>
-          <p className="mt-3 text-sm text-[hsl(var(--muted-foreground))]">
+          <p className="mt-3 text-sm text-muted-foreground">
             {t("successBody")}
           </p>
         </div>
@@ -106,7 +106,7 @@ export function ForgotPasswordForm({ className }: { className?: string }) {
           <div className="grid gap-2">
             <Label
               htmlFor="email"
-              className="flex items-center gap-2 text-[14px] font-bold text-[hsl(var(--foreground))]"
+              className="flex items-center gap-2 text-[14px] font-bold text-foreground"
             >
               <Mail className="size-4 text-muted-foreground" />
               {t("email")}
@@ -158,7 +158,7 @@ export function ForgotPasswordForm({ className }: { className?: string }) {
             {t("remembered")} {" "}
             <Link
               href="/auth/login"
-              className="font-semibold text-[hsl(var(--primary))] hover:underline"
+              className="font-semibold text-primary hover:underline"
             >
               {tLogin("submit")}
             </Link>
