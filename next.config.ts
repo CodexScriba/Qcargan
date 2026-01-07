@@ -37,6 +37,14 @@ const nextConfig: NextConfig = {
       },
     ];
   },
+  webpack: (config, { isServer }) => {
+    // Exclude legacy folder from webpack processing
+    config.watchOptions = {
+      ...config.watchOptions,
+      ignored: ['**/node_modules', '**/legacy/**'],
+    };
+    return config;
+  },
 };
 
 const withNextIntl = createNextIntlPlugin("./i18n/request.ts");

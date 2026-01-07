@@ -1,6 +1,5 @@
 "use client"
 
-import "client-only"
 import { useEffect } from "react"
 import type { ReactNode } from "react"
 import posthog from "posthog-js"
@@ -30,7 +29,7 @@ export function PostHogProvider({ children }: PostHogProviderProps) {
   }, [])
 
   if (!isConfigured) {
-    return <>{children}</>
+    return children
   }
 
   return <BasePostHogProvider client={posthog}>{children}</BasePostHogProvider>

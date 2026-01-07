@@ -73,7 +73,7 @@ export default async function CarListingPage({ params }: Props) {
           <section className="rounded-lg border bg-card p-6">
             <h1 className="text-3xl font-bold">{vehicleTitle}</h1>
             <p className="mt-2 text-muted-foreground">
-              {t('bodyType', { type: vehicle.specifications?.bodyType })}
+              {t('bodyType', { type: vehicle.specifications?.bodyType ?? '' })}
             </p>
           </section>
 
