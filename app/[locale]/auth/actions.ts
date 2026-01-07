@@ -8,6 +8,7 @@ import {
   SignUpSchema,
   UpdatePasswordSchema,
 } from "@/lib/validation/auth"
+import { getPostHogServer } from "@/lib/posthog/server"
 
 function getSiteUrl(): string {
   // Use configured SITE_URL first (most reliable)
@@ -61,6 +62,29 @@ export async function loginAction(
   if (error) {
     // Return generic error to avoid leaking whether email exists
     return { error: "invalidCredentials" }
+  }
+
+  const posthog = getPostHogServer()
+  if (posthog) {
+    try {
+      posthog.capture({
+        distinctId: result.data.email,
+        event: "user logged in",
+        properties: {
+          source: "server",
+          app: "web",
+          router: "app",
+        },
+      })
+    } catch {
+      // Best-effort analytics should not affect auth flow
+    } finally {
+      try {
+        await posthog.shutdown()
+      } catch {
+        // Ignore flush errors for best-effort analytics
+      }
+    }
   }
 
   // redirect() throws NEXT_REDIRECT, this return is unreachable but satisfies TypeScript
@@ -117,6 +141,29 @@ export async function signUpAction(
   if (error) {
     // Return generic error to avoid account enumeration
     return { error: "signUpFailed" }
+  }
+
+  const posthog = getPostHogServer()
+  if (posthog) {
+    try {
+      posthog.capture({
+        distinctId: result.data.email,
+        event: "user signed up",
+        properties: {
+          source: "server",
+          app: "web",
+          router: "app",
+        },
+      })
+    } catch {
+      // Best-effort analytics should not affect auth flow
+    } finally {
+      try {
+        await posthog.shutdown()
+      } catch {
+        // Ignore flush errors for best-effort analytics
+      }
+    }
   }
 
   // Return success flag - the client will handle redirect to success page

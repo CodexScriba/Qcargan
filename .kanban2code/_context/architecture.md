@@ -12,14 +12,3 @@ file_references:
 This context file links to the main architecture documentation. When the auditor accepts a task (rating 8+), they should update this file or the linked documentation to reflect any new files created.
 
 See: [docs/architecture.md](docs/architecture.md) for the full architecture documentation including directory structure.
-
-## Recent Updates
-- task4.3-build-login-page: added login page (`app/[locale]/auth/login/page.tsx`), login form (`components/auth/login-form.tsx`), auth actions (`app/[locale]/auth/actions.ts`) | date: 2026-01-01
-- task4.4-build-sign-up-page: added sign-up page (`app/[locale]/auth/sign-up/page.tsx`), success page (`app/[locale]/auth/sign-up-success/page.tsx`), sign-up form (`components/auth/sign-up-form.tsx`), sign-up action tests (`app/[locale]/auth/__tests__/actions.test.ts`) | date: 2026-01-01
-- task4.6-implement-protected-route-middleware: added protected route logic to `lib/supabase/proxy.ts` with locale-aware authentication checks, tests in `lib/supabase/__tests__/proxy.test.ts` | date: 2026-01-02
-- task4.5-build-password-reset-flow: added callback redirect safety test (`app/auth/callback/__tests__/route.test.ts`); hardened callback redirect handling in `app/auth/callback/route.ts` | date: 2026-01-01
-- task5.1-create-root-layout-with-providers: configured root layout (`app/layout.tsx`) with ThemeProvider, Poppins font, and SEO metadata | date: 2026-01-02
-- task5.2-build-navbar-component: added navbar components (`components/layout/navbar/Navbar.tsx`, `NavLinks.tsx`, `MobileMenu.tsx`, `Logo.tsx`), language switcher (`components/layout/language-switcher.tsx`) | date: 2026-01-02
-- task5.3-build-language-switcher: added language switcher tests (`components/layout/__tests__/LanguageSwitcher.test.tsx`), fixed syntax error in component | date: 2026-01-02
-- task5.4-build-theme-switcher: added theme switcher (`components/layout/theme-switcher.tsx`) and integration tests (`components/__tests__/ThemeSwitcher.test.tsx`) | date: 2026-01-01
-- task5.5-create-logo-component: moved and refined logo component (`components/layout/Logo.tsx`), updated navbar consumer (`components/layout/navbar/Navbar.tsx`) | date: 2026-01-01

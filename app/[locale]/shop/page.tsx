@@ -3,7 +3,8 @@ import { getTranslations, setRequestLocale } from "next-intl/server"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { ShoppingBag, Mail } from "lucide-react"
+import { ShoppingBag } from "lucide-react"
+import { VehicleViewTracker } from "./vehicle-view-tracker"
 
 type PageProps = { params: Promise<{ locale: string }> }
 
@@ -21,10 +22,11 @@ export default async function ShopPage({ params }: PageProps) {
 
   return (
     <main className="flex min-h-screen items-center justify-center px-6 py-16 md:py-24">
+      <VehicleViewTracker locale={locale} />
       <section className="w-full max-w-5xl">
         <div className="mx-auto max-w-3xl text-center">
           <h1 className="text-balance text-4xl font-extrabold tracking-tight sm:text-5xl">
-            <span className="bg-gradient-to-r from-primary to-accent bg-clip-text text-transparent">
+            <span className="bg-linear-to-r from-primary to-accent bg-clip-text text-transparent">
               {t("title")}
             </span>
           </h1>

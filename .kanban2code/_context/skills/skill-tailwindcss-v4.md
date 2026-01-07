@@ -2,7 +2,7 @@
 skill_name: skill-tailwindcss-v4
 version: "4.x"
 framework: Tailwind CSS
-last_verified: "2026-01-02"
+last_verified: "2025-12-26"
 always_attach: false
 priority: 6
 triggers:
@@ -40,7 +40,6 @@ tw-animate-css is CSS-first; import it in CSS.
 - **Putting design tokens in JS** instead of `@theme` variables.
 - **Adding a `content: []` scan array** (prefer auto-detection; use `@source` when needed).
 - **Using `theme()`** (prefer generated CSS variables).
-- **Using old CSS variable shorthand in arbitrary values** (e.g., `bg-[--brand-color]` should be `bg-(--brand-color)` in v4).
 
 ## 2. Golden Rules
 
@@ -56,27 +55,7 @@ tw-animate-css is CSS-first; import it in CSS.
 - Don’t emit `@tailwind base/components/utilities` (v3 pattern).
 - Don’t use `theme()` for new code (prefer `var(--...)`).
 
-## 3. Use Parentheses for CSS Variables in Arbitrary Values
-
-**Problem:** Tailwind v4 changed the shorthand syntax for CSS variables in arbitrary values. The old bracket form without `var()` is no longer valid:
-
-```tsx
-// ❌ DON'T - Old v3 shorthand for CSS variables
-<div className="bg-[--brand-color]" />
-<p className="text-[--my-color]" />
-```
-
-**Solution:** Use the new parentheses shorthand, which expands to `var(--...)`:
-
-```tsx
-// ✅ DO - New v4 shorthand for CSS variables
-<div className="bg-(--brand-color)" />
-<p className="text-(--my-color)" />
-```
-
-**Why:** Tailwind v4 updates the CSS variable shorthand to avoid ambiguity with modern CSS. The parentheses syntax is now required for `--var` shorthand.
-
-## 4. Minimal Setup (Next.js-friendly)
+## 3. Minimal Setup (Next.js-friendly)
 
 ### Install
 ```bash
@@ -97,7 +76,7 @@ export default {
 @import "tailwindcss";
 ```
 
-## 5. Tokens: `@theme` vs `:root`
+## 4. Tokens: `@theme` vs `:root`
 
 ### Tailwind tokens (generate utilities)
 ```css
@@ -118,7 +97,7 @@ export default {
 }
 ```
 
-## 6. Content Scanning
+## 5. Content Scanning
 
 - Default: rely on v4 auto-detection.
 - If you must include extra sources (monorepos/external packages), add `@source`:
@@ -129,7 +108,7 @@ export default {
 @source "../node_modules/@my-company/ui-lib";
 ```
 
-## 7. Legacy Escape Hatch (only when required): `@config`
+## 6. Legacy Escape Hatch (only when required): `@config`
 
 If a legacy Tailwind config is unavoidable, load it explicitly:
 
@@ -138,7 +117,7 @@ If a legacy Tailwind config is unavoidable, load it explicitly:
 @config "../../tailwind.config.js";
 ```
 
-## 8. `tw-animate-css` (Tailwind v4)
+## 7. `tw-animate-css` (Tailwind v4)
 
 ### Install
 ```bash
@@ -169,7 +148,7 @@ export function Toast({ show }: { show: boolean }) {
 }
 ```
 
-## 9. Checklist
+## 8. Checklist
 
 - [ ] No `tailwind.config.js` added unless explicitly required.
 - [ ] `globals.css` uses `@import "tailwindcss";`.
@@ -177,4 +156,3 @@ export function Toast({ show }: { show: boolean }) {
 - [ ] `postcss.config.*` uses `@tailwindcss/postcss`.
 - [ ] Extra scan sources use `@source` (not `content: []`).
 - [ ] `tw-animate-css` imported in CSS when used.
-- [ ] Use parentheses shorthand for CSS variable arbitrary values (e.g., `bg-(--my-color)`).

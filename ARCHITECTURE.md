@@ -82,7 +82,9 @@ qcargan/
 │   │   │   ├── page.tsx      # Vehicle listing
 │   │   │   └── [slug]/       # Vehicle detail
 │   │   ├── servicios/        # Services page
-│   │   ├── tienda/           # Shop page
+│   │   ├── shop/             # Shop page
+│   │   │   ├── page.tsx      # Shop landing
+│   │   │   └── vehicle-view-tracker.tsx  # Analytics tracking component
 │   │   ├── autos-usados/     # Used cars
 │   │   │   └── lista-espera/ # Waitlist
 │   │   └── admin/            # Admin dashboard
@@ -111,6 +113,9 @@ qcargan/
 │   │   ├── client.ts         # Browser client
 │   │   ├── server.ts         # Server client
 │   │   └── storage.ts        # Storage helpers
+│   ├── posthog/              # PostHog analytics
+│   │   ├── client.ts         # Client provider (posthog-js)
+│   │   └── server.ts         # Server client (posthog-node)
 │   ├── i18n/                 # Internationalization
 │   │   ├── navigation.ts     # Locale-aware navigation helpers
 │   │   ├── routing.ts        # next-intl routing config
@@ -130,6 +135,7 @@ qcargan/
 │   └── *.spec.ts             # E2E test specs
 ├── .env                      # Environment variables (gitignored)
 ├── .env.local                # Local environment (gitignored)
+├── .env.example              # Environment template (committed)
 ├── .gitignore
 ├── bun.lock
 ├── components.json           # shadcn/ui configuration
@@ -196,13 +202,27 @@ SUPABASE_SERVICE_ROLE_KEY=<service_role_key>
 **Purpose**: Product analytics and event tracking.
 
 **Components**:
-- **Client SDK**: Browser-side event tracking
-- **Server SDK**: Server-side analytics
+- **Client SDK**: Browser-side event tracking with SPA page view tracking
+- **Server SDK**: Server-side analytics for auth events
+
+**Key Files**:
+- `lib/posthog/client.ts` - Client provider with `posthog-js` and `@posthog/react`
+- `lib/posthog/server.ts` - Server client with `posthog-node` (Node runtime)
+- `app/[locale]/shop/vehicle-view-tracker.tsx` - Client-side event tracking pattern
+
+**Event Naming Convention**: `[object] [verb]` (e.g., `user signed up`, `vehicle viewed`)
+
+**Event Properties**: All events include `source: 'client' | 'server'`, `app: 'web'`, `router: 'app'`
 
 **Environment Variables**:
 ```bash
+# Client-side (public)
 NEXT_PUBLIC_POSTHOG_KEY=<posthog_project_key>
 NEXT_PUBLIC_POSTHOG_HOST=<posthog_host>
+
+# Server-side (private)
+POSTHOG_SERVER_KEY=<posthog_server_key>
+POSTHOG_SERVER_HOST=<posthog_server_host>
 ```
 
 ### Drizzle ORM
@@ -263,6 +283,8 @@ DIRECT_URL=<supabase_direct_url>
 # PostHog (optional)
 NEXT_PUBLIC_POSTHOG_KEY=<posthog_project_key>
 NEXT_PUBLIC_POSTHOG_HOST=<posthog_host>
+POSTHOG_SERVER_KEY=<posthog_server_key>
+POSTHOG_SERVER_HOST=<posthog_server_host>
 
 # Application
 NODE_ENV=production
@@ -334,23 +356,36 @@ NODE_ENV=production
 
 ## Security Considerations
 
+### HTTP Security Headers (Phase 7)
+
+**Configured in `next.config.ts`**:
+- `Content-Security-Policy`: Restrictive CSP without `unsafe-inline` or `unsafe-eval`
+- `X-Content-Type-Options: nosniff`
+- `X-Frame-Options: DENY`
+- `Referrer-Policy: strict-origin-when-cross-origin`
+- `Permissions-Policy`: Denies camera, microphone, geolocation, payment, usb, browsing-topics
+- `poweredByHeader: false`: Removes Next.js version disclosure
+
 ### Authentication
 
 - Cookie-based sessions via @supabase/ssr
 - Secure, httpOnly cookies
 - Session refresh on middleware
 - Protected routes with server-side validation
+- Generic error messages to prevent account enumeration
 
 ### Data Validation
 
-- Zod schemas for all user inputs
-- Server-side validation for API routes
+- Zod schemas for all user inputs (`lib/validation/auth.ts`)
+- Server-side validation in Server Actions using `safeParse`
+- Client-side validation with react-hook-form and zodResolver
 - Type-safe database operations via Drizzle
 
 ### Secrets Management
 
 - Environment variables for all secrets
-- Never commit .env files
+- Never commit .env files (`.env*` gitignored, `.env.example` allowed)
+- `.env.example` contains placeholder values only
 - Rotate credentials regularly
 - Use service role key only server-side
 
@@ -359,6 +394,8 @@ NODE_ENV=production
 - Enable Row Level Security on all tables
 - Create policies for authenticated vs anonymous access
 - Validate user permissions on all mutations
+- RLS policies defined for `profiles` table (Phase 7)
+- Full RLS coverage planned for marketplace tables (Phase 9)
 
 ---
 
